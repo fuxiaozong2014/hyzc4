@@ -73,6 +73,7 @@ public class AccenterFragment extends BaseFragment {
         for (Myself myself : myselefLists) {
             realName = myself.RealName;
             tv_account.setText("用户名：" + realName);
+            //the second change test
         }
 
     }
