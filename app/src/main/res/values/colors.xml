@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>-->
+    <color name="colorPrimary">#65B768</color>
+    <color name="colorPrimaryDark">#337836</color>
+    <color name="colorAccent">#65B768</color>
+    <color name="grey">#33aaaaaa</color>
+    <color name="main">#43B97D</color>
+    <color name="background_white">#ffffffff</color>
+    <color name="splash_clolor">#43B97D</color>
+    <color name="fontcolor">#666666</color>
+    <color name="fragmentTitleBarCol">#6fff</color>
+    <color name="fontcolor_light">#a8aeaf</color>
+    <color name="pink">#FB92B4</color>
+    <color name="Hui">#787878</color>
+    <color name="MyPationte_MyMsg">#666666</color>
+    <color name="MyPationte_MyFunction">#000000</color>
+
+
+</resources>

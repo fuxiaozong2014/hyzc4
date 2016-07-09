@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">临床路径管理</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="app_home">主页</string>
+    <string name="app_my">我的</string>
+    <string name="app_diaocha">调查</string>
+</resources>
