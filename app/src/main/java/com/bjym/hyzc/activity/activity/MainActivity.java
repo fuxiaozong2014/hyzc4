@@ -15,10 +15,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
+import com.bjym.hyzc.activity.bean.Myself;
 import com.bjym.hyzc.activity.fragment.AccenterFragment;
 import com.bjym.hyzc.activity.fragment.DiaoChaFragment;
 import com.bjym.hyzc.activity.fragment.HomeFragment;
 import com.bjym.hyzc.activity.fragment.TongJiFragment;
+import com.bjym.hyzc.activity.utils.MyConstant;
+import com.bjym.hyzc.activity.utils.MyToast;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.Callback;
+
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -30,10 +42,15 @@ public class MainActivity extends BaseActivity
     private TextView tv_tongji;
 
     private LinearLayout ll_content;
-
+    private TextView tv_menu_accout;
+    private TextView tv_menu_keshi;
+    private List<Myself> myselefLists;
     @Override
     public View setMainView() {
         View view = View.inflate(context, R.layout.activity_main, null);
+        tv_menu_accout = (TextView)view.findViewById(R.id.tv_menu_accout);
+        tv_menu_keshi = (TextView)view.findViewById(R.id.tv_menu_keshi);
+
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,6 +65,12 @@ public class MainActivity extends BaseActivity
         home2.setBounds(0,0,home2.getMinimumWidth(),home2.getMinimumHeight());
         tv_home.setTextColor(getResources().getColor(R.color.colorPrimary));
         tv_home.setCompoundDrawables(null,home2,null,null);
+        //默认填充主页fragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.ll_content, new HomeFragment()).commit();
+
+        //填充完之后开始请求数据、
+        getNetData();
+
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -90,15 +113,13 @@ public class MainActivity extends BaseActivity
             case R.id.tv_accountcenter:
                 resetMyView();
                 getSupportFragmentManager().beginTransaction().replace(R.id.ll_content, new AccenterFragment()).commit();
-
                 break;
             case R.id.tv_diaocha:
                 resetDiaoChaView();
                 getSupportFragmentManager().beginTransaction().replace(R.id.ll_content, new DiaoChaFragment()).commit();
                 break;
             case R.id.tv_home:
-                resetHomeView();
-                getSupportFragmentManager().beginTransaction().replace(R.id.ll_content, new HomeFragment()).commit();
+               getSupportFragmentManager().beginTransaction().replace(R.id.ll_content, new HomeFragment()).commit();
                 break;
             case R.id.tv_tongji:
                 resetTongJiView();
@@ -107,8 +128,9 @@ public class MainActivity extends BaseActivity
             default:
                 break;
         }
-    }
 
+
+    }
 
 
     @Override
@@ -283,4 +305,41 @@ public class MainActivity extends BaseActivity
 
 
     }
+
+
+    private void getNetData() {
+        OkHttpUtils.get().url(MyConstant.MYMSG_URL).build().execute(new Callback() {
+            @Override
+            public Object parseNetworkResponse(Response response, int i) throws Exception {
+                String json = response.body().string();
+                parseJson(json);
+                return null;
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                MyToast.showToast(MainActivity.this, "请求失败");
+            }
+
+            @Override
+            public void onResponse(Object o, int i) {
+                MyToast.showToast(MainActivity.this, "请求成功");
+
+            }
+        });
+    }
+
+    private void parseJson(String json) {
+        String realName = null;
+        myselefLists = new Gson().fromJson(json, new TypeToken<List<Myself>>() {
+        }.getType());
+        for (Myself myself : myselefLists) {
+            realName = myself.RealName;
+            System.out.print(myself.toString());
+            tv_menu_accout.setText("用户名：" + realName);
+            //tv_menu_keshi.setText("所属科室："+);
+        }
+
+    }
+
 }
