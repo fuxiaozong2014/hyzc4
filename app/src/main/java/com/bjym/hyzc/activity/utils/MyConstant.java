@@ -13,7 +13,8 @@ public class MyConstant {
      */
     public static final String LOGIN_URL = BASE_URL + "/login/loginauth";
     public static final String MYPATIONTE_URL = BASE_URL + "/cpw/CPW_Patients/getpatients";
-    public static final String MYMSG_URL = BASE_URL + "/Sys/Base_User/getuserinfo?usercode=8005";
+    public static final String MYMSG_URL = BASE_URL + "/Sys/Base_User/getuserinfo?usercode=sysadmin";
+    public static final String MYDIAOCHA_URL = BASE_URL + "/cpw/CPW_Survey/getlist";
 
 
 }

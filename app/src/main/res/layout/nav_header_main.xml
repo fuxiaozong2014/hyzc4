@@ -19,6 +19,7 @@
         android:src="@android:drawable/sym_def_app_icon" /> <!--这是Android机器人图标-->
 
     <TextView
+        android:id="@+id/tv_menu_accout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -26,7 +27,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" /> <!--这是菜单中的text-->
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_menu_keshi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="所属科室：" /><!--这是菜单中的text-->

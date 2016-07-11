@@ -27,21 +27,26 @@ public class AccenterFragment extends BaseFragment {
 
     private LinearLayout ll_myPationte;
     private TextView tv_account;
+    private TextView tv_keshi;
     private List<Myself> myselefLists;
+
 
 
     @Override
     public View setMainView() {
-            View view = View.inflate(getContext(), R.layout.fragment_accenter, null);
-            ll_myPationte = (LinearLayout) view.findViewById(R.id.ll_myPationte);
-            tv_account = (TextView) view.findViewById(R.id.tv_account);
-            return view;
+        View view = View.inflate(getContext(), R.layout.fragment_accenter, null);
+        ll_myPationte = (LinearLayout) view.findViewById(R.id.ll_myPationte);
+        tv_account = (TextView) view.findViewById(R.id.tv_account);
+        tv_keshi = (TextView) view.findViewById(R.id.tv_keshi);
+        return view;
     }
 
     @Override
     public void InitData() {
         getNetData();
         ll_myPationte.setOnClickListener(this);
+
+
     }
 
     private void getNetData() {
@@ -49,6 +54,7 @@ public class AccenterFragment extends BaseFragment {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 String json = response.body().string();
+                //MyToast.showToast(AccenterFragment.this.getActivity(), "请求成功" + json);
                 parseJson(json);
                 return null;
             }
@@ -60,20 +66,18 @@ public class AccenterFragment extends BaseFragment {
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(AccenterFragment.this.getActivity(), "请求成功");
 
             }
         });
     }
 
     private void parseJson(String json) {
-        String realName = null;
+
         myselefLists = new Gson().fromJson(json, new TypeToken<List<Myself>>() {
         }.getType());
+
         for (Myself myself : myselefLists) {
-            realName = myself.RealName;
-            tv_account.setText("用户名：" + realName);
-            //the second change test
+            MyToast.showToast(AccenterFragment.this.getActivity(),"用户名："+myself.RealName);
         }
 
     }

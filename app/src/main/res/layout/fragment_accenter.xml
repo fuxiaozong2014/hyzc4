@@ -19,29 +19,19 @@
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
             android:paddingTop="10dp"
-            android:text="用户名 : ----"
+            android:text="用户名 : "
             android:textColor="@color/MyPationte_MyMsg"
             android:textSize="18dp" />
         <TextView
-            android:id="@+id/tv_level"
+            android:id="@+id/tv_keshi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:paddingLeft="15dp"
-            android:text="个人信息 : XXX医院"
+            android:text="所属科室 : "
             android:textColor="@color/MyPationte_MyMsg"
             android:textSize="18dp" />
 
-        <TextView
-            android:id="@+id/tv_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="15dp"
-            android:text="XXX : XXX"
-            android:textColor="@color/MyPationte_MyMsg"
-            android:textSize="18dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

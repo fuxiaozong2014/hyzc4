@@ -4,6 +4,8 @@ import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -40,16 +42,23 @@ public class MainActivity extends BaseActivity
     private TextView tv_diaocha;
     private TextView tv_home;
     private TextView tv_tongji;
+    private HomeFragment home;
+    private DiaoChaFragment diaoCha;
+    private AccenterFragment accenter;
+    private TongJiFragment tongJi;
 
     private LinearLayout ll_content;
     private TextView tv_menu_accout;
     private TextView tv_menu_keshi;
     private List<Myself> myselefLists;
+
+    private FragmentManager manager;
+
     @Override
     public View setMainView() {
         View view = View.inflate(context, R.layout.activity_main, null);
-        tv_menu_accout = (TextView)view.findViewById(R.id.tv_menu_accout);
-        tv_menu_keshi = (TextView)view.findViewById(R.id.tv_menu_keshi);
+        tv_menu_accout = (TextView) view.findViewById(R.id.tv_menu_accout);
+        tv_menu_keshi = (TextView) view.findViewById(R.id.tv_menu_keshi);
 
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
@@ -61,15 +70,21 @@ public class MainActivity extends BaseActivity
         ll_content = (LinearLayout) view.findViewById(R.id.ll_content);
 
         //默认主页为绿色
-        Drawable home2=getResources().getDrawable(R.mipmap.home2);
-        home2.setBounds(0,0,home2.getMinimumWidth(),home2.getMinimumHeight());
+        Drawable home2 = getResources().getDrawable(R.mipmap.home2);
+        home2.setBounds(0, 0, home2.getMinimumWidth(), home2.getMinimumHeight());
         tv_home.setTextColor(getResources().getColor(R.color.colorPrimary));
-        tv_home.setCompoundDrawables(null,home2,null,null);
+        tv_home.setCompoundDrawables(null, home2, null, null);
         //默认填充主页fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.ll_content, new HomeFragment()).commit();
+        manager = getSupportFragmentManager();
+        FragmentTransaction transition = manager.beginTransaction();
+        if (home == null) {
+            home = new HomeFragment();
+
+        }
+        transition.replace(R.id.ll_content, home).commit();
 
         //填充完之后开始请求数据、
-        getNetData();
+       // getNetData();
 
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -100,35 +115,45 @@ public class MainActivity extends BaseActivity
         tv_home.setOnClickListener(this);
     }
 
-    private int flag=-1;
+    //private int flag = -1;
 
     @Override
     public void onClick(View v) {
-        if (v.getId()==flag){
-            return;
-        }
-        flag =v.getId();
         super.onClick(v);
+        FragmentTransaction transaction = manager.beginTransaction();
         switch (v.getId()) {
             case R.id.tv_accountcenter:
+                if (accenter == null) {
+                    accenter = new AccenterFragment();
+                }
                 resetMyView();
-                getSupportFragmentManager().beginTransaction().replace(R.id.ll_content, new AccenterFragment()).commit();
+                transaction.replace(R.id.ll_content, accenter);
                 break;
             case R.id.tv_diaocha:
+                if (diaoCha == null) {
+                    diaoCha = new DiaoChaFragment();
+                }
                 resetDiaoChaView();
-                getSupportFragmentManager().beginTransaction().replace(R.id.ll_content, new DiaoChaFragment()).commit();
+                transaction.replace(R.id.ll_content, diaoCha);
                 break;
             case R.id.tv_home:
-               getSupportFragmentManager().beginTransaction().replace(R.id.ll_content, new HomeFragment()).commit();
+                if (home == null) {
+                    home = new HomeFragment();
+                }
+                resetHomeView();
+                transaction.replace(R.id.ll_content, home);
                 break;
             case R.id.tv_tongji:
+                if (tongJi == null) {
+                    tongJi = new TongJiFragment();
+                }
                 resetTongJiView();
-                getSupportFragmentManager().beginTransaction().replace(R.id.ll_content, new TongJiFragment()).commit();
+                transaction.replace(R.id.ll_content, tongJi);
                 break;
             default:
                 break;
         }
-
+        transaction.commit();
 
     }
 
@@ -193,115 +218,114 @@ public class MainActivity extends BaseActivity
     private void resetHomeView() {
 
         //默认主页为绿色
-        Drawable home2=getResources().getDrawable(R.mipmap.home2);
-        home2.setBounds(0,0,home2.getMinimumWidth(),home2.getMinimumHeight());
+        Drawable home2 = getResources().getDrawable(R.mipmap.home2);
+        home2.setBounds(0, 0, home2.getMinimumWidth(), home2.getMinimumHeight());
         tv_home.setTextColor(getResources().getColor(R.color.colorPrimary));
-        tv_home.setCompoundDrawables(null,home2,null,null);
+        tv_home.setCompoundDrawables(null, home2, null, null);
 
         //tv_diaocha为灰色
-        Drawable diaocha=getResources().getDrawable(R.mipmap.diaocha);
-        diaocha.setBounds(0,0,diaocha.getMinimumWidth(),diaocha.getMinimumHeight());
+        Drawable diaocha = getResources().getDrawable(R.mipmap.diaocha);
+        diaocha.setBounds(0, 0, diaocha.getMinimumWidth(), diaocha.getMinimumHeight());
         tv_diaocha.setTextColor(getResources().getColor(R.color.Hui));
-        tv_diaocha.setCompoundDrawables(null,diaocha,null,null);
+        tv_diaocha.setCompoundDrawables(null, diaocha, null, null);
 
         //tv_tongji为灰色
-        Drawable tongji=getResources().getDrawable(R.mipmap.tongji);
-        tongji.setBounds(0,0,tongji.getMinimumWidth(),tongji.getMinimumHeight());
+        Drawable tongji = getResources().getDrawable(R.mipmap.tongji);
+        tongji.setBounds(0, 0, tongji.getMinimumWidth(), tongji.getMinimumHeight());
         tv_tongji.setTextColor(getResources().getColor(R.color.Hui));
-        tv_tongji.setCompoundDrawables(null,tongji,null,null);
+        tv_tongji.setCompoundDrawables(null, tongji, null, null);
 
 
         //tv_my为灰色
-        Drawable my=getResources().getDrawable(R.mipmap.my);
-        my.setBounds(0,0,my.getMinimumWidth(),my.getMinimumHeight());
+        Drawable my = getResources().getDrawable(R.mipmap.my);
+        my.setBounds(0, 0, my.getMinimumWidth(), my.getMinimumHeight());
         tv_my.setTextColor(getResources().getColor(R.color.Hui));
-        tv_my.setCompoundDrawables(null,my,null,null);
+        tv_my.setCompoundDrawables(null, my, null, null);
     }
 
     private void resetDiaoChaView() {
         //默认主页为绿色
-        Drawable diaocha2=getResources().getDrawable(R.mipmap.diaocha2);
-        diaocha2.setBounds(0,0,diaocha2.getMinimumWidth(),diaocha2.getMinimumHeight());
+        Drawable diaocha2 = getResources().getDrawable(R.mipmap.diaocha2);
+        diaocha2.setBounds(0, 0, diaocha2.getMinimumWidth(), diaocha2.getMinimumHeight());
         tv_diaocha.setTextColor(getResources().getColor(R.color.colorPrimary));
-        tv_diaocha.setCompoundDrawables(null,diaocha2,null,null);
+        tv_diaocha.setCompoundDrawables(null, diaocha2, null, null);
 
         //tv_diaocha为灰色
-        Drawable home=getResources().getDrawable(R.mipmap.home);
-        home.setBounds(0,0,home.getMinimumWidth(),home.getMinimumHeight());
+        Drawable home = getResources().getDrawable(R.mipmap.home);
+        home.setBounds(0, 0, home.getMinimumWidth(), home.getMinimumHeight());
         tv_home.setTextColor(getResources().getColor(R.color.Hui));
-        tv_home.setCompoundDrawables(null,home,null,null);
+        tv_home.setCompoundDrawables(null, home, null, null);
 
         //tv_tongji为灰色
-        Drawable tongji=getResources().getDrawable(R.mipmap.tongji);
-        tongji.setBounds(0,0,tongji.getMinimumWidth(),tongji.getMinimumHeight());
+        Drawable tongji = getResources().getDrawable(R.mipmap.tongji);
+        tongji.setBounds(0, 0, tongji.getMinimumWidth(), tongji.getMinimumHeight());
         tv_tongji.setTextColor(getResources().getColor(R.color.Hui));
-        tv_tongji.setCompoundDrawables(null,tongji,null,null);
+        tv_tongji.setCompoundDrawables(null, tongji, null, null);
 
 
         //tv_my为灰色
-        Drawable my=getResources().getDrawable(R.mipmap.my);
-        my.setBounds(0,0,my.getMinimumWidth(),my.getMinimumHeight());
+        Drawable my = getResources().getDrawable(R.mipmap.my);
+        my.setBounds(0, 0, my.getMinimumWidth(), my.getMinimumHeight());
         tv_my.setTextColor(getResources().getColor(R.color.Hui));
-        tv_my.setCompoundDrawables(null,my,null,null);
+        tv_my.setCompoundDrawables(null, my, null, null);
 
     }
 
     private void resetMyView() {
 
         //默认主页为绿色
-        Drawable my2=getResources().getDrawable(R.mipmap.my2);
-        my2.setBounds(0,0,my2.getMinimumWidth(),my2.getMinimumHeight());
+        Drawable my2 = getResources().getDrawable(R.mipmap.my2);
+        my2.setBounds(0, 0, my2.getMinimumWidth(), my2.getMinimumHeight());
         tv_my.setTextColor(getResources().getColor(R.color.colorPrimary));
-        tv_my.setCompoundDrawables(null,my2,null,null);
+        tv_my.setCompoundDrawables(null, my2, null, null);
 
         //tv_diaocha为灰色
-        Drawable home=getResources().getDrawable(R.mipmap.home);
-        home.setBounds(0,0,home.getMinimumWidth(),home.getMinimumHeight());
+        Drawable home = getResources().getDrawable(R.mipmap.home);
+        home.setBounds(0, 0, home.getMinimumWidth(), home.getMinimumHeight());
         tv_home.setTextColor(getResources().getColor(R.color.Hui));
-        tv_home.setCompoundDrawables(null,home,null,null);
+        tv_home.setCompoundDrawables(null, home, null, null);
 
         //tv_tongji为灰色
-        Drawable tongji=getResources().getDrawable(R.mipmap.tongji);
-        tongji.setBounds(0,0,tongji.getMinimumWidth(),tongji.getMinimumHeight());
+        Drawable tongji = getResources().getDrawable(R.mipmap.tongji);
+        tongji.setBounds(0, 0, tongji.getMinimumWidth(), tongji.getMinimumHeight());
         tv_tongji.setTextColor(getResources().getColor(R.color.Hui));
-        tv_tongji.setCompoundDrawables(null,tongji,null,null);
+        tv_tongji.setCompoundDrawables(null, tongji, null, null);
 
 
         //tv_diaocha为灰色
-        Drawable diaocha=getResources().getDrawable(R.mipmap.diaocha);
-        diaocha.setBounds(0,0,diaocha.getMinimumWidth(),diaocha.getMinimumHeight());
+        Drawable diaocha = getResources().getDrawable(R.mipmap.diaocha);
+        diaocha.setBounds(0, 0, diaocha.getMinimumWidth(), diaocha.getMinimumHeight());
         tv_diaocha.setTextColor(getResources().getColor(R.color.Hui));
-        tv_diaocha.setCompoundDrawables(null,diaocha,null,null);
+        tv_diaocha.setCompoundDrawables(null, diaocha, null, null);
 
     }
 
 
     private void resetTongJiView() {
         //默认主页为绿色
-        Drawable tongji2=getResources().getDrawable(R.mipmap.tongji2);
-        tongji2.setBounds(0,0,tongji2.getMinimumWidth(),tongji2.getMinimumHeight());
+        Drawable tongji2 = getResources().getDrawable(R.mipmap.tongji2);
+        tongji2.setBounds(0, 0, tongji2.getMinimumWidth(), tongji2.getMinimumHeight());
         tv_tongji.setTextColor(getResources().getColor(R.color.colorPrimary));
-        tv_tongji.setCompoundDrawables(null,tongji2,null,null);
+        tv_tongji.setCompoundDrawables(null, tongji2, null, null);
 
         //tv_diaocha为灰色
-        Drawable home=getResources().getDrawable(R.mipmap.home);
-        home.setBounds(0,0,home.getMinimumWidth(),home.getMinimumHeight());
+        Drawable home = getResources().getDrawable(R.mipmap.home);
+        home.setBounds(0, 0, home.getMinimumWidth(), home.getMinimumHeight());
         tv_home.setTextColor(getResources().getColor(R.color.Hui));
-        tv_home.setCompoundDrawables(null,home,null,null);
+        tv_home.setCompoundDrawables(null, home, null, null);
 
         //tv_my为灰色
-        Drawable my=getResources().getDrawable(R.mipmap.my);
-        my.setBounds(0,0,my.getMinimumWidth(),my.getMinimumHeight());
+        Drawable my = getResources().getDrawable(R.mipmap.my);
+        my.setBounds(0, 0, my.getMinimumWidth(), my.getMinimumHeight());
         tv_my.setTextColor(getResources().getColor(R.color.Hui));
-        tv_my.setCompoundDrawables(null,my,null,null);
-
+        tv_my.setCompoundDrawables(null, my, null, null);
 
 
         //tv_diaocha为灰色
-        Drawable diaocha=getResources().getDrawable(R.mipmap.diaocha);
-        diaocha.setBounds(0,0,diaocha.getMinimumWidth(),diaocha.getMinimumHeight());
+        Drawable diaocha = getResources().getDrawable(R.mipmap.diaocha);
+        diaocha.setBounds(0, 0, diaocha.getMinimumWidth(), diaocha.getMinimumHeight());
         tv_diaocha.setTextColor(getResources().getColor(R.color.Hui));
-        tv_diaocha.setCompoundDrawables(null,diaocha,null,null);
+        tv_diaocha.setCompoundDrawables(null, diaocha, null, null);
 
 
     }
@@ -312,6 +336,7 @@ public class MainActivity extends BaseActivity
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 String json = response.body().string();
+                MyToast.showToast(MainActivity.this, "请求成功");
                 parseJson(json);
                 return null;
             }
