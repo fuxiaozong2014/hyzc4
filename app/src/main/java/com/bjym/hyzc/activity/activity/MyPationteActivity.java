@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
+import com.bjym.hyzc.activity.bean.Myself;
 import com.bjym.hyzc.activity.bean.Pationte;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyToast;
@@ -33,7 +34,7 @@ import okhttp3.Response;
 public class MyPationteActivity extends BaseActivity {
 
     private ListView lv_mypationte;
-
+    private List<Myself> myselefLists;
     private MyAdapter adpter;
     private List<Pationte> pationtes;
     private TextView tv_mypationtenone;
