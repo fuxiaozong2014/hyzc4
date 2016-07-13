@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.activity.SurveyActivity;
+import com.bjym.hyzc.activity.activity.SurveyActivity1;
 import com.bjym.hyzc.activity.bean.DiaoChaSortBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.google.gson.Gson;
@@ -30,6 +30,7 @@ public class DiaoChaFragment extends BaseFragment {
 
     private ListView ll_diaoChaSort;
     private List<DiaoChaSortBean.RowsBean> rowsBeans;
+    private DiaoChaSortBean.RowsBean rowsBean;
 
     @Override
     public View setMainView() {
@@ -51,7 +52,7 @@ public class DiaoChaFragment extends BaseFragment {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 String result = response.body().string();
-              //  MyToast.showToast(DiaoChaFragment.this.getActivity(), "success" + result);
+                //  MyToast.showToast(DiaoChaFragment.this.getActivity(), "success" + result);
                 parseJson(result);
                 return null;
             }
@@ -81,8 +82,13 @@ public class DiaoChaFragment extends BaseFragment {
         Gson gson = new Gson();
         DiaoChaSortBean diaoChaSortBean = gson.fromJson(result, DiaoChaSortBean.class);
         rowsBeans = diaoChaSortBean.getRows();
+        for (int i = 0; i < rowsBeans.size(); i++) {
+            rowsBean = rowsBeans.get(i);
+        }
+
 
     }
+
 
     public class MyAdapter extends BaseAdapter {
 
@@ -96,7 +102,7 @@ public class DiaoChaFragment extends BaseFragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = null;
-            TextView tv_diaoChaSort=null;
+            TextView tv_diaoChaSort = null;
             if (convertView == null) {
                 view = View.inflate(context, R.layout.item_list_diaochasort, null);
 
@@ -124,8 +130,10 @@ public class DiaoChaFragment extends BaseFragment {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO click one item jump to detail diaochabiao
-            startActivity(new Intent(DiaoChaFragment.this.getActivity(),SurveyActivity.class));
+            //TODO click one item jump to detail diaochabiao
+            Intent intent = new Intent(context, SurveyActivity1.class);
+            intent.putExtra("SurveyNo", rowsBean.SurveyNo);
+            startActivity(intent);
 
         }
     }

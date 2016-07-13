@@ -57,6 +57,7 @@
 
         </activity>
         <activity android:name=".activity.activity.SurveyActivity"></activity>
+        <activity android:name=".activity.activity.SurveyActivity1"></activity>
 
         <activity android:name=".activity.activity.MyPationteActivity"></activity>
         <activity android:name=".activity.activity.PationteDetailMsgActivity"></activity>
