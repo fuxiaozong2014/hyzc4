@@ -12,7 +12,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.Myself;
 import com.bjym.hyzc.activity.bean.Pationte;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyToast;
@@ -34,7 +33,6 @@ import okhttp3.Response;
 public class MyPationteActivity extends BaseActivity {
 
     private ListView lv_mypationte;
-    private List<Myself> myselefLists;
     private MyAdapter adpter;
     private List<Pationte> pationtes;
     private TextView tv_mypationtenone;
@@ -82,7 +80,6 @@ public class MyPationteActivity extends BaseActivity {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 String result = response.body().string();
-                //  MyToast.showToast(MyPationteActivity.this, "请求成功" + result);
                 parseJson(result);
                 return null;
             }

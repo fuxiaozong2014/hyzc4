@@ -22,6 +22,7 @@ public class MyApplication extends Application {
         super.onCreate();
         JPushInterface.init(this);
         initHttpUtils();
+        instance = this;
 
     }
 
@@ -43,6 +44,10 @@ public class MyApplication extends Application {
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
+    }
+    private static MyApplication instance;
+    public static MyApplication getAppContext() {
+        return instance;
     }
 }
 

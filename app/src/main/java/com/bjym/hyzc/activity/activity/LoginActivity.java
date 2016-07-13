@@ -35,7 +35,6 @@ public class LoginActivity extends BaseActivity {
     private Button btn_exit;
     private String password;
     private String usercode;
-    private boolean isLogin = false;
 
 
     @Override

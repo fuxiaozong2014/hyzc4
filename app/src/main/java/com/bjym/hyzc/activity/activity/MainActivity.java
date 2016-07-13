@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
@@ -47,7 +46,6 @@ public class MainActivity extends BaseActivity
     private AccenterFragment accenter;
     private TongJiFragment tongJi;
 
-    private LinearLayout ll_content;
     private TextView tv_menu_accout;
     private TextView tv_menu_keshi;
     private List<Myself> myselefLists;
@@ -67,7 +65,6 @@ public class MainActivity extends BaseActivity
         tv_home = (TextView) view.findViewById(R.id.tv_home);
         tv_diaocha = (TextView) view.findViewById(R.id.tv_diaocha);
         tv_tongji = (TextView) view.findViewById(R.id.tv_tongji);
-        ll_content = (LinearLayout) view.findViewById(R.id.ll_content);
 
         //默认主页为绿色
         Drawable home2 = getResources().getDrawable(R.mipmap.home2);
@@ -83,8 +80,6 @@ public class MainActivity extends BaseActivity
         }
         transition.replace(R.id.ll_content, home).commit();
 
-        //填充完之后开始请求数据、
-       // getNetData();
 
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -115,7 +110,6 @@ public class MainActivity extends BaseActivity
         tv_home.setOnClickListener(this);
     }
 
-    //private int flag = -1;
 
     @Override
     public void onClick(View v) {
@@ -215,6 +209,41 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
+
+    private void getNetData() {
+        OkHttpUtils.get().url(MyConstant.MYMSG_URL).build().execute(new Callback() {
+            @Override
+            public Object parseNetworkResponse(Response response, int i) throws Exception {
+                String json = response.body().string();
+                MyToast.showToast(MainActivity.this, "请求成功");
+                parseJson(json);
+                return null;
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                MyToast.showToast(MainActivity.this, "请求失败");
+            }
+
+            @Override
+            public void onResponse(Object o, int i) {
+
+                for (Myself myself : myselefLists) {
+                    String realName = myself.RealName;
+                    String departmentCode = myself.DepartmentCode;
+
+                    tv_menu_accout.setText("用户名：" + realName);
+                    tv_menu_keshi.setText("所属科室：" + departmentCode);
+                }
+
+            }
+        });
+    }
+
+    private void parseJson(String json) {
+        myselefLists = new Gson().fromJson(json, new TypeToken<List<Myself>>() {
+        }.getType());
+    }
     private void resetHomeView() {
 
         //默认主页为绿色
@@ -331,40 +360,5 @@ public class MainActivity extends BaseActivity
     }
 
 
-    private void getNetData() {
-        OkHttpUtils.get().url(MyConstant.MYMSG_URL).build().execute(new Callback() {
-            @Override
-            public Object parseNetworkResponse(Response response, int i) throws Exception {
-                String json = response.body().string();
-                MyToast.showToast(MainActivity.this, "请求成功");
-                parseJson(json);
-                return null;
-            }
-
-            @Override
-            public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(MainActivity.this, "请求失败");
-            }
-
-            @Override
-            public void onResponse(Object o, int i) {
-                MyToast.showToast(MainActivity.this, "请求成功");
-
-            }
-        });
-    }
-
-    private void parseJson(String json) {
-        String realName = null;
-        myselefLists = new Gson().fromJson(json, new TypeToken<List<Myself>>() {
-        }.getType());
-        for (Myself myself : myselefLists) {
-            realName = myself.RealName;
-            System.out.print(myself.toString());
-            tv_menu_accout.setText("用户名：" + realName);
-            //tv_menu_keshi.setText("所属科室："+);
-        }
-
-    }
 
 }
