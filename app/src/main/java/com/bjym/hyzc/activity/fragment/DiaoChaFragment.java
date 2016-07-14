@@ -31,6 +31,8 @@ public class DiaoChaFragment extends BaseFragment {
     private ListView ll_diaoChaSort;
     private List<DiaoChaSortBean.RowsBean> rowsBeans;
     private DiaoChaSortBean.RowsBean rowsBean;
+    private String surveyNo;
+    private String surveyNo1;
 
     @Override
     public View setMainView() {
@@ -84,9 +86,8 @@ public class DiaoChaFragment extends BaseFragment {
         rowsBeans = diaoChaSortBean.getRows();
         for (int i = 0; i < rowsBeans.size(); i++) {
             rowsBean = rowsBeans.get(i);
+            surveyNo = rowsBean.SurveyNo;
         }
-
-
     }
 
 
@@ -130,12 +131,10 @@ public class DiaoChaFragment extends BaseFragment {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            //TODO click one item jump to detail diaochabiao
+            //TODO click one item jump to detail S
             Intent intent = new Intent(context, SurveyActivity1.class);
-            intent.putExtra("SurveyNo", rowsBean.SurveyNo);
+            intent.putExtra("SurveyNo", surveyNo);
             startActivity(intent);
-
         }
     }
-
 }

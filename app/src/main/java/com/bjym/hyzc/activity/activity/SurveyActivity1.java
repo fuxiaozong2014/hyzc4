@@ -90,7 +90,6 @@ public class SurveyActivity1 extends BaseActivity {
 
 
         Intent intent = getIntent();
-        surveyNo = intent.getStringExtra("SurveyNo");
         MyLog.i(SurveyActivity1.class, surveyNo);
         adpter = new MyFragmentPageAdpter(getSupportFragmentManager());
         vg.setAdapter(adpter);
