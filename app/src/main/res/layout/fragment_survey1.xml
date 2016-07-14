@@ -6,15 +6,20 @@
 
   <TextView
       android:id="@+id/tv_questions"
+      android:gravity="center_horizontal"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="题干题干"
+      android:paddingTop="20dp"
       android:textColor="#000"/>
 
     <RadioGroup
         android:id="@+id/rg"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"></RadioGroup>
+        android:orientation="vertical"></RadioGroup>
 
 </LinearLayout>

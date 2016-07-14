@@ -268,13 +268,13 @@ public class SurveyActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(this, ((Button) v).getText().toString().trim(), Toast.LENGTH_SHORT).show();
         }
         switch (v.getId()) {
-            case R.id.preSurvey://上一题
+            case R.id.btn_pre://上一题
                 if (position != 0) {
                     viewPager.setCurrentItem(--position);
                 }
 
                 break;
-            case R.id.nextSurvey://下一题
+            case R.id.btn_next://下一题
                 if (position != viewPager.getChildCount() - 1) {
                     viewPager.setCurrentItem(++position);
                 }
