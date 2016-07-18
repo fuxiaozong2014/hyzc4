@@ -1,6 +1,7 @@
 package com.bjym.hyzc.activity.activity;
 
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -105,6 +106,14 @@ public class MainActivity extends BaseActivity
         tv_tongji.setOnClickListener(this);
         tv_home.setOnClickListener(this);
 
+
+        AccenterFragment accenterFragment = AccenterFragment.newInstance();
+        Bundle bundle = accenterFragment.getArguments();
+        if (bundle != null) {
+            String realName = bundle.getString("realName");
+            String departmentCode = bundle.getString("departmentCode");
+
+        }
 
     }
 
@@ -322,7 +331,6 @@ public class MainActivity extends BaseActivity
 
 
     }
-
 
 
 }

@@ -1,6 +1,7 @@
 package com.bjym.hyzc.activity.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ public class AccenterFragment extends BaseFragment {
     private TextView tv_keshi;
     private List<Myself> myselefLists;
     private List<Pationte> pationtes;
+    private static String departmentCode;
+    private static String realName;
 
     @Override
     public View setMainView() {
@@ -56,8 +59,7 @@ public class AccenterFragment extends BaseFragment {
     private void getNetData() {
         OkHttpUtils.get().url(MyConstant.MYMSG_URL).build().execute(new Callback() {
 
-            private String departmentCode;
-            private String realName;
+
 
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -133,5 +135,15 @@ public class AccenterFragment extends BaseFragment {
 
         pationtes = new Gson().fromJson(jsonStr, new TypeToken<List<Pationte>>() {
         }.getType());
+    }
+
+    public static AccenterFragment newInstance()
+    {
+        Bundle bundle = new Bundle();
+        bundle.putString("realName", realName);
+        bundle.putString("departmentCode", departmentCode);
+        AccenterFragment accenterFragment = new AccenterFragment();
+        accenterFragment.setArguments(bundle);
+        return accenterFragment;
     }
 }

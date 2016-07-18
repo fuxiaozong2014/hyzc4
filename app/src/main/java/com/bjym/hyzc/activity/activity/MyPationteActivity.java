@@ -192,6 +192,11 @@ public class MyPationteActivity extends BaseActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             //跳转到病人详情页面
             startActivity(new Intent(context, PationteDetailMsgActivity.class));
+            /*
+            * 1.点击条目，缓存病人姓名
+            * 2.跳转到调查表 选完之后携带信息回到调查表页面
+            *
+            * */
         }
     }
 
