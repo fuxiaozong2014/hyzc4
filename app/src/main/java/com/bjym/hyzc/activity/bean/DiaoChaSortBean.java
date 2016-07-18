@@ -1,5 +1,6 @@
 package com.bjym.hyzc.activity.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -61,7 +62,7 @@ public class DiaoChaSortBean {
                 '}';
     }
 
-    public class RowsBean {
+    public class RowsBean implements Serializable{
         public String SurveyNo;
         public String SurveyName;
         public int TotalScore;

@@ -32,7 +32,7 @@ public class DiaoChaFragment extends BaseFragment {
     private List<DiaoChaSortBean.RowsBean> rowsBeans;
     private DiaoChaSortBean.RowsBean rowsBean;
     private String surveyNo;
-    private String surveyNo1;
+    private MyAdapter adpter;
 
     @Override
     public View setMainView() {
@@ -66,7 +66,7 @@ public class DiaoChaFragment extends BaseFragment {
 
             @Override
             public void onResponse(Object o, int i) {
-                MyAdapter adpter = null;
+
                 if (adpter == null) {
                     adpter = new MyAdapter();
                     ll_diaoChaSort.setAdapter(adpter);
@@ -129,11 +129,13 @@ public class DiaoChaFragment extends BaseFragment {
     public class MyOnItemClickListner implements AdapterView.OnItemClickListener {
 
 
-        @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             //TODO click one item jump to detail S
             Intent intent = new Intent(context, SurveyActivity1.class);
-            intent.putExtra("SurveyNo", surveyNo);
+
+                rowsBean = rowsBeans.get(position);
+                surveyNo = rowsBean.SurveyNo;
+            intent.putExtra("surveyNo",surveyNo);
             startActivity(intent);
         }
     }

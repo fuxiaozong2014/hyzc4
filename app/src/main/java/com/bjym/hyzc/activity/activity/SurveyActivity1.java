@@ -43,15 +43,18 @@ public class SurveyActivity1 extends BaseActivity {
     public Button btn_next;
     public Button btn_commit;
     public int position;
+    // http://hyzc.tpddns.cn:6060/cpw/CPW_Topic/getlistbysurvey?Survey=1111
     public static final String url = "http://192.168.0.168/cpw/CPW_Topic/getlistbysurvey?Survey=";
     public static final String optionUrl = "http://192.168.0.168/cpw/CPW_Choice/getlistbytopicno?topic=";
-    private String surveyNo;
     private String contents;
     private String topicNo;
     private int number;
     public List<Fragment> fragments = new ArrayList<>();
     public MyFragmentPageAdpter adpter;
     public static HashMap<String, String> answers = new HashMap<>();
+    private String url1;
+    private String surveyNo;
+
 
     public class MyFragmentPageAdpter extends FragmentPagerAdapter {
 
@@ -90,10 +93,11 @@ public class SurveyActivity1 extends BaseActivity {
 
 
         Intent intent = getIntent();
-        MyLog.i(SurveyActivity1.class, surveyNo);
+        surveyNo = intent.getStringExtra("surveyNo");
+
+        getQuesionData();
         adpter = new MyFragmentPageAdpter(getSupportFragmentManager());
         vg.setAdapter(adpter);
-        MyToast.showToast(SurveyActivity1.this, surveyNo);
         vg.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -112,17 +116,16 @@ public class SurveyActivity1 extends BaseActivity {
                 } else {
                     btn_next.setClickable(true);
                 }
-
             }
         });
 
-        getQuesionData();
 
     }
 
     private void getQuesionData() {
 
-        OkHttpUtils.get().url(url + surveyNo).build().execute(new Callback() {
+        url1 = url + surveyNo;
+        OkHttpUtils.get().url(url1).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 return response.body().string();
@@ -130,7 +133,6 @@ public class SurveyActivity1 extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-
             }
 
             @Override
@@ -139,7 +141,6 @@ public class SurveyActivity1 extends BaseActivity {
                 MyToast.showToast(SurveyActivity1.this, "请求成功");
             }
         });
-
     }
 
     private void parseJson(String json) {
@@ -160,7 +161,6 @@ public class SurveyActivity1 extends BaseActivity {
             fragments.add(surveyFragment1);
             adpter.notifyDataSetChanged();
         }
-
     }
 
     @Override
@@ -172,17 +172,13 @@ public class SurveyActivity1 extends BaseActivity {
         switch (v.getId()) {
             case R.id.btn_pre:
                 if (position != 0) {
-
                     vg.setCurrentItem(--position);
                 }
-
                 break;
             case R.id.btn_next:
                 if (position != vg.getChildCount() - 1) {
-
                     vg.setCurrentItem(++position);
                 }
-
                 break;
             case R.id.btn_commit:
                 commitAnswers();
@@ -200,9 +196,7 @@ public class SurveyActivity1 extends BaseActivity {
                 MyLog.i("survey", entry.getKey() + ":" + entry.getValue());
             }
         }
-
     }
-
 
     public static class SurveyFragment1 extends BaseFragment {
 
@@ -221,26 +215,20 @@ public class SurveyActivity1 extends BaseActivity {
 
         @Override
         public void InitData() {
-
             rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     answers.put(topicNo, choiceNum.get(checkedId));
                 }
             });
-
             Bundle bundle = getArguments();
             if (bundle != null) {
                 String contents = bundle.getString("Contents");
                 topicNo = bundle.getString("TopicNo");
                 int number = bundle.getInt("Number");
-
                 tv_questions.setText(number + "." + contents);
-
                 getOptions();
             }
-
-
         }
 
         private void getOptions() {
