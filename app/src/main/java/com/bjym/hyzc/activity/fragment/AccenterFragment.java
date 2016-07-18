@@ -55,6 +55,10 @@ public class AccenterFragment extends BaseFragment {
 
     private void getNetData() {
         OkHttpUtils.get().url(MyConstant.MYMSG_URL).build().execute(new Callback() {
+
+            private String departmentCode;
+            private String realName;
+
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 String json = response.body().string();
@@ -72,12 +76,14 @@ public class AccenterFragment extends BaseFragment {
             public void onResponse(Object o, int in) {
                 for (int i = 0; i < myselefLists.size(); i++) {
                     Myself myself = myselefLists.get(i);
-                    String realName = myself.RealName;
-                    String departmentCode = myself.DepartmentCode;
+                    realName = myself.RealName;
+                    departmentCode = myself.DepartmentCode;
 
                     tv_account.setText("用户名：" + realName);
                     tv_keshi.setText("所属科室：" + departmentCode);
                 }
+
+
 
             }
         });

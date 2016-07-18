@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        android:gravity="center_horizontal"
-        android:textColor="@android:color/black"
-        android:textSize="20dp"
-        android:text="题干" />
+  <TextView
+      android:id="@+id/tv_questions"
+      android:gravity="center_horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="题干题干"
+      android:paddingTop="20dp"
+      android:textColor="#000"/>
 
     <RadioGroup
         android:id="@+id/rg"
-        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></RadioGroup>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"></RadioGroup>
+
 </LinearLayout>

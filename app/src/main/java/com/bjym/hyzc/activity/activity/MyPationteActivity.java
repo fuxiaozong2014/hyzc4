@@ -63,10 +63,12 @@ public class MyPationteActivity extends BaseActivity {
     @Override
     public void InitData() {
 
-        getNetData();
+       getNetData();
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                pationtes.clear();
+                adpter.notifyDataSetChanged();
                 getNetData();
                 handler.sendEmptyMessage(0);
             }

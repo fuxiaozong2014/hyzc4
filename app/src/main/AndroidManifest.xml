@@ -34,11 +34,11 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
+        android:name=".activity.receiver.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logonew"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".activity.receiver.MyApplication"
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.activity.MainActivity"
@@ -46,20 +46,24 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".activity.activity.LoginActivity">
+        <activity
+            android:name=".activity.activity.LoginActivity"
+            android:label="@string/app_name"
+           >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.activity.SplashActivity">
+        <activity android:name=".activity.activity.SplashActivity" />
 
-        </activity>
         <activity android:name=".activity.activity.SurveyActivity"></activity>
-        <activity android:name=".activity.activity.SurveyActivity1"></activity>
+        <activity android:name=".activity.activity.SurveyActivity"></activity>
 
-        <activity android:name=".activity.activity.MyPationteActivity"></activity>
+        <activity
+            android:name=".activity.activity.MyPationteActivity"
+            android:label="管床病人"></activity>
         <activity android:name=".activity.activity.PationteDetailMsgActivity"></activity>
         <!-- Required SDK 核心功能-->
         <!-- option since 2.0.5 可配置PushService，DaemonService,PushReceiver,AlarmReceiver的android:process参数 将JPush相关组件设置为一个独立进程 -->

@@ -16,22 +16,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.Myself;
 import com.bjym.hyzc.activity.fragment.AccenterFragment;
 import com.bjym.hyzc.activity.fragment.DiaoChaFragment;
 import com.bjym.hyzc.activity.fragment.HomeFragment;
 import com.bjym.hyzc.activity.fragment.TongJiFragment;
-import com.bjym.hyzc.activity.utils.MyConstant;
-import com.bjym.hyzc.activity.utils.MyToast;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.Callback;
-
-import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Response;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -48,15 +36,13 @@ public class MainActivity extends BaseActivity
 
     private TextView tv_menu_accout;
     private TextView tv_menu_keshi;
-    private List<Myself> myselefLists;
 
     private FragmentManager manager;
+    private DrawerLayout drawer;
 
     @Override
     public View setMainView() {
         View view = View.inflate(context, R.layout.activity_main, null);
-        tv_menu_accout = (TextView) view.findViewById(R.id.tv_menu_accout);
-        tv_menu_keshi = (TextView) view.findViewById(R.id.tv_menu_keshi);
 
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
@@ -65,6 +51,8 @@ public class MainActivity extends BaseActivity
         tv_home = (TextView) view.findViewById(R.id.tv_home);
         tv_diaocha = (TextView) view.findViewById(R.id.tv_diaocha);
         tv_tongji = (TextView) view.findViewById(R.id.tv_tongji);
+        tv_menu_accout = (TextView) view.findViewById(R.id.tv_menu_accout);
+        tv_menu_keshi = (TextView) view.findViewById(R.id.tv_menu_keshi);
 
         //默认主页为绿色
         Drawable home2 = getResources().getDrawable(R.mipmap.home2);
@@ -91,7 +79,7 @@ public class MainActivity extends BaseActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -99,6 +87,14 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) view.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        /*
+        * 在这里处理菜单头布局的逻辑
+        * */
+        View headerView = navigationView.getHeaderView(0);
+        tv_menu_keshi= (TextView) headerView.findViewById(R.id.tv_menu_keshi);
+        tv_menu_accout= (TextView) headerView.findViewById(R.id.tv_menu_accout);
+
         return view;
     }
 
@@ -108,6 +104,8 @@ public class MainActivity extends BaseActivity
         tv_diaocha.setOnClickListener(this);
         tv_tongji.setOnClickListener(this);
         tv_home.setOnClickListener(this);
+
+
     }
 
 
@@ -121,28 +119,28 @@ public class MainActivity extends BaseActivity
                     accenter = new AccenterFragment();
                 }
                 resetMyView();
-                transaction.replace(R.id.ll_content, accenter);
+                transaction.replace(R.id.ll_content, accenter,"AccenterFragment");
                 break;
             case R.id.tv_diaocha:
                 if (diaoCha == null) {
                     diaoCha = new DiaoChaFragment();
                 }
                 resetDiaoChaView();
-                transaction.replace(R.id.ll_content, diaoCha);
+                transaction.replace(R.id.ll_content, diaoCha,"DiaoChaFragment");
                 break;
             case R.id.tv_home:
                 if (home == null) {
                     home = new HomeFragment();
                 }
                 resetHomeView();
-                transaction.replace(R.id.ll_content, home);
+                transaction.replace(R.id.ll_content, home,"HomeFragment");
                 break;
             case R.id.tv_tongji:
                 if (tongJi == null) {
                     tongJi = new TongJiFragment();
                 }
                 resetTongJiView();
-                transaction.replace(R.id.ll_content, tongJi);
+                transaction.replace(R.id.ll_content, tongJi,"TongJiFragment");
                 break;
             default:
                 break;
@@ -154,7 +152,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+     //   DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -166,6 +164,7 @@ public class MainActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 
@@ -209,41 +208,6 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
-
-    private void getNetData() {
-        OkHttpUtils.get().url(MyConstant.MYMSG_URL).build().execute(new Callback() {
-            @Override
-            public Object parseNetworkResponse(Response response, int i) throws Exception {
-                String json = response.body().string();
-                MyToast.showToast(MainActivity.this, "请求成功");
-                parseJson(json);
-                return null;
-            }
-
-            @Override
-            public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(MainActivity.this, "请求失败");
-            }
-
-            @Override
-            public void onResponse(Object o, int i) {
-
-                for (Myself myself : myselefLists) {
-                    String realName = myself.RealName;
-                    String departmentCode = myself.DepartmentCode;
-
-                    tv_menu_accout.setText("用户名：" + realName);
-                    tv_menu_keshi.setText("所属科室：" + departmentCode);
-                }
-
-            }
-        });
-    }
-
-    private void parseJson(String json) {
-        myselefLists = new Gson().fromJson(json, new TypeToken<List<Myself>>() {
-        }.getType());
-    }
     private void resetHomeView() {
 
         //默认主页为绿色

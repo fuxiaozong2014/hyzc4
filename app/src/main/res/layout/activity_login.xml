@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -109,7 +110,7 @@
                 android:id="@+id/btn_login"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:background="@drawable/side_nav_bar"
+                android:background="@drawable/side_nav_bar_bg"
                 android:text="√ 登录"
                 android:textColor="@color/background_white"
                 android:textSize="18dp" />
@@ -119,7 +120,10 @@
                 android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/side_nav_bar"
+                android:background="@drawable/side_nav_bar_bg"
+                android:centerColor="#4CAF50"
+                android:endColor="#2E7D32"
+                android:startColor="#81C784"
                 android:text="X 退出"
                 android:textColor="@color/background_white"
                 android:textSize="18dp" />

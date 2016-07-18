@@ -1,14 +1,11 @@
 package com.bjym.hyzc.activity.activity;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,14 +15,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.receiver.MyApplication;
-import com.bjym.hyzc.activity.utils.DensityUtil;
+import com.bjym.hyzc.activity.bean.Question;
+import com.bjym.hyzc.activity.bean.QuestionOption;
+import com.bjym.hyzc.activity.bean.SurveyAnswer;
+import com.bjym.hyzc.activity.fragment.BaseFragment;
+import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
+import com.bjym.hyzc.activity.utils.MyToast;
+import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.Callback;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,22 +36,35 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class SurveyActivity extends AppCompatActivity implements View.OnClickListener {
+/**
+ * Created by fushaoqing on 2016/7/13.
+ */
+public class SurveyActivity extends BaseActivity {
+    public ViewPager vg;
+    public Button btn_pre;
+    public Button btn_next;
+    public Button btn_commit;
+    public int position;
+    // http://hyzc.tpddns.cn:6060/cpw/CPW_Topic/getlistbysurvey?Survey=1111
 
-    private ViewPager viewPager;
-    private Button preSurvey;
-    private Button nextSurvey;
-    private Button bt_submit;
-    private FragmentPagerAdapter adapter;
-    private List<Fragment> fragments = new ArrayList<>();
-    private static final String SERVEY_TOPIC_LIST = "http://192.168.0.168/cpw/CPW_Topic/getlistbysurvey?Survey=PSI0000001";
-    private static final String SERVEY_GET_OPTION = "http://192.168.0.168/cpw/CPW_Choice/getlistbytopicno?toptic=";
-    private static HashMap<String, String> answers = new HashMap<>();
-    private int position;
+    private String contents;
+    private String topicNo;
+    private int number;
+    public List<Fragment> fragments = new ArrayList<>();
+    public MyFragmentPageAdpter adpter;
+    public static HashMap<String, String> answers = new HashMap<>();
+    private String url1;
+    private String surveyNo;
+    private String surveyName;
+    private String topicNo1;
+    private String choiceNum;
 
-    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
-        public MyFragmentPagerAdapter(FragmentManager fm) {
+
+    public class MyFragmentPageAdpter extends FragmentPagerAdapter {
+
+
+        public MyFragmentPageAdpter(FragmentManager fm) {
             super(fm);
         }
 
@@ -65,65 +79,201 @@ public class SurveyActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    public static class SurveyFragment extends Fragment {
+    @Override
+    public View setMainView() {
+        View view = View.inflate(context, R.layout.activity_survey, null);
+        vg = (ViewPager) view.findViewById(R.id.vg);
+        btn_pre = (Button) view.findViewById(R.id.btn_pre);
+        btn_next = (Button) view.findViewById(R.id.btn_next);
+        btn_commit = (Button) view.findViewById(R.id.btn_commit);
 
-        private TextView tv_title;
+
+        btn_pre.setOnClickListener(this);
+        btn_next.setOnClickListener(this);
+        btn_commit.setOnClickListener(this);
+        return view;
+    }
+
+    @Override
+    public void InitData() {
+
+
+        Intent intent = getIntent();
+        surveyNo = intent.getStringExtra("surveyNo");
+        surveyName = intent.getStringExtra("SurveyName");
+        setTitle(surveyName);
+        getQuesionData();
+        adpter = new MyFragmentPageAdpter(getSupportFragmentManager());
+        vg.setAdapter(adpter);
+        vg.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                SurveyActivity.this.position = position;
+                if (position == 0) {
+                    btn_pre.setClickable(false);
+                    MyToast.showToast(SurveyActivity.this, "已经是第一题");
+                } else {
+                    btn_pre.setClickable(true);
+                }
+                if (position == fragments.size() - 1) {
+                    btn_next.setClickable(false);
+                    btn_commit.setVisibility(View.VISIBLE);
+
+                } else {
+                    btn_next.setClickable(true);
+                }
+            }
+        });
+
+
+    }
+
+    private void getQuesionData() {
+
+        url1 = MyConstant.QUESTIONLIST_URL + surveyNo;
+        OkHttpUtils.get().url(url1).build().execute(new Callback() {
+            @Override
+            public Object parseNetworkResponse(Response response, int i) throws Exception {
+                return response.body().string();
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int i) {
+            }
+
+            @Override
+            public void onResponse(Object o, int i) {
+                parseJson((String) o);
+                MyToast.showToast(SurveyActivity.this, "请求成功");
+            }
+        });
+    }
+
+    private void parseJson(String json) {
+        Gson gson = new Gson();
+        Question question = gson.fromJson(json, Question.class);
+        List<Question.RowsBean> rows = question.getRows();
+        for (int i = 0; i < rows.size(); i++) {
+            Question.RowsBean rowsBean = rows.get(i);
+            contents = rowsBean.Contents;
+            topicNo = rowsBean.TopicNo;
+            number = rowsBean.Number;
+            SurveyFragment surveyFragment = new SurveyFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("Contents", contents);
+            bundle.putString("TopicNo", topicNo);
+            bundle.putInt("Number", number);
+            surveyFragment.setArguments(bundle);
+            fragments.add(surveyFragment);
+            adpter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        if (v instanceof Button) {
+            Toast.makeText(this, ((Button) v).getText().toString().trim(), Toast.LENGTH_SHORT).show();
+        }
+        switch (v.getId()) {
+            case R.id.btn_pre:
+                if (position != 0) {
+                    vg.setCurrentItem(--position);
+                }
+                break;
+            case R.id.btn_next:
+                if (position != vg.getChildCount() - 1) {
+                    vg.setCurrentItem(++position);
+                }
+                break;
+            case R.id.btn_commit:
+                commitAnswers();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void commitAnswers() {
+        if (answers.size() > 0) {
+            Iterator iter = answers.entrySet().iterator();
+            while (iter.hasNext()) {
+                Map.Entry entry = (Map.Entry) iter.next();
+                MyLog.i("survey", entry.getKey() + ":" + entry.getValue());
+                topicNo1 = (String) entry.getKey();
+                choiceNum = (String) entry.getValue();
+
+            }
+            String toJson = new Gson().toJson(new SurveyAnswer(topicNo1,"",choiceNum,""));
+            postAnswers(toJson);
+
+        }
+    }
+
+    private void postAnswers(String toJson) {
+
+        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content(toJson)
+                .build().execute(new Callback() {
+            @Override
+            public Object parseNetworkResponse(Response response, int i) throws Exception {
+                return null;
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                MyToast.showToast(SurveyActivity.this,"提交错误"+e.toString());
+
+                MyLog.i("postAnswers","提交错误"+e.toString());
+            }
+
+            @Override
+            public void onResponse(Object o, int i) {
+                    MyToast.showToast(SurveyActivity.this,"提交成功");
+            }
+        });
+    }
+
+    public static class SurveyFragment extends BaseFragment {
+
         private RadioGroup rg;
-        private ArrayList<String> ChoiceNos = new ArrayList<>();
+        private TextView tv_questions;
         private String topicNo;
+        private List<String> choiceNum = new ArrayList<>();
 
-        @Nullable
         @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View view = View.inflate(MyApplication.getAppContext(), R.layout.fragment_survey, null);
-            initView(view);
-            setListener();
-            initData();
+        public View setMainView() {
+            View view = View.inflate(context, R.layout.fragment_survey, null);
+            rg = (RadioGroup) view.findViewById(R.id.rg);
+            tv_questions = (TextView) view.findViewById(R.id.tv_questions);
             return view;
         }
 
-        private void initView(View view) {
-            tv_title = (TextView) view.findViewById(R.id.tv_title);
-            rg = (RadioGroup) view.findViewById(R.id.rg);
-        }
-
-        private void setListener() {
-            /**
-             * 当选项选中时，把题目id和答案id放入map集合中
-             */
+        @Override
+        public void InitData() {
             rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    answers.put(topicNo, ChoiceNos.get(checkedId));
+                    answers.put(topicNo, choiceNum.get(checkedId));
                 }
             });
-        }
-
-        /**
-         * 从arguments中获得题目信息
-         */
-        private void initData() {
             Bundle bundle = getArguments();
             if (bundle != null) {
-                topicNo = bundle.getString("TopicNo");
                 String contents = bundle.getString("Contents");
-                String number = bundle.getString("Number");
-                tv_title.setText(number + "." + contents);
+                topicNo = bundle.getString("TopicNo");
+                int number = bundle.getInt("Number");
+                tv_questions.setText(number + "." + contents);
                 getOptions();
             }
         }
 
-        /**
-         * 获得题目对应的选项信息，每个选项对应一个radiobutton，并且添加到radiogroup中，默认选中第一个选项，
-         * 将选项对应的id添加到选项id集合ChoiceNos中
-         */
         private void getOptions() {
-            OkHttpUtils.get()
-                    .url(SERVEY_GET_OPTION + topicNo)
-                    .build()
-                    .execute(new com.zhy.http.okhttp.callback.Callback() {
+            String url = MyConstant.OPTION_URL + topicNo;
+
+            OkHttpUtils.get().url(url).build().execute(new Callback() {
                 @Override
-                public Object parseNetworkResponse(Response response, int i) {//子线程
+                public Object parseNetworkResponse(Response response, int i) throws Exception {
+
                     return response;
                 }
 
@@ -133,168 +283,46 @@ public class SurveyActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 @Override
-                public void onResponse(Object response, int i) {//主线程
+                public void onResponse(Object response, int i) {
                     if (response instanceof Response) {
                         try {
-                            String string = ((Response) response).body().string();
-                            JSONObject object = new JSONObject(string);
-                            if (object.optInt("total") > 0) {
-                                JSONArray array = object.optJSONArray("rows");
-                                JSONObject arrayJSONObject;
-                                RadioButton rb;
-                                RadioGroup.LayoutParams params;
-                                rg.removeAllViews();
-                                ChoiceNos.clear();
-                                for (int j = 0; j < array.length(); j++) {
-                                    arrayJSONObject = array.getJSONObject(j);
-                                    ChoiceNos.add(arrayJSONObject.optString("ChoiceNo"));
-                                    rb = new RadioButton(MyApplication.getAppContext());
-                                    rb.setText(arrayJSONObject.optString("Contents"));
-                                    rb.setTextColor(Color.RED);
-                                    rb.setId(j);
-                                    params = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT);
-                                    params.leftMargin = DensityUtil.dip2px(20);
-                                    rg.addView(rb, j, params);
-                                }
-                                rg.check(0);
-                            }
-                        } catch (Exception e) {
+                            String result = ((Response) response).body().string();
+                            parseResult(result);
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
+
                     }
                 }
             });
+
         }
-    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_survey);
-        initView();
-        setListener();
-        initData();
-    }
+        private void parseResult(String result) {
+            Gson gson = new Gson();
+            QuestionOption questionOption = gson.fromJson(result, QuestionOption.class);
+            List<QuestionOption.Option> options = questionOption.getRows();
+            int total = questionOption.getTotal();
+            RadioGroup.LayoutParams params = null;
+            RadioButton rb = null;
+            rg.removeAllViews();
+            choiceNum.clear();
+            if (total > 0) {
+                for (int i = 0; i < options.size(); i++) {
+                    QuestionOption.Option option = options.get(i);
+                    String choiceNo = option.ChoiceNo;
+                    String contents = option.Contents;
+                    rb = new RadioButton(context);
+                    choiceNum.add(choiceNo);
+                    rb.setText(contents);
+                    rb.setId(i);
+                    params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.SCROLL_AXIS_VERTICAL);
+                    // params.leftMargin = DensityUtil.dip2px(20);
+                    rg.addView(rb, i, params);
 
-    private void initView() {
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        preSurvey = (Button) findViewById(R.id.preSurvey);
-        nextSurvey = (Button) findViewById(R.id.nextSurvey);
-        bt_submit = (Button) findViewById(R.id.bt_submit);
-    }
-
-    private void setListener() {
-        preSurvey.setOnClickListener(this);
-        nextSurvey.setOnClickListener(this);
-        bt_submit.setOnClickListener(this);
-
-        adapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                SurveyActivity.this.position = position;
-                if (position == 0) {
-                    preSurvey.setClickable(false);
-                } else {
-                    preSurvey.setClickable(true);
                 }
-                if (position == fragments.size() - 1) {
-                    nextSurvey.setClickable(false);
-                    bt_submit.setVisibility(View.VISIBLE);
-                } else {
-                    nextSurvey.setClickable(true);
-                }
-            }
-        });
-    }
-
-    /**
-     * 获得所有的问题，每个问题创建一个fragment，并添加到viewPager的数据源集合中，notify
-     */
-    private void initData() {
-        OkHttpUtils.get()
-                .url(SERVEY_TOPIC_LIST)
-                .build()
-                .execute(new com.zhy.http.okhttp.callback.Callback() {
-            @Override
-            public Object parseNetworkResponse(Response response, int i) {//子线程
-                try {
-                    String string = response.body().string();
-                    JSONObject object = new JSONObject(string);
-                    if (object.optInt("total") > 0) {
-                        JSONArray array = object.optJSONArray("rows");
-                        JSONObject arrayJSONObject;
-                        Bundle bundle;
-                        for (int j = 0; j < array.length(); j++) {
-                            arrayJSONObject = array.getJSONObject(j);
-                            final Fragment fragment = new SurveyFragment();
-                            bundle = new Bundle();
-                            bundle.putString("TopicNo", arrayJSONObject.optString("TopicNo"));
-                            bundle.putString("Contents", arrayJSONObject.optString("Contents"));
-                            bundle.putString("Number", arrayJSONObject.optString("Number"));
-                            fragment.setArguments(bundle);
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    fragments.add(fragment);
-                                    adapter.notifyDataSetChanged();
-                                }
-                            });
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                return null;
-            }
-
-            @Override
-            public void onError(Call call, Exception e, int i) {
-
-            }
-
-            @Override
-            public void onResponse(Object o, int i) {//主线程
-
-            }
-        });
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v instanceof Button) {
-            Toast.makeText(this, ((Button) v).getText().toString().trim(), Toast.LENGTH_SHORT).show();
-        }
-        switch (v.getId()) {
-            case R.id.btn_pre://上一题
-                if (position != 0) {
-                    viewPager.setCurrentItem(--position);
-                }
-
-                break;
-            case R.id.btn_next://下一题
-                if (position != viewPager.getChildCount() - 1) {
-                    viewPager.setCurrentItem(++position);
-                }
-                break;
-            case R.id.bt_submit://提交
-                submitAnswers();
-                break;
-        }
-    }
-
-    /**
-     * 提交答题结果
-     */
-    private void submitAnswers() {
-        if (answers.size() > 0) {
-            Iterator iter = answers.entrySet().iterator();
-            while (iter.hasNext()) {
-                Map.Entry entry = (Map.Entry) iter.next();
-                MyLog.i("survey", entry.getKey() + ":" + entry.getValue());
             }
         }
+
     }
 }

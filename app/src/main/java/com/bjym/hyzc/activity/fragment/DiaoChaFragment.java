@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.activity.SurveyActivity1;
+import com.bjym.hyzc.activity.activity.SurveyActivity;
 import com.bjym.hyzc.activity.bean.DiaoChaSortBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.google.gson.Gson;
@@ -32,6 +32,7 @@ public class DiaoChaFragment extends BaseFragment {
     private List<DiaoChaSortBean.RowsBean> rowsBeans;
     private DiaoChaSortBean.RowsBean rowsBean;
     private String surveyNo;
+    private String surveyName;
     private MyAdapter adpter;
 
     @Override
@@ -131,11 +132,13 @@ public class DiaoChaFragment extends BaseFragment {
 
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             //TODO click one item jump to detail S
-            Intent intent = new Intent(context, SurveyActivity1.class);
+            Intent intent = new Intent(context, SurveyActivity.class);
 
-                rowsBean = rowsBeans.get(position);
-                surveyNo = rowsBean.SurveyNo;
-            intent.putExtra("surveyNo",surveyNo);
+            rowsBean = rowsBeans.get(position);
+            surveyNo = rowsBean.SurveyNo;
+            surveyName = rowsBean.SurveyName;
+            intent.putExtra("surveyNo", surveyNo);
+            intent.putExtra("SurveyName", surveyName);
             startActivity(intent);
         }
     }
