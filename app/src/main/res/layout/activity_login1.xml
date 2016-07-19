@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/fragment_titlebar" />
+    <!--<include layout="@layout/fragment_titlebar" />-->
 
     <LinearLayout
         android:id="@+id/ll_logo"
@@ -119,7 +119,7 @@
 
             <Button
                 android:id="@+id/btn_login"
-                android:layout_width="120dp"
+                android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:background="@drawable/side_nav_bar"
                 android:text="√ 登录"
@@ -128,7 +128,7 @@
 
             <Button
                 android:id="@+id/btn_exit"
-                android:layout_width="120dp"
+                android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/side_nav_bar"

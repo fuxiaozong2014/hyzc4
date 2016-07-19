@@ -89,9 +89,9 @@ public class MainActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) view.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*
-        * 在这里处理菜单头布局的逻辑
+       /* * 在这里处理菜单头布局的逻辑
         * */
+
         View headerView = navigationView.getHeaderView(0);
         tv_menu_keshi= (TextView) headerView.findViewById(R.id.tv_menu_keshi);
         tv_menu_accout= (TextView) headerView.findViewById(R.id.tv_menu_accout);

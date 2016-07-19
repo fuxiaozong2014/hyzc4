@@ -24,9 +24,8 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Response;
 
-/**
- * Created by fushaoqing on 2016/6/28.
- */
+
+
 public class AccenterFragment extends BaseFragment {
 
     private LinearLayout ll_myPationte;

@@ -3,6 +3,7 @@ package com.bjym.hyzc.activity.activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,6 @@ public class MyPationteActivity extends BaseActivity {
     private List<Pationte> pationtes;
     private TextView tv_mypationtenone;
     private SwipeRefreshLayout swipeRefresh;
-
     @Override
     public View setMainView() {
         View view = View.inflate(context, R.layout.activity_mypationte, null);
@@ -180,9 +180,8 @@ public class MyPationteActivity extends BaseActivity {
         }.getType());
         for (Pationte pationte : pationtes) {
             System.out.println(pationte.toString());
+
         }
-
-
     }
 
     public class MyOnItemClickListner implements AdapterView.OnItemClickListener {
@@ -190,14 +189,23 @@ public class MyPationteActivity extends BaseActivity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            //跳转到病人详情页面
-            startActivity(new Intent(context, PationteDetailMsgActivity.class));
+
             /*
             * 1.点击条目，缓存病人姓名
-            * 2.跳转到调查表 选完之后携带信息回到调查表页面
-            *
+            * 2.发送广播，传递数据
             * */
+            LocalBroadcastManager manager=LocalBroadcastManager.getInstance(context);
+
+            String name = pationtes.get(position).Name;
+            String bedNo = pationtes.get(position).BedNo;
+            Intent intent=new Intent();
+            intent.setAction("INTEN_MYPATIONTE");
+            intent.putExtra("Name", name);
+            intent.putExtra("BedNo",bedNo);
+            manager.sendBroadcast(intent);
+            finish();
         }
     }
+
 
 }

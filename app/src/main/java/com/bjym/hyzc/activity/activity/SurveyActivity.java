@@ -58,7 +58,7 @@ public class SurveyActivity extends BaseActivity {
     private String surveyName;
     private String topicNo1;
     private String choiceNum;
-
+    private String name;
 
 
     public class MyFragmentPageAdpter extends FragmentPagerAdapter {
@@ -97,12 +97,15 @@ public class SurveyActivity extends BaseActivity {
     @Override
     public void InitData() {
 
-
         Intent intent = getIntent();
         surveyNo = intent.getStringExtra("surveyNo");
         surveyName = intent.getStringExtra("SurveyName");
+        name = intent.getStringExtra("Name");
+
         setTitle(surveyName);
+
         getQuesionData();
+
         adpter = new MyFragmentPageAdpter(getSupportFragmentManager());
         vg.setAdapter(adpter);
         vg.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -205,7 +208,9 @@ public class SurveyActivity extends BaseActivity {
                 choiceNum = (String) entry.getValue();
 
             }
-            String toJson = new Gson().toJson(new SurveyAnswer(topicNo1,"",choiceNum,""));
+            //String topicNo, String answer, String name, String subTime
+            String toJson = new Gson().toJson(new SurveyAnswer(topicNo1,choiceNum,name,""));
+            MyLog.i("toJson:",toJson);
             postAnswers(toJson);
 
         }
