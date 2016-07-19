@@ -184,6 +184,9 @@ public class MyPationteActivity extends BaseActivity {
         }
     }
 
+    /*
+    * 患者信息列表的点击监听
+    * */
     public class MyOnItemClickListner implements AdapterView.OnItemClickListener {
 
 
@@ -192,7 +195,7 @@ public class MyPationteActivity extends BaseActivity {
 
             /*
             * 1.点击条目，缓存病人姓名
-            * 2.发送广播，传递数据
+            * 2.发送广播，传递数据给DiaoChaFragment
             * */
             LocalBroadcastManager manager=LocalBroadcastManager.getInstance(context);
 

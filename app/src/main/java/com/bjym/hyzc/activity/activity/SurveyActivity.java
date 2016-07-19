@@ -48,7 +48,6 @@ public class SurveyActivity extends BaseActivity {
     // http://hyzc.tpddns.cn:6060/cpw/CPW_Topic/getlistbysurvey?Survey=1111
 
     private String contents;
-    private String topicNo;
     private int number;
     public List<Fragment> fragments = new ArrayList<>();
     public MyFragmentPageAdpter adpter;
@@ -56,7 +55,7 @@ public class SurveyActivity extends BaseActivity {
     private String url1;
     private String surveyNo;
     private String surveyName;
-    private String topicNo1;
+    private String topicNo;
     private String choiceNum;
     private String name;
 
@@ -186,30 +185,42 @@ public class SurveyActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_next:
+
                 if (position != vg.getChildCount() - 1) {
                     vg.setCurrentItem(++position);
                 }
                 break;
             case R.id.btn_commit:
+                /*
+                * 1.提交调查结果至服务器
+                * 2.关闭自身页面
+                * */
                 commitAnswers();
+                finish();
                 break;
             default:
                 break;
         }
     }
 
+    /*
+    * 提交调查结果至服务器
+    * */
     private void commitAnswers() {
+
         if (answers.size() > 0) {
             Iterator iter = answers.entrySet().iterator();
             while (iter.hasNext()) {
                 Map.Entry entry = (Map.Entry) iter.next();
                 MyLog.i("survey", entry.getKey() + ":" + entry.getValue());
-                topicNo1 = (String) entry.getKey();
+                topicNo = (String) entry.getKey();
                 choiceNum = (String) entry.getValue();
 
             }
-            //String topicNo, String answer, String name, String subTime
-            String toJson = new Gson().toJson(new SurveyAnswer(topicNo1,choiceNum,name,""));
+            /*
+            String topicNo, String answer, String name, String subTime
+             */
+            String toJson = new Gson().toJson(new SurveyAnswer(topicNo,choiceNum,name,""));
             MyLog.i("toJson:",toJson);
             postAnswers(toJson);
 

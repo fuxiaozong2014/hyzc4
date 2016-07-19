@@ -7,7 +7,7 @@ public class MyConstant {
     /**
      * 服务器ip
      */
-    public static final String BASE_URL = "http://192.168.0.168";
+    public static final String BASE_URL = "http://cp.sqall.com";
     /**
      * 登录接口
      */
@@ -37,7 +37,5 @@ public class MyConstant {
     * 提交答案接口
     * */
     public static final String ANSWERS_URL = BASE_URL + "/cpw/CPW_PatiAnswer/addpatianswer";
-
-
 
 }

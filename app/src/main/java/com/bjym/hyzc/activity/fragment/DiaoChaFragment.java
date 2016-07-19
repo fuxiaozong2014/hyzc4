@@ -155,18 +155,27 @@ public class DiaoChaFragment extends BaseFragment {
 
 
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            //TODO click one item jump to detail S
-            Intent intent = new Intent(context, SurveyActivity.class);
+           /*
+           * 必须选择调查人，否则不能开始调查功能
+           *TODO surveyed 既能输入又能选择
+           * */
+            if (name != null) {
+                Intent intent = new Intent(context, SurveyActivity.class);
 
-            rowsBean = rowsBeans.get(position);
-            surveyNo = rowsBean.SurveyNo;
-            surveyName = rowsBean.SurveyName;
-            intent.putExtra("surveyNo", surveyNo);
-            intent.putExtra("SurveyName", surveyName);
-            intent.putExtra("Name",name);
-            intent.putExtra("BedNo",bedNo);
+                rowsBean = rowsBeans.get(position);
+                surveyNo = rowsBean.SurveyNo;
+                surveyName = rowsBean.SurveyName;
+                intent.putExtra("surveyNo", surveyNo);
+                intent.putExtra("SurveyName", surveyName);
+                intent.putExtra("Name", name);
+                intent.putExtra("BedNo", bedNo);
 
-            startActivity(intent);
+                startActivity(intent);
+            } else {
+                MyToast.showToast(DiaoChaFragment.this.getActivity(), "请选择调查人");
+
+            }
+
         }
     }
 
@@ -174,13 +183,13 @@ public class DiaoChaFragment extends BaseFragment {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_add:
                 /*
                 * click here jump to mypationte activity for surveyed's data
                 * */
-                  startActivity(new Intent(context,MyPationteActivity.class));
-              break;
+                startActivity(new Intent(context, MyPationteActivity.class));
+                break;
 
         }
     }
@@ -191,8 +200,8 @@ public class DiaoChaFragment extends BaseFragment {
         public void onReceive(Context context, Intent intent) {
             name = intent.getStringExtra("Name");
             bedNo = intent.getStringExtra("BedNo");
-            MyLog.i("DATA","Name："+ name +"   BedNo:"+ bedNo);
-             et_search.setText("姓名："+ name +"    床位号："+ bedNo);
+            MyLog.i("DATA", "Name：" + name + "   BedNo:" + bedNo);
+            et_search.setText("姓名：" + name + "    床位号：" + bedNo);
         }
     }
 
@@ -203,17 +212,22 @@ public class DiaoChaFragment extends BaseFragment {
 
         receiver = new MyBrocastReceiver();
         broadcastManager = LocalBroadcastManager.getInstance(getActivity());
-        IntentFilter intentFilter=new IntentFilter();
+        IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("INTEN_MYPATIONTE");
-        broadcastManager.registerReceiver(receiver,intentFilter);
-        MyToast.showToast(getActivity(),"收到广播了");
+        broadcastManager.registerReceiver(receiver, intentFilter);
+        MyToast.showToast(getActivity(), "收到广播了");
     }
 
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         broadcastManager.unregisterReceiver(receiver);
+    }
+
+
+    public interface callBack{
+        public void sendUserData(String userName,String keShi);
+
     }
 }
