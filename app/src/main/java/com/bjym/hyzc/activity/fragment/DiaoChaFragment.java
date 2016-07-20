@@ -52,7 +52,9 @@ public class DiaoChaFragment extends BaseFragment {
     private MyBrocastReceiver receiver;
     private LocalBroadcastManager broadcastManager;
     private String name;
-    private String bedNo;
+    private String patientsNo;
+    private String userCode;
+    private String realName;
 
     @Override
     public View setMainView() {
@@ -60,27 +62,39 @@ public class DiaoChaFragment extends BaseFragment {
         ll_diaoChaSort = (ListView) view.findViewById(R.id.ll_diaoChaSort);
         re_search = (RelativeLayout) view.findViewById(R.id.re_search);
         et_search = (EditText) view.findViewById(R.id.et_search);
-        btn_add = (Button) view.findViewById(R.id.btn_add);
 
+        btn_add = (Button) view.findViewById(R.id.btn_add);
+        ll_diaoChaSort.setOnItemClickListener(new MyOnItemClickListner());
+        re_search.setOnClickListener(this);
+        btn_add.setOnClickListener(this);
         return view;
     }
 
     @Override
     public void InitData() {
-        getNetData();
-        ll_diaoChaSort.setOnItemClickListener(new MyOnItemClickListner());
-        re_search.setOnClickListener(this);
-        btn_add.setOnClickListener(this);
+
+        /*
+        * 得到用户名和真实姓名，提交使用
+        * */
+        Bundle bundle = getArguments();
+        userCode = bundle.getString("userCode");
+        realName = bundle.getString("realName");
+
+        
+         /*
+        * 得到调查问卷的类型
+        * */
+        getSurveySortData();
     }
 
-    private void getNetData() {
+    private void getSurveySortData() {
         //请求调查类型
         OkHttpUtils.get().url(MyConstant.MYDIAOCHA_URL).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 String result = response.body().string();
                 //  MyToast.showToast(DiaoChaFragment.this.getActivity(), "success" + result);
-                parseJson(result);
+                parseSurveySortJson(result);
                 return null;
             }
 
@@ -91,20 +105,17 @@ public class DiaoChaFragment extends BaseFragment {
 
             @Override
             public void onResponse(Object o, int i) {
-
                 if (adpter == null) {
                     adpter = new MyAdapter();
                     ll_diaoChaSort.setAdapter(adpter);
                 } else {
                     adpter.notifyDataSetChanged();
                 }
-
-
             }
         });
     }
 
-    private void parseJson(String result) throws JSONException {
+    private void parseSurveySortJson(String result) throws JSONException {
         //TODO here parse diaocha sort
         Gson gson = new Gson();
         DiaoChaSortBean diaoChaSortBean = gson.fromJson(result, DiaoChaSortBean.class);
@@ -115,15 +126,11 @@ public class DiaoChaFragment extends BaseFragment {
         }
     }
 
-
     public class MyAdapter extends BaseAdapter {
-
-
         @Override
         public int getCount() {
             return rowsBeans.size();
         }
-
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -131,7 +138,6 @@ public class DiaoChaFragment extends BaseFragment {
             TextView tv_diaoChaSort = null;
             if (convertView == null) {
                 view = View.inflate(context, R.layout.item_list_diaochasort, null);
-
             } else {
                 view = convertView;
             }
@@ -151,34 +157,50 @@ public class DiaoChaFragment extends BaseFragment {
         }
     }
 
+    /*
+    *用户点击调查问卷条目的监听
+    * */
     public class MyOnItemClickListner implements AdapterView.OnItemClickListener {
 
 
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
            /*
-           * 必须选择调查人，否则不能开始调查功能
+           * 1.必须选择调查人，否则不能开始调查功能
            *TODO surveyed 既能输入又能选择
+           * 2.传递调查者姓名和编号，患者姓名和编号以及问卷编码到surveyActivity 用于提交数据
            * */
             if (name != null) {
                 Intent intent = new Intent(context, SurveyActivity.class);
-
                 rowsBean = rowsBeans.get(position);
                 surveyNo = rowsBean.SurveyNo;
                 surveyName = rowsBean.SurveyName;
-                intent.putExtra("surveyNo", surveyNo);
+                /*
+                * 调查表的名字
+                * */
                 intent.putExtra("SurveyName", surveyName);
+                /*
+                * 调查表的编号
+                * */
+                intent.putExtra("surveyNo", surveyNo);
+
+                /*
+                * 患者姓名和患者编号
+                * */
                 intent.putExtra("Name", name);
-                intent.putExtra("BedNo", bedNo);
+                intent.putExtra("patientsNo", patientsNo);
+
+                /*
+                * 用户编码和真实姓名
+                * */
+                intent.putExtra("userCode", userCode);
+                intent.putExtra("realName", realName);
 
                 startActivity(intent);
             } else {
                 MyToast.showToast(DiaoChaFragment.this.getActivity(), "请选择调查人");
-
             }
-
         }
     }
-
 
     @Override
     public void onClick(View v) {
@@ -190,26 +212,28 @@ public class DiaoChaFragment extends BaseFragment {
                 * */
                 startActivity(new Intent(context, MyPationteActivity.class));
                 break;
-
         }
     }
 
+    /*
+    * 收到患者详情发来的广播，得到患者姓名和患者编号
+    * */
     public class MyBrocastReceiver extends BroadcastReceiver {
-
         @Override
         public void onReceive(Context context, Intent intent) {
+            /*
+            * 得到患者姓名和患者标号
+            * */
             name = intent.getStringExtra("Name");
-            bedNo = intent.getStringExtra("BedNo");
-            MyLog.i("DATA", "Name：" + name + "   BedNo:" + bedNo);
-            et_search.setText("姓名：" + name + "    床位号：" + bedNo);
+            patientsNo = intent.getStringExtra("patientsNo");
+            MyLog.i("DATA", "Name：" + name + "   patientsNo:" + patientsNo);
+            et_search.setText("姓名：" + name + "    患者编号：" + patientsNo);
         }
     }
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         receiver = new MyBrocastReceiver();
         broadcastManager = LocalBroadcastManager.getInstance(getActivity());
         IntentFilter intentFilter = new IntentFilter();
@@ -226,8 +250,4 @@ public class DiaoChaFragment extends BaseFragment {
     }
 
 
-    public interface callBack{
-        public void sendUserData(String userName,String keShi);
-
-    }
 }

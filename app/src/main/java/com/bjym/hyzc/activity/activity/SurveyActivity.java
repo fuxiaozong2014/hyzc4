@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.bean.Question;
 import com.bjym.hyzc.activity.bean.QuestionOption;
+import com.bjym.hyzc.activity.bean.SubmitorMsg;
 import com.bjym.hyzc.activity.bean.SurveyAnswer;
 import com.bjym.hyzc.activity.fragment.BaseFragment;
 import com.bjym.hyzc.activity.utils.MyConstant;
@@ -58,6 +59,10 @@ public class SurveyActivity extends BaseActivity {
     private String topicNo;
     private String choiceNum;
     private String name;
+    private String patientsNo;
+    private String userCode;
+    private String realName;
+    private String newCode;
 
 
     public class MyFragmentPageAdpter extends FragmentPagerAdapter {
@@ -95,15 +100,40 @@ public class SurveyActivity extends BaseActivity {
 
     @Override
     public void InitData() {
+        getPatiSurveryNo();
 
         Intent intent = getIntent();
+        /*
+        * 调查表编号
+        * */
         surveyNo = intent.getStringExtra("surveyNo");
-        surveyName = intent.getStringExtra("SurveyName");
-        name = intent.getStringExtra("Name");
 
+        /*
+        * 患者姓名和编号
+        * */
+        name = intent.getStringExtra("Name");
+        patientsNo = intent.getStringExtra("patientsNo");
+
+        /*
+        * 用户账号和姓名
+        * */
+        userCode = intent.getStringExtra("userCode");
+        realName = intent.getStringExtra("realName");
+        /*
+        * 调查表名字，设置为title
+        * */
+        surveyName = intent.getStringExtra("SurveyName");
         setTitle(surveyName);
 
+        /*
+        * 获取调查编号，用于提交
+        * */
+
+        /*
+        * 根据调查表编号，获取问题题干
+        * */
         getQuesionData();
+
 
         adpter = new MyFragmentPageAdpter(getSupportFragmentManager());
         vg.setAdapter(adpter);
@@ -131,6 +161,37 @@ public class SurveyActivity extends BaseActivity {
 
     }
 
+    /*
+    * 获取调查编码用于提交
+    * */
+    private void getPatiSurveryNo() {
+        OkHttpUtils.get().url(MyConstant.PATISURVERYNO_URL).build().execute(new Callback() {
+            @Override
+            public Object parseNetworkResponse(Response response, int i) throws Exception {
+                String patiSurveyNoStr = response.body().string();
+                MyLog.i("请求成功",patiSurveyNoStr);
+                return null;
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                MyToast.showToast(SurveyActivity.this,"请求失败");
+            }
+
+            @Override
+            public void onResponse(Object o, int i) {
+                MyLog.i("success","请求成功");
+
+            }
+
+        });
+
+    }
+
+
+    /*
+    * 根据调查表编号获取问题题干
+    * */
     private void getQuesionData() {
 
         url1 = MyConstant.QUESTIONLIST_URL + surveyNo;
@@ -217,19 +278,21 @@ public class SurveyActivity extends BaseActivity {
                 choiceNum = (String) entry.getValue();
 
             }
-            /*
-            String topicNo, String answer, String name, String subTime
-             */
-            String toJson = new Gson().toJson(new SurveyAnswer(topicNo,choiceNum,name,""));
-            MyLog.i("toJson:",toJson);
-            postAnswers(toJson);
+
+            String answer = new Gson().toJson(new SurveyAnswer(newCode,topicNo, choiceNum,""));
+            MyLog.i("answer",answer);
+
+            String pationpMsg= new Gson().toJson(new SubmitorMsg(newCode, surveyNo, patientsNo, name, userCode, realName, ""));
+            MyLog.i("pationpMsg",pationpMsg);
+
+            postPationMsg(pationpMsg);
+            postAnswers(answer);
 
         }
     }
 
-    private void postAnswers(String toJson) {
-
-        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content(toJson)
+    private void postPationMsg(String pationpMsg ) {
+        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content(pationpMsg)
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -238,17 +301,41 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(SurveyActivity.this,"提交错误"+e.toString());
+                MyToast.showToast(SurveyActivity.this, "提交错误" + e.toString());
 
-                MyLog.i("postAnswers","提交错误"+e.toString());
+                MyLog.i("postPationMsg", "提交错误" + e.toString());
             }
 
             @Override
             public void onResponse(Object o, int i) {
-                    MyToast.showToast(SurveyActivity.this,"提交成功");
+                MyToast.showToast(SurveyActivity.this, "提交成功");
             }
         });
     }
+
+    private void postAnswers(String answer) {
+
+        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content(answer)
+                .build().execute(new Callback() {
+            @Override
+            public Object parseNetworkResponse(Response response, int i) throws Exception {
+                return null;
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                MyToast.showToast(SurveyActivity.this, "提交错误" + e.toString());
+
+                MyLog.i("postAnswers", "提交错误" + e.toString());
+            }
+
+            @Override
+            public void onResponse(Object o, int i) {
+                MyToast.showToast(SurveyActivity.this, "提交成功");
+            }
+        });
+    }
+
 
     public static class SurveyFragment extends BaseFragment {
 
@@ -283,6 +370,9 @@ public class SurveyActivity extends BaseActivity {
             }
         }
 
+        /*
+        * 根据题干编号获取选项
+        * */
         private void getOptions() {
             String url = MyConstant.OPTION_URL + topicNo;
 

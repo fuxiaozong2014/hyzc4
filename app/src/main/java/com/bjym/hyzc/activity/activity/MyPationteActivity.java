@@ -200,11 +200,11 @@ public class MyPationteActivity extends BaseActivity {
             LocalBroadcastManager manager=LocalBroadcastManager.getInstance(context);
 
             String name = pationtes.get(position).Name;
-            String bedNo = pationtes.get(position).BedNo;
+            String patientsNo = pationtes.get(position).PatientsNo;
             Intent intent=new Intent();
             intent.setAction("INTEN_MYPATIONTE");
             intent.putExtra("Name", name);
-            intent.putExtra("BedNo",bedNo);
+            intent.putExtra("patientsNo",patientsNo);
             manager.sendBroadcast(intent);
             finish();
         }

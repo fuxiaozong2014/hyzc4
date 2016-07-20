@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.activity.MyPationteActivity;
-import com.bjym.hyzc.activity.bean.Myself;
 import com.bjym.hyzc.activity.bean.Pationte;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyToast;
@@ -25,17 +24,15 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 
-
 public class AccenterFragment extends BaseFragment {
 
     private LinearLayout ll_myPationte;
     private TextView tv_account;
     private TextView tv_myPationte;
     private TextView tv_keshi;
-    private List<Myself> myselefLists;
+
     private List<Pationte> pationtes;
-    private static String departmentCode;
-    private static String realName;
+
 
     @Override
     public View setMainView() {
@@ -43,60 +40,31 @@ public class AccenterFragment extends BaseFragment {
         ll_myPationte = (LinearLayout) view.findViewById(R.id.ll_myPationte);
         tv_account = (TextView) view.findViewById(R.id.tv_account);
         tv_keshi = (TextView) view.findViewById(R.id.tv_keshi);
-        tv_myPationte=(TextView)view.findViewById(R.id.tv_myPationte);
+        tv_myPationte = (TextView) view.findViewById(R.id.tv_myPationte);
         return view;
     }
 
     @Override
     public void InitData() {
-        getNetData();
+
+        /*
+        * 得到mainActivity中传过来的用户信息
+        * */
+        Bundle bundle = getArguments();
+        String departmentCode = bundle.getString("departmentCode");
+        String userCode = bundle.getString("userCode");
+
+        /*
+        * 把用户信息赋值给textview
+        * */
+        tv_account.setText("用户名："+userCode);
+        tv_keshi.setText("科室名："+departmentCode);
+
         ll_myPationte.setOnClickListener(this);
         getPationteData();
 
     }
 
-    private void getNetData() {
-        OkHttpUtils.get().url(MyConstant.MYMSG_URL).build().execute(new Callback() {
-
-
-
-            @Override
-            public Object parseNetworkResponse(Response response, int i) throws Exception {
-                String json = response.body().string();
-                //MyToast.showToast(AccenterFragment.this.getActivity(), "请求成功" + json);
-                parseMyselfJson(json);
-                return null;
-            }
-
-            @Override
-            public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(AccenterFragment.this.getActivity(), "请求失败");
-            }
-
-            @Override
-            public void onResponse(Object o, int in) {
-                for (int i = 0; i < myselefLists.size(); i++) {
-                    Myself myself = myselefLists.get(i);
-                    realName = myself.RealName;
-                    departmentCode = myself.DepartmentCode;
-
-                    tv_account.setText("用户名：" + realName);
-                    tv_keshi.setText("所属科室：" + departmentCode);
-                }
-
-
-
-            }
-        });
-    }
-
-    private void parseMyselfJson(String json) {
-
-        myselefLists = new Gson().fromJson(json, new TypeToken<List<Myself>>() {
-        }.getType());
-
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -124,7 +92,7 @@ public class AccenterFragment extends BaseFragment {
 
             @Override
             public void onResponse(Object o, int i) {
-                    tv_myPationte.setText("管床病人 ( "+pationtes.size()+" )");
+                tv_myPationte.setText("管床病人 ( " + pationtes.size() + " )");
 
             }
         });
@@ -136,13 +104,4 @@ public class AccenterFragment extends BaseFragment {
         }.getType());
     }
 
-    public static AccenterFragment newInstance()
-    {
-        Bundle bundle = new Bundle();
-        bundle.putString("realName", realName);
-        bundle.putString("departmentCode", departmentCode);
-        AccenterFragment accenterFragment = new AccenterFragment();
-        accenterFragment.setArguments(bundle);
-        return accenterFragment;
-    }
 }
