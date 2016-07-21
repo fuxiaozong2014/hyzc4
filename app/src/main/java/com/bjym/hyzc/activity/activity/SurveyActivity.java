@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bjym.hyzc.R;
+import com.bjym.hyzc.activity.bean.PatiSurveyNo;
 import com.bjym.hyzc.activity.bean.Question;
 import com.bjym.hyzc.activity.bean.QuestionOption;
 import com.bjym.hyzc.activity.bean.SubmitorMsg;
@@ -26,15 +27,19 @@ import com.bjym.hyzc.activity.utils.MyToast;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
+import okhttp3.MediaType;
 import okhttp3.Response;
 
 /**
@@ -100,6 +105,9 @@ public class SurveyActivity extends BaseActivity {
 
     @Override
     public void InitData() {
+          /*
+        * 获取调查编号，用于提交
+        * */
         getPatiSurveryNo();
 
         Intent intent = getIntent();
@@ -125,9 +133,7 @@ public class SurveyActivity extends BaseActivity {
         surveyName = intent.getStringExtra("SurveyName");
         setTitle(surveyName);
 
-        /*
-        * 获取调查编号，用于提交
-        * */
+
 
         /*
         * 根据调查表编号，获取问题题干
@@ -168,19 +174,19 @@ public class SurveyActivity extends BaseActivity {
         OkHttpUtils.get().url(MyConstant.PATISURVERYNO_URL).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
-                String patiSurveyNoStr = response.body().string();
-                MyLog.i("请求成功",patiSurveyNoStr);
-                return null;
+                MyLog.i("success", "请求成功le");
+                return response.body().string();
             }
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(SurveyActivity.this,"请求失败");
+                MyToast.showToast(SurveyActivity.this, "请求失败");
             }
 
             @Override
             public void onResponse(Object o, int i) {
-                MyLog.i("success","请求成功");
+                parsePatiSurveyNo((String) o);
+                MyLog.i("success", "请求成功");
 
             }
 
@@ -188,6 +194,13 @@ public class SurveyActivity extends BaseActivity {
 
     }
 
+    private void parsePatiSurveyNo(String o) {
+
+        Gson gson = new Gson();
+        PatiSurveyNo patiSurveyNo = gson.fromJson(o, PatiSurveyNo.class);
+        newCode = patiSurveyNo.newCode;
+        MyLog.i("newCode:", newCode);
+    }
 
     /*
     * 根据调查表编号获取问题题干
@@ -246,7 +259,6 @@ public class SurveyActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_next:
-
                 if (position != vg.getChildCount() - 1) {
                     vg.setCurrentItem(++position);
                 }
@@ -259,6 +271,7 @@ public class SurveyActivity extends BaseActivity {
                 commitAnswers();
                 finish();
                 break;
+
             default:
                 break;
         }
@@ -279,20 +292,26 @@ public class SurveyActivity extends BaseActivity {
 
             }
 
-            String answer = new Gson().toJson(new SurveyAnswer(newCode,topicNo, choiceNum,""));
-            MyLog.i("answer",answer);
+            String answer = new Gson().toJson(new SurveyAnswer(newCode, topicNo, choiceNum, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
+            MyLog.i("answer", answer);
 
-            String pationpMsg= new Gson().toJson(new SubmitorMsg(newCode, surveyNo, patientsNo, name, userCode, realName, ""));
-            MyLog.i("pationpMsg",pationpMsg);
+            String pationpMsg = new Gson().toJson(new SubmitorMsg(newCode, surveyNo, patientsNo, name, userCode, realName, ""));
+            MyLog.i("pationpMsg", pationpMsg);
 
-            postPationMsg(pationpMsg);
+            /*
+            * 提交调查基本信息
+            * */
+           // postPationMsg(pationpMsg);
+            /*
+            * 提交答案
+            * */
             postAnswers(answer);
 
         }
     }
 
-    private void postPationMsg(String pationpMsg ) {
-        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content(pationpMsg)
+    private void postPationMsg(String pationpMsg) {
+        OkHttpUtils.postString().url(MyConstant.SUBMITORMSG_URL).content(pationpMsg)
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -315,23 +334,16 @@ public class SurveyActivity extends BaseActivity {
 
     private void postAnswers(String answer) {
 
-        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content(answer)
-                .build().execute(new Callback() {
-            @Override
-            public Object parseNetworkResponse(Response response, int i) throws Exception {
-                return null;
-            }
-
+        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content(answer).mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(SurveyActivity.this, "提交错误" + e.toString());
-
-                MyLog.i("postAnswers", "提交错误" + e.toString());
+                MyLog.i("提交错误",e.toString());
             }
 
             @Override
-            public void onResponse(Object o, int i) {
-                MyToast.showToast(SurveyActivity.this, "提交成功");
+            public void onResponse(String s, int i) {
+                MyLog.i("提交成功",s);
             }
         });
     }
@@ -374,33 +386,38 @@ public class SurveyActivity extends BaseActivity {
         * 根据题干编号获取选项
         * */
         private void getOptions() {
-            String url = MyConstant.OPTION_URL + topicNo;
+          final   String url = MyConstant.OPTION_URL + topicNo;
+                new Thread(){
+                    @Override
+                    public void run() {
+                        super.run();
+                        OkHttpUtils.get().url(url).build().execute(new Callback() {
+                            @Override
+                            public Object parseNetworkResponse(Response response, int i) throws Exception {
 
-            OkHttpUtils.get().url(url).build().execute(new Callback() {
-                @Override
-                public Object parseNetworkResponse(Response response, int i) throws Exception {
+                                return response;
+                            }
 
-                    return response;
-                }
+                            @Override
+                            public void onError(Call call, Exception e, int i) {
 
-                @Override
-                public void onError(Call call, Exception e, int i) {
+                            }
 
-                }
-
-                @Override
-                public void onResponse(Object response, int i) {
-                    if (response instanceof Response) {
-                        try {
-                            String result = ((Response) response).body().string();
-                            parseResult(result);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
+                            @Override
+                            public void onResponse(Object response, int i) {
+                                if (response instanceof Response) {
+                                    try {
+                                        String result = ((Response) response).body().string();
+                                        parseResult(result);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        });
                     }
-                }
-            });
+                }.start();
+
 
         }
 

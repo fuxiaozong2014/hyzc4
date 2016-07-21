@@ -1,10 +1,12 @@
 package com.bjym.hyzc.activity.activity;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.bjym.hyzc.R;
@@ -35,20 +37,30 @@ public class LoginActivity extends BaseActivity {
     private Button btn_exit;
     private String password;
     private String usercode;
-
+    private SharedPreferences sp;
+    private CheckBox cb;
 
     @Override
     public View setMainView() {
+        sp = getSharedPreferences("Config", MODE_PRIVATE);
         View view = View.inflate(LoginActivity.this, R.layout.activity_login, null);
         btn_login = (Button) view.findViewById(R.id.btn_login);
         btn_exit = (Button) view.findViewById(R.id.btn_exit);
         et_name = (EditText) view.findViewById(R.id.et_name);
         et_pwd = (EditText) view.findViewById(R.id.et_pwd);
+        cb = (CheckBox) view.findViewById(R.id.cb);
         return view;
     }
 
     @Override
     public void InitData() {
+         /*
+        * 记住密码后，回显账号和密码，以及isChecked
+        * */
+        et_name.setText(sp.getString("usercode",""));
+        et_pwd.setText(sp.getString("password",""));
+        cb.setChecked(sp.getBoolean("isChecked",false));
+
         btn_login.setOnClickListener(this);
         btn_exit.setOnClickListener(this);
 
@@ -66,6 +78,10 @@ public class LoginActivity extends BaseActivity {
             case R.id.btn_exit:
                 goToHome();
                 break;
+            case R.id.cb:
+
+
+                break;
             default:
                 break;
         }
@@ -76,6 +92,8 @@ public class LoginActivity extends BaseActivity {
         usercode = et_name.getText().toString().trim();
         password = et_pwd.getText().toString().trim();
         if (TextUtils.isEmpty(usercode) || TextUtils.isEmpty(password)) {
+            ObjectAnimator.ofFloat(et_name, "translationX", 15f, -15f, 20f, -20f, 0).setDuration(300).start();
+            ObjectAnimator.ofFloat(et_pwd, "translationX", 15f, -15f, 20f, -20f, 0).setDuration(300).start();
             MyToast.showToast(LoginActivity.this, "请输入用户名或密码");
             return;
         } else {
@@ -97,7 +115,7 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onError(Call call, Exception e, int i) {
                             e.printStackTrace();
-                          //  MyToast.showToast(LoginActivity.this, "请求失败");
+                            //  MyToast.showToast(LoginActivity.this, "请求失败");
                         }
 
                         @Override
@@ -130,16 +148,10 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void saveUserInfo() {
-        SharedPreferences sp = getSharedPreferences("Config", MODE_PRIVATE);
+
         sp.edit().putString("usercode", usercode).commit();
         sp.edit().putString("password", password).commit();
-        sp.edit().putBoolean("isLogin", true).commit();
-
-        //如果非首次登录需要用户选择是否记住密码
-
-
-
-
+        sp.edit().putBoolean("isChecked", true).commit();
     }
 
 
@@ -150,7 +162,7 @@ public class LoginActivity extends BaseActivity {
         JPushInterface.setAliasAndTags(LoginActivity.this, usercode, set, new TagAliasCallback() {
             @Override
             public void gotResult(int i, String s, Set<String> set) {
-                MyToast.showToast(LoginActivity.this,"Tag设置成功");
+                MyToast.showToast(LoginActivity.this, "Tag设置成功");
             }
         });
     }

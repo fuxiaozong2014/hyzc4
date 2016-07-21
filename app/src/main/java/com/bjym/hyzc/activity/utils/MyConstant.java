@@ -7,7 +7,9 @@ public class MyConstant {
     /**
      * 服务器ip
      */
-    public static final String BASE_URL = "http://192.168.0.168";
+    // public static final String BASE_URL = "http://192.168.0.168";
+    // public static final String BASE_URL = "http://cp.sqall.com";
+    public static final String BASE_URL = "http://hyzc.tpddns.cn:6060";
     /**
      * 登录接口
      */
@@ -33,13 +35,18 @@ public class MyConstant {
     * 选项表接口
     * */
     public static final String OPTION_URL = BASE_URL+"/cpw/CPW_Choice/getlistbytopicno?topic=";
-    /*
-    * 提交答案接口
-    * */
-    public static final String ANSWERS_URL = BASE_URL + "/cpw/CPW_PatiAnswer/addpatianswer";
+
     /*
     * 获取调查编号接口
     * */
-    public static final String  PATISURVERYNO_URL = BASE_URL + "/cpw/CPW_PatiAnswer/addpatianswer";
+    public static final String  PATISURVERYNO_URL = BASE_URL + "/Sys/Base_CodeRule/getrulecode?RuleCode=PSS";
 
+    /*
+    * 提交调查基本信息接口
+    * */
+    public static final String SUBMITORMSG_URL = BASE_URL + "/cpw/CPW_PatiSurvery/addpatisurvery";
+    /*
+    * 提交答案接口
+    * */
+    public static final String ANSWERS_URL = BASE_URL + "/cpw/CPW_PatiAnswer/addpatianswe";
 }
