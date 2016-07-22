@@ -29,7 +29,6 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,7 +38,6 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
-import okhttp3.MediaType;
 import okhttp3.Response;
 
 /**
@@ -100,6 +98,7 @@ public class SurveyActivity extends BaseActivity {
         btn_pre.setOnClickListener(this);
         btn_next.setOnClickListener(this);
         btn_commit.setOnClickListener(this);
+
         return view;
     }
 
@@ -151,20 +150,18 @@ public class SurveyActivity extends BaseActivity {
                 if (position == 0) {
                     btn_pre.setClickable(false);
                     MyToast.showToast(SurveyActivity.this, "已经是第一题");
-                } else {
+                }else{
                     btn_pre.setClickable(true);
                 }
-                if (position == fragments.size() - 1) {
+                if (position == fragments.size() - 1){
                     btn_next.setClickable(false);
                     btn_commit.setVisibility(View.VISIBLE);
-
-                } else {
+                    MyToast.showToast(SurveyActivity.this, "已经是最后一题");
+                }else{
                     btn_next.setClickable(true);
                 }
             }
         });
-
-
     }
 
     /*
@@ -256,11 +253,15 @@ public class SurveyActivity extends BaseActivity {
             case R.id.btn_pre:
                 if (position != 0) {
                     vg.setCurrentItem(--position);
+                }else {
+                    MyToast.showToast(SurveyActivity.this,"已经是第一题");
                 }
                 break;
             case R.id.btn_next:
                 if (position != vg.getChildCount() - 1) {
                     vg.setCurrentItem(++position);
+                }else {
+                    MyToast.showToast(SurveyActivity.this,"已经是最后一题");
                 }
                 break;
             case R.id.btn_commit:
@@ -301,7 +302,7 @@ public class SurveyActivity extends BaseActivity {
             /*
             * 提交调查基本信息
             * */
-           // postPationMsg(pationpMsg);
+            postPationMsg(pationpMsg);
             /*
             * 提交答案
             * */
@@ -320,7 +321,7 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(SurveyActivity.this, "提交错误" + e.toString());
+                MyToast.showToast(SurveyActivity.this, "postPationMsg提交错误" + e.toString());
 
                 MyLog.i("postPationMsg", "提交错误" + e.toString());
             }
@@ -334,16 +335,18 @@ public class SurveyActivity extends BaseActivity {
 
     private void postAnswers(String answer) {
 
-        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content(answer).mediaType(MediaType.parse("application/json; charset=utf-8"))
+        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content("["+answer+"]")
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyLog.i("提交错误",e.toString());
+                MyToast.showToast(SurveyActivity.this, "提交错误" + e.toString());
+                MyLog.i("提交错误", e.toString());
             }
 
             @Override
             public void onResponse(String s, int i) {
-                MyLog.i("提交成功",s);
+                MyToast.showToast(SurveyActivity.this, "提交成功");
+                MyLog.i("提交成功", s);
             }
         });
     }
@@ -386,38 +389,33 @@ public class SurveyActivity extends BaseActivity {
         * 根据题干编号获取选项
         * */
         private void getOptions() {
-          final   String url = MyConstant.OPTION_URL + topicNo;
-                new Thread(){
-                    @Override
-                    public void run() {
-                        super.run();
-                        OkHttpUtils.get().url(url).build().execute(new Callback() {
-                            @Override
-                            public Object parseNetworkResponse(Response response, int i) throws Exception {
+            final String url = MyConstant.OPTION_URL + topicNo;
 
-                                return response;
-                            }
 
-                            @Override
-                            public void onError(Call call, Exception e, int i) {
+            OkHttpUtils.get().url(url).build().execute(new Callback() {
+                @Override
+                public Object parseNetworkResponse(Response response, int i) throws Exception {
 
-                            }
+                    return response;
+                }
 
-                            @Override
-                            public void onResponse(Object response, int i) {
-                                if (response instanceof Response) {
-                                    try {
-                                        String result = ((Response) response).body().string();
-                                        parseResult(result);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        });
+                @Override
+                public void onError(Call call, Exception e, int i) {
+
+                }
+
+                @Override
+                public void onResponse(Object response, int i) {
+                    if (response instanceof Response) {
+                        try {
+                            String result = ((Response) response).body().string();
+                            parseResult(result);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }.start();
-
+                }
+            });
 
         }
 

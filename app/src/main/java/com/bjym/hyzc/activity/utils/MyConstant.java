@@ -7,9 +7,9 @@ public class MyConstant {
     /**
      * 服务器ip
      */
-    // public static final String BASE_URL = "http://192.168.0.168";
+    public static final String BASE_URL = "http://192.168.0.168";
     // public static final String BASE_URL = "http://cp.sqall.com";
-    public static final String BASE_URL = "http://hyzc.tpddns.cn:6060";
+    //public static final String BASE_URL = "http://hyzc.tpddns.cn:6060";
     /**
      * 登录接口
      */
