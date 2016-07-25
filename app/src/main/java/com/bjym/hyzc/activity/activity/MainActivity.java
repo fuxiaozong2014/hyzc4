@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.bean.Myself;
@@ -65,6 +66,26 @@ public class MainActivity extends BaseActivity
         View view = View.inflate(context, R.layout.activity_main, null);
 
         Toolbar toolbar = initView(view);
+
+        toolbar.setTitle("测试标题");
+        //getSupportActionBar(toolbar);
+       /* 菜单的监听可以在toolbar里设置，也可以像ActionBar那样，通过Activity的onOptionsItemSelected回调方法来处理 */
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_settings:
+                        Toast.makeText(MainActivity.this, "action_settings", Toast.LENGTH_SHORT).show();
+                        break;
+                   /* case R.id.action_share:
+                        Toast.makeText(MainActivity.this, "action_share", 0).show();
+                        break;*/
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
 
         defaultHomeView();
         defaultReplaceHomeFragment();
@@ -367,7 +388,7 @@ public class MainActivity extends BaseActivity
     private void resetMyView() {
 
         //默认主页为绿色
-        Drawable my2 = getResources().getDrawable(R.mipmap.my2);
+        Drawable my2 = getResources().getDrawable(R.mipmap.my);
         my2.setBounds(0, 0, my2.getMinimumWidth(), my2.getMinimumHeight());
         tv_my.setTextColor(getResources().getColor(R.color.colorPrimary));
         tv_my.setCompoundDrawables(null, my2, null, null);

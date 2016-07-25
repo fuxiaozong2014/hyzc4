@@ -6,11 +6,13 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="iv_login_size">30dp</dimen>
-    <dimen name="et_login_size">16dp</dimen>
+
+    <dimen name="iv_login_size">20dp</dimen>
+    <dimen name="et_login_size">14dp</dimen>
     <dimen name="level_1_size">20sp</dimen>
     <dimen name="level_2_size">18sp</dimen>
     <dimen name="level_3_size">16sp</dimen>
     <dimen name="level_4_size">14sp</dimen>
     <dimen name="title_iv_size">30dp</dimen>
+    <dimen name="margin_left_iv_user">10dp</dimen>
 </resources>

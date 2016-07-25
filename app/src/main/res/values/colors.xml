@@ -5,17 +5,31 @@
     <color name="colorPrimary">#65B768</color>
     <color name="colorPrimaryDark">#337836</color>
     <color name="colorAccent">#65B768</color>
+
+    <color name="et_login_color">#cccccc</color>
+    <color name="big_bg_color">#eeeeee</color>
+    <color name="wangjimima_color">#ff6137</color>
+    <color name="click_diaocha_duixiang">#f3f3f3</color>
+    <color name="click_diaocha_search">#999999</color>
+    <color name="background_white">#ffffffff</color>
+    <color name="fontcolor">#666666</color>
+
     <color name="grey">#33aaaaaa</color>
     <color name="main">#43B97D</color>
-    <color name="background_white">#ffffffff</color>
+
     <color name="splash_clolor">#43B97D</color>
-    <color name="fontcolor">#666666</color>
+
     <color name="fragmentTitleBarCol">#6fff</color>
     <color name="fontcolor_light">#a8aeaf</color>
     <color name="pink">#FB92B4</color>
     <color name="Hui">#787878</color>
     <color name="MyPationte_MyMsg">#666666</color>
     <color name="MyPationte_MyFunction">#000000</color>
+    <color name="menu_item_text_color">#ff0000</color>
 
+    <color name="white">#eeffffff</color>
+    <color name="green">#31C27C</color>
+    <color name="halfwhite">#66ffffff</color>
+    <color name="main_list_pressed">#44ffffff</color>
 
 </resources>

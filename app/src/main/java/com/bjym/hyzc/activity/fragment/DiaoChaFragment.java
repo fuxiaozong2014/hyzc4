@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -47,8 +45,7 @@ public class DiaoChaFragment extends BaseFragment {
     private String surveyName;
     private MyAdapter adpter;
     private RelativeLayout re_search;
-    private EditText et_search;
-    private Button btn_add;
+    private TextView tv_search;
     private MyBrocastReceiver receiver;
     private LocalBroadcastManager broadcastManager;
     private String name;
@@ -60,13 +57,11 @@ public class DiaoChaFragment extends BaseFragment {
     public View setMainView() {
         View view = View.inflate(getContext(), R.layout.fragment_diaocha, null);
         ll_diaoChaSort = (ListView) view.findViewById(R.id.ll_diaoChaSort);
-        re_search = (RelativeLayout) view.findViewById(R.id.re_search);
-        et_search = (EditText) view.findViewById(R.id.et_search);
+        //re_search = (RelativeLayout) view.findViewById(R.id.re_search);
+        tv_search = (TextView) view.findViewById(R.id.tv_search);
 
-        btn_add = (Button) view.findViewById(R.id.btn_add);
         ll_diaoChaSort.setOnItemClickListener(new MyOnItemClickListner());
-        re_search.setOnClickListener(this);
-        btn_add.setOnClickListener(this);
+        tv_search.setOnClickListener(this);
         return view;
     }
 
@@ -206,7 +201,7 @@ public class DiaoChaFragment extends BaseFragment {
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-            case R.id.btn_add:
+            case R.id.tv_search:
                 /*
                 * click here jump to mypationte activity for surveyed's data
                 * */
@@ -227,7 +222,7 @@ public class DiaoChaFragment extends BaseFragment {
             name = intent.getStringExtra("Name");
             patientsNo = intent.getStringExtra("patientsNo");
             MyLog.i("DATA", "Name：" + name + "   patientsNo:" + patientsNo);
-            et_search.setText("姓名：" + name + "    患者编号：" + patientsNo);
+            tv_search.setText("姓名：" + name + "    患者编号：" + patientsNo);
         }
     }
 

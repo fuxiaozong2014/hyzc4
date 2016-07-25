@@ -12,8 +12,9 @@ public class SubmitorMsg {
     public String SurveyCode;
     public String SurveyName;
     public String Score;
+    public String SurveyTime;
 
-    public SubmitorMsg(String newCode, String surveyNo, String patientsNo, String name, String surveyCode, String surveyName, String score) {
+    public SubmitorMsg(String newCode, String surveyNo, String patientsNo, String name, String surveyCode, String surveyName, String score,String surveyTime) {
         PatiSurveryNo = newCode;
         SurveyNo = surveyNo;
         PatientsNo = patientsNo;
@@ -21,5 +22,6 @@ public class SubmitorMsg {
         SurveyCode = surveyCode;
         SurveyName = surveyName;
         Score = score;
+        SurveyTime=surveyTime;
     }
 }

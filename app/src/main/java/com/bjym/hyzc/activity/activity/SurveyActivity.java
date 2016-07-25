@@ -291,13 +291,12 @@ public class SurveyActivity extends BaseActivity {
                 topicNo = (String) entry.getKey();
                 choiceNum = (String) entry.getValue();
                 String answer = new Gson().toJson(new SurveyAnswer(newCode, topicNo, choiceNum, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
-                MyLog.i("answer", answer);
+                MyLog.i("提交成功", answer);
                 postAnswers(answer);
             }
 
 
-
-            String pationpMsg = new Gson().toJson(new SubmitorMsg(newCode, surveyNo, patientsNo, name, userCode, realName, ""));
+            String pationpMsg = new Gson().toJson(new SubmitorMsg(newCode, surveyNo, patientsNo, name, userCode, realName, "20",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
             MyLog.i("pationpMsg", pationpMsg);
 
             /*
@@ -330,6 +329,7 @@ public class SurveyActivity extends BaseActivity {
             @Override
             public void onResponse(Object o, int i) {
                 MyToast.showToast(SurveyActivity.this, "提交成功");
+                MyLog.i("提交成功le", "postPationMsg");
             }
         });
     }

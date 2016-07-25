@@ -34,7 +34,7 @@ public class LoginActivity extends BaseActivity {
     private Button btn_login;
     private EditText et_name;
     private EditText et_pwd;
-    private Button btn_exit;
+  //  private Button btn_exit;
     private String password;
     private String usercode;
     private SharedPreferences sp;
@@ -45,7 +45,7 @@ public class LoginActivity extends BaseActivity {
         sp = getSharedPreferences("Config", MODE_PRIVATE);
         View view = View.inflate(LoginActivity.this, R.layout.activity_login, null);
         btn_login = (Button) view.findViewById(R.id.btn_login);
-        btn_exit = (Button) view.findViewById(R.id.btn_exit);
+       // btn_exit = (Button) view.findViewById(R.id.btn_exit);
         et_name = (EditText) view.findViewById(R.id.et_name);
         et_pwd = (EditText) view.findViewById(R.id.et_pwd);
         cb = (CheckBox) view.findViewById(R.id.cb);
@@ -62,7 +62,7 @@ public class LoginActivity extends BaseActivity {
         cb.setChecked(sp.getBoolean("isChecked",false));
 
         btn_login.setOnClickListener(this);
-        btn_exit.setOnClickListener(this);
+       // btn_exit.setOnClickListener(this);
 
     }
 
@@ -74,10 +74,10 @@ public class LoginActivity extends BaseActivity {
             case R.id.btn_login:
                 getNetData();
                 break;
-
+/*
             case R.id.btn_exit:
                 goToHome();
-                break;
+                break;*/
             case R.id.cb:
 
 
