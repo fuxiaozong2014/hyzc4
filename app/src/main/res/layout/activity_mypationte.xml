@@ -5,38 +5,61 @@
     android:layout_gravity="center_horizontal"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/background_white"
+        android:gravity="center">
 
-    <!-- <include layout="@layout/item_titlebar" />-->
+        <TextView
+            android:id="@+id/tv_select_search"
+            android:layout_width="@dimen/tv_search_size"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_search"
+            android:drawableRight="@mipmap/search"
+            android:drawablePadding="5dp"
+            android:hint="点击选择调查对象"
+            android:textColor="@color/click_diaocha_search"
+            android:textSize="@dimen/et_login_size" />
 
-      <!--android:visibility="gone"-->
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/big_bg_color"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        ></LinearLayout>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/SwipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-   <LinearLayout
-        android:id="@+id/ll_mypationte"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_mypationtenone"
+        <LinearLayout
+            android:id="@+id/ll_mypationte"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="您现在还没有病人！"
-            android:textColor="@color/MyPationte_MyMsg"
-            android:visibility="gone"/>
+            android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/lv_mypationte"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@null"></ListView>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_mypationtenone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="您现在还没有病人！"
+                android:textColor="@color/MyPationte_MyMsg"
+                android:visibility="gone" />
+
+            <ListView
+                android:id="@+id/lv_mypationte"
+                android:background="@color/background_white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+        </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
     <include layout="@layout/item_wait_loading" />
 
     <include layout="@layout/item_no_wifi" />

@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/tv_search"
-            android:layout_width="280dp"
+            android:layout_width="290dp"
             android:gravity="center"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_search"

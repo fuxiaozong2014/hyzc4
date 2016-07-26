@@ -11,7 +11,7 @@
       android:layout_height="wrap_content"
       android:text="题干题干"
       android:paddingTop="20dp"
-      android:textColor="#000"/>
+      android:textColor="@color/myPationte_title_color"/>
 
     <RadioGroup
         android:id="@+id/rg"

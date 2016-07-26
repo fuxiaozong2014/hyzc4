@@ -20,14 +20,14 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="医生调查"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:textColor="@color/fontcolor"
             android:textSize="16dp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="@dimen/margin_left_iv_user"
             android:background="@mipmap/oh" />
 
     </LinearLayout>

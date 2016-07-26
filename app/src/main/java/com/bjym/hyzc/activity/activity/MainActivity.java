@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.bean.Myself;
-import com.bjym.hyzc.activity.fragment.AccenterFragment;
+import com.bjym.hyzc.activity.fragment.MyFragment;
 import com.bjym.hyzc.activity.fragment.DiaoChaFragment;
 import com.bjym.hyzc.activity.fragment.HomeFragment;
 import com.bjym.hyzc.activity.fragment.TongJiFragment;
@@ -41,12 +41,12 @@ public class MainActivity extends BaseActivity
 
 
     private TextView tv_my;
-    private TextView tv_diaocha;
+    private TextView tv_research;
     private TextView tv_home;
-    private TextView tv_tongji;
+    private TextView tv_count;
     private HomeFragment home;
     private DiaoChaFragment diaoCha;
-    private AccenterFragment accenter;
+    private MyFragment accenter;
     private TongJiFragment tongJi;
 
     private TextView tv_menu_accout;
@@ -115,8 +115,8 @@ public class MainActivity extends BaseActivity
     @Override
     public void InitData() {
         tv_my.setOnClickListener(this);
-        tv_diaocha.setOnClickListener(this);
-        tv_tongji.setOnClickListener(this);
+        tv_research.setOnClickListener(this);
+        tv_count.setOnClickListener(this);
         tv_home.setOnClickListener(this);
         getNetData();
     }
@@ -126,8 +126,8 @@ public class MainActivity extends BaseActivity
         setSupportActionBar(toolbar);
         tv_my = (TextView) view.findViewById(R.id.tv_accountcenter);
         tv_home = (TextView) view.findViewById(R.id.tv_home);
-        tv_diaocha = (TextView) view.findViewById(R.id.tv_diaocha);
-        tv_tongji = (TextView) view.findViewById(R.id.tv_tongji);
+        tv_research = (TextView) view.findViewById(R.id.tv_diaocha);
+        tv_count = (TextView) view.findViewById(R.id.tv_tongji);
         return toolbar;
     }
 
@@ -164,10 +164,10 @@ public class MainActivity extends BaseActivity
 
     private void defaultHomeView() {
         //默认主页为绿色
-        Drawable home2 = getResources().getDrawable(R.mipmap.home2);
-        home2.setBounds(0, 0, home2.getMinimumWidth(), home2.getMinimumHeight());
+        Drawable home_hover = getResources().getDrawable(R.mipmap.home_hover);
+        home_hover.setBounds(0, 0, home_hover.getMinimumWidth(), home_hover.getMinimumHeight());
         tv_home.setTextColor(getResources().getColor(R.color.colorPrimary));
-        tv_home.setCompoundDrawables(null, home2, null, null);
+        tv_home.setCompoundDrawables(null, home_hover, null, null);
     }
 
 
@@ -178,12 +178,12 @@ public class MainActivity extends BaseActivity
         switch (v.getId()) {
             case R.id.tv_accountcenter:
                 if (accenter == null) {
-                    accenter = new AccenterFragment();
+                    accenter = new MyFragment();
                     accenter.setArguments(bundle);
 
                 }
                 resetMyView();
-                transaction.replace(R.id.ll_content, accenter, "AccenterFragment");
+                transaction.replace(R.id.ll_content, accenter, "MyFragment");
                 break;
             case R.id.tv_diaocha:
                 if (diaoCha == null) {
@@ -276,7 +276,7 @@ public class MainActivity extends BaseActivity
 
     /*
     * 1.得到用户信息设置菜单页面的用户名
-    * 2.传递给accountfragment 和 diaochaFragment
+    * 2.传递给accountfragment 和 researchFragment
     * */
     private void getNetData() {
         OkHttpUtils.get().url(MyConstant.MYMSG_URL).build().execute(new Callback() {
@@ -307,7 +307,7 @@ public class MainActivity extends BaseActivity
                 tv_menu_keshi.setText("科室名：" + departmentCode);
 
                 /*
-                * 通过Bundle给acconteFragment和diaochaFragment传值
+                * 通过Bundle给acconteFragment和researchFragment传值
                 * */
                 bundle = getBundle();
 
@@ -337,17 +337,17 @@ public class MainActivity extends BaseActivity
         //默认主页为绿色
         defaultHomeView();
 
-        //tv_diaocha为灰色
-        Drawable diaocha = getResources().getDrawable(R.mipmap.diaocha);
-        diaocha.setBounds(0, 0, diaocha.getMinimumWidth(), diaocha.getMinimumHeight());
-        tv_diaocha.setTextColor(getResources().getColor(R.color.Hui));
-        tv_diaocha.setCompoundDrawables(null, diaocha, null, null);
+        //tv_research为灰色
+        Drawable research = getResources().getDrawable(R.mipmap.research);
+        research.setBounds(0, 0, research.getMinimumWidth(), research.getMinimumHeight());
+        tv_research.setTextColor(getResources().getColor(R.color.Hui));
+        tv_research.setCompoundDrawables(null, research, null, null);
 
-        //tv_tongji为灰色
-        Drawable tongji = getResources().getDrawable(R.mipmap.tongji);
-        tongji.setBounds(0, 0, tongji.getMinimumWidth(), tongji.getMinimumHeight());
-        tv_tongji.setTextColor(getResources().getColor(R.color.Hui));
-        tv_tongji.setCompoundDrawables(null, tongji, null, null);
+        //tv_count为灰色
+        Drawable count = getResources().getDrawable(R.mipmap.count);
+        count.setBounds(0, 0, count.getMinimumWidth(), count.getMinimumHeight());
+        tv_count.setTextColor(getResources().getColor(R.color.Hui));
+        tv_count.setCompoundDrawables(null, count, null, null);
 
 
         //tv_my为灰色
@@ -359,22 +359,22 @@ public class MainActivity extends BaseActivity
 
     private void resetDiaoChaView() {
         //默认主页为绿色
-        Drawable diaocha2 = getResources().getDrawable(R.mipmap.diaocha2);
-        diaocha2.setBounds(0, 0, diaocha2.getMinimumWidth(), diaocha2.getMinimumHeight());
-        tv_diaocha.setTextColor(getResources().getColor(R.color.colorPrimary));
-        tv_diaocha.setCompoundDrawables(null, diaocha2, null, null);
+        Drawable research_hover = getResources().getDrawable(R.mipmap.research_hover);
+        research_hover.setBounds(0, 0, research_hover.getMinimumWidth(), research_hover.getMinimumHeight());
+        tv_research.setTextColor(getResources().getColor(R.color.colorPrimary));
+        tv_research.setCompoundDrawables(null, research_hover, null, null);
 
-        //tv_diaocha为灰色
+        //tv_research为灰色
         Drawable home = getResources().getDrawable(R.mipmap.home);
         home.setBounds(0, 0, home.getMinimumWidth(), home.getMinimumHeight());
         tv_home.setTextColor(getResources().getColor(R.color.Hui));
         tv_home.setCompoundDrawables(null, home, null, null);
 
-        //tv_tongji为灰色
-        Drawable tongji = getResources().getDrawable(R.mipmap.tongji);
-        tongji.setBounds(0, 0, tongji.getMinimumWidth(), tongji.getMinimumHeight());
-        tv_tongji.setTextColor(getResources().getColor(R.color.Hui));
-        tv_tongji.setCompoundDrawables(null, tongji, null, null);
+        //tv_count为灰色
+        Drawable count = getResources().getDrawable(R.mipmap.count);
+        count.setBounds(0, 0, count.getMinimumWidth(), count.getMinimumHeight());
+        tv_count.setTextColor(getResources().getColor(R.color.Hui));
+        tv_count.setCompoundDrawables(null, count, null, null);
 
 
         //tv_my为灰色
@@ -388,41 +388,41 @@ public class MainActivity extends BaseActivity
     private void resetMyView() {
 
         //默认主页为绿色
-        Drawable my2 = getResources().getDrawable(R.mipmap.my);
-        my2.setBounds(0, 0, my2.getMinimumWidth(), my2.getMinimumHeight());
+        Drawable my_hover = getResources().getDrawable(R.mipmap.my_hover);
+        my_hover.setBounds(0, 0, my_hover.getMinimumWidth(), my_hover.getMinimumHeight());
         tv_my.setTextColor(getResources().getColor(R.color.colorPrimary));
-        tv_my.setCompoundDrawables(null, my2, null, null);
+        tv_my.setCompoundDrawables(null, my_hover, null, null);
 
-        //tv_diaocha为灰色
+        //tv_research为灰色
         Drawable home = getResources().getDrawable(R.mipmap.home);
         home.setBounds(0, 0, home.getMinimumWidth(), home.getMinimumHeight());
         tv_home.setTextColor(getResources().getColor(R.color.Hui));
         tv_home.setCompoundDrawables(null, home, null, null);
 
-        //tv_tongji为灰色
-        Drawable tongji = getResources().getDrawable(R.mipmap.tongji);
-        tongji.setBounds(0, 0, tongji.getMinimumWidth(), tongji.getMinimumHeight());
-        tv_tongji.setTextColor(getResources().getColor(R.color.Hui));
-        tv_tongji.setCompoundDrawables(null, tongji, null, null);
+        //tv_count为灰色
+        Drawable count = getResources().getDrawable(R.mipmap.count);
+        count.setBounds(0, 0, count.getMinimumWidth(), count.getMinimumHeight());
+        tv_count.setTextColor(getResources().getColor(R.color.Hui));
+        tv_count.setCompoundDrawables(null, count, null, null);
 
 
-        //tv_diaocha为灰色
-        Drawable diaocha = getResources().getDrawable(R.mipmap.diaocha);
-        diaocha.setBounds(0, 0, diaocha.getMinimumWidth(), diaocha.getMinimumHeight());
-        tv_diaocha.setTextColor(getResources().getColor(R.color.Hui));
-        tv_diaocha.setCompoundDrawables(null, diaocha, null, null);
+        //tv_research为灰色
+        Drawable research = getResources().getDrawable(R.mipmap.research);
+        research.setBounds(0, 0, research.getMinimumWidth(), research.getMinimumHeight());
+        tv_research.setTextColor(getResources().getColor(R.color.Hui));
+        tv_research.setCompoundDrawables(null, research, null, null);
 
     }
 
 
     private void resetTongJiView() {
         //默认主页为绿色
-        Drawable tongji2 = getResources().getDrawable(R.mipmap.tongji2);
-        tongji2.setBounds(0, 0, tongji2.getMinimumWidth(), tongji2.getMinimumHeight());
-        tv_tongji.setTextColor(getResources().getColor(R.color.colorPrimary));
-        tv_tongji.setCompoundDrawables(null, tongji2, null, null);
+        Drawable count2 = getResources().getDrawable(R.mipmap.count_hover);
+        count2.setBounds(0, 0, count2.getMinimumWidth(), count2.getMinimumHeight());
+        tv_count.setTextColor(getResources().getColor(R.color.colorPrimary));
+        tv_count.setCompoundDrawables(null, count2, null, null);
 
-        //tv_diaocha为灰色
+        //tv_research为灰色
         Drawable home = getResources().getDrawable(R.mipmap.home);
         home.setBounds(0, 0, home.getMinimumWidth(), home.getMinimumHeight());
         tv_home.setTextColor(getResources().getColor(R.color.Hui));
@@ -435,11 +435,11 @@ public class MainActivity extends BaseActivity
         tv_my.setCompoundDrawables(null, my, null, null);
 
 
-        //tv_diaocha为灰色
-        Drawable diaocha = getResources().getDrawable(R.mipmap.diaocha);
-        diaocha.setBounds(0, 0, diaocha.getMinimumWidth(), diaocha.getMinimumHeight());
-        tv_diaocha.setTextColor(getResources().getColor(R.color.Hui));
-        tv_diaocha.setCompoundDrawables(null, diaocha, null, null);
+        //tv_research为灰色
+        Drawable research = getResources().getDrawable(R.mipmap.research);
+        research.setBounds(0, 0, research.getMinimumWidth(), research.getMinimumHeight());
+        tv_research.setTextColor(getResources().getColor(R.color.Hui));
+        tv_research.setCompoundDrawables(null, research, null, null);
 
     }
 

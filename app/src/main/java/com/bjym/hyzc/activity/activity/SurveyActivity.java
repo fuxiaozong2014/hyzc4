@@ -55,7 +55,18 @@ public class SurveyActivity extends BaseActivity {
     private int number;
     public List<Fragment> fragments = new ArrayList<>();
     public MyFragmentPageAdpter adpter;
+    /*
+    * 存放题号和用户所选答案
+    * */
     public static HashMap<String, String> answers = new HashMap<>();
+    /*
+    * 存放题号和分数 第一题有四个选项，四个分数
+    * */
+    public static HashMap<String, Integer> scoreMap = new HashMap<>();
+
+    //总分
+    int score=0;
+
     private String url1;
     private String surveyNo;
     private String surveyName;
@@ -150,14 +161,14 @@ public class SurveyActivity extends BaseActivity {
                 if (position == 0) {
                     btn_pre.setClickable(false);
                     MyToast.showToast(SurveyActivity.this, "已经是第一题");
-                }else{
+                } else {
                     btn_pre.setClickable(true);
                 }
-                if (position == fragments.size() - 1){
+                if (position == fragments.size() - 1) {
                     btn_next.setClickable(false);
                     btn_commit.setVisibility(View.VISIBLE);
                     MyToast.showToast(SurveyActivity.this, "已经是最后一题");
-                }else{
+                } else {
                     btn_next.setClickable(true);
                 }
             }
@@ -253,15 +264,15 @@ public class SurveyActivity extends BaseActivity {
             case R.id.btn_pre:
                 if (position != 0) {
                     vg.setCurrentItem(--position);
-                }else {
-                    MyToast.showToast(SurveyActivity.this,"已经是第一题");
+                } else {
+                    MyToast.showToast(SurveyActivity.this, "已经是第一题");
                 }
                 break;
             case R.id.btn_next:
                 if (position != vg.getChildCount() - 1) {
                     vg.setCurrentItem(++position);
-                }else {
-                    MyToast.showToast(SurveyActivity.this,"已经是最后一题");
+                } else {
+                    MyToast.showToast(SurveyActivity.this, "已经是最后一题");
                 }
                 break;
             case R.id.btn_commit:
@@ -285,6 +296,7 @@ public class SurveyActivity extends BaseActivity {
 
         if (answers.size() > 0) {
             Iterator iter = answers.entrySet().iterator();
+
             while (iter.hasNext()) {
                 Map.Entry entry = (Map.Entry) iter.next();
                 MyLog.i("survey", entry.getKey() + ":" + entry.getValue());
@@ -292,21 +304,30 @@ public class SurveyActivity extends BaseActivity {
                 choiceNum = (String) entry.getValue();
                 String answer = new Gson().toJson(new SurveyAnswer(newCode, topicNo, choiceNum, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
                 MyLog.i("提交成功", answer);
+             /*
+            * 提交答案
+            * */
                 postAnswers(answer);
             }
 
 
-            String pationpMsg = new Gson().toJson(new SubmitorMsg(newCode, surveyNo, patientsNo, name, userCode, realName, "20",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
+            //得到每道题 对应的选项的得分
+
+            if (scoreMap.size()>0){
+                Iterator iterScore = scoreMap.entrySet().iterator();
+                while (iterScore.hasNext()){
+                    Map.Entry entry = (Map.Entry) iterScore.next();
+                    score+=(Integer)entry.getValue();
+                }
+                MyLog.i("总分：",""+score);
+            }
+            String pationpMsg = new Gson().toJson(new SubmitorMsg(newCode, surveyNo, patientsNo, name, userCode, realName, ""+score, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
             MyLog.i("pationpMsg", pationpMsg);
 
             /*
             * 提交调查基本信息
             * */
             postPationMsg(pationpMsg);
-            /*
-            * 提交答案
-            * */
-
 
         }
     }
@@ -336,7 +357,7 @@ public class SurveyActivity extends BaseActivity {
 
     private void postAnswers(String answer) {
 
-        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content("["+answer+"]")
+        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content("[" + answer + "]")
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
@@ -359,6 +380,7 @@ public class SurveyActivity extends BaseActivity {
         private TextView tv_questions;
         private String topicNo;
         private List<String> choiceNum = new ArrayList<>();
+        private List<Integer> scoreLists = new ArrayList<>();
 
         @Override
         public View setMainView() {
@@ -373,7 +395,10 @@ public class SurveyActivity extends BaseActivity {
             rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    //存放答案
                     answers.put(topicNo, choiceNum.get(checkedId));
+                    //存放得分
+                    scoreMap.put(topicNo,scoreLists.get(checkedId));
                 }
             });
             Bundle bundle = getArguments();
@@ -424,6 +449,7 @@ public class SurveyActivity extends BaseActivity {
             Gson gson = new Gson();
             QuestionOption questionOption = gson.fromJson(result, QuestionOption.class);
             List<QuestionOption.Option> options = questionOption.getRows();
+
             int total = questionOption.getTotal();
             RadioGroup.LayoutParams params = null;
             RadioButton rb = null;
@@ -434,7 +460,9 @@ public class SurveyActivity extends BaseActivity {
                     QuestionOption.Option option = options.get(i);
                     String choiceNo = option.ChoiceNo;
                     String contents = option.Contents;
+                    int score = option.Score;
                     rb = new RadioButton(context);
+                    scoreLists.add(score);
                     choiceNum.add(choiceNo);
                     rb.setText(contents);
                     rb.setId(i);

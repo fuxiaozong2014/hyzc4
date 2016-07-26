@@ -13,6 +13,10 @@
     <color name="click_diaocha_search">#999999</color>
     <color name="background_white">#ffffffff</color>
     <color name="fontcolor">#666666</color>
+    <color name="myPationte_title_color">#333333</color>
+    <color name="myPationte_content_color">#999999</color>
+    <color name="btn_color">#63B766</color>
+
 
     <color name="grey">#33aaaaaa</color>
     <color name="main">#43B97D</color>

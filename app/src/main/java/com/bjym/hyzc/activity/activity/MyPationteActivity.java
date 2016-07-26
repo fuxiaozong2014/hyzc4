@@ -168,7 +168,7 @@ public class MyPationteActivity extends BaseActivity {
                 this.myPationte_phone = (TextView) rootView.findViewById(R.id.myPationte_phone);
                 this.myPationte_bednumber = (TextView) rootView.findViewById(R.id.myPationte_bednumber);
                 this.myPationte_CPWName = (TextView) rootView.findViewById(R.id.myPationte_CPWName);
-                this.myPationte_data = (TextView) rootView.findViewById(R.id.myPationte_data);
+                this.myPationte_data = (TextView) rootView.findViewById(R.id.myPationte_date);
             }
 
         }

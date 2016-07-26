@@ -74,10 +74,7 @@ public class LoginActivity extends BaseActivity {
             case R.id.btn_login:
                 getNetData();
                 break;
-/*
-            case R.id.btn_exit:
-                goToHome();
-                break;*/
+
             case R.id.cb:
 
 

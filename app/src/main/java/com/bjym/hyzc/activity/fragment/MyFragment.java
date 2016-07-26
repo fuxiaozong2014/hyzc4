@@ -24,9 +24,10 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 
-public class AccenterFragment extends BaseFragment {
+public class MyFragment extends BaseFragment {
 
     private LinearLayout ll_myPationte;
+    private LinearLayout ll_myTask;
     private TextView tv_account;
     private TextView tv_myPationte;
     private TextView tv_keshi;
@@ -36,8 +37,10 @@ public class AccenterFragment extends BaseFragment {
 
     @Override
     public View setMainView() {
-        View view = View.inflate(getContext(), R.layout.fragment_accenter, null);
+        View view = View.inflate(getContext(), R.layout.fragment_my, null);
         ll_myPationte = (LinearLayout) view.findViewById(R.id.ll_myPationte);
+        ll_myTask = (LinearLayout) view.findViewById(R.id.ll_myTask);
+
         tv_account = (TextView) view.findViewById(R.id.tv_account);
         tv_keshi = (TextView) view.findViewById(R.id.tv_keshi);
         tv_myPationte = (TextView) view.findViewById(R.id.tv_myPationte);
@@ -61,6 +64,7 @@ public class AccenterFragment extends BaseFragment {
         tv_keshi.setText("科室名："+departmentCode);
 
         ll_myPationte.setOnClickListener(this);
+        ll_myTask.setOnClickListener(this);
         getPationteData();
 
     }
@@ -71,6 +75,12 @@ public class AccenterFragment extends BaseFragment {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.ll_myPationte:
+                startActivity(new Intent(context, MyPationteActivity.class));
+                break;
+            /*
+            * 选择我的病人，跳转到任务界面 TODO
+            * */
+            case R.id.ll_myTask:
                 startActivity(new Intent(context, MyPationteActivity.class));
                 break;
         }
@@ -87,21 +97,21 @@ public class AccenterFragment extends BaseFragment {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(AccenterFragment.this.getActivity(), "服务器正忙，请稍后重试");
+                MyToast.showToast(MyFragment.this.getActivity(), "服务器正忙，请稍后重试");
             }
 
             @Override
             public void onResponse(Object o, int i) {
-                tv_myPationte.setText("管床病人 ( " + pationtes.size() + " )");
+               tv_myPationte.setText("我的病人 ( " + pationtes.size() + " )");
 
-            }
+}
         });
-    }
+        }
 
-    private void parseJson(String jsonStr) throws JSONException {
+private void parseJson(String jsonStr) throws JSONException {
 
         pationtes = new Gson().fromJson(jsonStr, new TypeToken<List<Pationte>>() {
         }.getType());
-    }
+        }
 
-}
+        }
