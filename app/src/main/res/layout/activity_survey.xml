@@ -5,10 +5,10 @@
     android:orientation="vertical">
 
 
-    <android.support.v4.view.ViewPager
+    <com.bjym.hyzc.activity.view.NoScrollViewPager
         android:id="@+id/vg"
         android:layout_width="match_parent"
-        android:layout_height="200dp"></android.support.v4.view.ViewPager>
+        android:layout_height="200dp"></com.bjym.hyzc.activity.view.NoScrollViewPager>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,10 +41,15 @@
             android:text="下一题" />
 
         <Button
-            android:id="@+id/btn_commit"
+            android:id="@+id/btn_submit"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:background="@color/btn_color"
+            android:textColor="@color/background_white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="30dp"
             android:visibility="gone"
+            android:paddingRight="10dp"
             android:layout_weight="1"
             android:text="提交" />
     </LinearLayout>

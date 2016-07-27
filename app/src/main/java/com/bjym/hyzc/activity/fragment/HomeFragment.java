@@ -21,12 +21,12 @@ import java.util.List;
  * Created by fushaoqing on 2016/6/28.
  */
 public class HomeFragment extends BaseFragment {
-    private ViewPager viewPager;
     private List<BasePager> pagers = new ArrayList<>();
     private int lineWidth;//指示线宽度
     private TextView main_tv_news;
     private TextView main_tv_vedio;
     private TextView main_tv_forum;
+    private ViewPager viewPager;
 
     class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
@@ -74,11 +74,14 @@ public class HomeFragment extends BaseFragment {
     @Override
     public View setMainView() {
         View view = View.inflate(getContext(), R.layout.fragment_home, null);
-        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+       viewPager =  (ViewPager) view.findViewById(R.id.viewPager);
 
+        main_tv_forum = (TextView) view.findViewById(R.id.main_tv_forum);
         main_tv_news = (TextView) view.findViewById(R.id.main_tv_news);
         main_tv_vedio = (TextView) view.findViewById(R.id.main_tv_vedio);
-        main_tv_forum = (TextView) view.findViewById(R.id.main_tv_forum);
+
+
+
         return view;
     }
 
@@ -97,11 +100,15 @@ public class HomeFragment extends BaseFragment {
         lineWidth = screenWidth / pagers.size();
 
 
+        MyPagerAdapter adapter=new MyPagerAdapter();
+
         //TODO
         viewPager.setAdapter(new MyPagerAdapter());
         viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
 
     }
+
+
 
 
     class MyPagerAdapter extends PagerAdapter {
@@ -177,4 +184,5 @@ public class HomeFragment extends BaseFragment {
     public List<BasePager> getPagers() {
         return pagers;
     }
+
 }

@@ -20,7 +20,7 @@
             android:background="@drawable/bg_search"
             android:drawableRight="@mipmap/search"
             android:drawablePadding="5dp"
-            android:hint="点击选择调查对象"
+            android:hint="点击'+'选择调查对象或者护理对象"
             android:textColor="@color/click_diaocha_search"
             android:textSize="@dimen/et_login_size" />
 

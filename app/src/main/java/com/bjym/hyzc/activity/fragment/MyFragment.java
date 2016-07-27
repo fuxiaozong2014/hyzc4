@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.activity.MyPationteActivity;
+import com.bjym.hyzc.activity.activity.MyTaskActivity;
 import com.bjym.hyzc.activity.bean.Pationte;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyToast;
@@ -60,8 +61,8 @@ public class MyFragment extends BaseFragment {
         /*
         * 把用户信息赋值给textview
         * */
-        tv_account.setText("用户名："+userCode);
-        tv_keshi.setText("科室名："+departmentCode);
+        tv_account.setText("用户名：" + userCode);
+        tv_keshi.setText("科室名：" + departmentCode);
 
         ll_myPationte.setOnClickListener(this);
         ll_myTask.setOnClickListener(this);
@@ -81,7 +82,7 @@ public class MyFragment extends BaseFragment {
             * 选择我的病人，跳转到任务界面 TODO
             * */
             case R.id.ll_myTask:
-                startActivity(new Intent(context, MyPationteActivity.class));
+                startActivity(new Intent(context, MyTaskActivity.class));
                 break;
         }
     }
@@ -102,16 +103,16 @@ public class MyFragment extends BaseFragment {
 
             @Override
             public void onResponse(Object o, int i) {
-               tv_myPationte.setText("我的病人 ( " + pationtes.size() + " )");
+                tv_myPationte.setText("我的病人 ( " + pationtes.size() + " )");
 
-}
+            }
         });
-        }
+    }
 
-private void parseJson(String jsonStr) throws JSONException {
+    private void parseJson(String jsonStr) throws JSONException {
 
         pationtes = new Gson().fromJson(jsonStr, new TypeToken<List<Pationte>>() {
         }.getType());
-        }
+    }
 
-        }
+}

@@ -19,7 +19,7 @@
             android:background="@drawable/bg_search"
             android:drawableRight="@mipmap/search"
             android:drawablePadding="5dp"
-            android:hint="点击选择调查对象"
+            android:hint="点此选择调查对象"
             android:textColor="@color/click_diaocha_search"
             android:textSize="16dp" />
 

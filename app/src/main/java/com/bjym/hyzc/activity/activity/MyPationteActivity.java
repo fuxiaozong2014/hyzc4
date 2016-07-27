@@ -38,6 +38,7 @@ public class MyPationteActivity extends BaseActivity {
     private List<Pationte> pationtes;
     private TextView tv_mypationtenone;
     private SwipeRefreshLayout swipeRefresh;
+
     @Override
     public View setMainView() {
         View view = View.inflate(context, R.layout.activity_mypationte, null);
@@ -63,7 +64,7 @@ public class MyPationteActivity extends BaseActivity {
     @Override
     public void InitData() {
 
-       getNetData();
+        getNetData();
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -197,15 +198,20 @@ public class MyPationteActivity extends BaseActivity {
             * 1.点击条目，缓存病人姓名
             * 2.发送广播，传递数据给DiaoChaFragment
             * */
-            LocalBroadcastManager manager=LocalBroadcastManager.getInstance(context);
+            LocalBroadcastManager manager = LocalBroadcastManager.getInstance(context);
 
             String name = pationtes.get(position).Name;
             String patientsNo = pationtes.get(position).PatientsNo;
-            Intent intent=new Intent();
+            Intent intent = new Intent();
             intent.setAction("INTEN_MYPATIONTE");
             intent.putExtra("Name", name);
-            intent.putExtra("patientsNo",patientsNo);
+            intent.putExtra("patientsNo", patientsNo);
             manager.sendBroadcast(intent);
+
+            Intent intentToMyTask = new Intent();
+            intentToMyTask.putExtra("Name", name);
+            intentToMyTask.putExtra("patientsNo", patientsNo);
+            setResult(RESULT_OK,intentToMyTask);
             finish();
         }
     }

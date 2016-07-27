@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.bean.PatiSurveyNo;
@@ -24,6 +23,7 @@ import com.bjym.hyzc.activity.fragment.BaseFragment;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
+import com.bjym.hyzc.activity.view.NoScrollViewPager;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -44,10 +44,11 @@ import okhttp3.Response;
  * Created by fushaoqing on 2016/7/13.
  */
 public class SurveyActivity extends BaseActivity {
-    public ViewPager vg;
+    public NoScrollViewPager vg;
+    public RadioGroup rg;
     public Button btn_pre;
     public Button btn_next;
-    public Button btn_commit;
+    public Button btn_submit;
     public int position;
     // http://hyzc.tpddns.cn:6060/cpw/CPW_Topic/getlistbysurvey?Survey=1111
 
@@ -100,15 +101,16 @@ public class SurveyActivity extends BaseActivity {
     @Override
     public View setMainView() {
         View view = View.inflate(context, R.layout.activity_survey, null);
-        vg = (ViewPager) view.findViewById(R.id.vg);
+        vg = (NoScrollViewPager) view.findViewById(R.id.vg);
         btn_pre = (Button) view.findViewById(R.id.btn_pre);
         btn_next = (Button) view.findViewById(R.id.btn_next);
-        btn_commit = (Button) view.findViewById(R.id.btn_commit);
+        btn_submit = (Button) view.findViewById(R.id.btn_submit);
+        rg = (RadioGroup) view.findViewById(R.id.rg);
 
 
         btn_pre.setOnClickListener(this);
         btn_next.setOnClickListener(this);
-        btn_commit.setOnClickListener(this);
+        btn_submit.setOnClickListener(this);
 
         return view;
     }
@@ -165,11 +167,13 @@ public class SurveyActivity extends BaseActivity {
                     btn_pre.setClickable(true);
                 }
                 if (position == fragments.size() - 1) {
-                    btn_next.setClickable(false);
-                    btn_commit.setVisibility(View.VISIBLE);
+                    btn_submit.setVisibility(View.VISIBLE);
+                    btn_next.setVisibility(View.GONE);
                     MyToast.showToast(SurveyActivity.this, "已经是最后一题");
                 } else {
                     btn_next.setClickable(true);
+                    btn_submit.setVisibility(View.GONE);
+                    btn_next.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -257,13 +261,14 @@ public class SurveyActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        if (v instanceof Button) {
+       /* if (v instanceof Button && position!=0&&position!=vg.getChildCount() - 1) {
             Toast.makeText(this, ((Button) v).getText().toString().trim(), Toast.LENGTH_SHORT).show();
-        }
+        }*/
         switch (v.getId()) {
             case R.id.btn_pre:
                 if (position != 0) {
                     vg.setCurrentItem(--position);
+
                 } else {
                     MyToast.showToast(SurveyActivity.this, "已经是第一题");
                 }
@@ -275,7 +280,7 @@ public class SurveyActivity extends BaseActivity {
                     MyToast.showToast(SurveyActivity.this, "已经是最后一题");
                 }
                 break;
-            case R.id.btn_commit:
+            case R.id.btn_submit:
                 /*
                 * 1.提交调查结果至服务器
                 * 2.关闭自身页面
@@ -289,6 +294,7 @@ public class SurveyActivity extends BaseActivity {
         }
     }
 
+    private List<String> choiceNumList=new ArrayList<>();
     /*
     * 提交调查结果至服务器
     * */
@@ -302,6 +308,11 @@ public class SurveyActivity extends BaseActivity {
                 MyLog.i("survey", entry.getKey() + ":" + entry.getValue());
                 topicNo = (String) entry.getKey();
                 choiceNum = (String) entry.getValue();
+                /*
+                * 存放用户选择的选项编码
+                * */
+                choiceNumList.add(choiceNum);
+
                 String answer = new Gson().toJson(new SurveyAnswer(newCode, topicNo, choiceNum, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
                 MyLog.i("提交成功", answer);
              /*

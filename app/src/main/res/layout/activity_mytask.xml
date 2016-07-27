@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/background_white"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="290dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_search"
+            android:drawableRight="@mipmap/search"
+            android:drawablePadding="5dp"
+            android:hint="点此选择护理对象"
+            android:textColor="@color/click_diaocha_search"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_tasking"
+            android:text="护理任务"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_left_iv_user"
+           />
+        <TextView
+            android:id="@+id/tv_tasked"
+            android:text="护理记录"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>
