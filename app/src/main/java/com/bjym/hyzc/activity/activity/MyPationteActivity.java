@@ -38,6 +38,9 @@ public class MyPationteActivity extends BaseActivity {
     private List<Pationte> pationtes;
     private TextView tv_mypationtenone;
     private SwipeRefreshLayout swipeRefresh;
+    public static final int SWIPEREFRESH_MSG =1;
+
+
 
     @Override
     public View setMainView() {
@@ -45,6 +48,7 @@ public class MyPationteActivity extends BaseActivity {
         lv_mypationte = (ListView) view.findViewById(R.id.lv_mypationte);
         tv_mypationtenone = (TextView) view.findViewById(R.id.tv_mypationtenone);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefresh);
+
         lv_mypationte.setOnItemClickListener(new MyOnItemClickListner());
         lv_mypationte.setOnItemClickListener(new MyOnItemClickListner());
 
@@ -56,8 +60,12 @@ public class MyPationteActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            swipeRefresh.setRefreshing(false);
-            MyToast.showToast(MyPationteActivity.this, "刷新完成");
+            switch (msg.what){
+                case SWIPEREFRESH_MSG:
+                    swipeRefresh.setRefreshing(false);
+                    MyToast.showToast(MyPationteActivity.this, "刷新完成");
+                    break;
+            }
         }
     };
 
@@ -66,12 +74,14 @@ public class MyPationteActivity extends BaseActivity {
 
         getNetData();
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+
             @Override
             public void onRefresh() {
                 pationtes.clear();
                 adpter.notifyDataSetChanged();
                 getNetData();
-                handler.sendEmptyMessage(0);
+                handler.sendEmptyMessage(SWIPEREFRESH_MSG);
             }
         });
 
@@ -216,5 +226,8 @@ public class MyPationteActivity extends BaseActivity {
         }
     }
 
+   /* private void dismissWaitingDialog() {
+        handler.sendEmptyMessage(WHAT_DISMISS_LOADING);
+    }*/
 
 }
