@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,13 +34,15 @@ import okhttp3.Response;
  */
 public class MyPationteActivity extends BaseActivity {
 
+    private static final int WHAT_DISMISS_LOADING =2 ;
+    private static final int RELA_WAIT_LOADING =3 ;
     private ListView lv_mypationte;
     private MyAdapter adpter;
     private List<Pationte> pationtes;
     private TextView tv_mypationtenone;
     private SwipeRefreshLayout swipeRefresh;
     public static final int SWIPEREFRESH_MSG =1;
-
+    private LinearLayout rela_wait_loading;
 
 
     @Override
@@ -48,6 +51,7 @@ public class MyPationteActivity extends BaseActivity {
         lv_mypationte = (ListView) view.findViewById(R.id.lv_mypationte);
         tv_mypationtenone = (TextView) view.findViewById(R.id.tv_mypationtenone);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefresh);
+        rela_wait_loading = (LinearLayout)view.findViewById(R.id.Rela_wait_loading);
 
         lv_mypationte.setOnItemClickListener(new MyOnItemClickListner());
         lv_mypationte.setOnItemClickListener(new MyOnItemClickListner());
@@ -65,13 +69,19 @@ public class MyPationteActivity extends BaseActivity {
                     swipeRefresh.setRefreshing(false);
                     MyToast.showToast(MyPationteActivity.this, "刷新完成");
                     break;
+
+                case RELA_WAIT_LOADING:
+                    rela_wait_loading.setVisibility(View.VISIBLE);
+                    break;
+                case WHAT_DISMISS_LOADING:
+                    rela_wait_loading.setVisibility(View.GONE);
             }
         }
     };
 
     @Override
     public void InitData() {
-
+        handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING,500);
         getNetData();
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
@@ -99,12 +109,14 @@ public class MyPationteActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
+                dismissWaitingDialog();
                 MyToast.showToast(MyPationteActivity.this, "服务器正忙，请稍后重试");
             }
 
             @Override
             public void onResponse(Object o, int i) {
 
+                dismissWaitingDialog();
                 if (pationtes.size() == 0) {
                     lv_mypationte.setVisibility(View.GONE);
                     tv_mypationtenone.setVisibility(View.VISIBLE);
@@ -226,8 +238,8 @@ public class MyPationteActivity extends BaseActivity {
         }
     }
 
-   /* private void dismissWaitingDialog() {
+    private void dismissWaitingDialog() {
         handler.sendEmptyMessage(WHAT_DISMISS_LOADING);
-    }*/
+    }
 
 }

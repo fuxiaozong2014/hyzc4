@@ -7,10 +7,12 @@ public class MyConstant {
     /**
      * 服务器ip
      */
-     public static final String BASE_URL = "http://192.168.0.168";
+    // public static final String BASE_URL = "http://192.168.0.168";
     // public static final String BASE_URL = "http://192.168.0.188";
-    // public static final String BASE_URL = "http://cp.sqall.com";
-    //public static final String BASE_URL = "http://hyzc.tpddns.cn:6060";
+    // public static final String BASE_URL = "http://cp.hyzczg.com";
+    //public static final String BASE_URL = "http://cp.sqall.com";
+     public static final String BASE_URL = "http://hyzc.tpddns.cn:6060";
+
     /**
      * 登录接口
      */
@@ -31,16 +33,16 @@ public class MyConstant {
     /*
     * 问题表接口
     * */
-    public static final String QUESTIONLIST_URL = BASE_URL+"/cpw/CPW_Topic/getlistbysurvey?Survey=";
+    public static final String QUESTIONLIST_URL = BASE_URL + "/cpw/CPW_Topic/getlistbysurvey?Survey=";
     /*
     * 选项表接口
     * */
-    public static final String OPTION_URL = BASE_URL+"/cpw/CPW_Choice/getlistbytopicno?topic=";
+    public static final String OPTION_URL = BASE_URL + "/cpw/CPW_Choice/getlistbytopicno?topic=";
 
     /*
     * 获取调查编号接口
     * */
-    public static final String  PATISURVERYNO_URL = BASE_URL + "/Sys/Base_CodeRule/getrulecode?RuleCode=PSS";
+    public static final String PATISURVERYNO_URL = BASE_URL + "/Sys/Base_CodeRule/getrulecode?RuleCode=PSS";
 
     /*
     * 提交调查基本信息接口

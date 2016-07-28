@@ -3,14 +3,18 @@ package com.bjym.hyzc.activity.activity;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.utils.MyConstant;
+import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -31,6 +35,8 @@ import okhttp3.Response;
  */
 public class LoginActivity extends BaseActivity {
 
+    private static final int RELA_WAIT_LOADING =1 ;
+    private static final int WHAT_DISMISS_LOADING =2 ;
     private Button btn_login;
     private EditText et_name;
     private EditText et_pwd;
@@ -39,13 +45,33 @@ public class LoginActivity extends BaseActivity {
     private String usercode;
     private SharedPreferences sp;
     private CheckBox cb;
+    private LinearLayout rela_wait_loading;
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case RELA_WAIT_LOADING:
+                    rela_wait_loading.setVisibility(View.VISIBLE);
+                    break;
+                case WHAT_DISMISS_LOADING:
+                    rela_wait_loading.setVisibility(View.GONE);
+                    break;
+
+
+            }
+
+        }
+    };
 
     @Override
     public View setMainView() {
         sp = getSharedPreferences("Config", MODE_PRIVATE);
         View view = View.inflate(LoginActivity.this, R.layout.activity_login, null);
         btn_login = (Button) view.findViewById(R.id.btn_login);
-       // btn_exit = (Button) view.findViewById(R.id.btn_exit);
+        rela_wait_loading = (LinearLayout) view.findViewById(R.id.Rela_wait_loading);
+
+        // btn_exit = (Button) view.findViewById(R.id.btn_exit);
         et_name = (EditText) view.findViewById(R.id.et_name);
         et_pwd = (EditText) view.findViewById(R.id.et_pwd);
         cb = (CheckBox) view.findViewById(R.id.cb);
@@ -72,6 +98,7 @@ public class LoginActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.btn_login:
+
                 getNetData();
                 break;
 
@@ -86,6 +113,7 @@ public class LoginActivity extends BaseActivity {
 
 
     private void getNetData() {
+
         usercode = et_name.getText().toString().trim();
         password = et_pwd.getText().toString().trim();
         if (TextUtils.isEmpty(usercode) || TextUtils.isEmpty(password)) {
@@ -94,6 +122,7 @@ public class LoginActivity extends BaseActivity {
             MyToast.showToast(LoginActivity.this, "请输入用户名或密码");
             return;
         } else {
+           // handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING,500);
             OkHttpUtils.post()
                     .url(MyConstant.LOGIN_URL)
                     .addParams("usercode", usercode)
@@ -103,7 +132,7 @@ public class LoginActivity extends BaseActivity {
                     .execute(new Callback() {
                         @Override
                         public Object parseNetworkResponse(Response response, int i) throws Exception {
-
+                            dismissWaitingDialog();
                             String string = response.body().string();
                             parseJson(string);
                             return null;
@@ -112,12 +141,14 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onError(Call call, Exception e, int i) {
                             e.printStackTrace();
-                            //  MyToast.showToast(LoginActivity.this, "请求失败");
+                            MyLog.i("e.printStackTrace();",e.toString());
+                            MyToast.showToast(LoginActivity.this, "请检查网络设置或稍后再试");
+                            dismissWaitingDialog();
                         }
 
                         @Override
                         public void onResponse(Object o, int i) {
-
+                            dismissWaitingDialog();
                         }
                     });
         }
@@ -135,7 +166,7 @@ public class LoginActivity extends BaseActivity {
             setAlias();
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
-            finish();
+           // finish();
         } else {
             //TODO 这里其实有两种状态 密码有误  账户不存在
             //{"ResultID":50000,"ResultMsg":"账号不存在！","Succeed":false,"ResultData":null,"s":false,"emsg":"账号不存在！"}
@@ -175,5 +206,15 @@ public class LoginActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         JPushInterface.onResume(context);
+    }
+
+    private void dismissWaitingDialog() {
+        handler.sendEmptyMessage(WHAT_DISMISS_LOADING);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
     }
 }

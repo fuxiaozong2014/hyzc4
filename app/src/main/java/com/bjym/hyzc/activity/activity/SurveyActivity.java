@@ -27,7 +27,6 @@ import com.bjym.hyzc.activity.view.NoScrollViewPager;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -78,6 +77,7 @@ public class SurveyActivity extends BaseActivity {
     private String userCode;
     private String realName;
     private String newCode;
+    private String answer;
 
 
     public class MyFragmentPageAdpter extends FragmentPagerAdapter {
@@ -233,7 +233,7 @@ public class SurveyActivity extends BaseActivity {
             @Override
             public void onResponse(Object o, int i) {
                 parseJson((String) o);
-                MyToast.showToast(SurveyActivity.this, "请求成功");
+              //  MyToast.showToast(SurveyActivity.this, "请求成功");
             }
         });
     }
@@ -281,6 +281,25 @@ public class SurveyActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_submit:
+
+                //得到每道题 对应的选项的得分
+
+                if (scoreMap.size()>0){
+                    Iterator iterScore = scoreMap.entrySet().iterator();
+                    while (iterScore.hasNext()){
+                        Map.Entry entry = (Map.Entry) iterScore.next();
+                        score+=(Integer)entry.getValue();
+                    }
+                    MyLog.i("总分：",""+score);
+                }
+                String pationpMsg = new Gson().toJson(new SubmitorMsg(newCode, surveyNo, patientsNo, name, userCode, realName, ""+score, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
+                MyLog.i("pationpMsg", pationpMsg);
+
+
+                /*
+            * 提交调查基本信息
+            * */
+                postPationMsg(pationpMsg);
                 /*
                 * 1.提交调查结果至服务器
                 * 2.关闭自身页面
@@ -313,32 +332,15 @@ public class SurveyActivity extends BaseActivity {
                 * */
                 choiceNumList.add(choiceNum);
 
-                String answer = new Gson().toJson(new SurveyAnswer(newCode, topicNo, choiceNum, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
-                MyLog.i("提交成功", answer);
-             /*
-            * 提交答案
-            * */
-                postAnswers(answer);
+                answer = new Gson().toJson(new SurveyAnswer(newCode, topicNo, choiceNum, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
             }
+                /*
+                * 提交答案
+                * */
+            postAnswers(answer);
+            MyLog.i("提交成功", answer);
 
-
-            //得到每道题 对应的选项的得分
-
-            if (scoreMap.size()>0){
-                Iterator iterScore = scoreMap.entrySet().iterator();
-                while (iterScore.hasNext()){
-                    Map.Entry entry = (Map.Entry) iterScore.next();
-                    score+=(Integer)entry.getValue();
-                }
-                MyLog.i("总分：",""+score);
-            }
-            String pationpMsg = new Gson().toJson(new SubmitorMsg(newCode, surveyNo, patientsNo, name, userCode, realName, ""+score, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
-            MyLog.i("pationpMsg", pationpMsg);
-
-            /*
-            * 提交调查基本信息
-            * */
-            postPationMsg(pationpMsg);
+            //判断用户点的那个表，如果点第一个表，就只提交第一个表的数据
 
         }
     }
@@ -360,8 +362,8 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(SurveyActivity.this, "提交成功");
-                MyLog.i("提交成功le", "postPationMsg");
+               // MyToast.showToast(SurveyActivity.this, "提交成功");
+                MyLog.i("提交成功le", "postPationMsg"+o);
             }
         });
     }
@@ -369,7 +371,13 @@ public class SurveyActivity extends BaseActivity {
     private void postAnswers(String answer) {
 
         OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content("[" + answer + "]")
-                .build().execute(new StringCallback() {
+                .build().execute(new Callback() {
+            @Override
+            public Object parseNetworkResponse(Response response, int i) throws Exception {
+                MyLog.i("response:",response.toString());
+                return null;
+            }
+
             @Override
             public void onError(Call call, Exception e, int i) {
                 MyToast.showToast(SurveyActivity.this, "提交错误" + e.toString());
@@ -377,9 +385,7 @@ public class SurveyActivity extends BaseActivity {
             }
 
             @Override
-            public void onResponse(String s, int i) {
-                MyToast.showToast(SurveyActivity.this, "提交成功");
-                MyLog.i("提交成功", s);
+            public void onResponse(Object o, int i) {
             }
         });
     }
@@ -421,6 +427,8 @@ public class SurveyActivity extends BaseActivity {
                 getOptions();
             }
         }
+
+
 
         /*
         * 根据题干编号获取选项

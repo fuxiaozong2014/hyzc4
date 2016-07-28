@@ -106,6 +106,7 @@
         android:textColor="@color/background_white"
         android:textSize="18dp" />
 
-    <include android:layout="@layout/item_wait_loading"></include>
+    <include layout="@layout/item_wait_loading"></include>
+    <include layout="@layout/item_no_wifi"></include>
 
 </LinearLayout>
