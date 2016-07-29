@@ -24,35 +24,11 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/btn_nurseHistory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:text="护理记录"/>
 
-        <TextView
-            android:id="@+id/tv_tasking"
-            android:text="护理任务"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_left_iv_user"
-           />
-        <TextView
-            android:id="@+id/tv_tasked"
-            android:text="护理记录"
-            android:layout_marginLeft="@dimen/margin_left_iv_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-    </LinearLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

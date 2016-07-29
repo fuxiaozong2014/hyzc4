@@ -333,14 +333,13 @@ public class SurveyActivity extends BaseActivity {
                 choiceNumList.add(choiceNum);
 
                 answer = new Gson().toJson(new SurveyAnswer(newCode, topicNo, choiceNum, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
-            }
+
                 /*
                 * 提交答案
                 * */
-            postAnswers(answer);
-            MyLog.i("提交成功", answer);
-
-            //判断用户点的那个表，如果点第一个表，就只提交第一个表的数据
+                postAnswers(answer);
+                MyLog.i("answer:::::", answer);
+            }
 
         }
     }
@@ -350,6 +349,8 @@ public class SurveyActivity extends BaseActivity {
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
+
+                MyLog.i("PationMsgresponse",response.toString());
                 return null;
             }
 
@@ -362,7 +363,7 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onResponse(Object o, int i) {
-               // MyToast.showToast(SurveyActivity.this, "提交成功");
+                MyToast.showToast(SurveyActivity.this, "提交成功"+"postPationMsg");
                 MyLog.i("提交成功le", "postPationMsg"+o);
             }
         });
@@ -370,7 +371,7 @@ public class SurveyActivity extends BaseActivity {
 
     private void postAnswers(String answer) {
 
-        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content("[" + answer + "]")
+        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content(answer)
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -380,12 +381,13 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(SurveyActivity.this, "提交错误" + e.toString());
-                MyLog.i("提交错误", e.toString());
+                MyToast.showToast(SurveyActivity.this, "提交错误postAnswers" + e.toString());
+                MyLog.i("提交错误postAnswers", e.toString());
             }
 
             @Override
             public void onResponse(Object o, int i) {
+                MyToast.showToast(SurveyActivity.this, "提交成功"+"postAnswers");
             }
         });
     }

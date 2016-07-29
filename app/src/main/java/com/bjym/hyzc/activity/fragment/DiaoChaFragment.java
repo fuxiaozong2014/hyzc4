@@ -72,8 +72,12 @@ public class DiaoChaFragment extends BaseFragment {
         * 得到用户名和真实姓名，提交使用
         * */
         Bundle bundle = getArguments();
-        userCode = bundle.getString("userCode");
-        realName = bundle.getString("realName");
+        if (bundle != null) {
+            userCode = bundle.getString("userCode");
+            realName = bundle.getString("realName");
+        }
+
+
 
         
          /*

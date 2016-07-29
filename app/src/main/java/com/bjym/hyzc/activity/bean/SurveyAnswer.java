@@ -9,7 +9,6 @@ public class SurveyAnswer {
     public String Answer;
     public String SubTime;
 
-
     public SurveyAnswer(String patiSurveryNo, String topicNo, String answer, String subTime) {
         PatiSurveryNo = patiSurveryNo;
         TopicNo = topicNo;
