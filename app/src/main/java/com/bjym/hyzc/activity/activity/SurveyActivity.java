@@ -249,9 +249,9 @@ public class SurveyActivity extends BaseActivity {
             number = rowsBean.Number;
             SurveyFragment surveyFragment = new SurveyFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("Contents", contents);
-            bundle.putString("TopicNo", topicNo);
-            bundle.putInt("Number", number);
+            bundle.putString("Contents", contents);//选项内容
+            bundle.putString("TopicNo", topicNo);//选项编码
+            bundle.putInt("Number", number);//选项排序
             surveyFragment.setArguments(bundle);
             fragments.add(surveyFragment);
             adpter.notifyDataSetChanged();
@@ -411,15 +411,20 @@ public class SurveyActivity extends BaseActivity {
 
         @Override
         public void InitData() {
+
+            //给RadioGroup设置选项改变的监听
             rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     //存放答案
                     answers.put(topicNo, choiceNum.get(checkedId));
+
                     //存放得分
                     scoreMap.put(topicNo,scoreLists.get(checkedId));
+
                 }
             });
+
             Bundle bundle = getArguments();
             if (bundle != null) {
                 String contents = bundle.getString("Contents");
@@ -479,9 +484,9 @@ public class SurveyActivity extends BaseActivity {
             if (total > 0) {
                 for (int i = 0; i < options.size(); i++) {
                     QuestionOption.Option option = options.get(i);
-                    String choiceNo = option.ChoiceNo;
-                    String contents = option.Contents;
-                    int score = option.Score;
+                    String choiceNo = option.ChoiceNo;  //用户选项
+                    String contents = option.Contents;  //选项内容
+                    int score = option.Score;    //选项的分
                     rb = new RadioButton(context);
                     scoreLists.add(score);
                     choiceNum.add(choiceNo);

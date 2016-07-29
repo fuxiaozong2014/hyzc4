@@ -238,7 +238,7 @@ public class DiaoChaFragment extends BaseFragment {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("INTEN_MYPATIONTE");
         broadcastManager.registerReceiver(receiver, intentFilter);
-        MyToast.showToast(getActivity(), "收到广播了");
+      //  MyToast.showToast(getActivity(), "收到广播了");
     }
 
 

@@ -63,8 +63,6 @@ public class MyTaskActivity extends BaseActivity {
                     startActivity(intent1);
 
                 }
-
-
                 break;
         }
     }
