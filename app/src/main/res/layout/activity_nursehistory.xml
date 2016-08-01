@@ -12,13 +12,28 @@
         android:background="@color/background_white"
         android:text="护理记录编码:" />
 
+    <EditText
+        android:layout_marginTop="5dp"
+        android:id="@+id/tv_NursingDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/click_diaocha_search"
+        android:background="@color/background_white"
+        android:textSize="@dimen/et_login_size"
+        android:editable="false"
+        android:hint="护理日期：" />
+
+
     <TextView
         android:layout_marginTop="5dp"
         android:id="@+id/tv_NursingTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/et_login_size"
+        android:textColor="@color/click_diaocha_search"
         android:background="@color/background_white"
-        android:text="护理时间:" />
+        android:text="护理时间：" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +57,7 @@
 
             <EditText
                 android:id="@+id/et_Pulsation"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 />
@@ -65,7 +80,7 @@
 
             <EditText
                 android:id="@+id/et_Temperature"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
         </LinearLayout>
@@ -96,7 +111,7 @@
 
             <EditText
                 android:id="@+id/et_BPL"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
         </LinearLayout>
@@ -119,7 +134,7 @@
 
             <EditText
                 android:id="@+id/et_BHP"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
         </LinearLayout>
