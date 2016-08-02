@@ -65,19 +65,16 @@ public class SurveyActivity extends BaseActivity {
     public static HashMap<String, Integer> scoreMap = new HashMap<>();
 
     //总分
-    int score=0;
+    // int score=0;
 
     private String url1;
     private String surveyNo;
     private String surveyName;
-    private String topicNo;
-    private String choiceNum;
     private String name;
     private String patientsNo;
     private String userCode;
     private String realName;
     private String newCode;
-    private String answer;
 
 
     public class MyFragmentPageAdpter extends FragmentPagerAdapter {
@@ -145,8 +142,6 @@ public class SurveyActivity extends BaseActivity {
         surveyName = intent.getStringExtra("SurveyName");
         setTitle(surveyName);
 
-
-
         /*
         * 根据调查表编号，获取问题题干
         * */
@@ -186,7 +181,7 @@ public class SurveyActivity extends BaseActivity {
         OkHttpUtils.get().url(MyConstant.PATISURVERYNO_URL).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
-                MyLog.i("success", "请求成功le");
+                // MyLog.i("success", "请求成功le");
                 return response.body().string();
             }
 
@@ -198,7 +193,7 @@ public class SurveyActivity extends BaseActivity {
             @Override
             public void onResponse(Object o, int i) {
                 parsePatiSurveyNo((String) o);
-                MyLog.i("success", "请求成功");
+                // MyLog.i("success", "请求成功");
 
             }
 
@@ -211,7 +206,7 @@ public class SurveyActivity extends BaseActivity {
         Gson gson = new Gson();
         PatiSurveyNo patiSurveyNo = gson.fromJson(o, PatiSurveyNo.class);
         newCode = patiSurveyNo.newCode;
-        MyLog.i("newCode:", newCode);
+        // MyLog.i("newCode:", newCode);
     }
 
     /*
@@ -233,7 +228,7 @@ public class SurveyActivity extends BaseActivity {
             @Override
             public void onResponse(Object o, int i) {
                 parseJson((String) o);
-              //  MyToast.showToast(SurveyActivity.this, "请求成功");
+                //  MyToast.showToast(SurveyActivity.this, "请求成功");
             }
         });
     }
@@ -244,8 +239,8 @@ public class SurveyActivity extends BaseActivity {
         List<Question.RowsBean> rows = question.getRows();
         for (int i = 0; i < rows.size(); i++) {
             Question.RowsBean rowsBean = rows.get(i);
-            contents = rowsBean.Contents;
-            topicNo = rowsBean.TopicNo;
+            String contents = rowsBean.Contents;
+            String topicNo = rowsBean.TopicNo;
             number = rowsBean.Number;
             SurveyFragment surveyFragment = new SurveyFragment();
             Bundle bundle = new Bundle();
@@ -260,6 +255,7 @@ public class SurveyActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
+        int score = 0;
         super.onClick(v);
        /* if (v instanceof Button && position!=0&&position!=vg.getChildCount() - 1) {
             Toast.makeText(this, ((Button) v).getText().toString().trim(), Toast.LENGTH_SHORT).show();
@@ -284,21 +280,21 @@ public class SurveyActivity extends BaseActivity {
 
                 //得到每道题 对应的选项的得分
 
-                if (scoreMap.size()>0){
+                if (scoreMap.size() > 0) {
                     Iterator iterScore = scoreMap.entrySet().iterator();
-                    while (iterScore.hasNext()){
+                    while (iterScore.hasNext()) {
                         Map.Entry entry = (Map.Entry) iterScore.next();
-                        score+=(Integer)entry.getValue();
+                        score += (Integer) entry.getValue();
                     }
-                    MyLog.i("总分：",""+score);
+                    MyLog.i("总分：", "" + score);
                 }
-                String pationpMsg = new Gson().toJson(new SubmitorMsg(newCode, surveyNo, patientsNo, name, userCode, realName, ""+score, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
+                String pationpMsg = new Gson().toJson(new SubmitorMsg(newCode, surveyNo, patientsNo, name, userCode, realName, "" + score, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
                 MyLog.i("pationpMsg", pationpMsg);
 
 
                 /*
-            * 提交调查基本信息
-            * */
+                * 提交调查基本信息
+                * */
                 postPationMsg(pationpMsg);
                 /*
                 * 1.提交调查结果至服务器
@@ -313,7 +309,7 @@ public class SurveyActivity extends BaseActivity {
         }
     }
 
-    private List<String> choiceNumList=new ArrayList<>();
+
     /*
     * 提交调查结果至服务器
     * */
@@ -325,14 +321,10 @@ public class SurveyActivity extends BaseActivity {
             while (iter.hasNext()) {
                 Map.Entry entry = (Map.Entry) iter.next();
                 MyLog.i("survey", entry.getKey() + ":" + entry.getValue());
-                topicNo = (String) entry.getKey();
-                choiceNum = (String) entry.getValue();
-                /*
-                * 存放用户选择的选项编码
-                * */
-                choiceNumList.add(choiceNum);
+                String topicNo = (String) entry.getKey();
+                String choiceNum = (String) entry.getValue();
 
-                answer = new Gson().toJson(new SurveyAnswer(newCode, topicNo, choiceNum, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
+                String answer = new Gson().toJson(new SurveyAnswer(newCode, topicNo, choiceNum, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
 
                 /*
                 * 提交答案
@@ -350,7 +342,7 @@ public class SurveyActivity extends BaseActivity {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
 
-                MyLog.i("PationMsgresponse",response.toString());
+                //   MyLog.i("PationMsgresponse",response.toString());
                 return null;
             }
 
@@ -363,8 +355,8 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(SurveyActivity.this, "提交成功"+"postPationMsg");
-                MyLog.i("提交成功le", "postPationMsg"+o);
+                MyToast.showToast(SurveyActivity.this, "提交成功" + "postPationMsg");
+                MyLog.i("提交成功le", "postPationMsg" + o);
             }
         });
     }
@@ -375,7 +367,7 @@ public class SurveyActivity extends BaseActivity {
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
-                MyLog.i("response:",response.toString());
+                MyLog.i("response:", response.toString());
                 return null;
             }
 
@@ -387,18 +379,24 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(SurveyActivity.this, "提交成功"+"postAnswers");
+                MyToast.showToast(SurveyActivity.this, "提交成功" + "postAnswers");
             }
         });
     }
+
+
+
+
+
+
 
 
     public static class SurveyFragment extends BaseFragment {
 
         private RadioGroup rg;
         private TextView tv_questions;
-        private String topicNo;
-        private List<String> choiceNum = new ArrayList<>();
+       private String topicNo;
+        private List<String> choiceNums = new ArrayList<>();
         private List<Integer> scoreLists = new ArrayList<>();
 
         @Override
@@ -412,18 +410,6 @@ public class SurveyActivity extends BaseActivity {
         @Override
         public void InitData() {
 
-            //给RadioGroup设置选项改变的监听
-            rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    //存放答案
-                    answers.put(topicNo, choiceNum.get(checkedId));
-
-                    //存放得分
-                    scoreMap.put(topicNo,scoreLists.get(checkedId));
-
-                }
-            });
 
             Bundle bundle = getArguments();
             if (bundle != null) {
@@ -433,8 +419,21 @@ public class SurveyActivity extends BaseActivity {
                 tv_questions.setText(number + "." + contents);
                 getOptions();
             }
-        }
 
+            //给RadioGroup设置选项改变的监听
+            rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    //存放答案
+                    answers.put(topicNo, choiceNums.get(checkedId));
+
+                    //存放得分
+                    scoreMap.put(topicNo, scoreLists.get(checkedId));
+
+                }
+            });
+
+        }
 
 
         /*
@@ -480,7 +479,7 @@ public class SurveyActivity extends BaseActivity {
             RadioGroup.LayoutParams params = null;
             RadioButton rb = null;
             rg.removeAllViews();
-            choiceNum.clear();
+            choiceNums.clear();
             if (total > 0) {
                 for (int i = 0; i < options.size(); i++) {
                     QuestionOption.Option option = options.get(i);
@@ -489,7 +488,7 @@ public class SurveyActivity extends BaseActivity {
                     int score = option.Score;    //选项的分
                     rb = new RadioButton(context);
                     scoreLists.add(score);
-                    choiceNum.add(choiceNo);
+                    choiceNums.add(choiceNo);
                     rb.setText(contents);
                     rb.setId(i);
                     params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.SCROLL_AXIS_VERTICAL);

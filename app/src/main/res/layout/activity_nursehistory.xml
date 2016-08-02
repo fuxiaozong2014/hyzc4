@@ -12,27 +12,63 @@
         android:background="@color/background_white"
         android:text="护理记录编码:" />
 
-    <EditText
-        android:layout_marginTop="5dp"
-        android:id="@+id/tv_NursingDate"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/click_diaocha_search"
-        android:background="@color/background_white"
-        android:textSize="@dimen/et_login_size"
-        android:editable="false"
-        android:hint="护理日期：" />
+        android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/tv_NursingDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="@color/background_white"
+            android:text="护理日期："
+            android:textSize="@dimen/et_login_size" />
 
-    <TextView
-        android:layout_marginTop="5dp"
-        android:id="@+id/tv_NursingTime"
+        <EditText
+            android:id="@+id/et_NursingDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="@color/background_white"
+            android:editable="false"
+            android:hint="选择护理日期"
+            android:textColor="@color/click_diaocha_search"
+            android:textSize="@dimen/et_login_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/et_login_size"
-        android:textColor="@color/click_diaocha_search"
-        android:background="@color/background_white"
-        android:text="护理时间：" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_NursingTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="@color/background_white"
+            android:text="护理时间："
+            android:textSize="@dimen/et_login_size" />
+
+        <EditText
+            android:id="@+id/et_NursingTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="@color/background_white"
+            android:editable="false"
+            android:hint="选择护理时间"
+            android:textColor="@color/click_diaocha_search"
+            android:textSize="@dimen/et_login_size" />
+
+    </LinearLayout>
 
 
     <LinearLayout
@@ -43,8 +79,8 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@color/background_white"
             android:orientation="horizontal">
 
@@ -59,6 +95,7 @@
                 android:id="@+id/et_Pulsation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
 
                 />
         </LinearLayout>
@@ -66,8 +103,8 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@color/background_white"
             android:orientation="horizontal">
 
@@ -82,24 +119,24 @@
                 android:id="@+id/et_Temperature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:inputType="number" />
         </LinearLayout>
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
 
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
+            android:layout_weight="1"
             android:background="@color/background_white"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -113,16 +150,16 @@
                 android:id="@+id/et_BPL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:inputType="number" />
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@color/background_white"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -136,7 +173,7 @@
                 android:id="@+id/et_BHP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:inputType="number" />
         </LinearLayout>
     </LinearLayout>
 
@@ -153,14 +190,13 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="5dp"
-        android:textSize="14dp"
+        android:background="@drawable/bg_shape"
         android:hint="请输入护理内容"
-        android:background="@drawable/bg_shape"/>
+        android:textSize="14dp" />
 
     <Button
         android:id="@+id/btn_commit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="提交"
-        />
+        android:text="提交" />
 </LinearLayout>
