@@ -60,6 +60,7 @@
 
         <activity android:name=".activity.activity.SurveyActivity"></activity>
         <activity android:name=".activity.activity.NurseHistoryActivity"></activity>
+        <activity android:name=".activity.activity.NurseExecuteActivity"></activity>
 
         <activity
             android:name=".activity.activity.MyPationteActivity"

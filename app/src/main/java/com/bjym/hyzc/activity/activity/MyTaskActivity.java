@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
+import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
 
 /**
@@ -16,8 +17,10 @@ public class MyTaskActivity extends BaseActivity {
     private static final int REQUST_CODE = 1;
     private TextView tv_search;
     private Button btn_nurseHistory;
+    private Button btn_nurseStage;
     private String name;
     private String patientsNo;
+    private String cpwCode;
 
 
     @Override
@@ -25,6 +28,7 @@ public class MyTaskActivity extends BaseActivity {
 
         View view = View.inflate(context, R.layout.activity_mytask, null);
         btn_nurseHistory = (Button) view.findViewById(R.id.btn_nurseHistory);
+        btn_nurseStage = (Button) view.findViewById(R.id.btn_nurseStage);
 
         tv_search = (TextView) view.findViewById(R.id.tv_search);
 
@@ -36,7 +40,7 @@ public class MyTaskActivity extends BaseActivity {
     public void InitData() {
         tv_search.setOnClickListener(this);
         btn_nurseHistory.setOnClickListener(this);
-
+        btn_nurseStage.setOnClickListener(this);
 
     }
 
@@ -52,17 +56,27 @@ public class MyTaskActivity extends BaseActivity {
                 startActivityForResult(intent, REQUST_CODE);
                 break;
             case R.id.btn_nurseHistory:
-                Intent intent1 = new Intent(this, NurseHistoryActivity.class);
+                Intent NurseHistoryActivityIntent = new Intent(this, NurseHistoryActivity.class);
                 if (name==null||patientsNo==null){
-                    MyToast.showToast(this,"请选择护理对象");
-
+                    MyToast.showToast(this,"请选择患者");
+                    return;
                 }else{
-                    intent1.putExtra("Name", name);
-                    intent1.putExtra("patientsNo", patientsNo);
-
-                    startActivity(intent1);
+                    NurseHistoryActivityIntent.putExtra("Name", name);
+                    NurseHistoryActivityIntent.putExtra("patientsNo", patientsNo);
+                    startActivity(NurseHistoryActivityIntent);
 
                 }
+                break;
+            case R.id.btn_nurseStage:
+                Intent NurseExecuteActivityIntent = new Intent(this, NurseExecuteActivity.class);
+                if (name==null||patientsNo==null||cpwCode==null){
+                    MyToast.showToast(this,"请选择患者");
+                    return;
+                }else{
+                    NurseExecuteActivityIntent.putExtra("cpwCode", cpwCode);
+                    startActivity(NurseExecuteActivityIntent);
+                }
+
                 break;
         }
     }
@@ -74,6 +88,8 @@ public class MyTaskActivity extends BaseActivity {
             case RESULT_OK:
                 name = data.getStringExtra("Name");
                 patientsNo = data.getStringExtra("patientsNo");
+                cpwCode = data.getStringExtra("cpwCode");
+                MyLog.i("cpwCode",cpwCode);
                 tv_search.setText("姓名：" + name + "    患者编号：" + patientsNo);
                 break;
         }

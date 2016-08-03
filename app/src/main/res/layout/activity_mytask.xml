@@ -18,11 +18,16 @@
             android:background="@drawable/bg_search"
             android:drawableRight="@mipmap/search"
             android:drawablePadding="5dp"
-            android:hint="点此选择护理对象"
+            android:hint="点此选择患者"
             android:textColor="@color/click_diaocha_search"
             android:textSize="16dp" />
 
     </LinearLayout>
+    <Button
+        android:id="@+id/btn_nurseStage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="护理阶段"/>
 
     <Button
         android:id="@+id/btn_nurseHistory"

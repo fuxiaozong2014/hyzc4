@@ -63,4 +63,9 @@ public class MyConstant {
     * */                                                        ///CPW/CPW_PatiNursingrecords/addnursingrecords
     public static final String NURSE_HISTORY_COMMIT = BASE_URL + "/CPW/CPW_PatiNursingrecords/add";
 
+    /*
+    * 根据cpwCode获取详细路径信息
+    * */
+    public static final String NURSE_STAGE = BASE_URL + "/CPW/CPW_InfoStage/getlist?cpwcode=";
+
 }

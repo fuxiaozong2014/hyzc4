@@ -203,7 +203,6 @@ public class MyPationteActivity extends BaseActivity {
         }.getType());
         for (Pationte pationte : pationtes) {
             System.out.println(pationte.toString());
-
         }
     }
 
@@ -224,6 +223,9 @@ public class MyPationteActivity extends BaseActivity {
 
             String name = pationtes.get(position).Name;
             String patientsNo = pationtes.get(position).PatientsNo;
+            String cpwCode = pationtes.get(position).CPWCode;
+
+
             Intent intent = new Intent();
             intent.setAction("INTEN_MYPATIONTE");
             intent.putExtra("Name", name);
@@ -233,8 +235,11 @@ public class MyPationteActivity extends BaseActivity {
             Intent intentToMyTask = new Intent();
             intentToMyTask.putExtra("Name", name);
             intentToMyTask.putExtra("patientsNo", patientsNo);
+            intentToMyTask.putExtra("cpwCode",cpwCode);
             setResult(RESULT_OK,intentToMyTask);
             finish();
+
+
         }
     }
 

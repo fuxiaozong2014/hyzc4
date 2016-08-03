@@ -47,7 +47,6 @@ public class NurseHistoryActivity extends BaseActivity {
     private String patientsNo;
     private String newCode;
 
-    private EditText et = null;
     private final static int DATE_DIALOG = 0;
     private final static int TIME_DIALOG = 1;
     private Calendar c = null;
