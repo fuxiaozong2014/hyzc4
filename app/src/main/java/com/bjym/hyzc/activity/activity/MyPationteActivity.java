@@ -89,7 +89,7 @@ public class MyPationteActivity extends BaseActivity {
             @Override
             public void onRefresh() {
  //               pationtes.clear();
-                adpter.notifyDataSetChanged();
+//                adpter.notifyDataSetChanged();
                 getNetData();
                 handler.sendEmptyMessage(SWIPEREFRESH_MSG);
             }

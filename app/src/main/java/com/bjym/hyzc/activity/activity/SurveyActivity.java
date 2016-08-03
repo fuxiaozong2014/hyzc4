@@ -296,6 +296,7 @@ public class SurveyActivity extends BaseActivity {
                 * 提交调查基本信息
                 * */
                 postPationMsg(pationpMsg);
+                scoreMap.clear();
                 /*
                 * 1.提交调查结果至服务器
                 * 2.关闭自身页面
@@ -332,7 +333,7 @@ public class SurveyActivity extends BaseActivity {
                 postAnswers(answer);
                 MyLog.i("answer:::::", answer);
             }
-
+            answers.clear();
         }
     }
 

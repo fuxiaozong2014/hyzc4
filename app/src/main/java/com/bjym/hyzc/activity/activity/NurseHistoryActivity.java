@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.NurseHistory1;
+import com.bjym.hyzc.activity.bean.NurseHistory;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import okhttp3.Call;
+import okhttp3.MediaType;
 import okhttp3.Response;
 
 /**
@@ -34,10 +35,8 @@ import okhttp3.Response;
  */
 public class NurseHistoryActivity extends BaseActivity {
     private TextView tv_NRecordNo;
-    private TextView tv_NursingTime;
     private EditText et_NursingTime;
     private EditText et_NursingDate;
-    private TextView tv_NursingDate;
     private EditText et_Pulsation;
     private EditText et_Temperature;
     private EditText et_BPL;
@@ -60,9 +59,7 @@ public class NurseHistoryActivity extends BaseActivity {
         tv_NRecordNo = (TextView) view.findViewById(R.id.tv_NRecordNo);
 
         et_NursingTime= (EditText) view.findViewById(R.id.et_NursingTime);
-        tv_NursingTime = (TextView) view.findViewById(R.id.tv_NursingTime);
         et_NursingDate = (EditText) view.findViewById(R.id.et_NursingDate);
-        tv_NursingDate = (TextView) view.findViewById(R.id.tv_NursingDate);
 
         et_Pulsation = (EditText) view.findViewById(R.id.et_Pulsation);
         et_Temperature = (EditText) view.findViewById(R.id.et_Temperature);
@@ -135,7 +132,8 @@ public class NurseHistoryActivity extends BaseActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             public void onTimeSet(TimePicker tp, int hourOfDay, int minute) {
                                 tp.setIs24HourView(true);
-                                et_NursingTime.setText(hourOfDay + ":" + minute);
+                                String formatTime = getTimeStr(hourOfDay, minute);
+                                et_NursingTime.setText(formatTime);
 
                             }
                         },
@@ -149,6 +147,14 @@ public class NurseHistoryActivity extends BaseActivity {
 
 
         return dialog;
+    }
+
+    public String  getTimeStr(int hour,int minute){
+        StringBuffer   timeStr=new StringBuffer();
+        timeStr.append(hour<=9?"0"+hour:hour);
+        timeStr.append(":");
+        timeStr.append(minute<=9?"0"+minute:minute);
+        return timeStr.toString();
     }
 
     /*
@@ -216,7 +222,7 @@ public class NurseHistoryActivity extends BaseActivity {
             MyToast.showToast(this, "请填写脉搏值");
             return;
         }
-        int Pulsation = Integer.parseInt(Pulsation1);
+     //   int Pulsation = Integer.parseInt(Pulsation1);
 
         //体温
         String Temperature1 = et_Temperature.getText().toString().trim();
@@ -224,7 +230,7 @@ public class NurseHistoryActivity extends BaseActivity {
             MyToast.showToast(this, "请填写体温值");
             return;
         }
-        float Temperature = Integer.parseInt(Temperature1);
+//        float Temperature = Integer.parseInt(Temperature1);
 
         //最高血压
         String BPL1 = et_BPL.getText().toString().trim();
@@ -232,7 +238,7 @@ public class NurseHistoryActivity extends BaseActivity {
             MyToast.showToast(this, "请填写最高血压");
             return;
         }
-        int BPL = Integer.parseInt(BPL1);
+     //   int BPL = Integer.parseInt(BPL1);
 
         //最低血压
         String BHP1 = et_BHP.getText().toString().trim();
@@ -240,7 +246,7 @@ public class NurseHistoryActivity extends BaseActivity {
             MyToast.showToast(this, "请填写最低血压");
             return;
         }
-        int BHP = Integer.parseInt(BHP1);
+      //  int BHP = Integer.parseInt(BHP1);
 
         //护理内容
         String RecordContent = et_RecordContent.getText().toString().trim();
@@ -249,13 +255,15 @@ public class NurseHistoryActivity extends BaseActivity {
             return;
         }
 
-        NurseHistory1 nurseHistory = new NurseHistory1(newCode, patientsNo, name, timeDate, Pulsation1, Temperature1, BPL1, BHP1, RecordContent);
+        NurseHistory nurseHistory = new NurseHistory(RecordContent,BHP1,newCode,patientsNo, name,timeDate, Pulsation1, Temperature1, BPL1);
 
         String toJson = gson.toJson(nurseHistory);
         MyLog.i("NueseHistory::::", toJson);
+
         String url = MyConstant.NURSE_HISTORY_COMMIT;
         MyLog.i("url:::", url);
-        OkHttpUtils.postString().url(MyConstant.NURSE_HISTORY_COMMIT).content(toJson)
+
+        OkHttpUtils.postString().mediaType(MediaType.parse("application/json")).url(MyConstant.NURSE_HISTORY_COMMIT).content(toJson)
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -273,8 +281,8 @@ public class NurseHistoryActivity extends BaseActivity {
             @Override
             public void onResponse(Object o, int i) {
 
-                MyToast.showToast(NurseHistoryActivity.this, "提交成功" + "commitNueseHistory");
-                MyLog.i("提交成功le", "commitNueseHistory" + o);
+                MyToast.showToast(NurseHistoryActivity.this, "请求成功" + "commitNueseHistory");
+                MyLog.i("请求成功", "commitNueseHistory" + o);
 
             }
         });

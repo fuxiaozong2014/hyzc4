@@ -7,8 +7,8 @@ public class MyConstant {
     /**
      * 服务器ip
      */
-     public static final String BASE_URL = "http://192.168.0.168";
-    //public static final String BASE_URL = "http://192.168.0.188";
+    // public static final String BASE_URL = "http://192.168.0.168";
+    public static final String BASE_URL = "http://192.168.0.188";
     // public static final String BASE_URL = "http://cp.hyzczg.com";
     //public static final String BASE_URL = "http://cp.sqall.com";
     // public static final String BASE_URL = "http://hyzc.tpddns.cn:6060";
@@ -61,6 +61,6 @@ public class MyConstant {
     *
     * 提交护理记录
     * */                                                        ///CPW/CPW_PatiNursingrecords/addnursingrecords
-    public static final String NURSE_HISTORY_COMMIT = BASE_URL + "/CPW/CPW_PatiNursingrecords/addnursingrecords";
+    public static final String NURSE_HISTORY_COMMIT = BASE_URL + "/CPW/CPW_PatiNursingrecords/add";
 
 }

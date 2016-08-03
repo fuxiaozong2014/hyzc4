@@ -9,14 +9,16 @@ public class NurseHistory {
     public String PatientsNo;
     public String PatiName;
     public String NursingTime;
-    public int Pulsation;
-    public float Temperature;
-    public int BPL;
-    public int BHP;
+    public String Pulsation;
+    public String Temperature;
+    public String BPL;
+    public String BPH;
     public String RecordContent;
 
 
-    public NurseHistory(String NRecordNo, String patientsNo, String patiName, String nursingTime, int pulsation, float temperature, int BPL, int BHP, String recordContent) {
+    public NurseHistory(String recordContent, String BPH, String NRecordNo, String patientsNo, String patiName, String nursingTime, String pulsation, String temperature, String BPL) {
+        RecordContent = recordContent;
+        this.BPH = BPH;
         this.NRecordNo = NRecordNo;
         PatientsNo = patientsNo;
         PatiName = patiName;
@@ -24,8 +26,6 @@ public class NurseHistory {
         Pulsation = pulsation;
         Temperature = temperature;
         this.BPL = BPL;
-        this.BHP = BHP;
-        RecordContent = recordContent;
     }
 
     @Override
@@ -35,10 +35,10 @@ public class NurseHistory {
                 ", PatientsNo='" + PatientsNo + '\'' +
                 ", PatiName='" + PatiName + '\'' +
                 ", NursingTime='" + NursingTime + '\'' +
-                ", Pulsation=" + Pulsation +
-                ", Temperature=" + Temperature +
-                ", BPL=" + BPL +
-                ", BHP=" + BHP +
+                ", Pulsation='" + Pulsation + '\'' +
+                ", Temperature='" + Temperature + '\'' +
+                ", BPL='" + BPL + '\'' +
+                ", BPH='" + BPH + '\'' +
                 ", RecordContent='" + RecordContent + '\'' +
                 '}';
     }
