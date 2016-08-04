@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.Myself;
+import com.bjym.hyzc.activity.bean.MyselfBean;
 import com.bjym.hyzc.activity.fragment.MyFragment;
 import com.bjym.hyzc.activity.fragment.DiaoChaFragment;
 import com.bjym.hyzc.activity.fragment.HomeFragment;
@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity
     private FragmentManager manager;
     private DrawerLayout drawer;
 
-    private List<Myself> myselefLists;
+    private List<MyselfBean> myselefLists;
     private static String departmentCode;
     private static String realName;
     private Bundle bundle;
@@ -296,7 +296,7 @@ public class MainActivity extends BaseActivity
             @Override
             public void onResponse(Object o, int in) {
                 for (int i = 0; i < myselefLists.size(); i++) {
-                    Myself myself = myselefLists.get(i);
+                    MyselfBean myself = myselefLists.get(i);
                     realName = myself.RealName;
                     departmentCode = myself.DepartmentCode;
                     userCode = myself.UserCode;
@@ -328,7 +328,7 @@ public class MainActivity extends BaseActivity
 
     private void parseMyselfJson(String json) {
 
-        myselefLists = new Gson().fromJson(json, new TypeToken<List<Myself>>() {
+        myselefLists = new Gson().fromJson(json, new TypeToken<List<MyselfBean>>() {
         }.getType());
     }
 

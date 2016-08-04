@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.Pationte;
+import com.bjym.hyzc.activity.bean.PationteBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyToast;
 import com.google.gson.Gson;
@@ -38,7 +38,7 @@ public class MyPationteActivity extends BaseActivity {
     private static final int RELA_WAIT_LOADING =3 ;
     private ListView lv_mypationte;
     private MyAdapter adpter;
-    private List<Pationte> pationtes;
+    private List<PationteBean> pationtes;
     private TextView tv_mypationtenone;
     private SwipeRefreshLayout swipeRefresh;
     public static final int SWIPEREFRESH_MSG =1;
@@ -199,9 +199,9 @@ public class MyPationteActivity extends BaseActivity {
 
     private void parseJson(String result) throws JSONException {
 
-        pationtes = new Gson().fromJson(result, new TypeToken<List<Pationte>>() {
+        pationtes = new Gson().fromJson(result, new TypeToken<List<PationteBean>>() {
         }.getType());
-        for (Pationte pationte : pationtes) {
+        for (PationteBean pationte : pationtes) {
             System.out.println(pationte.toString());
         }
     }

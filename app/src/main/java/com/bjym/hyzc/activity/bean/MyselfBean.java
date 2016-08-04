@@ -3,7 +3,7 @@ package com.bjym.hyzc.activity.bean;
 /**
  * Created by fushaoqing on 2016/7/7.
  */
-public class Myself {
+public class MyselfBean {
 
 
     /**
@@ -74,13 +74,13 @@ public class Myself {
     public String EditOn;
     public int tempid;
 
-    public Myself() {
+    public MyselfBean() {
     }
 
 
     @Override
     public String toString() {
-        return "Myself{" +
+        return "MyselfBean{" +
                 "UserId=" + UserId +
                 ", UserType=" + UserType +
                 ", CompanyCode='" + CompanyCode + '\'' +

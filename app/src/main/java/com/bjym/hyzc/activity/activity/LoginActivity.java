@@ -35,22 +35,22 @@ import okhttp3.Response;
  */
 public class LoginActivity extends BaseActivity {
 
-    private static final int RELA_WAIT_LOADING =1 ;
-    private static final int WHAT_DISMISS_LOADING =2 ;
+    private static final int RELA_WAIT_LOADING = 1;
+    private static final int WHAT_DISMISS_LOADING = 2;
     private Button btn_login;
     private EditText et_name;
     private EditText et_pwd;
-  //  private Button btn_exit;
+    //  private Button btn_exit;
     private String password;
     private String usercode;
     private SharedPreferences sp;
     private CheckBox cb;
     private LinearLayout rela_wait_loading;
-    private Handler handler=new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case RELA_WAIT_LOADING:
                     rela_wait_loading.setVisibility(View.VISIBLE);
                     break;
@@ -83,12 +83,12 @@ public class LoginActivity extends BaseActivity {
          /*
         * 记住密码后，回显账号和密码，以及isChecked
         * */
-        et_name.setText(sp.getString("usercode",""));
-        et_pwd.setText(sp.getString("password",""));
-        cb.setChecked(sp.getBoolean("isChecked",false));
+        et_name.setText(sp.getString("usercode", ""));
+        et_pwd.setText(sp.getString("password", ""));
+        cb.setChecked(sp.getBoolean("isChecked", false));
 
         btn_login.setOnClickListener(this);
-       // btn_exit.setOnClickListener(this);
+        // btn_exit.setOnClickListener(this);
 
     }
 
@@ -122,7 +122,7 @@ public class LoginActivity extends BaseActivity {
             MyToast.showToast(LoginActivity.this, "请输入用户名或密码");
             return;
         } else {
-           // handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING,500);
+            // handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING,500);
             OkHttpUtils.post()
                     .url(MyConstant.LOGIN_URL)
                     .addParams("usercode", usercode)
@@ -141,7 +141,7 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onError(Call call, Exception e, int i) {
                             e.printStackTrace();
-                            MyLog.i("e.printStackTrace();",e.toString());
+                            MyLog.i("e.printStackTrace();", e.toString());
                             MyToast.showToast(LoginActivity.this, "请检查网络设置或稍后再试");
                             dismissWaitingDialog();
                         }
@@ -166,7 +166,7 @@ public class LoginActivity extends BaseActivity {
             setAlias();
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
-           // finish();
+            // finish();
         } else {
             //TODO 这里其实有两种状态 密码有误  账户不存在
             //{"ResultID":50000,"ResultMsg":"账号不存在！","Succeed":false,"ResultData":null,"s":false,"emsg":"账号不存在！"}

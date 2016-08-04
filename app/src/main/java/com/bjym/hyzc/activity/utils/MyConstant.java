@@ -7,8 +7,8 @@ public class MyConstant {
     /**
      * 服务器ip
      */
-    // public static final String BASE_URL = "http://192.168.0.168";
-    public static final String BASE_URL = "http://192.168.0.188";
+     public static final String BASE_URL = "http://192.168.0.168";
+    // public static final String BASE_URL = "http://192.168.0.188";
     // public static final String BASE_URL = "http://cp.hyzczg.com";
     //public static final String BASE_URL = "http://cp.sqall.com";
     // public static final String BASE_URL = "http://hyzc.tpddns.cn:6060";
@@ -66,6 +66,16 @@ public class MyConstant {
     /*
     * 根据cpwCode获取详细路径信息
     * */
-    public static final String NURSE_STAGE = BASE_URL + "/CPW/CPW_InfoStage/getlist?cpwcode=";
+    public static final String NURSE_SELECT_STAGE = BASE_URL + "/CPW/CPW_InfoStage/getlist?cpwcode=";
+
+    /*
+    * 根据病人编号和stageCode去获取未执行的医嘱
+    * */
+    //public static final String NURSE_UNEXECUTE_STAGE = BASE_URL + "/CPW/CPW_PatiOrder/getlistnoexec?PatientsNo=";
+
+    /*
+   * 根据病人编号和stageCode去获取未执行的医嘱
+   * */
+    public static final String NURSE_UNEXECUTE_STAGE = BASE_URL + "/CPW/CPW_PatiOrder/getlistnoexec";
 
 }

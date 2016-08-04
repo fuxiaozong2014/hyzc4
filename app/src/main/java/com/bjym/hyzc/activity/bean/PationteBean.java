@@ -3,7 +3,7 @@ package com.bjym.hyzc.activity.bean;
 /**
  * Created by fushaoqing on 2016/7/4.
  */
-public class Pationte {
+public class PationteBean {
 
 
     /**
@@ -79,12 +79,12 @@ public class Pationte {
     public int tempid;
 
 
-    public Pationte() {
+    public PationteBean() {
     }
 
     @Override
     public String toString() {
-        return "Pationte [PatientsNo=" + PatientsNo + ", CardNo=" + CardNo
+        return "PationteBean [PatientsNo=" + PatientsNo + ", CardNo=" + CardNo
                 + ", Name=" + Name + ", Sex=" + Sex + ", PYM=" + PYM
                 + ", IDNo=" + IDNo + ", Mobile=" + Mobile + ", DeptName="
                 + DeptName + ", DeptCode=" + DeptCode + ", BedNo=" + BedNo

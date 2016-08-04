@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.NurseHistory;
+import com.bjym.hyzc.activity.bean.NurseHistoryBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
@@ -254,7 +254,7 @@ public class NurseHistoryActivity extends BaseActivity {
             return;
         }
 
-        NurseHistory nurseHistory = new NurseHistory(RecordContent,BHP1,newCode,patientsNo, name,timeDate, Pulsation1, Temperature1, BPL1);
+        NurseHistoryBean nurseHistory = new NurseHistoryBean(RecordContent,BHP1,newCode,patientsNo, name,timeDate, Pulsation1, Temperature1, BPL1);
 
         String toJson = gson.toJson(nurseHistory);
         MyLog.i("NueseHistory::::", toJson);

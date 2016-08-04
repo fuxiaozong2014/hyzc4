@@ -3,7 +3,7 @@ package com.bjym.hyzc.activity.bean;
 /**
  * Created by fushaoqing on 2016/7/29.
  */
-public class NurseHistory {
+public class NurseHistoryBean {
 
     public String NRecordNo;
     public String PatientsNo;
@@ -16,7 +16,7 @@ public class NurseHistory {
     public String RecordContent;
 
 
-    public NurseHistory(String recordContent, String BPH, String NRecordNo, String patientsNo, String patiName, String nursingTime, String pulsation, String temperature, String BPL) {
+    public NurseHistoryBean(String recordContent, String BPH, String NRecordNo, String patientsNo, String patiName, String nursingTime, String pulsation, String temperature, String BPL) {
         RecordContent = recordContent;
         this.BPH = BPH;
         this.NRecordNo = NRecordNo;
@@ -30,7 +30,7 @@ public class NurseHistory {
 
     @Override
     public String toString() {
-        return "NurseHistory{" +
+        return "NurseHistoryBean{" +
                 "NRecordNo='" + NRecordNo + '\'' +
                 ", PatientsNo='" + PatientsNo + '\'' +
                 ", PatiName='" + PatiName + '\'' +

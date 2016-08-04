@@ -14,11 +14,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.PatiSurveyNo;
-import com.bjym.hyzc.activity.bean.Question;
-import com.bjym.hyzc.activity.bean.QuestionOption;
-import com.bjym.hyzc.activity.bean.SubmitorMsg;
-import com.bjym.hyzc.activity.bean.SurveyAnswer;
+import com.bjym.hyzc.activity.bean.PatiSurveyNoBean;
+import com.bjym.hyzc.activity.bean.QuestionBean;
+import com.bjym.hyzc.activity.bean.QuestionOptionBean;
+import com.bjym.hyzc.activity.bean.SubmitorMsgBean;
+import com.bjym.hyzc.activity.bean.SurveyAnswerBean;
 import com.bjym.hyzc.activity.fragment.BaseFragment;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
@@ -204,7 +204,7 @@ public class SurveyActivity extends BaseActivity {
     private void parsePatiSurveyNo(String o) {
 
         Gson gson = new Gson();
-        PatiSurveyNo patiSurveyNo = gson.fromJson(o, PatiSurveyNo.class);
+        PatiSurveyNoBean patiSurveyNo = gson.fromJson(o, PatiSurveyNoBean.class);
         newCode = patiSurveyNo.newCode;
         // MyLog.i("newCode:", newCode);
     }
@@ -235,10 +235,10 @@ public class SurveyActivity extends BaseActivity {
 
     private void parseJson(String json) {
         Gson gson = new Gson();
-        Question question = gson.fromJson(json, Question.class);
-        List<Question.RowsBean> rows = question.getRows();
+        QuestionBean question = gson.fromJson(json, QuestionBean.class);
+        List<QuestionBean.RowsBean> rows = question.getRows();
         for (int i = 0; i < rows.size(); i++) {
-            Question.RowsBean rowsBean = rows.get(i);
+            QuestionBean.RowsBean rowsBean = rows.get(i);
             String contents = rowsBean.Contents;
             String topicNo = rowsBean.TopicNo;
             number = rowsBean.Number;
@@ -288,7 +288,7 @@ public class SurveyActivity extends BaseActivity {
                     }
                     MyLog.i("总分：", "" + score);
                 }
-                String pationpMsg = new Gson().toJson(new SubmitorMsg(newCode, surveyNo, patientsNo, name, userCode, realName, "" + score, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
+                String pationpMsg = new Gson().toJson(new SubmitorMsgBean(newCode, surveyNo, patientsNo, name, userCode, realName, "" + score, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
                 MyLog.i("pationpMsg", pationpMsg);
 
 
@@ -325,7 +325,7 @@ public class SurveyActivity extends BaseActivity {
                 String topicNo = (String) entry.getKey();
                 String choiceNum = (String) entry.getValue();
 
-                String answer = new Gson().toJson(new SurveyAnswer(newCode, topicNo, choiceNum, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
+                String answer = new Gson().toJson(new SurveyAnswerBean(newCode, topicNo, choiceNum, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
 
                 /*
                 * 提交答案
@@ -473,8 +473,8 @@ public class SurveyActivity extends BaseActivity {
 
         private void parseResult(String result) {
             Gson gson = new Gson();
-            QuestionOption questionOption = gson.fromJson(result, QuestionOption.class);
-            List<QuestionOption.Option> options = questionOption.getRows();
+            QuestionOptionBean questionOption = gson.fromJson(result, QuestionOptionBean.class);
+            List<QuestionOptionBean.Option> options = questionOption.getRows();
 
             int total = questionOption.getTotal();
             RadioGroup.LayoutParams params = null;
@@ -483,7 +483,7 @@ public class SurveyActivity extends BaseActivity {
             choiceNums.clear();
             if (total > 0) {
                 for (int i = 0; i < options.size(); i++) {
-                    QuestionOption.Option option = options.get(i);
+                    QuestionOptionBean.Option option = options.get(i);
                     String choiceNo = option.ChoiceNo;  //用户选项
                     String contents = option.Contents;  //选项内容
                     int score = option.Score;    //选项的分

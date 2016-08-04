@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.activity.MyPationteActivity;
 import com.bjym.hyzc.activity.activity.MyTaskActivity;
-import com.bjym.hyzc.activity.bean.Pationte;
+import com.bjym.hyzc.activity.bean.PationteBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyToast;
 import com.google.gson.Gson;
@@ -33,7 +33,7 @@ public class MyFragment extends BaseFragment {
     private TextView tv_myPationte;
     private TextView tv_keshi;
 
-    private List<Pationte> pationtes;
+    private List<PationteBean> pationtes;
 
 
     @Override
@@ -111,7 +111,7 @@ public class MyFragment extends BaseFragment {
 
     private void parseJson(String jsonStr) throws JSONException {
 
-        pationtes = new Gson().fromJson(jsonStr, new TypeToken<List<Pationte>>() {
+        pationtes = new Gson().fromJson(jsonStr, new TypeToken<List<PationteBean>>() {
         }.getType());
     }
 

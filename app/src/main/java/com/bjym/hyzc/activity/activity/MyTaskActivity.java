@@ -67,13 +67,15 @@ public class MyTaskActivity extends BaseActivity {
 
                 }
                 break;
+
             case R.id.btn_nurseStage:
-                Intent NurseExecuteActivityIntent = new Intent(this, NurseExecuteActivity.class);
+                Intent NurseExecuteActivityIntent = new Intent(this, NurseSelectStageActivity.class);
                 if (name==null||patientsNo==null||cpwCode==null){
                     MyToast.showToast(this,"请选择患者");
                     return;
                 }else{
                     NurseExecuteActivityIntent.putExtra("cpwCode", cpwCode);
+                    NurseExecuteActivityIntent.putExtra("patientsNo", patientsNo);
                     startActivity(NurseExecuteActivityIntent);
                 }
 

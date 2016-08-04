@@ -3,7 +3,7 @@ package com.bjym.hyzc.activity.bean;
 /**
  * Created by fushaoqing on 2016/7/20.
  */
-public class SubmitorMsg {
+public class SubmitorMsgBean {
 
     public String PatiSurveryNo;
     public String SurveyNo;
@@ -14,7 +14,7 @@ public class SubmitorMsg {
     public String Score;
     public String SurveyTime;
 
-    public SubmitorMsg(String newCode, String surveyNo, String patientsNo, String name, String surveyCode, String surveyName, String score,String surveyTime) {
+    public SubmitorMsgBean(String newCode, String surveyNo, String patientsNo, String name, String surveyCode, String surveyName, String score, String surveyTime) {
         PatiSurveryNo = newCode;
         SurveyNo = surveyNo;
         PatientsNo = patientsNo;

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/background_white"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_search"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/search"
+            android:gravity="center"
+            android:hint="点击医嘱条目选择是否执行"
+            android:textColor="@color/click_diaocha_search"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left_iv_user"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="8dp">
+        <!--
+        医嘱类型
+
+        项目名称
+        规格
+        单位
+        剂量
+        给药方式
+        频率
+
+        持续时间
+        持续单位
+        -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="项目名称："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_OrderName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="注射用青霉素钠"
+                android:textColor="@color/myPationte_content_color" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="医嘱类型："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_OrderType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="长期"
+                android:textColor="@color/myPationte_content_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="规格："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_Specs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="青霉素"
+                android:textColor="@color/myPationte_content_color" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="单位："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_Unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="盒"
+                android:textColor="@color/myPationte_content_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="剂量："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_Dose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="200ml"
+                android:textColor="@color/myPationte_content_color" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="给药方式："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_Way"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="注射"
+                android:textColor="@color/myPationte_content_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="频率："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_Frequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="pid"
+                android:textColor="@color/myPationte_content_color" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="持续时间："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_DurationDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="@color/myPationte_content_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="持续单位："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_DurationUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="持续单位"
+                android:textColor="@color/myPationte_content_color" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+

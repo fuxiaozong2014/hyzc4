@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by fushaoqing on 2016/7/13.
  */
-public class Question {
+public class QuestionBean {
 
     /**
      * total : 1
@@ -31,7 +31,7 @@ public class Question {
 
     public List<RowsBean> rows;
 
-    public Question() {
+    public QuestionBean() {
     }
 
     public int getTotal() {
