@@ -7,7 +7,7 @@ public class MyConstant {
     /**
      * 服务器ip
      */
-     public static final String BASE_URL = "http://192.168.0.168";
+    public static final String BASE_URL = "http://192.168.0.168";
     // public static final String BASE_URL = "http://192.168.0.188";
     // public static final String BASE_URL = "http://cp.hyzczg.com";
     //public static final String BASE_URL = "http://cp.sqall.com";
@@ -69,13 +69,24 @@ public class MyConstant {
     public static final String NURSE_SELECT_STAGE = BASE_URL + "/CPW/CPW_InfoStage/getlist?cpwcode=";
 
     /*
-    * 根据病人编号和stageCode去获取未执行的医嘱
-    * */
-    //public static final String NURSE_UNEXECUTE_STAGE = BASE_URL + "/CPW/CPW_PatiOrder/getlistnoexec?PatientsNo=";
-
-    /*
    * 根据病人编号和stageCode去获取未执行的医嘱
    * */
     public static final String NURSE_UNEXECUTE_STAGE = BASE_URL + "/CPW/CPW_PatiOrder/getlistnoexec";
+
+    /*
+  * 提交护士已选择的未执行的医嘱
+  * */
+    public static final String NURSE_UNEXECUTE_COMIT = BASE_URL + "/CPW/CPW_PatiExecOrder/execorder?OrderNo=";
+
+
+    /*
+     * 获取退出路径患者的信息
+     * */
+    public static final String PATIONTE_EXITCPW_MSG = BASE_URL + "/CPW/CPW_Patients/getpatientsexitcpw";
+    /*
+     * 获取患者退出路径的原因
+     * */
+    public static final String PATIONTE_EXITCPW_CAUSE = BASE_URL + "/CPW/CPW_PatiVariation/GetListOrder";
+
 
 }

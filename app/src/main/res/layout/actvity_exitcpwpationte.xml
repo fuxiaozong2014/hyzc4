@@ -3,9 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_ExitCPWPationte"
+    <ListView
+        android:id="@+id/lv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="中途退出的患者"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"></ListView>
+
 </LinearLayout>

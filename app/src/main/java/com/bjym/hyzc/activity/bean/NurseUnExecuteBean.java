@@ -55,7 +55,7 @@ public class NurseUnExecuteBean {
     public List<RowsBean> getRows() {
         return rows;
     }
-    public static class RowsBean {
+    public  class RowsBean {
         public String OrderNo;
         public String Name;
         public String PatientsNo;

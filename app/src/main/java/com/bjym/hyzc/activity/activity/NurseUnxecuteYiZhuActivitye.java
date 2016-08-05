@@ -1,8 +1,11 @@
 package com.bjym.hyzc.activity.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,13 +31,72 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
 
     private String stageCode;
     private String patientsNo;
-    private List<NurseUnExecuteBean.RowsBean> rows;
     private ListView lv;
+    private List<NurseUnExecuteBean.RowsBean> rows;
+    private TextView tv_none_unExecuteYiZhu;
+
+    class MyOnItemClickListener implements AdapterView.OnItemClickListener{
+
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            //条目被点击之后，得到OrderNo，弹出对话框，询问是否执行此医嘱
+            final String orderNo = rows.get(position).OrderNo;
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("提示");
+            builder.setMessage("确定执行此医嘱？");
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // finish();
+                    dialog.dismiss();
+
+                    postUnExecuteYiZhu(orderNo);
+
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            builder.show();
+
+        }
+    }
+
+
+    private void postUnExecuteYiZhu(String orderNo) {
+        //TODO 确定提交的内容
+        OkHttpUtils.postString().url(MyConstant.NURSE_UNEXECUTE_COMIT+orderNo).content("").build().execute(new Callback() {
+            @Override
+            public Object parseNetworkResponse(Response response, int i) throws Exception {
+
+                return null;
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                MyToast.showToast(NurseUnxecuteYiZhuActivitye.this,"请求网络失败");
+            }
+
+            @Override
+            public void onResponse(Object o, int i) {
+                MyToast.showToast(NurseUnxecuteYiZhuActivitye.this,"请求网络成功");
+            }
+        });
+
+    }
 
     @Override
     public View setMainView() {
         View view = View.inflate(context, R.layout.activity_nurseselectexecute, null);
         lv = (ListView) view.findViewById(R.id.lv);
+        tv_none_unExecuteYiZhu = (TextView)view.findViewById(R.id.tv_none_unExecuteYiZhu);
         return view;
     }
 
@@ -45,9 +107,11 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
         patientsNo = intent.getStringExtra("patientsNo");
         MyLog.i("stageCode:::::", stageCode);
         MyLog.i("patientsNo:::::", patientsNo);
-        getUnExecuteStage();
+        if (stageCode != null) {
+            getUnExecuteStage();
+        }
 
-
+        lv.setOnItemClickListener(new MyOnItemClickListener());
     }
 
     private void getUnExecuteStage() {
@@ -59,7 +123,7 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
                 .execute(new Callback() {
                     @Override
                     public Object parseNetworkResponse(Response response, int i) throws Exception {
-                        MyToast.showToast(NurseUnxecuteYiZhuActivitye.this, response.body().string());
+                        // MyToast.showToast(NurseUnxecuteYiZhuActivitye.this, response.body().string());
                         return response.body().string();
                     }
 
@@ -71,8 +135,8 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
 
                     @Override
                     public void onResponse(Object o, int i) {
+                        MyToast.showToast(NurseUnxecuteYiZhuActivitye.this, (String) o);
                         parseJson((String) o);
-
                     }
                 });
     }
@@ -80,6 +144,11 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
     private void parseJson(String o) {
         NurseUnExecuteBean nurseUnExecuteBean = new Gson().fromJson(o, NurseUnExecuteBean.class);
         rows = nurseUnExecuteBean.getRows();
+        if(rows.size()==0){
+            lv.setVisibility(View.GONE);
+            tv_none_unExecuteYiZhu.setVisibility(View.VISIBLE);
+        }
+
         lv.setAdapter(new MyAdapter());
 
     }
@@ -98,11 +167,22 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
             ViewHolder viewHolder=null;
             if (convertView == null) {
                 view = View.inflate(context, R.layout.item_list_nurse_unexecuteyizhu, null);
-
+                viewHolder=new ViewHolder(view);
+                view.setTag(viewHolder);
             } else {
                 view = convertView;
+                viewHolder= (ViewHolder) view.getTag();
             }
 
+            viewHolder.tv_OrderName.setText(rows.get(position).OrderName);
+            viewHolder.tv_OrderType.setText(rows.get(position).OrderType);
+            viewHolder.tv_Specs.setText(rows.get(position).Specs);
+            viewHolder.tv_Unit.setText(rows.get(position).Unit);
+            viewHolder.tv_Dose.setText(rows.get(position).Dose);
+            viewHolder.tv_Way.setText(rows.get(position).Way);
+            viewHolder.tv_Frequency.setText(rows.get(position).Frequency);
+            viewHolder.tv_Duration.setText(rows.get(position).Duration);
+            viewHolder.tv_DurationUnit.setText(rows.get(position).DurationUnit);
 
             return view;
         }
@@ -128,7 +208,7 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
             public TextView tv_Dose;
             public TextView tv_Way;
             public TextView tv_Frequency;
-            public TextView tv_DurationDuration;
+            public TextView tv_Duration;
             public TextView tv_DurationUnit;
 
             public ViewHolder(View rootView) {
@@ -141,11 +221,13 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
                 this.tv_Dose = (TextView) rootView.findViewById(R.id.tv_Dose);
                 this.tv_Way = (TextView) rootView.findViewById(R.id.tv_Way);
                 this.tv_Frequency = (TextView) rootView.findViewById(R.id.tv_Frequency);
-                this.tv_DurationDuration = (TextView) rootView.findViewById(R.id.tv_DurationDuration);
+                this.tv_Duration= (TextView) rootView.findViewById(R.id.tv_Duration);
                 this.tv_DurationUnit = (TextView) rootView.findViewById(R.id.tv_DurationUnit);
             }
 
         }
     }
+
+
 
 }

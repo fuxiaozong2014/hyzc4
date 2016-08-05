@@ -6,7 +6,6 @@
     android:orientation="vertical">
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,20 +20,18 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:text="项目名称："
+                android:text="路径名称："
                 android:textColor="@color/myPationte_title_color"
                 android:textSize="@dimen/et_login_size" />
 
             <TextView
-                android:id="@+id/tv_OrderName"
+                android:id="@+id/tv_CPWName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="注射用青霉素钠"
+                android:text="fffddf"
                 android:textColor="@color/myPationte_content_color" />
 
         </LinearLayout>
@@ -47,30 +44,30 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="医嘱类型："
+                android:text="就诊卡号："
                 android:textColor="@color/myPationte_title_color"
                 android:textSize="@dimen/et_login_size" />
 
             <TextView
-                android:id="@+id/tv_OrderType"
+                android:id="@+id/tv_CardNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="长期"
+                android:text="ghgh"
                 android:textColor="@color/myPationte_content_color" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="规格："
+                android:text="姓名："
                 android:textColor="@color/myPationte_title_color"
                 android:textSize="@dimen/et_login_size" />
 
             <TextView
-                android:id="@+id/tv_Specs"
+                android:id="@+id/tv_Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="青霉素"
+                android:text="fjjj"
                 android:textColor="@color/myPationte_content_color" />
         </LinearLayout>
 
@@ -82,34 +79,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="单位："
+                android:text="患者编号："
                 android:textColor="@color/myPationte_title_color"
                 android:textSize="@dimen/et_login_size" />
 
             <TextView
-                android:id="@+id/tv_Unit"
+                android:id="@+id/tv_PatientsNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="盒"
+                android:text="2016-1-1 16:02:14"
                 android:textColor="@color/myPationte_content_color" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="剂量："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
-
-            <TextView
-                android:id="@+id/tv_Dose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="200ml"
-                android:textColor="@color/myPationte_content_color" />
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -119,31 +101,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="给药方式："
+                android:text="入院日期："
                 android:textColor="@color/myPationte_title_color"
                 android:textSize="@dimen/et_login_size" />
 
             <TextView
-                android:id="@+id/tv_Way"
+                android:id="@+id/tv_InDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="注射"
+                android:text="2016-1-1 16:02:14"
                 android:textColor="@color/myPationte_content_color" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="频率："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
-
-            <TextView
-                android:id="@+id/tv_Frequency"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="pid"
-                android:textColor="@color/myPationte_content_color" />
 
         </LinearLayout>
 
@@ -156,30 +124,37 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="持续时间："
+                android:text="入径日期："
                 android:textColor="@color/myPationte_title_color"
                 android:textSize="@dimen/et_login_size" />
 
             <TextView
-                android:id="@+id/tv_Duration"
+                android:id="@+id/tv_BeginTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
+                android:text="2016-1-1 16:02:14"
                 android:textColor="@color/myPationte_content_color" />
 
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="持续单位："
+                android:text="入径阶段："
                 android:textColor="@color/myPationte_title_color"
                 android:textSize="@dimen/et_login_size" />
 
             <TextView
-                android:id="@+id/tv_DurationUnit"
+                android:id="@+id/tv_CPState"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="持续单位"
+                android:text="jfldgdlfgldf"
                 android:textColor="@color/myPationte_content_color" />
 
         </LinearLayout>
