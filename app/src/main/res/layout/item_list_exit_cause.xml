@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_white"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left_iv_user"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="变异编号："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_VariationNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fffddf"
+                android:textColor="@color/myPationte_content_color" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="患者编号："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_PatientsNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ghgh"
+                android:textColor="@color/myPationte_content_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="患者姓名："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fjjj"
+                android:textColor="@color/myPationte_content_color" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="变异编码："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_VariationCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2016-1-1 16:02:14"
+                android:textColor="@color/myPationte_content_color" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="变异分类："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_VariationType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2016-1-1 16:02:14"
+                android:textColor="@color/myPationte_content_color" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="变异名称："
+                android:textColor="@color/myPationte_title_color"
+                android:textSize="@dimen/et_login_size" />
+
+            <TextView
+                android:id="@+id/tv_VariationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="jfldgdlfgldf"
+                android:textColor="@color/myPationte_content_color" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+

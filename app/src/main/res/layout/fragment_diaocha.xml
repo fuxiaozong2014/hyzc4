@@ -22,7 +22,6 @@
             android:hint="点此选择调查对象"
             android:textColor="@color/click_diaocha_search"
             android:textSize="16dp" />
-
     </LinearLayout>
 
 

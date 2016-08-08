@@ -88,5 +88,8 @@ public class MyConstant {
      * */
     public static final String PATIONTE_EXITCPW_CAUSE = BASE_URL + "/CPW/CPW_PatiVariation/GetListOrder";
 
-
+    /*
+        * 提交新增护理
+        * */
+    public static final String ADD_NURSINGCARE_COMIT = BASE_URL + "/CPW/CPW_PatiNursing/add";
 }

@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_ExitCPWPationte"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="中途退出的患者"/>
+        <Button
+    android:id="@+id/btn_ExitCPWPationte"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="退出路径患者统计"
+    android:textColor="@color/click_diaocha_search"
+    android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/btn_ExitCPWCause"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="退出路径原因分析"
+            android:textColor="@color/click_diaocha_search"
+            android:textSize="16dp" />
+
 </LinearLayout>

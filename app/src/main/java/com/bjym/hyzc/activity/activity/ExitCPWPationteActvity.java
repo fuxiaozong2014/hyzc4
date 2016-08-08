@@ -29,6 +29,8 @@ public class ExitCPWPationteActvity extends BaseActivity {
     private ListView lv;
     private List<ExitCPWPationtebean> exitCPWPationtebeanlists;
 
+
+
     @Override
     public View setMainView() {
         View view = View.inflate(context, R.layout.actvity_exitcpwpationte, null);

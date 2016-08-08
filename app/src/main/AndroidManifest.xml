@@ -62,6 +62,8 @@
         <activity android:name=".activity.activity.NurseHistoryActivity"></activity>
         <activity android:name=".activity.activity.NurseSelectStageActivity"></activity>
         <activity android:name=".activity.activity.ExitCPWPationteActvity"></activity>
+        <activity android:name=".activity.activity.ExitCPWCauseActvity"></activity>
+        <activity android:name=".activity.activity.AddNursingCareActivity"></activity>
         <activity
             android:name=".activity.activity.MyPationteActivity"
             android:label="我的病人"></activity>

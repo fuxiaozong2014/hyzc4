@@ -34,6 +34,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="护理记录"/>
-
+    <Button
+        android:id="@+id/btn_addNursingCare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="新增护理"/>
 
 </LinearLayout>

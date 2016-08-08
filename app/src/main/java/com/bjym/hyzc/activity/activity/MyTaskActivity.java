@@ -18,6 +18,7 @@ public class MyTaskActivity extends BaseActivity {
     private TextView tv_search;
     private Button btn_nurseHistory;
     private Button btn_nurseStage;
+    private Button btn_addNursingCare;
     private String name;
     private String patientsNo;
     private String cpwCode;
@@ -29,6 +30,7 @@ public class MyTaskActivity extends BaseActivity {
         View view = View.inflate(context, R.layout.activity_mytask, null);
         btn_nurseHistory = (Button) view.findViewById(R.id.btn_nurseHistory);
         btn_nurseStage = (Button) view.findViewById(R.id.btn_nurseStage);
+        btn_addNursingCare = (Button) view.findViewById(R.id.btn_addNursingCare);
 
         tv_search = (TextView) view.findViewById(R.id.tv_search);
 
@@ -41,6 +43,7 @@ public class MyTaskActivity extends BaseActivity {
         tv_search.setOnClickListener(this);
         btn_nurseHistory.setOnClickListener(this);
         btn_nurseStage.setOnClickListener(this);
+        btn_addNursingCare.setOnClickListener(this);
 
     }
 
@@ -78,6 +81,10 @@ public class MyTaskActivity extends BaseActivity {
                     NurseExecuteActivityIntent.putExtra("patientsNo", patientsNo);
                     startActivity(NurseExecuteActivityIntent);
                 }
+
+                break;
+            case R.id.btn_addNursingCare:
+                startActivity(new Intent(this,AddNursingCareActivity.class));
 
                 break;
         }
