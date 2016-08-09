@@ -3,45 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginTop="5dp"
         android:background="@color/background_white"
         android:gravity="center">
 
         <TextView
             android:id="@+id/tv_search"
             android:layout_width="290dp"
-            android:gravity="center"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_search"
-            android:drawableRight="@mipmap/search"
             android:drawablePadding="5dp"
-            android:hint="点此选择患者"
+            android:drawableRight="@mipmap/search"
+            android:gravity="center"
+            android:hint="去查看现有护理内容"
             android:textColor="@color/click_diaocha_search"
             android:textSize="16dp" />
 
     </LinearLayout>
-    <Button
-        android:id="@+id/btn_nurseStage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="护理阶段"/>
 
-    <Button
-        android:id="@+id/btn_nurseHistory"
+    <ListView
+        android:id="@+id/lv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="护理记录"/>
-    <Button
-        android:id="@+id/btn_addNursingCare"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"></ListView>
+
+    <TextView
+        android:id="@+id/tv_none_nurseContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="新增护理"/>
-    <Button
-        android:id="@+id/btn_nursingContentSelect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="护理内容维护"/>
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="没有未执行的护理内容！"
+        android:textColor="@color/MyPationte_MyMsg"
+        android:visibility="gone" />
 </LinearLayout>

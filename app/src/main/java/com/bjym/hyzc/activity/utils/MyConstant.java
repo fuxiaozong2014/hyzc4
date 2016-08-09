@@ -92,4 +92,9 @@ public class MyConstant {
         * 提交新增护理
         * */
     public static final String ADD_NURSINGCARE_COMIT = BASE_URL + "/CPW/CPW_PatiNursing/add";
+
+    /*
+       * 获取可选的护理内容
+       * */
+    public static final String NURSING_CONTENT_SELECT= BASE_URL + "/CPW/CPW_InfoContent/getlist?cpwcode=";
 }

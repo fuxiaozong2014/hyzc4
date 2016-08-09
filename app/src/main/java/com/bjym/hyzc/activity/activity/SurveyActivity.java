@@ -49,7 +49,6 @@ public class SurveyActivity extends BaseActivity {
     public Button btn_next;
     public Button btn_submit;
     public int position;
-    // http://hyzc.tpddns.cn:6060/cpw/CPW_Topic/getlistbysurvey?Survey=1111
 
     private String contents;
     private int number;

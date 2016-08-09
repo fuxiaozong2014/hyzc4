@@ -19,6 +19,7 @@ public class MyTaskActivity extends BaseActivity {
     private Button btn_nurseHistory;
     private Button btn_nurseStage;
     private Button btn_addNursingCare;
+    private Button btn_nursingContentSelect;
     private String name;
     private String patientsNo;
     private String cpwCode;
@@ -31,6 +32,7 @@ public class MyTaskActivity extends BaseActivity {
         btn_nurseHistory = (Button) view.findViewById(R.id.btn_nurseHistory);
         btn_nurseStage = (Button) view.findViewById(R.id.btn_nurseStage);
         btn_addNursingCare = (Button) view.findViewById(R.id.btn_addNursingCare);
+        btn_nursingContentSelect = (Button) view.findViewById(R.id.btn_nursingContentSelect);
 
         tv_search = (TextView) view.findViewById(R.id.tv_search);
 
@@ -44,6 +46,7 @@ public class MyTaskActivity extends BaseActivity {
         btn_nurseHistory.setOnClickListener(this);
         btn_nurseStage.setOnClickListener(this);
         btn_addNursingCare.setOnClickListener(this);
+        btn_nursingContentSelect.setOnClickListener(this);
 
     }
 
@@ -85,6 +88,18 @@ public class MyTaskActivity extends BaseActivity {
                 break;
             case R.id.btn_addNursingCare:
                 startActivity(new Intent(this,AddNursingCareActivity.class));
+
+                break;
+
+            case R.id.btn_nursingContentSelect:
+                Intent NursingContentSelectIntent = new Intent(this, NursingContentSelectActivity.class);
+                if (cpwCode==null){
+                    MyToast.showToast(this,"请选择患者");
+                    return;
+                }else{
+                    NursingContentSelectIntent.putExtra("cpwCode", cpwCode);
+                    startActivity(NursingContentSelectIntent);
+                }
 
                 break;
         }
