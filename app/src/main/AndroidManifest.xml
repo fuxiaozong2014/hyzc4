@@ -57,14 +57,23 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.activity.SplashActivity" />
-        <activity android:name=".activity.activity.NurseUnxecuteYiZhuActivitye"></activity>
+        <activity android:name=".activity.activity.NurseUnxecuteYiZhuActivitye"
+            android:label="现有医嘱内容"></activity>
         <activity android:name=".activity.activity.SurveyActivity"></activity>
-        <activity android:name=".activity.activity.NurseHistoryActivity"></activity>
-        <activity android:name=".activity.activity.NurseSelectStageActivity"></activity>
-        <activity android:name=".activity.activity.ExitCPWPationteActvity"></activity>
-        <activity android:name=".activity.activity.ExitCPWCauseActvity"></activity>
-        <activity android:name=".activity.activity.AddNursingCareActivity"></activity>
-        <activity android:name=".activity.activity.NursingContentSelectActivity"></activity>
+        <activity android:name=".activity.activity.NurseHistoryActivity"
+            android:label="护理记录"></activity>
+        <activity android:name=".activity.activity.NurseSelectStageActivity"
+            android:label="选择护理阶段"></activity>
+        <activity android:name=".activity.activity.ExitCPWPationteActvity"
+            android:label="中途退出路径的患者"></activity>
+        <activity android:name=".activity.activity.ExitCPWCauseActvity"
+            android:label="最多退出路径原因"></activity>
+        <activity android:name=".activity.activity.AddNursingCareActivity"
+            android:label="新增护理"></activity>
+        <activity android:name=".activity.activity.NursingContentSelectActivity"
+            android:label="护理内容维护"></activity>
+        <activity android:name=".activity.activity.ExistingNursingContentActivity"
+            android:label="现有的护理内容"></activity>
         <activity
             android:name=".activity.activity.MyPationteActivity"
             android:label="我的病人"></activity>
@@ -72,6 +81,8 @@
         <activity android:name=".activity.activity.MyTaskActivity"
             android:label="我的任务" >
         </activity>
+        <activity android:name=".activity.activity.WebViewActivity"
+            ></activity>
         <!-- Required SDK 核心功能-->
         <!-- option since 2.0.5 可配置PushService，DaemonService,PushReceiver,AlarmReceiver的android:process参数 将JPush相关组件设置为一个独立进程 -->
         <!-- 如：android:process=":remote" -->

@@ -10,7 +10,6 @@ import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.bean.ExitCPWPationtebean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
-import com.bjym.hyzc.activity.utils.MyToast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -59,7 +58,7 @@ public class ExitCPWPationteActvity extends BaseActivity {
             @Override
             public void onResponse(Object o, int i) {
                 parseJson((String) o);
-                MyToast.showToast(ExitCPWPationteActvity.this, "请求成功" + o);
+                //MyToast.showToast(ExitCPWPationteActvity.this, "请求成功" + o);
             }
         });
 

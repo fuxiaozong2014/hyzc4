@@ -4,6 +4,7 @@ package com.bjym.hyzc.activity.utils;
  * Created by fushaoqing on 2016/6/27.
  */
 public class MyConstant {
+
     /**
      * 服务器ip
      */

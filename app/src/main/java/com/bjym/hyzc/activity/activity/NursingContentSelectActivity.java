@@ -37,9 +37,7 @@ public class NursingContentSelectActivity extends BaseActivity {
     private TextView tv_none_nurseContent;
     private TextView tv_search;
 
-
     class MyOnItemClickListener implements AdapterView.OnItemClickListener {
-
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -117,7 +115,7 @@ public class NursingContentSelectActivity extends BaseActivity {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
 
-                MyToast.showToast(NursingContentSelectActivity.this, "请求成功" + "getNursingContentData");
+               // MyToast.showToast(NursingContentSelectActivity.this, "请求成功" + "getNursingContentData");
 
                 return response.body().string();
             }
@@ -138,32 +136,12 @@ public class NursingContentSelectActivity extends BaseActivity {
         NursingContentBean nursingContentBean = new Gson().fromJson(o, NursingContentBean.class);
         rows = nursingContentBean.getRows();
         MyLog.i("rows", rows.size() + "");
-        /*for (int i = 0; i <rows.size() ; i++) {
-            String stageCode = rows.get(i).StageCode;
-            if(stageCode.equals("JD000022")){
-                String activitiesType = rows.get(i).ActivitiesType;
-                String contentCode = rows.get(i).ContentCode;
-                String orderType = rows.get(i).OrderType;
-                String contentName = rows.get(i).ContentName;
-                String orderCategory = rows.get(i).OrderCategory;
-                String medicalRecord = rows.get(i).MedicalRecord;
-                String cPWCode = rows.get(i).CPWCode;
-                String cPWType = rows.get(i).CPWType;
-                String contentType = rows.get(i).ContentType;
-                int tempid = rows.get(i).tempid;
-                NursingContentBean.RowsBean rowsBean=new NursingContentBean.RowsBean(contentCode,contentName,stageCode,contentType,cPWType,orderType,activitiesType,orderCategory,medicalRecord,cPWCode,tempid);
-                RowsBeans=new ArrayList<>();
-                RowsBeans.add(rowsBean);
-                MyLog.i("RowsBeans",RowsBeans.size()+"");
-            }
-        }*/
+
         if (rows.size() == 0) {
             tv_none_nurseContent.setVisibility(View.VISIBLE);
         } else {
             lv.setAdapter(new MyAdapter());
         }
-
-
     }
 
     class MyAdapter extends BaseAdapter {

@@ -239,7 +239,7 @@ public class MyPationteActivity extends BaseActivity {
             setResult(RESULT_OK,intentToMyTask);
             finish();
 
-
+            startActivity(new Intent(MyPationteActivity.this,PationteDetailMsgActivity.class));
         }
     }
 

@@ -10,7 +10,6 @@ import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.bean.ExitCPWCauseBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
-import com.bjym.hyzc.activity.utils.MyToast;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -58,7 +57,7 @@ public class ExitCPWCauseActvity extends BaseActivity {
             @Override
             public void onResponse(Object o, int i) {
                 parseJson((String) o);
-                MyToast.showToast(ExitCPWCauseActvity.this, "请求成功" + o);
+              //  MyToast.showToast(ExitCPWCauseActvity.this, "请求成功" + o);
                 MyLog.i("ExitCPWCauseData", o + "");
             }
         });

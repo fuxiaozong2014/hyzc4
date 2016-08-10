@@ -20,29 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <!--
-        内容编码
-        内容名称
-        项目阶段
-        项目类别
-        路径类别
-        医嘱类型
-        归属活动
-        医嘱类别
-        病历相关
-        路径编码
-        ContentCode
-        ContentName
-        StageCode
-        ContentType
-        CPWType
-        OrderType
-        ActivitiesType
-        OrderCategory
-        MedicalRecord
-        CPWCode
-        -->
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

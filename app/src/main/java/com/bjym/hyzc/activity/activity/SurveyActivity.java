@@ -337,12 +337,12 @@ public class SurveyActivity extends BaseActivity {
     }
 
     private void postPationMsg(String pationpMsg) {
+
         OkHttpUtils.postString().url(MyConstant.SUBMITORMSG_URL).content(pationpMsg)
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
 
-                //   MyLog.i("PationMsgresponse",response.toString());
                 return null;
             }
 
@@ -355,7 +355,7 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(SurveyActivity.this, "提交成功" + "postPationMsg");
+                MyToast.showToast(SurveyActivity.this, surveyName+"提交成功");
                 MyLog.i("提交成功le", "postPationMsg" + o);
             }
         });

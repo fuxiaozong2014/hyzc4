@@ -37,7 +37,6 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
 
     class MyOnItemClickListener implements AdapterView.OnItemClickListener{
 
-
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             //条目被点击之后，得到OrderNo，弹出对话框，询问是否执行此医嘱
@@ -51,7 +50,6 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     // finish();
                     dialog.dismiss();
-
                     postUnExecuteYiZhu(orderNo);
 
                 }
@@ -135,7 +133,7 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
 
                     @Override
                     public void onResponse(Object o, int i) {
-                        MyToast.showToast(NurseUnxecuteYiZhuActivitye.this, (String) o);
+                       // MyToast.showToast(NurseUnxecuteYiZhuActivitye.this, (String) o);
                         parseJson((String) o);
                     }
                 });
@@ -148,13 +146,10 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
             lv.setVisibility(View.GONE);
             tv_none_unExecuteYiZhu.setVisibility(View.VISIBLE);
         }
-
         lv.setAdapter(new MyAdapter());
-
     }
 
     class MyAdapter extends BaseAdapter {
-
 
         @Override
         public int getCount() {
