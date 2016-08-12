@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.activity.MyPationteActivity;
+import com.bjym.hyzc.activity.activity.MyPationteSimpleMsgActivity;
 import com.bjym.hyzc.activity.activity.SurveyActivity;
 import com.bjym.hyzc.activity.bean.DiaoChaSortBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
@@ -209,7 +209,7 @@ public class DiaoChaFragment extends BaseFragment {
                 /*
                 * click here jump to mypationte activity for surveyed's data
                 * */
-                startActivity(new Intent(context, MyPationteActivity.class));
+                startActivity(new Intent(context, MyPationteSimpleMsgActivity.class));
                 break;
         }
     }

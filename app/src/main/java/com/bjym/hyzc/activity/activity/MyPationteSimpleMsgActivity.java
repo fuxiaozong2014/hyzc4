@@ -30,10 +30,9 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by Administrator on 2016/7/3 0003.
+ * Created by fushaoqing on 2016/8/12.
  */
-public class MyPationteActivity extends BaseActivity {
-
+public class MyPationteSimpleMsgActivity extends BaseActivity{
     private static final int WHAT_DISMISS_LOADING =2 ;
     private static final int RELA_WAIT_LOADING =3 ;
     private ListView lv_mypationte;
@@ -47,7 +46,7 @@ public class MyPationteActivity extends BaseActivity {
 
     @Override
     public View setMainView() {
-        View view = View.inflate(context, R.layout.activity_mypationte, null);
+        View view = View.inflate(context, R.layout.activity_mypationtesimplemsg, null);
         lv_mypationte = (ListView) view.findViewById(R.id.lv_mypationte);
         tv_mypationtenone = (TextView) view.findViewById(R.id.tv_mypationtenone);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefresh);
@@ -68,7 +67,7 @@ public class MyPationteActivity extends BaseActivity {
                 case SWIPEREFRESH_MSG:
                     swipeRefresh.setRefreshing(true);
                     getNetData();
-                    MyToast.showToast(MyPationteActivity.this, "刷新完成");
+                    MyToast.showToast(MyPationteSimpleMsgActivity.this, "刷新完成");
                     break;
 
                 case RELA_WAIT_LOADING:
@@ -89,7 +88,7 @@ public class MyPationteActivity extends BaseActivity {
 
             @Override
             public void onRefresh() {
- //               pationtes.clear();
+                //               pationtes.clear();
 //                adpter.notifyDataSetChanged();
                 getNetData();
                 handler.sendEmptyMessage(SWIPEREFRESH_MSG);
@@ -110,7 +109,7 @@ public class MyPationteActivity extends BaseActivity {
             @Override
             public void onError(Call call, Exception e, int i) {
                 dismissWaitingDialog();
-                MyToast.showToast(MyPationteActivity.this, "服务器正忙，请稍后重试");
+                MyToast.showToast(MyPationteSimpleMsgActivity.this, "服务器正忙，请稍后重试");
             }
 
             @Override
@@ -239,7 +238,7 @@ public class MyPationteActivity extends BaseActivity {
             setResult(RESULT_OK,intentToMyTask);
             finish();
 
-           // startActivity(new Intent(MyPationteActivity.this,PationteDetailMsgActivity.class));
+            // startActivity(new Intent(MyPationteActivity.this,PationteDetailMsgActivity.class));
         }
     }
 

@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
-            android:text="护理阶段"
+            android:text="执行医嘱"
             android:textColor="@color/fontcolor"
             android:textSize="16dp" />
 
