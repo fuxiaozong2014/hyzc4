@@ -28,7 +28,7 @@ import okhttp3.Response;
  */
 public class NurseSelectStageActivity extends BaseActivity {
 
-    private List<String> nurseExecuteStage=new ArrayList<>();
+    private List<String> nurseExecuteStages=new ArrayList<>();
     private String cpwCode;
     private ListView lv;
     private List<NurseExecuteBean.RowsBean> rows;
@@ -113,7 +113,7 @@ public class NurseSelectStageActivity extends BaseActivity {
             String stageName = rows.get(i).StageName;
             String parentCode = rows.get(i).ParentCode;
             if (parentCode.equals("0")){
-                nurseExecuteStage.add(stageName);
+                nurseExecuteStages.add(stageName);
             }
 
             String stageCode = rows.get(i).StageCode;
@@ -130,7 +130,7 @@ public class NurseSelectStageActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return nurseExecuteStage.size();
+            return nurseExecuteStages.size();
         }
 
         @Override
@@ -154,7 +154,7 @@ public class NurseSelectStageActivity extends BaseActivity {
                 view = convertView;
             }
             TextView tv_NurseExecuteYiZhu = (TextView) view.findViewById(R.id.tv_NurseExecuteYiZhu);
-             tv_NurseExecuteYiZhu.setText(nurseExecuteStage.get(position));
+             tv_NurseExecuteYiZhu.setText(nurseExecuteStages.get(position));
             return view;
         }
     }

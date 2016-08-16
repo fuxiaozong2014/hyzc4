@@ -1,15 +1,11 @@
 package com.bjym.hyzc.activity.activity;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,72 +26,46 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by fushaoqing on 2016/8/12.
+ * Created by fushaoqing on 2016/8/16.
  */
-public class MyPationteSimpleMsgActivity extends BaseActivity {
+public class PationtNameListActivity extends  BaseActivity{
     private static final int WHAT_DISMISS_LOADING =2 ;
     private static final int RELA_WAIT_LOADING =3 ;
     private ListView lv_mypationte;
     private MyAdapter adpter;
     private List<PationteBean> pationtes;
     private TextView tv_mypationtenone;
-    private SwipeRefreshLayout swipeRefresh;
-    public static final int SWIPEREFRESH_MSG =1;
-    private LinearLayout rela_wait_loading;
 
-
+    private Button bt_titlebar_right;
+    private Button bt_titlebar_left;
+    private TextView tv_titlebar_center;
     @Override
     public View setMainView() {
-        View view = View.inflate(context, R.layout.activity_mypationtesimplemsg, null);
+        View view=View.inflate(context, R.layout.activity_pationtnamelist,null);
         lv_mypationte = (ListView) view.findViewById(R.id.lv_mypationte);
         tv_mypationtenone = (TextView) view.findViewById(R.id.tv_mypationtenone);
-        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefresh);
-        rela_wait_loading = (LinearLayout)view.findViewById(R.id.Rela_wait_loading);
 
-        lv_mypationte.setOnItemClickListener(new MyOnItemClickListner());
-        lv_mypationte.setOnItemClickListener(new MyOnItemClickListner());
+        bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
+        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
+        tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);
+
 
         return view;
     }
 
-
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case SWIPEREFRESH_MSG:
-                    swipeRefresh.setRefreshing(true);
-                    getNetData();
-                    MyToast.showToast(MyPationteSimpleMsgActivity.this, "刷新完成");
-                    break;
-
-                case RELA_WAIT_LOADING:
-                    rela_wait_loading.setVisibility(View.VISIBLE);
-                    break;
-                case WHAT_DISMISS_LOADING:
-                    rela_wait_loading.setVisibility(View.GONE);
-            }
-        }
-    };
-
     @Override
     public void InitData() {
-        handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING,500);
+        bt_titlebar_left.setVisibility(View.VISIBLE);
+        bt_titlebar_right.setVisibility(View.GONE);
+        tv_titlebar_center.setText("患者列表");
+
+        bt_titlebar_left.setOnClickListener(this);
+        lv_mypationte.setOnItemClickListener(new MyOnItemClickListner());
+        lv_mypationte.setOnItemClickListener(new MyOnItemClickListner());
         getNetData();
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-
-
-            @Override
-            public void onRefresh() {
-                //               pationtes.clear();
-//                adpter.notifyDataSetChanged();
-                getNetData();
-                handler.sendEmptyMessage(SWIPEREFRESH_MSG);
-            }
-        });
-
     }
+
+
 
     private void getNetData() {
         OkHttpUtils.get().url(MyConstant.MYPATIONTE_URL).build().execute(new Callback() {
@@ -108,14 +78,14 @@ public class MyPationteSimpleMsgActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                dismissWaitingDialog();
-                MyToast.showToast(MyPationteSimpleMsgActivity.this, "服务器正忙，请稍后重试");
+                //dismissWaitingDialog();
+                MyToast.showToast(PationtNameListActivity.this, "服务器正忙，请稍后重试");
             }
 
             @Override
             public void onResponse(Object o, int i) {
 
-                dismissWaitingDialog();
+               // dismissWaitingDialog();
                 if (pationtes.size() == 0) {
                     lv_mypationte.setVisibility(View.GONE);
                     tv_mypationtenone.setVisibility(View.VISIBLE);
@@ -145,20 +115,15 @@ public class MyPationteSimpleMsgActivity extends BaseActivity {
             View view = null;
             ViewHolder holder = null;
             if (convertView == null) {
-                view = View.inflate(context, R.layout.item_list_pationtesimplemsg, null);
+                view = View.inflate(context, R.layout.item_list_pationtenamelist, null);
                 holder = new ViewHolder(view);
                 view.setTag(holder);
             } else {
                 view = convertView;
                 holder = (ViewHolder) view.getTag();
             }
-            holder.myPationte_number.setText(pationtes.get(position).PatientsNo);
             holder.myPationte_name.setText(pationtes.get(position).Name);
-            holder.myPationte_sex.setText(pationtes.get(position).Sex);
-            holder.myPationte_phone.setText(pationtes.get(position).Mobile);
             holder.myPationte_bednumber.setText(pationtes.get(position).BedNo);
-            holder.myPationte_CPWName.setText(pationtes.get(position).CPWName);
-            holder.myPationte_data.setText(pationtes.get(position).InDate);
             return view;
         }
 
@@ -174,25 +139,14 @@ public class MyPationteSimpleMsgActivity extends BaseActivity {
 
         public class ViewHolder {
             public View rootView;
-            public TextView myPationte_number;
             public TextView myPationte_name;
-            public TextView myPationte_sex;
-            public TextView myPationte_phone;
             public TextView myPationte_bednumber;
-            public TextView myPationte_CPWName;
-            public TextView myPationte_data;
 
             public ViewHolder(View rootView) {
                 this.rootView = rootView;
-                this.myPationte_number = (TextView) rootView.findViewById(R.id.myPationte_number);
                 this.myPationte_name = (TextView) rootView.findViewById(R.id.myPationte_name);
-                this.myPationte_sex = (TextView) rootView.findViewById(R.id.myPationte_sex);
-                this.myPationte_phone = (TextView) rootView.findViewById(R.id.myPationte_phone);
                 this.myPationte_bednumber = (TextView) rootView.findViewById(R.id.myPationte_bednumber);
-                this.myPationte_CPWName = (TextView) rootView.findViewById(R.id.myPationte_CPWName);
-                this.myPationte_data = (TextView) rootView.findViewById(R.id.myPationte_date);
             }
-
         }
     }
 
@@ -214,36 +168,28 @@ public class MyPationteSimpleMsgActivity extends BaseActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            /*
-            * 1.点击条目，缓存病人姓名
-            * 2.发送广播，传递数据给DiaoChaFragment
-            * */
-            LocalBroadcastManager manager = LocalBroadcastManager.getInstance(context);
+            PationteBean pationteBean = pationtes.get(position);
 
-            String name = pationtes.get(position).Name;
-            String patientsNo = pationtes.get(position).PatientsNo;
-            String cpwCode = pationtes.get(position).CPWCode;
-
-
-            Intent intent = new Intent();
-            intent.setAction("INTEN_MYPATIONTE");
-            intent.putExtra("Name", name);
-            intent.putExtra("patientsNo", patientsNo);
-            manager.sendBroadcast(intent);
-
-            Intent intentToMyTask = new Intent();
-            intentToMyTask.putExtra("Name", name);
-            intentToMyTask.putExtra("patientsNo", patientsNo);
-            intentToMyTask.putExtra("cpwCode",cpwCode);
-            setResult(RESULT_OK,intentToMyTask);
-            finish();
-
-            // startActivity(new Intent(MyPationteActivity.this,PationteDetailMsgActivity.class));
+            Intent intent=new Intent(context,PationteBestDetailMsgActivity.class);
+            intent.putExtra("pationteBean",pationteBean);
+            startActivity(intent);
         }
     }
 
-    private void dismissWaitingDialog() {
+   /* private void dismissWaitingDialog() {
         handler.sendEmptyMessage(WHAT_DISMISS_LOADING);
-    }
+    }*/
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.bt_titlebar_left:
+                finish();
+                break;
+            default:
+                break;
+
+        }
+    }
 }

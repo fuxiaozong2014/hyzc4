@@ -61,7 +61,7 @@
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:text="我的病人 ( 0 )"
-            android:textColor="@color/myPationte_title_color"
+            android:textColor="@color/fontcolor"
             android:textSize="@dimen/et_login_size" />
 
         <ImageView
@@ -92,7 +92,7 @@
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:text="我的任务 ( 4 )"
-            android:textColor="@color/myPationte_title_color"
+            android:textColor="@color/fontcolor"
             android:textSize="@dimen/et_login_size" />
 
         <ImageView

@@ -83,7 +83,7 @@ public class LoginActivity extends BaseActivity {
         View view = View.inflate(LoginActivity.this, R.layout.activity_login, null);
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
         bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
-        tv_titlebar_center = (TextView)view.findViewById(R.id.tv_titlebar_center);
+        tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);
 
         btn_login = (Button) view.findViewById(R.id.btn_login);
         rela_wait_loading = (LinearLayout) view.findViewById(R.id.Rela_wait_loading);
@@ -188,8 +188,9 @@ public class LoginActivity extends BaseActivity {
             saveUserInfo();
             setAlias();
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("usercode",usercode);
             startActivity(intent);
-             finish();
+            finish();
         } else {
             //TODO 这里其实有两种状态 密码有误  账户不存在
             //{"ResultID":50000,"ResultMsg":"账号不存在！","Succeed":false,"ResultData":null,"s":false,"emsg":"账号不存在！"}

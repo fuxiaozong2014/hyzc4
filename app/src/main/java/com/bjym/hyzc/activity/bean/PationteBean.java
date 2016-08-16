@@ -1,9 +1,11 @@
 package com.bjym.hyzc.activity.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by fushaoqing on 2016/7/4.
  */
-public class PationteBean {
+public class PationteBean implements Serializable{
 
 
     /**
@@ -68,9 +70,9 @@ public class PationteBean {
     public String Source;
     public String CPWCode;
     public String CPWName;
-    public int BeginDays;
+    public String BeginDays;
     public String BeginTime;
-    public double StandardCosts;
+    public String StandardCosts;
     public String PatientState;
     public String CPState;
     public String Remark;

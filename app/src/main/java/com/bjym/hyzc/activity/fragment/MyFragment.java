@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.activity.MyTaskActivity;
-import com.bjym.hyzc.activity.activity.PationteDetailMsgActivity;
+import com.bjym.hyzc.activity.activity.PationtNameListActivity;
 import com.bjym.hyzc.activity.bean.PationteBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyToast;
@@ -84,7 +84,7 @@ public class MyFragment extends BaseFragment {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.ll_myPationte:
-                startActivity(new Intent(context, PationteDetailMsgActivity.class));
+                startActivity(new Intent(context, PationtNameListActivity.class));
                 break;
             /*
             * 选择我的病人，跳转到任务界面 TODO

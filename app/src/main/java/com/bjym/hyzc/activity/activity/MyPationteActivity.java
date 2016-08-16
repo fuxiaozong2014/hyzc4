@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,16 +35,19 @@ import okhttp3.Response;
  */
 public class MyPationteActivity extends BaseActivity {
 
-    private static final int WHAT_DISMISS_LOADING =2 ;
-    private static final int RELA_WAIT_LOADING =3 ;
+    private static final int WHAT_DISMISS_LOADING = 2;
+    private static final int RELA_WAIT_LOADING = 3;
     private ListView lv_mypationte;
     private MyAdapter adpter;
     private List<PationteBean> pationtes;
     private TextView tv_mypationtenone;
     private SwipeRefreshLayout swipeRefresh;
-    public static final int SWIPEREFRESH_MSG =1;
+    public static final int SWIPEREFRESH_MSG = 1;
     private LinearLayout rela_wait_loading;
 
+    private Button bt_titlebar_right;
+    private Button bt_titlebar_left;
+    private TextView tv_titlebar_center;
 
     @Override
     public View setMainView() {
@@ -51,7 +55,11 @@ public class MyPationteActivity extends BaseActivity {
         lv_mypationte = (ListView) view.findViewById(R.id.lv_mypationte);
         tv_mypationtenone = (TextView) view.findViewById(R.id.tv_mypationtenone);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefresh);
-        rela_wait_loading = (LinearLayout)view.findViewById(R.id.Rela_wait_loading);
+        rela_wait_loading = (LinearLayout) view.findViewById(R.id.Rela_wait_loading);
+
+        bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
+        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
+        tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);
 
         lv_mypationte.setOnItemClickListener(new MyOnItemClickListner());
         lv_mypationte.setOnItemClickListener(new MyOnItemClickListner());
@@ -64,7 +72,7 @@ public class MyPationteActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case SWIPEREFRESH_MSG:
                     swipeRefresh.setRefreshing(true);
                     getNetData();
@@ -82,14 +90,20 @@ public class MyPationteActivity extends BaseActivity {
 
     @Override
     public void InitData() {
-        handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING,500);
+
+        bt_titlebar_left.setVisibility(View.VISIBLE);
+        bt_titlebar_right.setVisibility(View.GONE);
+        tv_titlebar_center.setText("患者详情");
+        bt_titlebar_left.setOnClickListener(this);
+
+        handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING, 500);
         getNetData();
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
 
             @Override
             public void onRefresh() {
- //               pationtes.clear();
+                //               pationtes.clear();
 //                adpter.notifyDataSetChanged();
                 getNetData();
                 handler.sendEmptyMessage(SWIPEREFRESH_MSG);
@@ -235,11 +249,11 @@ public class MyPationteActivity extends BaseActivity {
             Intent intentToMyTask = new Intent();
             intentToMyTask.putExtra("Name", name);
             intentToMyTask.putExtra("patientsNo", patientsNo);
-            intentToMyTask.putExtra("cpwCode",cpwCode);
-            setResult(RESULT_OK,intentToMyTask);
+            intentToMyTask.putExtra("cpwCode", cpwCode);
+            setResult(RESULT_OK, intentToMyTask);
             finish();
 
-           // startActivity(new Intent(MyPationteActivity.this,PationteDetailMsgActivity.class));
+            // startActivity(new Intent(MyPationteActivity.this,PationteDetailMsgActivity.class));
         }
     }
 
@@ -247,4 +261,15 @@ public class MyPationteActivity extends BaseActivity {
         handler.sendEmptyMessage(WHAT_DISMISS_LOADING);
     }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.bt_titlebar_left:
+                finish();
+                break;
+            default:
+                break;
+        }
+    }
 }

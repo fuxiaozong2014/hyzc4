@@ -1,5 +1,6 @@
 package com.bjym.hyzc.activity.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -54,6 +55,7 @@ public class MainActivity extends BaseActivity {
     private static String realName;
     private Bundle bundle;
     private String userCode;
+    private String usercode;
 
     @Override
     public View setMainView() {
@@ -111,6 +113,11 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void InitData() {
+        Intent intent = getIntent();
+        if (intent!=null){
+            usercode = intent.getStringExtra("usercode");
+
+        }
         tv_my.setOnClickListener(this);
         tv_research.setOnClickListener(this);
         tv_count.setOnClickListener(this);
@@ -272,7 +279,7 @@ public class MainActivity extends BaseActivity {
     * 2.传递给accountfragment 和 researchFragment
     * */
     private void getNetData() {
-        OkHttpUtils.get().url(MyConstant.MYMSG_URL).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.MYMSG_URL+usercode).build().execute(new Callback() {
 
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -296,8 +303,7 @@ public class MainActivity extends BaseActivity {
 
                 }
 
-                /*tv_menu_accout.setText("用户名：" + userCode);
-                tv_menu_keshi.setText("科室名：" + departmentCode);*/
+
 
                 /*
                 * 通过Bundle给acconteFragment和researchFragment传值

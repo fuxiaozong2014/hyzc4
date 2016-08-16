@@ -26,7 +26,8 @@ public class MyConstant {
     /*
     * 用户详细信息接口
     * */
-    public static final String MYMSG_URL = BASE_URL + "/Sys/Base_User/getuserinfo?usercode=sysadmin";
+    //TODO 传值给mainactivity
+    public static final String MYMSG_URL = BASE_URL + "/Sys/Base_User/getuserinfo?usercode=";
     /*
     * 问卷名列表接口
     * */

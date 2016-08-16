@@ -109,7 +109,7 @@ public class SurveyActivity extends BaseActivity {
 
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
         bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
-        tv_titlebar_center = (TextView)view.findViewById(R.id.tv_titlebar_center);
+        tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);
 
         btn_pre.setOnClickListener(this);
         btn_next.setOnClickListener(this);
@@ -339,9 +339,9 @@ public class SurveyActivity extends BaseActivity {
 
                 String answer = new Gson().toJson(new SurveyAnswerBean(newCode, topicNo, choiceNum, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
 
-                /*
-                * 提交答案
-                * */
+                     /*
+                     * 提交答案
+                     * */
                 postAnswers(answer);
                 MyLog.i("answer:::::", answer);
             }
@@ -368,7 +368,7 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(SurveyActivity.this, surveyName+"提交成功");
+                MyToast.showToast(SurveyActivity.this, surveyName + "提交成功");
                 MyLog.i("提交成功le", "postPationMsg" + o);
             }
         });
@@ -398,17 +398,11 @@ public class SurveyActivity extends BaseActivity {
     }
 
 
-
-
-
-
-
-
     public static class SurveyFragment extends BaseFragment {
 
         private RadioGroup rg;
         private TextView tv_questions;
-       private String topicNo;
+        private String topicNo;
         private List<String> choiceNums = new ArrayList<>();
         private List<Integer> scoreLists = new ArrayList<>();
 
@@ -507,7 +501,6 @@ public class SurveyActivity extends BaseActivity {
                     params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.SCROLL_AXIS_VERTICAL);
                     // params.leftMargin = DensityUtil.dip2px(20);
                     rg.addView(rb, i, params);
-
                 }
             }
         }
