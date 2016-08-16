@@ -14,14 +14,20 @@
         android:paddingBottom="5dp"
         android:paddingLeft="5dp"
         >
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/wangjimima_color">
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-
-            android:text="基本信息" />
+            android:textColor="@color/MyPationte_MyFunction"
+            android:text="基本信息"
+            android:textSize="@dimen/et_login_size1"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,8 +38,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="姓名："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_name"
@@ -47,8 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="性别："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_sex"
@@ -62,8 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="拼音码："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_PYM"
@@ -83,8 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="证号号码："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_IDNo"
@@ -103,8 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="手机号："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_phone"
@@ -122,7 +124,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:text="住院信息" />
+            android:text="住院信息"
+            android:textSize="@dimen/et_login_size1"
+            android:textColor="@color/MyPationte_MyFunction"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -133,8 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="患者编号："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_number"
@@ -153,8 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="床位号："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_bednumber"
@@ -168,8 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="就诊卡号："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_CardNo"
@@ -190,8 +191,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="住院日期 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_date"
@@ -206,7 +206,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:text="所属信息" />
+            android:text="所属信息"
+            android:textSize="@dimen/et_login_size1"
+            android:textColor="@color/MyPationte_MyFunction"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -217,8 +219,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="科室名称 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_DeptName"
@@ -232,8 +233,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="科室代码 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_DeptCode"
@@ -253,8 +253,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="护理单元代码 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_NuseCellCode"
@@ -268,8 +267,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="护理单元名称 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_NuseCellName"
@@ -289,8 +287,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="住院医师名称 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_InDocCode"
@@ -304,8 +301,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="住院医师名称 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_InDocName"
@@ -325,8 +321,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="主治医师名称 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_ChargeDocCode"
@@ -340,8 +335,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="主治医师代码 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_ChargeDocName"
@@ -360,8 +354,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="主任医师名称 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_ChifeDocCode"
@@ -375,8 +368,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="主任医师代码 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_ChifeDocName"
@@ -395,8 +387,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="责任护士名称 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_DutyNuseName"
@@ -410,8 +401,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="责任护士代码 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_DutyNuseCode"
@@ -426,7 +416,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:text="路径信息" />
+            android:text="路径信息"
+            android:textSize="@dimen/et_login_size1"
+            android:textColor="@color/MyPationte_MyFunction"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -437,8 +429,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="路径名称："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_CPWName"
@@ -453,8 +445,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="诊断名称 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_DiagnosisName"
@@ -473,8 +464,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="路径编码："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_CPWCode"
@@ -489,8 +479,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="来源 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_Source"
@@ -510,8 +499,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="开始天数："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_BeginDays"
@@ -526,8 +514,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="开始时间 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_BeginTime"
@@ -546,8 +533,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="患者状态："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_PatientState"
@@ -562,8 +548,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="路径状态 ："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_CPState"
@@ -582,8 +567,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="标准费用："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_StandardCosts"
@@ -598,8 +582,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="备注："
-                android:textColor="@color/myPationte_title_color"
-                android:textSize="@dimen/et_login_size" />
+                android:textSize="@dimen/et_login_size1" />
 
             <TextView
                 android:id="@+id/myPationte_Remark"
@@ -609,13 +592,7 @@
                 android:textColor="@color/myPationte_content_color" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="5sp"
-            android:background="@color/wangjimima_color">
 
-        </LinearLayout>
     </LinearLayout>
 
 

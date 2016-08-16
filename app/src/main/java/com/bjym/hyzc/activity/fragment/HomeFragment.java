@@ -1,18 +1,16 @@
 package com.bjym.hyzc.activity.fragment;
 
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
+import com.bjym.hyzc.activity.activity.WebViewActivity;
 import com.bjym.hyzc.activity.pager.BasePager;
-import com.bjym.hyzc.activity.pager.ForumPager;
-import com.bjym.hyzc.activity.pager.NewsPager;
-import com.bjym.hyzc.activity.pager.VedioPager;
-import com.nineoldandroids.view.ViewPropertyAnimator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,72 +20,35 @@ import java.util.List;
  */
 public class HomeFragment extends BaseFragment {
     private List<BasePager> pagers = new ArrayList<>();
-    private int lineWidth;//指示线宽度
-    private TextView main_tv_news;
-    private TextView main_tv_vedio;
-    private TextView main_tv_forum;
-    private ViewPager viewPager;
+    private TextView tv_healthySpace;
 
-    class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
-
-
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-
-            //1.标签改变颜色
-            int green = getResources().getColor(R.color.green);
-            int halfwhite = getResources().getColor(R.color.halfwhite);
-            //新闻
-            main_tv_news.setTextColor(position == 0 ? green : halfwhite);
-            //视频
-            main_tv_vedio.setTextColor(position == 1 ? green : halfwhite);
-            //论坛
-            main_tv_forum.setTextColor(position == 2 ? green : halfwhite);
-
-            //2.标签执行动画
-            //新闻  属性动画: animate(执行动画的控件)  scale 缩放动画
-            ViewPropertyAnimator.animate(main_tv_news).scaleX(position == 0 ? 1.2f : 1.0f).scaleY(position == 0 ? 1.2f : 1.0f);
-            //视频
-            ViewPropertyAnimator.animate(main_tv_vedio).scaleX(position == 1 ? 1.2f : 1.0f).scaleY(position == 1 ? 1.2f : 1.0f);
-            //论坛
-            ViewPropertyAnimator.animate(main_tv_forum).scaleX(position == 2 ? 1.2f : 1.0f).scaleY(position == 1 ? 1.2f : 1.0f);
-
-
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
-        }
-
-
-    }
-
+    private Button bt_titlebar_right;
+    private Button bt_titlebar_left;
+    private TextView tv_titlebar_center;
 
     @Override
     public View setMainView() {
         View view = View.inflate(getContext(), R.layout.fragment_home, null);
-       viewPager =  (ViewPager) view.findViewById(R.id.viewPager);
+        tv_healthySpace=(TextView)view.findViewById(R.id.tv_healthySpace);
 
-        main_tv_forum = (TextView) view.findViewById(R.id.main_tv_forum);
-        main_tv_news = (TextView) view.findViewById(R.id.main_tv_news);
-        main_tv_vedio = (TextView) view.findViewById(R.id.main_tv_vedio);
-
-
-
+        bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
+        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
+        tv_titlebar_center = (TextView)view.findViewById(R.id.tv_titlebar_center);
         return view;
     }
 
     @Override
     public void InitData() {
-        main_tv_news.setOnClickListener(this);
+
+        tv_healthySpace.setOnClickListener(this);
+
+        bt_titlebar_left.setVisibility(View.GONE);
+        bt_titlebar_right.setVisibility(View.GONE);
+        tv_titlebar_center.setText("临床路径管理");
+       // startActivity(new Intent(HomeFragment.this.getActivity(), WebViewActivity.class));
+       // btn_webview.setOnClickListener(this);
+
+       /*  main_tv_news.setOnClickListener(this);
         main_tv_vedio.setOnClickListener(this);
         main_tv_forum.setOnClickListener(this);
 
@@ -100,11 +61,11 @@ public class HomeFragment extends BaseFragment {
         lineWidth = screenWidth / pagers.size();
 
 
-        MyPagerAdapter adapter=new MyPagerAdapter();
+       MyPagerAdapter adapter=new MyPagerAdapter();
 
         //TODO
         viewPager.setAdapter(new MyPagerAdapter());
-        viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
+        viewPager.addOnPageChangeListener(new MyOnPageChangeListener());*/
 
     }
 
@@ -155,8 +116,8 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()) {
-            case R.id.main_tv_news:
+       switch (v.getId()) {
+            /* case R.id.main_tv_news:
                 //新闻
                 viewPager.setCurrentItem(0);
 
@@ -170,7 +131,10 @@ public class HomeFragment extends BaseFragment {
                 //音频
                 viewPager.setCurrentItem(2);
 
-                break;
+                break;*/
+           case R.id.tv_healthySpace:
+               startActivity(new Intent(HomeFragment.this.getActivity(), WebViewActivity.class));
+               break;
             default:
                 break;
         }

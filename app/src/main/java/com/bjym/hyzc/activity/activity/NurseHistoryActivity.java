@@ -40,7 +40,7 @@ public class NurseHistoryActivity extends BaseActivity {
     private EditText et_Pulsation;
     private EditText et_Temperature;
     private EditText et_BPL;
-    private EditText et_BHP;
+    private EditText et_BPH;
     private EditText et_RecordContent;
     private Button btn_commit;
     private String name;
@@ -50,7 +50,9 @@ public class NurseHistoryActivity extends BaseActivity {
     private final static int DATE_DIALOG = 0;
     private final static int TIME_DIALOG = 1;
     private Calendar c = null;
-
+    private Button bt_titlebar_right;
+    private Button bt_titlebar_left;
+    private TextView tv_titlebar_center;
 
     @Override
     public View setMainView() {
@@ -63,15 +65,23 @@ public class NurseHistoryActivity extends BaseActivity {
         et_Pulsation = (EditText) view.findViewById(R.id.et_Pulsation);
         et_Temperature = (EditText) view.findViewById(R.id.et_Temperature);
         et_BPL = (EditText) view.findViewById(R.id.et_BPL);
-        et_BHP = (EditText) view.findViewById(R.id.et_BHP);
+        et_BPH = (EditText) view.findViewById(R.id.et_BPH);
         et_RecordContent = (EditText) view.findViewById(R.id.et_RecordContent);
         btn_commit = (Button) view.findViewById(R.id.btn_commit);
 
+        bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
+        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
+        tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);
         return view;
     }
 
     @Override
     public void InitData() {
+
+        bt_titlebar_left.setVisibility(View.VISIBLE);
+        bt_titlebar_right.setVisibility(View.GONE);
+        tv_titlebar_center.setText("填写护理记录");
+        bt_titlebar_left.setOnClickListener(this);
         btn_commit.setOnClickListener(this);
 
         Intent intent = getIntent();
@@ -142,6 +152,9 @@ public class NurseHistoryActivity extends BaseActivity {
                 );
 
                 break;
+
+            default:
+                break;
         }
 
 
@@ -209,7 +222,12 @@ public class NurseHistoryActivity extends BaseActivity {
                 }
                 String NursingTimeData = NursingDate + " " + NursingTime;
                 commitNueseHistory(NursingTimeData);
-
+                break;
+            case R.id.bt_titlebar_left:
+                finish();
+                break;
+            default:
+                break;
         }
     }
 
@@ -240,7 +258,7 @@ public class NurseHistoryActivity extends BaseActivity {
      //   int BPL = Integer.parseInt(BPL1);
 
         //最低血压
-        String BHP1 = et_BHP.getText().toString().trim();
+        String BHP1 = et_BPH.getText().toString().trim();
         if (TextUtils.isEmpty(BHP1)) {
             MyToast.showToast(this, "请填写最低血压");
             return;

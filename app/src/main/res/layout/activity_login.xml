@@ -5,6 +5,7 @@
     android:background="@color/big_bg_color"
     android:orientation="vertical">
 
+    <include layout="@layout/item_titlebar"></include>
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -101,7 +102,7 @@
         android:layout_width="254dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
-        android:background="#63B766"
+        android:background="@drawable/btn_selector"
         android:text="登录"
         android:textColor="@color/background_white"
         android:textSize="18dp" />

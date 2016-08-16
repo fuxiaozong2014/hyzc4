@@ -54,6 +54,10 @@ public class SurveyActivity extends BaseActivity {
     private int number;
     public List<Fragment> fragments = new ArrayList<>();
     public MyFragmentPageAdpter adpter;
+
+    private Button bt_titlebar_right;
+    private Button bt_titlebar_left;
+    private TextView tv_titlebar_center;
     /*
     * 存放题号和用户所选答案
     * */
@@ -103,16 +107,23 @@ public class SurveyActivity extends BaseActivity {
         btn_submit = (Button) view.findViewById(R.id.btn_submit);
         rg = (RadioGroup) view.findViewById(R.id.rg);
 
+        bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
+        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
+        tv_titlebar_center = (TextView)view.findViewById(R.id.tv_titlebar_center);
 
         btn_pre.setOnClickListener(this);
         btn_next.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
-
+        bt_titlebar_left.setOnClickListener(this);
         return view;
     }
 
     @Override
     public void InitData() {
+
+        bt_titlebar_left.setVisibility(View.VISIBLE);
+        bt_titlebar_right.setVisibility(View.GONE);
+
           /*
         * 获取调查编号，用于提交
         * */
@@ -139,7 +150,7 @@ public class SurveyActivity extends BaseActivity {
         * 调查表名字，设置为title
         * */
         surveyName = intent.getStringExtra("SurveyName");
-        setTitle(surveyName);
+        tv_titlebar_center.setText(surveyName);
 
         /*
         * 根据调查表编号，获取问题题干
@@ -304,6 +315,8 @@ public class SurveyActivity extends BaseActivity {
                 finish();
                 break;
 
+            case R.id.bt_titlebar_left:
+                finish();
             default:
                 break;
         }

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/item_titlebar"></include>
     <ListView
         android:id="@+id/lv"
         android:layout_width="match_parent"

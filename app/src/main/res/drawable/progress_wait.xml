@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false" >
+
+    <!-- 等待使用的动画 -->
+    <item
+        android:drawable="@mipmap/z3"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/z4"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/z5"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/z6"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/z7"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/z8"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/z9"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/za"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/zb"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/zc"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/zd"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/ze"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/zf"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/zg"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/zh"
+        android:duration="100">
+    </item>
+    <item
+        android:drawable="@mipmap/zi"
+        android:duration="100">
+    </item>
+
+</animation-list>

@@ -2,6 +2,7 @@ package com.bjym.hyzc.activity.activity;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
@@ -17,13 +18,15 @@ public class MyTaskActivity extends BaseActivity {
     private TextView tv_search;
     private TextView tv_nurseHistory;
     private TextView tv_nurseStage;
-    private TextView tv_webview;
     private TextView tv_addNursingCare;
     private TextView tv_nursingContentSelect;
     private String name;
     private String patientsNo;
     private String cpwCode;
 
+    private Button bt_titlebar_right;
+    private Button bt_titlebar_left;
+    private TextView tv_titlebar_center;
 
     @Override
     public View setMainView() {
@@ -33,19 +36,27 @@ public class MyTaskActivity extends BaseActivity {
         tv_nurseStage = (TextView) view.findViewById(R.id.tv_nurseStage);
         tv_addNursingCare = (TextView) view.findViewById(R.id.tv_addNursingCare);
         tv_nursingContentSelect = (TextView) view.findViewById(R.id.tv_nursingContentSelect);
-        tv_webview = (TextView) view.findViewById(R.id.tv_webview);
         tv_search = (TextView) view.findViewById(R.id.tv_search);
+
+        bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
+        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
+        tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);
         return view;
     }
 
     @Override
     public void InitData() {
+        bt_titlebar_left.setVisibility(View.VISIBLE);
+        bt_titlebar_right.setVisibility(View.GONE);
+        tv_titlebar_center.setText("我的任务");
         tv_search.setOnClickListener(this);
         tv_nurseHistory.setOnClickListener(this);
         tv_nurseStage.setOnClickListener(this);
         tv_addNursingCare.setOnClickListener(this);
         tv_nursingContentSelect.setOnClickListener(this);
-        tv_webview.setOnClickListener(this);
+        bt_titlebar_left.setOnClickListener(this);
+
+
     }
 
 
@@ -96,8 +107,10 @@ public class MyTaskActivity extends BaseActivity {
 
                 break;
 
-            case R.id.tv_webview:
-                startActivity(new Intent(this, WebViewActivity.class));
+            case R.id.bt_titlebar_left:
+                finish();
+                break;
+            default:
                 break;
         }
     }

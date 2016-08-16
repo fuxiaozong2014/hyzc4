@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <!-- 标签栏 -->
+    <!-- 标签栏
 
     <LinearLayout
         android:id="@+id/main_ll_tabs"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <!-- 视频 -->
+        &lt;!&ndash; 视频 &ndash;&gt;
 
         <TextView
             android:id="@+id/main_tv_news"
@@ -24,7 +24,7 @@
             android:text="新闻"
             android:textColor="@color/green"
             android:textSize="16sp" />
-        <!-- 音乐 -->
+        &lt;!&ndash; 音乐 &ndash;&gt;
 
         <TextView
             android:id="@+id/main_tv_vedio"
@@ -45,7 +45,7 @@
             android:textColor="@color/halfwhite"
             android:textSize="16sp" />
     </LinearLayout>
-    <!-- 指示器 -->
+    &lt;!&ndash; 指示器 &ndash;&gt;
 
     <View
         android:id="@+id/main_indicate_line"
@@ -57,5 +57,41 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent" />-->
+    <include layout="@layout/item_titlebar"></include>
+
+    <include layout="@layout/item_search_nohint"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/background_white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="2dp">
+
+        <TextView
+            android:id="@+id/tv_healthySpace"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:layout_weight="1"
+            android:text="健康教育专栏"
+            android:textColor="@color/fontcolor"
+            android:textSize="16dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_left_iv_user"
+            android:background="@mipmap/oh" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/ll_diaoChaSort"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"></ListView>
 </LinearLayout>

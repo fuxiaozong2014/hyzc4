@@ -3,6 +3,7 @@ package com.bjym.hyzc.activity.activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,17 +28,27 @@ public class ExitCPWCauseActvity extends BaseActivity {
 
     private ListView lv;
     private List<ExitCPWCauseBean.RowsBean> rows;
+    private Button bt_titlebar_right;
+    private Button bt_titlebar_left;
+    private TextView tv_titlebar_center;
 
     @Override
     public View setMainView() {
         View view = View.inflate(context, R.layout.actvity_exitcpwacause, null);
         lv = (ListView) view.findViewById(R.id.lv);
+        bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
+        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
+        tv_titlebar_center = (TextView)view.findViewById(R.id.tv_titlebar_center);
         return view;
     }
 
     @Override
     public void InitData() {
 
+        bt_titlebar_left.setVisibility(View.VISIBLE);
+        bt_titlebar_right.setVisibility(View.GONE);
+        tv_titlebar_center.setText("退出路径的原因分析");
+        bt_titlebar_left.setOnClickListener(this);
         getExitCPWCauseData();
 
     }
@@ -127,6 +138,19 @@ public class ExitCPWCauseActvity extends BaseActivity {
                 this.tv_VariationName = (TextView) rootView.findViewById(R.id.tv_VariationName);
             }
 
+        }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.bt_titlebar_left:
+                finish();
+                break;
+            default:
+                break;
         }
     }
 }

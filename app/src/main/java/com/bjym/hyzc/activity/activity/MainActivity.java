@@ -3,15 +3,12 @@ package com.bjym.hyzc.activity.activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,9 +17,9 @@ import android.widget.Toast;
 
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.bean.MyselfBean;
-import com.bjym.hyzc.activity.fragment.MyFragment;
 import com.bjym.hyzc.activity.fragment.DiaoChaFragment;
 import com.bjym.hyzc.activity.fragment.HomeFragment;
+import com.bjym.hyzc.activity.fragment.MyFragment;
 import com.bjym.hyzc.activity.fragment.TongJiFragment;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyToast;
@@ -36,8 +33,7 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Response;
 
-public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity {
 
 
     private TextView tv_my;
@@ -49,8 +45,6 @@ public class MainActivity extends BaseActivity
     private MyFragment accenter;
     private TongJiFragment tongJi;
 
-    private TextView tv_menu_accout;
-    private TextView tv_menu_keshi;
 
     private FragmentManager manager;
     private DrawerLayout drawer;
@@ -65,11 +59,11 @@ public class MainActivity extends BaseActivity
     public View setMainView() {
         View view = View.inflate(context, R.layout.activity_main, null);
 
-        Toolbar toolbar = initView(view);
+       /* Toolbar toolbar = initView(view);
 
         toolbar.setTitle("测试标题");
         //getSupportActionBar(toolbar);
-       /* 菜单的监听可以在toolbar里设置，也可以像ActionBar那样，通过Activity的onOptionsItemSelected回调方法来处理 */
+       *//* 菜单的监听可以在toolbar里设置，也可以像ActionBar那样，通过Activity的onOptionsItemSelected回调方法来处理 *//*
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -77,39 +71,42 @@ public class MainActivity extends BaseActivity
                     case R.id.action_settings:
                         Toast.makeText(MainActivity.this, "action_settings", Toast.LENGTH_SHORT).show();
                         break;
-                   /* case R.id.action_share:
+                   *//* case R.id.action_share:
                         Toast.makeText(MainActivity.this, "action_share", 0).show();
-                        break;*/
+                        break;*//*
                     default:
                         break;
                 }
                 return true;
             }
-        });
-
+        });*/
+        tv_my = (TextView) view.findViewById(R.id.tv_accountcenter);
+        tv_home = (TextView) view.findViewById(R.id.tv_home);
+        tv_research = (TextView) view.findViewById(R.id.tv_diaocha);
+        tv_count = (TextView) view.findViewById(R.id.tv_tongji);
         defaultHomeView();
         defaultReplaceHomeFragment();
-        dealFloatingButton(view);
+        //dealFloatingButton(view);
 
-        dealDrawerLayout(view, toolbar);
+       // dealDrawerLayout(view, toolbar);
 
-        dealNavigation(view);
+       // dealNavigation(view);
 
         return view;
     }
 
-    private void dealNavigation(View view) {
+   /* private void dealNavigation(View view) {
         NavigationView navigationView = (NavigationView) view.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-       /*
+       *//*
        *  在这里处理菜单头布局的逻辑
-       */
+       *//*
 
         View headerView = navigationView.getHeaderView(0);
         tv_menu_keshi = (TextView) headerView.findViewById(R.id.tv_menu_keshi);
         tv_menu_accout = (TextView) headerView.findViewById(R.id.tv_menu_accout);
-    }
+    }*/
 
 
     @Override
@@ -124,14 +121,11 @@ public class MainActivity extends BaseActivity
     private Toolbar initView(View view) {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        tv_my = (TextView) view.findViewById(R.id.tv_accountcenter);
-        tv_home = (TextView) view.findViewById(R.id.tv_home);
-        tv_research = (TextView) view.findViewById(R.id.tv_diaocha);
-        tv_count = (TextView) view.findViewById(R.id.tv_tongji);
+
         return toolbar;
     }
 
-    private void dealDrawerLayout(View view, Toolbar toolbar) {
+   /* private void dealDrawerLayout(View view, Toolbar toolbar) {
         drawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -148,7 +142,7 @@ public class MainActivity extends BaseActivity
                         .setAction("Action", null).show();
             }
         });
-    }
+    }*/
 
     private void defaultReplaceHomeFragment() {
         //默认填充主页fragment
@@ -247,7 +241,7 @@ public class MainActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+   /* @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -271,7 +265,7 @@ public class MainActivity extends BaseActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+*/
 
     /*
     * 1.得到用户信息设置菜单页面的用户名
@@ -302,8 +296,8 @@ public class MainActivity extends BaseActivity
 
                 }
 
-                tv_menu_accout.setText("用户名：" + userCode);
-                tv_menu_keshi.setText("科室名：" + departmentCode);
+                /*tv_menu_accout.setText("用户名：" + userCode);
+                tv_menu_keshi.setText("科室名：" + departmentCode);*/
 
                 /*
                 * 通过Bundle给acconteFragment和researchFragment传值
@@ -441,6 +435,21 @@ public class MainActivity extends BaseActivity
         tv_research.setCompoundDrawables(null, research, null, null);
 
     }
+    private long exitTime = 0;
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if((System.currentTimeMillis()-exitTime) > 2000){
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }

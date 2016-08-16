@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,6 +40,8 @@ import okhttp3.Response;
  */
 public class DiaoChaFragment extends BaseFragment {
 
+    private static final int RELA_WAIT_LOADING = 1;
+    private static final int WHAT_DISMISS_LOADING = 2;
     private ListView ll_diaoChaSort;
     private List<DiaoChaSortBean.RowsBean> rowsBeans;
     private DiaoChaSortBean.RowsBean rowsBean;
@@ -52,22 +56,58 @@ public class DiaoChaFragment extends BaseFragment {
     private String patientsNo;
     private String userCode;
     private String realName;
+    private LinearLayout rela_wait_loading;
+    private RelativeLayout Rela_no_wifi;
 
+    private Button bt_titlebar_right;
+    private Button bt_titlebar_left;
+    private TextView tv_titlebar_center;
+
+   /* private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case RELA_WAIT_LOADING:
+                    if(rela_wait_loading!=null&&Rela_no_wifi!=null){
+                        rela_wait_loading.setVisibility(View.VISIBLE);
+                        Rela_no_wifi.setVisibility(View.GONE);
+                    }
+                    break;
+                case WHAT_DISMISS_LOADING:
+                    if(rela_wait_loading!=null&&Rela_no_wifi!=null){
+                        rela_wait_loading.setVisibility(View.GONE);
+                        Rela_no_wifi.setVisibility(View.VISIBLE);
+                    }
+
+                    break;
+            }
+
+        }
+    };*/
     @Override
     public View setMainView() {
         View view = View.inflate(getContext(), R.layout.fragment_diaocha, null);
         ll_diaoChaSort = (ListView) view.findViewById(R.id.ll_diaoChaSort);
         //re_search = (RelativeLayout) view.findViewById(R.id.re_search);
         tv_search = (TextView) view.findViewById(R.id.tv_search);
+        rela_wait_loading = (LinearLayout) view.findViewById(R.id.Rela_wait_loading);
+        Rela_no_wifi = (RelativeLayout) view.findViewById(R.id.Rela_no_wifi);
+        bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
+        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
+        tv_titlebar_center = (TextView)view.findViewById(R.id.tv_titlebar_center);
 
-        ll_diaoChaSort.setOnItemClickListener(new MyOnItemClickListner());
-        tv_search.setOnClickListener(this);
         return view;
     }
 
     @Override
     public void InitData() {
 
+        bt_titlebar_left.setVisibility(View.GONE);
+        bt_titlebar_right.setVisibility(View.GONE);
+        tv_titlebar_center.setText("调查");
+        ll_diaoChaSort.setOnItemClickListener(new MyOnItemClickListner());
+        tv_search.setOnClickListener(this);
         /*
         * 得到用户名和真实姓名，提交使用
         * */
@@ -76,10 +116,6 @@ public class DiaoChaFragment extends BaseFragment {
             userCode = bundle.getString("userCode");
             realName = bundle.getString("realName");
         }
-
-
-
-        
          /*
         * 得到调查问卷的类型
         * */
@@ -87,10 +123,12 @@ public class DiaoChaFragment extends BaseFragment {
     }
 
     private void getSurveySortData() {
+       // handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING,500);
         //请求调查类型
         OkHttpUtils.get().url(MyConstant.MYDIAOCHA_URL).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
+               // dismissWaitingDialog();
                 String result = response.body().string();
                 //  MyToast.showToast(DiaoChaFragment.this.getActivity(), "success" + result);
                 parseSurveySortJson(result);
@@ -99,9 +137,8 @@ public class DiaoChaFragment extends BaseFragment {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-
+               // dismissWaitingDialog();
             }
-
             @Override
             public void onResponse(Object o, int i) {
                 if (adpter == null) {
@@ -247,6 +284,8 @@ public class DiaoChaFragment extends BaseFragment {
         super.onDestroy();
         broadcastManager.unregisterReceiver(receiver);
     }
-
+  /* private void dismissWaitingDialog() {
+        handler.sendEmptyMessage(WHAT_DISMISS_LOADING);
+    }*/
 
 }

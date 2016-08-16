@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/item_titlebar"></include>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,7 +23,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:orientation="horizontal">
 
                     <TextView
@@ -30,14 +30,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="患者编号:" />
+                        android:text="患者编号" />
 
                     <EditText
                         android:id="@+id/et_PatientsNo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
-
                         />
                 </LinearLayout>
 
@@ -46,7 +44,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:orientation="horizontal">
 
                     <TextView
@@ -54,13 +51,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="患者姓名:" />
+                        android:text="患者姓名" />
 
                     <EditText
                         android:id="@+id/et_Name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number|numberDecimal" />
+                         />
                 </LinearLayout>
             </LinearLayout>
 
@@ -76,7 +73,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -85,7 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="内容编码:" />
+                        android:text="内容编码" />
 
                     <EditText
                         android:id="@+id/et_ContentCode"
@@ -98,7 +94,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -107,7 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="项目阶段:" />
+                        android:text="项目阶段" />
 
                     <EditText
                         android:id="@+id/et_StageCode"
@@ -126,7 +121,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:orientation="horizontal">
 
                     <TextView
@@ -134,7 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="内容名称:" />
+                        android:text="内容名称" />
 
                     <EditText
                         android:id="@+id/et_ContentName"
@@ -156,7 +150,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -165,7 +158,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="项目类别:" />
+                        android:text="项目类别" />
 
                     <EditText
                         android:id="@+id/et_ContentType"
@@ -178,7 +171,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -187,7 +179,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="路径类别:" />
+                        android:text="路径类别" />
 
                     <EditText
                         android:id="@+id/et_CPWType"
@@ -207,7 +199,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -216,7 +207,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="医嘱类型:" />
+                        android:text="医嘱类型" />
 
                     <EditText
                         android:id="@+id/et_OrderType"
@@ -229,7 +220,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -238,7 +228,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="医嘱类别:" />
+                        android:text="医嘱类别" />
 
                     <EditText
                         android:id="@+id/et_OrderCategory"
@@ -258,7 +248,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -267,7 +256,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="病历相关:" />
+                        android:text="病历相关" />
 
                     <EditText
                         android:id="@+id/et_MedicalRecord"
@@ -280,7 +269,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -289,7 +277,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="路径编码:" />
+                        android:text="路径编码" />
 
                     <EditText
                         android:id="@+id/et_CPWCode"
@@ -309,7 +297,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -318,7 +305,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="分类:" />
+                        android:text="分类" />
 
                     <EditText
                         android:id="@+id/et_Type"
@@ -331,7 +318,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -340,7 +326,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="执行人员姓名:" />
+                        android:text="执行人员姓名" />
 
                     <EditText
                         android:id="@+id/et_ExecutionStaff"
@@ -360,7 +346,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -369,7 +354,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="执行人员代码:" />
+                        android:text="执行人员代码" />
 
                     <EditText
                         android:id="@+id/et_StaffCode"
@@ -382,7 +367,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -391,7 +375,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="执行科室代码:" />
+                        android:text="执行科室代码" />
 
                     <EditText
                         android:id="@+id/et_DeptCode"
@@ -410,7 +394,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -419,7 +402,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="执行科室名称:" />
+                        android:text="执行科室名称" />
 
                     <EditText
                         android:id="@+id/et_DeptName"
@@ -440,7 +423,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:orientation="horizontal">
 
                     <TextView
@@ -448,7 +430,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="预定时间:" />
+                        android:text="预定时间" />
 
                     <EditText
                         android:id="@+id/et_BeginDate"
@@ -469,7 +451,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:orientation="horizontal">
 
                     <TextView
@@ -477,7 +458,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="执行时间:" />
+                        android:text="执行时间" />
 
                     <EditText
                         android:id="@+id/et_ExecutionTime"
@@ -498,7 +479,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/background_white"
                     android:orientation="horizontal">
 
                     <TextView
@@ -506,7 +486,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="编辑时间:" />
+                        android:text="编辑时间" />
 
                     <EditText
                         android:id="@+id/et_EditOn"
@@ -520,6 +500,8 @@
                 android:id="@+id/btn_commit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/btn_selector"
+                android:textColor="@color/background_white"
                 android:text="提交" />
         </LinearLayout>
     </ScrollView>

@@ -10,6 +10,8 @@
 
     <!--在这里写主页面，在MainActivity中调用-->
 
+    <include layout="@layout/item_titlebar"></include>
+
     <LinearLayout
         android:id="@+id/ll_content"
         android:layout_width="match_parent"
@@ -21,8 +23,8 @@
         android:id="@+id/ll_tab"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/background_white"
         android:layout_alignParentBottom="true"
+        android:background="@color/background_white"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -43,11 +45,9 @@
             android:layout_weight="1"
             android:drawableTop="@mipmap/research"
             android:gravity="center"
-            android:centerColor="#4CAF50"
-            android:endColor="#2E7D32"
-            android:startColor="#81C784"
             android:text="调查"
             android:textSize="@dimen/et_login_size" />
+
         <TextView
             android:id="@+id/tv_tongji"
             android:layout_width="0dp"

@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/lv"
+    <include layout="@layout/item_titlebar"></include>
+
+    <LinearLayout
+        android:id="@+id/ll_mypationte"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"></ListView>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_mypationtenone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="您现在还没有病人！"
+            android:textColor="@color/MyPationte_MyMsg"
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@+id/lv"
+            android:background="@color/background_white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"></ListView>
+    </LinearLayout>
 
 </LinearLayout>

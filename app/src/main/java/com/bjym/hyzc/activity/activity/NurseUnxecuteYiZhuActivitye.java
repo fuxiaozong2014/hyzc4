@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,6 +36,9 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
     private List<NurseUnExecuteBean.RowsBean> rows;
     private TextView tv_none_unExecuteYiZhu;
 
+    private Button bt_titlebar_right;
+    private Button bt_titlebar_left;
+    private TextView tv_titlebar_center;
     class MyOnItemClickListener implements AdapterView.OnItemClickListener{
 
         @Override
@@ -95,11 +99,19 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
         View view = View.inflate(context, R.layout.activity_nurseselectexecute, null);
         lv = (ListView) view.findViewById(R.id.lv);
         tv_none_unExecuteYiZhu = (TextView)view.findViewById(R.id.tv_none_unExecuteYiZhu);
+
+        bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
+        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
+        tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);
         return view;
     }
 
     @Override
     public void InitData() {
+
+        bt_titlebar_left.setVisibility(View.VISIBLE);
+        bt_titlebar_right.setVisibility(View.GONE);
+        tv_titlebar_center.setText("未执行的医嘱");
         Intent intent = getIntent();
         stageCode = intent.getStringExtra("StageCode");
         patientsNo = intent.getStringExtra("patientsNo");
@@ -110,6 +122,7 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
         }
 
         lv.setOnItemClickListener(new MyOnItemClickListener());
+        bt_titlebar_left.setOnClickListener(this);
     }
 
     private void getUnExecuteStage() {
@@ -223,6 +236,15 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
         }
     }
 
-
-
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.bt_titlebar_left:
+                finish();
+                break;
+            default:
+                break;
+        }
+    }
 }

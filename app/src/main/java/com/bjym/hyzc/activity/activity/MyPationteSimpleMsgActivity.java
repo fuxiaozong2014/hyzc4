@@ -32,7 +32,7 @@ import okhttp3.Response;
 /**
  * Created by fushaoqing on 2016/8/12.
  */
-public class MyPationteSimpleMsgActivity extends BaseActivity{
+public class MyPationteSimpleMsgActivity extends BaseActivity {
     private static final int WHAT_DISMISS_LOADING =2 ;
     private static final int RELA_WAIT_LOADING =3 ;
     private ListView lv_mypationte;

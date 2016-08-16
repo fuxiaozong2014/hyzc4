@@ -7,8 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.activity.MyPationteActivity;
 import com.bjym.hyzc.activity.activity.MyTaskActivity;
+import com.bjym.hyzc.activity.activity.PationteDetailMsgActivity;
 import com.bjym.hyzc.activity.bean.PationteBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyToast;
@@ -35,16 +35,17 @@ public class MyFragment extends BaseFragment {
 
     private List<PationteBean> pationtes;
 
-
     @Override
     public View setMainView() {
         View view = View.inflate(getContext(), R.layout.fragment_my, null);
         ll_myPationte = (LinearLayout) view.findViewById(R.id.ll_myPationte);
         ll_myTask = (LinearLayout) view.findViewById(R.id.ll_myTask);
 
+
         tv_account = (TextView) view.findViewById(R.id.tv_account);
         tv_keshi = (TextView) view.findViewById(R.id.tv_keshi);
         tv_myPationte = (TextView) view.findViewById(R.id.tv_myPationte);
+
         return view;
     }
 
@@ -55,14 +56,21 @@ public class MyFragment extends BaseFragment {
         * 得到mainActivity中传过来的用户信息
         * */
         Bundle bundle = getArguments();
-        String departmentCode = bundle.getString("departmentCode");
-        String userCode = bundle.getString("userCode");
-
+        if (bundle !=null) {
+            String departmentCode = bundle.getString("departmentCode");
+            String userCode = bundle.getString("userCode");
         /*
         * 把用户信息赋值给textview
         * */
-        tv_account.setText("用户名：" + userCode);
-        tv_keshi.setText("科室名：" + departmentCode);
+            tv_account.setText("用户名：" + userCode);
+            tv_keshi.setText("科室名：" + departmentCode);
+        }else{
+            MyToast.showToast(MyFragment.this.getActivity(),"您还没有登录！");
+            return;
+        }
+
+
+
 
         ll_myPationte.setOnClickListener(this);
         ll_myTask.setOnClickListener(this);
@@ -76,13 +84,15 @@ public class MyFragment extends BaseFragment {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.ll_myPationte:
-                startActivity(new Intent(context, MyPationteActivity.class));
+                startActivity(new Intent(context, PationteDetailMsgActivity.class));
                 break;
             /*
             * 选择我的病人，跳转到任务界面 TODO
             * */
             case R.id.ll_myTask:
                 startActivity(new Intent(context, MyTaskActivity.class));
+                break;
+            default:
                 break;
         }
     }

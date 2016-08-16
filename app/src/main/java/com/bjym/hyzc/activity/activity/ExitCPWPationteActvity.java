@@ -3,6 +3,7 @@ package com.bjym.hyzc.activity.activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,18 +29,29 @@ public class ExitCPWPationteActvity extends BaseActivity {
     private ListView lv;
     private List<ExitCPWPationtebean> exitCPWPationtebeanlists;
 
-
+    private Button bt_titlebar_right;
+    private Button bt_titlebar_left;
+    private TextView tv_titlebar_center;
+    private TextView tv_mypationtenone;
 
     @Override
     public View setMainView() {
         View view = View.inflate(context, R.layout.actvity_exitcpwpationte, null);
         lv = (ListView) view.findViewById(R.id.lv);
+        bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
+        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
+        tv_titlebar_center = (TextView)view.findViewById(R.id.tv_titlebar_center);
 
+        tv_mypationtenone = (TextView)view.findViewById(R.id.tv_mypationtenone);
         return view;
     }
 
     @Override
     public void InitData() {
+       bt_titlebar_left.setVisibility(View.VISIBLE);
+        bt_titlebar_right.setVisibility(View.GONE);
+        tv_titlebar_center.setText("退出路径的患者");
+        bt_titlebar_left.setOnClickListener(this);
         getExitCPWPationte();
 
     }
@@ -68,6 +80,10 @@ public class ExitCPWPationteActvity extends BaseActivity {
     private void parseJson(String o) {
         exitCPWPationtebeanlists = new Gson().fromJson(o, new TypeToken<List<ExitCPWPationtebean>>() {
         }.getType());
+
+        if (exitCPWPationtebeanlists.size() == 0) {
+            tv_mypationtenone.setVisibility(View.VISIBLE);
+        }
         MyLog.i("exitCPWPationtebeanlists", exitCPWPationtebeanlists.size() + "");
         lv.setAdapter(new MyAdapter());
     }
@@ -132,6 +148,17 @@ public class ExitCPWPationteActvity extends BaseActivity {
                 this.tv_BeginTime = (TextView) rootView.findViewById(R.id.tv_BeginTime);
                 this.tv_CPState = (TextView) rootView.findViewById(R.id.tv_CPState);
             }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.bt_titlebar_left:
+                finish();
+                break;
+
         }
     }
 }
