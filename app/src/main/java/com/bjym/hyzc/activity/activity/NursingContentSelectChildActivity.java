@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by fushaoqing on 2016/8/9.
  */
-public class NursingContentSelectActivity extends BaseActivity {
+public class NursingContentSelectChildActivity extends BaseActivity {
     private ListView lv;
     private String cpwCode;
     private List<NursingContentBean.RowsBean> rows;
@@ -29,6 +29,7 @@ public class NursingContentSelectActivity extends BaseActivity {
     private TextView tv_none_nurseContent;
     private TextView tv_search;
     private List<NursingContentBean.RowsBean> sunItemLists;
+    private List<NursingContentBean.RowsBean> rowsSunItemLists;
 
     class MyOnItemClickListener implements AdapterView.OnItemClickListener {
 
@@ -81,10 +82,11 @@ public class NursingContentSelectActivity extends BaseActivity {
     @Override
     public void InitData() {
         Intent intent = getIntent();
-        sunItemLists = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("SunItemLists");
-
-        lv.setAdapter(new MyAdapter());
+        //TODO 得到shu数据
+        rowsSunItemLists = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("rowsSunItemLists");
+        MyLog.i("rowsSunItemLists",rowsSunItemLists.size()+"");
         lv.setOnItemClickListener(new MyOnItemClickListener());
+        lv.setAdapter(new MyAdapter());
         tv_search.setOnClickListener(this);
 
     }
@@ -109,7 +111,7 @@ public class NursingContentSelectActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return sunItemLists.size();
+            return rowsSunItemLists.size();
         }
 
         @Override
@@ -124,16 +126,16 @@ public class NursingContentSelectActivity extends BaseActivity {
                 view = convertView;
                 vh = (ViewHolder) view.getTag();
             }
-            vh.tv_ContentName.setText(sunItemLists.get(position).ContentName);
-            vh.tv_ContentCode.setText(sunItemLists.get(position).ContentCode);
-            vh.tv_StageCode.setText(sunItemLists.get(position).StageCode);
-            vh.tv_ContentType.setText(sunItemLists.get(position).ContentType);
-            vh.tv_CPWType.setText(sunItemLists.get(position).CPWType);
-            vh.tv_OrderType.setText(sunItemLists.get(position).OrderType);
-            vh.tv_OrderCategory.setText(sunItemLists.get(position).OrderCategory);
-            vh.tv_CPWCode.setText(sunItemLists.get(position).CPWCode);
-            vh.tv_MedicalRecord.setText(sunItemLists.get(position).MedicalRecord);
-            vh.tv_ActivitiesType.setText(sunItemLists.get(position).ActivitiesType);
+            vh.tv_ContentName.setText(rowsSunItemLists.get(position).ContentName);
+            vh.tv_ContentCode.setText(rowsSunItemLists.get(position).ContentCode);
+            vh.tv_StageCode.setText(rowsSunItemLists.get(position).StageCode);
+            vh.tv_ContentType.setText(rowsSunItemLists.get(position).ContentType);
+            vh.tv_CPWType.setText(rowsSunItemLists.get(position).CPWType);
+            vh.tv_OrderType.setText(rowsSunItemLists.get(position).OrderType);
+            vh.tv_OrderCategory.setText(rowsSunItemLists.get(position).OrderCategory);
+            vh.tv_CPWCode.setText(rowsSunItemLists.get(position).CPWCode);
+            vh.tv_MedicalRecord.setText(rowsSunItemLists.get(position).MedicalRecord);
+            vh.tv_ActivitiesType.setText(rowsSunItemLists.get(position).ActivitiesType);
             return view;
         }
 

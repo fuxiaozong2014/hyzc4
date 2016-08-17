@@ -28,7 +28,7 @@ import okhttp3.Response;
  */
 public class NurseSelectStageActivity extends BaseActivity {
 
-    private List<String> nurseExecuteStages=new ArrayList<>();
+    private List<String> nurseStages=new ArrayList<>();
     private String cpwCode;
     private ListView lv;
     private List<NurseExecuteBean.RowsBean> rows;
@@ -113,11 +113,9 @@ public class NurseSelectStageActivity extends BaseActivity {
             String stageName = rows.get(i).StageName;
             String parentCode = rows.get(i).ParentCode;
             if (parentCode.equals("0")){
-                nurseExecuteStages.add(stageName);
+                nurseStages.add(stageName);
             }
 
-            String stageCode = rows.get(i).StageCode;
-           // MyLog.i("stageCode",stageCode);
         }
 
         //得到数据之后设置适配器
@@ -130,7 +128,7 @@ public class NurseSelectStageActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return nurseExecuteStages.size();
+            return nurseStages.size();
         }
 
         @Override
@@ -153,8 +151,8 @@ public class NurseSelectStageActivity extends BaseActivity {
             } else {
                 view = convertView;
             }
-            TextView tv_NurseExecuteYiZhu = (TextView) view.findViewById(R.id.tv_NurseExecuteYiZhu);
-             tv_NurseExecuteYiZhu.setText(nurseExecuteStages.get(position));
+            TextView tv_NurseStage = (TextView) view.findViewById(R.id.tv_NurseStage);
+            tv_NurseStage.setText(nurseStages.get(position));
             return view;
         }
     }

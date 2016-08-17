@@ -6,11 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.activity.WebViewActivity;
 import com.bjym.hyzc.activity.pager.BasePager;
+import com.bjym.hyzc.activity.view.CycleViewPagerShi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,8 @@ import java.util.List;
 public class HomeFragment extends BaseFragment {
     private List<BasePager> pagers = new ArrayList<>();
     private TextView tv_healthySpace;
+    private CycleViewPagerShi viewPager;
+    private int[] images;
 
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
@@ -30,6 +34,10 @@ public class HomeFragment extends BaseFragment {
     public View setMainView() {
         View view = View.inflate(getContext(), R.layout.fragment_home, null);
         tv_healthySpace=(TextView)view.findViewById(R.id.tv_healthySpace);
+
+        viewPager = (CycleViewPagerShi) view.findViewById(R.id.vp);
+        images = new int[] { R.mipmap.z3, R.mipmap.oh,
+                R.mipmap.user, R.mipmap.setting, R.mipmap.home};
 
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
         bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
@@ -45,31 +53,46 @@ public class HomeFragment extends BaseFragment {
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("临床路径管理");
-       // startActivity(new Intent(HomeFragment.this.getActivity(), WebViewActivity.class));
-       // btn_webview.setOnClickListener(this);
 
-       /*  main_tv_news.setOnClickListener(this);
-        main_tv_vedio.setOnClickListener(this);
-        main_tv_forum.setOnClickListener(this);
-
-        pagers.add(new NewsPager(getContext()));
-        pagers.add(new ForumPager(getContext()));
-        pagers.add(new VedioPager(getContext()));
-
-        //指示线初始化  (屏幕的一半)
-        int screenWidth = getResources().getDisplayMetrics().widthPixels;//屏幕宽度
-        lineWidth = screenWidth / pagers.size();
-
-
-       MyPagerAdapter adapter=new MyPagerAdapter();
-
-        //TODO
-        viewPager.setAdapter(new MyPagerAdapter());
-        viewPager.addOnPageChangeListener(new MyOnPageChangeListener());*/
-
+        viewPager.setAdapter(new MyPageAdapter());
     }
 
+    class MyPageAdapter extends PagerAdapter {
 
+        @Override
+        public int getCount() {
+            return images.length;
+        }
+
+        @Override
+        public boolean isViewFromObject(View arg0, Object arg1) {
+            if (arg0 == arg1) {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            // 实例化条目
+            // 请求数据
+            ImageView iv = null;
+            try {
+                iv = new ImageView(HomeFragment.this.getActivity());
+                iv.setImageResource(images[position]);
+                container.addView(iv);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return iv;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            // super.destroyItem(container, position, object);
+            container.removeView((View) object);
+        }
+    }
 
 
     class MyPagerAdapter extends PagerAdapter {
@@ -112,41 +135,16 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-
     @Override
     public void onClick(View v) {
         super.onClick(v);
        switch (v.getId()) {
-            /* case R.id.main_tv_news:
-                //新闻
-                viewPager.setCurrentItem(0);
-
-                break;
-            case R.id.main_tv_vedio:
-                //视频
-                viewPager.setCurrentItem(1);
-
-                break;
-            case R.id.main_tv_forum:
-                //音频
-                viewPager.setCurrentItem(2);
-
-                break;*/
            case R.id.tv_healthySpace:
                startActivity(new Intent(HomeFragment.this.getActivity(), WebViewActivity.class));
                break;
             default:
                 break;
         }
-    }
-
-
-
-    /**
-     * 对外暴露pagers集合
-     */
-    public List<BasePager> getPagers() {
-        return pagers;
     }
 
 }

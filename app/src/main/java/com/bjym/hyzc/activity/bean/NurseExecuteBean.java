@@ -1,5 +1,6 @@
 package com.bjym.hyzc.activity.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public class NurseExecuteBean {
         return rows;
     }
 
-    public static class RowsBean {
+    public static class RowsBean  implements Serializable{
         public String StageCode;
         public String StageName;
         public int StageBeginDays;

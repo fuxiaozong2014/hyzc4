@@ -108,7 +108,7 @@ public class MyTaskActivity extends BaseActivity {
                 }
                 break;
             case R.id.tv_nursingContentStage:
-                Intent tv_nursingContentStageIntent = new Intent(this, NursingContentStageActivity.class);
+                Intent tv_nursingContentStageIntent = new Intent(this, NursingContentParentStageActivity.class);
                 if (cpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
                     return;
