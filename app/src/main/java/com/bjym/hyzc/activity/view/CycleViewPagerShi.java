@@ -41,7 +41,7 @@ public class CycleViewPagerShi extends ViewPager {
                     if (innerPagerAdapter != null && innerPagerAdapter.getCount() > 2) {
                         setCurrentItem(position++);
                     }
-                    handler.sendEmptyMessageDelayed(WHAT_ROLL, 1000);
+                    handler.sendEmptyMessageDelayed(WHAT_ROLL, 800);
             }
         }
     };

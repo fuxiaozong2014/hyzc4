@@ -44,8 +44,8 @@ public class NurseSelectStageActivity extends BaseActivity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //click this item jump to NurseUnxecuteYiZhuActivitye with StageCode
-                Intent intent=new Intent(context,NurseUnxecuteYiZhuActivitye.class);
+                //click this item jump to NurseUnxecuteYiZhuActivity with StageCode
+                Intent intent=new Intent(context,NurseUnxecuteYiZhuActivity.class);
                 intent.putExtra("StageCode",rows.get(position).StageCode);
                 intent.putExtra("patientsNo",patientsNo);
                 startActivity(intent);

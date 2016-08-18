@@ -19,7 +19,6 @@ public class MyTaskActivity extends BaseActivity {
     private TextView tv_nurseHistory;
     private TextView tv_nurseStage;
     private TextView tv_addNursingCare;
-    private TextView tv_nursingContentSelect;
     private TextView tv_nursingContentStage;
     private String name;
     private String patientsNo;
@@ -36,7 +35,6 @@ public class MyTaskActivity extends BaseActivity {
         tv_nurseHistory = (TextView) view.findViewById(R.id.tv_nurseHistory);
         tv_nurseStage = (TextView) view.findViewById(R.id.tv_nurseStage);
         tv_addNursingCare = (TextView) view.findViewById(R.id.tv_addNursingCare);
-        tv_nursingContentSelect = (TextView) view.findViewById(R.id.tv_nursingContentSelect);
         tv_nursingContentStage = (TextView) view.findViewById(R.id.tv_nursingContentStage);
         tv_search = (TextView) view.findViewById(R.id.tv_search);
 
@@ -55,7 +53,6 @@ public class MyTaskActivity extends BaseActivity {
         tv_nurseHistory.setOnClickListener(this);
         tv_nurseStage.setOnClickListener(this);
         tv_addNursingCare.setOnClickListener(this);
-        tv_nursingContentSelect.setOnClickListener(this);
         tv_nursingContentStage.setOnClickListener(this);
         bt_titlebar_left.setOnClickListener(this);
 
@@ -97,16 +94,6 @@ public class MyTaskActivity extends BaseActivity {
                 startActivity(new Intent(this, AddNursingCareActivity.class));
                 break;
 
-            case R.id.tv_nursingContentSelect:
-                Intent NursingContentSelectIntent = new Intent(this, NursingContentSelectActivity.class);
-                if (cpwCode == null) {
-                    MyToast.showToast(this, "请选择患者");
-                    return;
-                } else {
-                    NursingContentSelectIntent.putExtra("cpwCode", cpwCode);
-                    startActivity(NursingContentSelectIntent);
-                }
-                break;
             case R.id.tv_nursingContentStage:
                 Intent tv_nursingContentStageIntent = new Intent(this, NursingContentParentStageActivity.class);
                 if (cpwCode == null) {
@@ -117,7 +104,6 @@ public class MyTaskActivity extends BaseActivity {
                     startActivity(tv_nursingContentStageIntent);
                 }
                 break;
-
             case R.id.bt_titlebar_left:
                 finish();
                 break;

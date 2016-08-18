@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,15 +22,18 @@ import java.util.List;
 /**
  * Created by fushaoqing on 2016/8/9.
  */
-public class NursingContentSelectActivity extends BaseActivity {
+public class NursingContentSelectParentActivity extends BaseActivity {
     private ListView lv;
     private String cpwCode;
     private List<NursingContentBean.RowsBean> rows;
     private List<NursingContentBean.RowsBean> existingNursingContents = null;
     private TextView tv_none_nurseContent;
     private TextView tv_search;
-    private List<NursingContentBean.RowsBean> sunItemLists;
+    private List<NursingContentBean.RowsBean> parentItemLists;
 
+    private Button bt_titlebar_right;
+    private Button bt_titlebar_left;
+    private TextView tv_titlebar_center;
     class MyOnItemClickListener implements AdapterView.OnItemClickListener {
 
         @Override
@@ -42,7 +46,7 @@ public class NursingContentSelectActivity extends BaseActivity {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    NursingContentBean.RowsBean rowsBean = rows.get(position);
+                    NursingContentBean.RowsBean rowsBean = parentItemLists.get(position);
                     if (existingNursingContents == null) {
                         existingNursingContents = new ArrayList<>();
                     }
@@ -73,6 +77,10 @@ public class NursingContentSelectActivity extends BaseActivity {
         tv_none_nurseContent = (TextView) view.findViewById(R.id.tv_none_nurseContent);
         tv_search = (TextView) view.findViewById(R.id.tv_search);
 
+        bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
+        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
+        tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);
+
         lv = (ListView) view.findViewById(R.id.lv);
 
         return view;
@@ -80,12 +88,19 @@ public class NursingContentSelectActivity extends BaseActivity {
 
     @Override
     public void InitData() {
+
+        bt_titlebar_left.setVisibility(View.VISIBLE);
+        bt_titlebar_right.setVisibility(View.GONE);
+        tv_titlebar_center.setText("维护患者护理内容");
+
         Intent intent = getIntent();
-        sunItemLists = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("SunItemLists");
+        parentItemLists = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("SunItemLists");
 
         lv.setAdapter(new MyAdapter());
         lv.setOnItemClickListener(new MyOnItemClickListener());
         tv_search.setOnClickListener(this);
+        bt_titlebar_left.setOnClickListener(this);
+
 
     }
 
@@ -98,6 +113,11 @@ public class NursingContentSelectActivity extends BaseActivity {
                 existingNursingContentIntent.putExtra("existingNursingContents", (Serializable) existingNursingContents);
                 startActivity(existingNursingContentIntent);
                 break;
+            case R.id.bt_titlebar_left:
+                finish();
+                break;
+            default:
+                break;
         }
     }
 
@@ -109,7 +129,7 @@ public class NursingContentSelectActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return sunItemLists.size();
+            return parentItemLists.size();
         }
 
         @Override
@@ -124,16 +144,12 @@ public class NursingContentSelectActivity extends BaseActivity {
                 view = convertView;
                 vh = (ViewHolder) view.getTag();
             }
-            vh.tv_ContentName.setText(sunItemLists.get(position).ContentName);
-            vh.tv_ContentCode.setText(sunItemLists.get(position).ContentCode);
-            vh.tv_StageCode.setText(sunItemLists.get(position).StageCode);
-            vh.tv_ContentType.setText(sunItemLists.get(position).ContentType);
-            vh.tv_CPWType.setText(sunItemLists.get(position).CPWType);
-            vh.tv_OrderType.setText(sunItemLists.get(position).OrderType);
-            vh.tv_OrderCategory.setText(sunItemLists.get(position).OrderCategory);
-            vh.tv_CPWCode.setText(sunItemLists.get(position).CPWCode);
-            vh.tv_MedicalRecord.setText(sunItemLists.get(position).MedicalRecord);
-            vh.tv_ActivitiesType.setText(sunItemLists.get(position).ActivitiesType);
+            vh.tv_ContentName.setText(parentItemLists.get(position).ContentName);
+            vh.tv_ContentType.setText(parentItemLists.get(position).ContentType);
+            vh.tv_OrderType.setText(parentItemLists.get(position).OrderType);
+            vh.tv_OrderCategory.setText(parentItemLists.get(position).OrderCategory);
+            vh.tv_MedicalRecord.setText(parentItemLists.get(position).MedicalRecord);
+            vh.tv_ActivitiesType.setText(parentItemLists.get(position).ActivitiesType);
             return view;
         }
 

@@ -5,7 +5,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -45,8 +44,9 @@ public class AddNursingCareActivity extends BaseActivity {
 
     private void commitAddNursingCare() {
 
+            //TODO 提交内容的url没有得到
 
-        OkHttpUtils.postString().mediaType(MediaType.parse("application/json")).url(MyConstant.ADD_NURSINGCARE_COMIT).content("")
+        OkHttpUtils.postString().mediaType(MediaType.parse("application/json")).url("").content("")
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {

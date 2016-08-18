@@ -92,7 +92,7 @@ public class NursingContentParentStageActivity extends BaseActivity {
                     return;
                 }else{
                     MyLog.i("SunItemLists",SunItemLists.toString()+SunItemLists.size());
-                    Intent intent = new Intent(context, NursingContentSelectActivity.class);
+                    Intent intent = new Intent(context, NursingContentSelectParentActivity.class);
                     intent.putExtra("SunItemLists", (Serializable) SunItemLists);
                     startActivity(intent);
                     // MyToast.showToast(NursingContentParentStageActivity.this,"没有子条目");
@@ -232,7 +232,7 @@ public class NursingContentParentStageActivity extends BaseActivity {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
 
-                // MyToast.showToast(NursingContentSelectActivity.this, "请求成功" + "getNursingContentData");
+                // MyToast.showToast(NursingContentSelectParentActivity.this, "请求成功" + "getNursingContentData");
 
                 return response.body().string();
             }

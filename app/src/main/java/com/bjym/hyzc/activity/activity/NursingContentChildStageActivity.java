@@ -30,7 +30,6 @@ public class NursingContentChildStageActivity extends BaseActivity {
     private List<NursingContentBean.RowsBean> rowsSun;
     private List<NursingContentBean.RowsBean> rowsSunItemLists=new ArrayList<>();
 
-
     class MyOnItemClickListener implements AdapterView.OnItemClickListener {
 
         @Override
@@ -51,10 +50,8 @@ public class NursingContentChildStageActivity extends BaseActivity {
             rowsSunItemLists.clear();
         }
     }
-
     @Override
     public View setMainView() {
-
         View view = View.inflate(context, R.layout.activity_nursingcontentchildstage, null);
         lv = (ListView) view.findViewById(R.id.lv);
 
@@ -67,6 +64,7 @@ public class NursingContentChildStageActivity extends BaseActivity {
 
     @Override
     public void InitData() {
+        //这是顶部状态栏的设置
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("选择子路径阶段");

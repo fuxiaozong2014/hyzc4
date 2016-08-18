@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,7 +30,10 @@ public class NursingContentSelectChildActivity extends BaseActivity {
     private TextView tv_none_nurseContent;
     private TextView tv_search;
     private List<NursingContentBean.RowsBean> sunItemLists;
-    private List<NursingContentBean.RowsBean> rowsSunItemLists;
+
+    private Button bt_titlebar_right;
+    private Button bt_titlebar_left;
+    private TextView tv_titlebar_center;
 
     class MyOnItemClickListener implements AdapterView.OnItemClickListener {
 
@@ -43,14 +47,14 @@ public class NursingContentSelectChildActivity extends BaseActivity {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    NursingContentBean.RowsBean rowsBean = rows.get(position);
+                    NursingContentBean.RowsBean rowsBean = sunItemLists.get(position);
                     if (existingNursingContents == null) {
                         existingNursingContents = new ArrayList<>();
                     }
                     //把得到的集合传递给下一个现有页面
                     existingNursingContents.add(rowsBean);
                     MyLog.i("existingNursingContents", existingNursingContents.size() + "");
-
+                    postUnexecuContent(rowsBean);
                     dialog.dismiss();
                 }
             });
@@ -68,11 +72,20 @@ public class NursingContentSelectChildActivity extends BaseActivity {
         }
     }
 
+    private void postUnexecuContent(NursingContentBean.RowsBean rowsBean) {
+
+
+    }
+
     @Override
     public View setMainView() {
         View view = View.inflate(context, R.layout.activity_nursingcontentselect, null);
         tv_none_nurseContent = (TextView) view.findViewById(R.id.tv_none_nurseContent);
         tv_search = (TextView) view.findViewById(R.id.tv_search);
+
+        bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
+        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
+        tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);
 
         lv = (ListView) view.findViewById(R.id.lv);
 
@@ -81,13 +94,20 @@ public class NursingContentSelectChildActivity extends BaseActivity {
 
     @Override
     public void InitData() {
+
+        bt_titlebar_left.setVisibility(View.VISIBLE);
+        bt_titlebar_right.setVisibility(View.GONE);
+        tv_titlebar_center.setText("维护患者护理内容");
+
         Intent intent = getIntent();
-        //TODO 得到shu数据
-        rowsSunItemLists = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("rowsSunItemLists");
-        MyLog.i("rowsSunItemLists",rowsSunItemLists.size()+"");
+        sunItemLists = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("rowsSunItemLists");
+        MyLog.i("sunItemLists",sunItemLists.size()+"");
+
         lv.setOnItemClickListener(new MyOnItemClickListener());
         lv.setAdapter(new MyAdapter());
         tv_search.setOnClickListener(this);
+        bt_titlebar_left.setOnClickListener(this);
+
 
     }
 
@@ -100,6 +120,11 @@ public class NursingContentSelectChildActivity extends BaseActivity {
                 existingNursingContentIntent.putExtra("existingNursingContents", (Serializable) existingNursingContents);
                 startActivity(existingNursingContentIntent);
                 break;
+            case R.id.bt_titlebar_left:
+                finish();
+                break;
+            default:
+                break;
         }
     }
 
@@ -111,7 +136,7 @@ public class NursingContentSelectChildActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return rowsSunItemLists.size();
+            return sunItemLists.size();
         }
 
         @Override
@@ -126,16 +151,12 @@ public class NursingContentSelectChildActivity extends BaseActivity {
                 view = convertView;
                 vh = (ViewHolder) view.getTag();
             }
-            vh.tv_ContentName.setText(rowsSunItemLists.get(position).ContentName);
-            vh.tv_ContentCode.setText(rowsSunItemLists.get(position).ContentCode);
-            vh.tv_StageCode.setText(rowsSunItemLists.get(position).StageCode);
-            vh.tv_ContentType.setText(rowsSunItemLists.get(position).ContentType);
-            vh.tv_CPWType.setText(rowsSunItemLists.get(position).CPWType);
-            vh.tv_OrderType.setText(rowsSunItemLists.get(position).OrderType);
-            vh.tv_OrderCategory.setText(rowsSunItemLists.get(position).OrderCategory);
-            vh.tv_CPWCode.setText(rowsSunItemLists.get(position).CPWCode);
-            vh.tv_MedicalRecord.setText(rowsSunItemLists.get(position).MedicalRecord);
-            vh.tv_ActivitiesType.setText(rowsSunItemLists.get(position).ActivitiesType);
+            vh.tv_ContentName.setText(sunItemLists.get(position).ContentName);
+            vh.tv_ContentType.setText(sunItemLists.get(position).ContentType);
+            vh.tv_OrderType.setText(sunItemLists.get(position).OrderType);
+            vh.tv_OrderCategory.setText(sunItemLists.get(position).OrderCategory);
+            vh.tv_MedicalRecord.setText(sunItemLists.get(position).MedicalRecord);
+            vh.tv_ActivitiesType.setText(sunItemLists.get(position).ActivitiesType);
             return view;
         }
 

@@ -28,7 +28,7 @@ import okhttp3.Response;
 /**
  * Created by fushaoqing on 2016/8/4.
  */
-public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
+public class NurseUnxecuteYiZhuActivity extends BaseActivity {
 
     private String stageCode;
     private String patientsNo;
@@ -56,6 +56,7 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
                     dialog.dismiss();
                     postUnExecuteYiZhu(orderNo);
 
+
                 }
             });
             builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -74,7 +75,7 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
 
     private void postUnExecuteYiZhu(String orderNo) {
         //TODO 确定提交的内容
-        OkHttpUtils.postString().url(MyConstant.NURSE_UNEXECUTE_COMIT+orderNo).content("").build().execute(new Callback() {
+        OkHttpUtils.postString().url(MyConstant.NURSE_UNEXECUTEYIZHU_COMIT+orderNo).content("").build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
 
@@ -83,12 +84,12 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(NurseUnxecuteYiZhuActivitye.this,"请求网络失败");
+                MyToast.showToast(NurseUnxecuteYiZhuActivity.this,"请求网络失败");
             }
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(NurseUnxecuteYiZhuActivitye.this,"请求网络成功");
+                MyToast.showToast(NurseUnxecuteYiZhuActivity.this,"请求网络成功");
             }
         });
 
@@ -134,7 +135,7 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
                 .execute(new Callback() {
                     @Override
                     public Object parseNetworkResponse(Response response, int i) throws Exception {
-                        // MyToast.showToast(NurseUnxecuteYiZhuActivitye.this, response.body().string());
+                       //  MyToast.showToast(NurseUnxecuteYiZhuActivity.this, response.body().string());
                         return response.body().string();
                     }
 
@@ -146,7 +147,7 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
 
                     @Override
                     public void onResponse(Object o, int i) {
-                       // MyToast.showToast(NurseUnxecuteYiZhuActivitye.this, (String) o);
+                        //MyToast.showToast(NurseUnxecuteYiZhuActivity.this, (String) o);
                         parseJson((String) o);
                     }
                 });
@@ -157,6 +158,7 @@ public class NurseUnxecuteYiZhuActivitye extends BaseActivity {
         rows = nurseUnExecuteBean.getRows();
         if(rows.size()==0){
             lv.setVisibility(View.GONE);
+
             tv_none_unExecuteYiZhu.setVisibility(View.VISIBLE);
         }
         lv.setAdapter(new MyAdapter());

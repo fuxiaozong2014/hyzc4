@@ -78,7 +78,7 @@ public class MyConstant {
     /*
   * 提交护士已选择的未执行的医嘱
   * */
-    public static final String NURSE_UNEXECUTE_COMIT = BASE_URL + "/CPW/CPW_PatiExecOrder/execorder?OrderNo=";
+    public static final String NURSE_UNEXECUTEYIZHU_COMIT = BASE_URL + "/CPW/CPW_PatiExecOrder/execorder?OrderNo=";
 
 
     /*
@@ -91,9 +91,9 @@ public class MyConstant {
     public static final String PATIONTE_EXITCPW_CAUSE = BASE_URL + "/CPW/CPW_PatiVariation/GetListOrder";
 
     /*
-        * 提交新增护理
+        * 提交护理内容
         * */
-    public static final String ADD_NURSINGCARE_COMIT = BASE_URL + "/CPW/CPW_PatiNursing/add";
+    public static final String NURSE_UNEXECUTECONTENT_COMIT = BASE_URL + "/CPW/CPW_PatiNursing/add";
 
     /*
        * 获取可选的护理内容
