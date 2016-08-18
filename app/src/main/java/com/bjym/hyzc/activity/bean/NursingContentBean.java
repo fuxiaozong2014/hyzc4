@@ -66,7 +66,5 @@ public class NursingContentBean {
             this.CPWCode = CPWCode;
             this.tempid = tempid;
         }
-
-
     }
 }

@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -60,55 +59,16 @@ public class MainActivity extends BaseActivity {
     @Override
     public View setMainView() {
         View view = View.inflate(context, R.layout.activity_main, null);
-
-       /* Toolbar toolbar = initView(view);
-
-        toolbar.setTitle("测试标题");
-        //getSupportActionBar(toolbar);
-       *//* 菜单的监听可以在toolbar里设置，也可以像ActionBar那样，通过Activity的onOptionsItemSelected回调方法来处理 *//*
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_settings:
-                        Toast.makeText(MainActivity.this, "action_settings", Toast.LENGTH_SHORT).show();
-                        break;
-                   *//* case R.id.action_share:
-                        Toast.makeText(MainActivity.this, "action_share", 0).show();
-                        break;*//*
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });*/
         tv_my = (TextView) view.findViewById(R.id.tv_accountcenter);
         tv_home = (TextView) view.findViewById(R.id.tv_home);
         tv_research = (TextView) view.findViewById(R.id.tv_diaocha);
         tv_count = (TextView) view.findViewById(R.id.tv_tongji);
         defaultHomeView();
         defaultReplaceHomeFragment();
-        //dealFloatingButton(view);
-
-       // dealDrawerLayout(view, toolbar);
-
-       // dealNavigation(view);
 
         return view;
     }
 
-   /* private void dealNavigation(View view) {
-        NavigationView navigationView = (NavigationView) view.findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-       *//*
-       *  在这里处理菜单头布局的逻辑
-       *//*
-
-        View headerView = navigationView.getHeaderView(0);
-        tv_menu_keshi = (TextView) headerView.findViewById(R.id.tv_menu_keshi);
-        tv_menu_accout = (TextView) headerView.findViewById(R.id.tv_menu_accout);
-    }*/
 
 
     @Override
@@ -125,31 +85,7 @@ public class MainActivity extends BaseActivity {
         getNetData();
     }
 
-    private Toolbar initView(View view) {
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        return toolbar;
-    }
-
-   /* private void dealDrawerLayout(View view, Toolbar toolbar) {
-        drawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-    }
-
-    private void dealFloatingButton(View view) {
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    }*/
 
     private void defaultReplaceHomeFragment() {
         //默认填充主页fragment
@@ -248,31 +184,6 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-   /* @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-*/
 
     /*
     * 1.得到用户信息设置菜单页面的用户名
@@ -300,10 +211,7 @@ public class MainActivity extends BaseActivity {
                     realName = myself.RealName;
                     departmentCode = myself.DepartmentCode;
                     userCode = myself.UserCode;
-
                 }
-
-
 
                 /*
                 * 通过Bundle给acconteFragment和researchFragment传值

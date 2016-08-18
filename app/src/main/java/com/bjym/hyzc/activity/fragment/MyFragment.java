@@ -1,6 +1,8 @@
 package com.bjym.hyzc.activity.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -32,6 +34,7 @@ public class MyFragment extends BaseFragment {
     private TextView tv_account;
     private TextView tv_myPationte;
     private TextView tv_keshi;
+    private SharedPreferences sp;
 
     private List<PationteBean> pationtes;
 
@@ -40,6 +43,7 @@ public class MyFragment extends BaseFragment {
         View view = View.inflate(getContext(), R.layout.fragment_my, null);
         ll_myPationte = (LinearLayout) view.findViewById(R.id.ll_myPationte);
         ll_myTask = (LinearLayout) view.findViewById(R.id.ll_myTask);
+        sp=getActivity().getSharedPreferences("MyselfConfig", Context.MODE_PRIVATE);
 
 
         tv_account = (TextView) view.findViewById(R.id.tv_account);
@@ -51,7 +55,6 @@ public class MyFragment extends BaseFragment {
 
     @Override
     public void InitData() {
-
         /*
         * 得到mainActivity中传过来的用户信息
         * */
@@ -59,18 +62,22 @@ public class MyFragment extends BaseFragment {
         if (bundle !=null) {
             String departmentCode = bundle.getString("departmentCode");
             String userCode = bundle.getString("userCode");
-        /*
-        * 把用户信息赋值给textview
-        * */
+            String realName = bundle.getString("realName");
+
+            //保存起来方便以后使用
+            sp.edit().putString("departmentCode",departmentCode).commit();
+            sp.edit().putString("userCode",userCode).commit();
+            sp.edit().putString("realName",realName).commit();
+
+         /*
+         * 把用户信息赋值给textview
+         * */
             tv_account.setText("用户名：" + userCode);
             tv_keshi.setText("科室名：" + departmentCode);
         }else{
             MyToast.showToast(MyFragment.this.getActivity(),"您还没有登录！");
             return;
         }
-
-
-
 
         ll_myPationte.setOnClickListener(this);
         ll_myTask.setOnClickListener(this);
@@ -90,6 +97,7 @@ public class MyFragment extends BaseFragment {
             * 选择我的病人，跳转到任务界面 TODO
             * */
             case R.id.ll_myTask:
+
                 startActivity(new Intent(context, MyTaskActivity.class));
                 break;
             default:

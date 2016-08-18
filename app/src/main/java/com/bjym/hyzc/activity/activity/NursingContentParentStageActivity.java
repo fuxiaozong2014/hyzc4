@@ -129,13 +129,11 @@ public class NursingContentParentStageActivity extends BaseActivity {
         if (intent != null) {
             cpwCode = intent.getStringExtra("cpwCode");
             getNurseStageData();
-            //TODO 得到孙数据集合 每个对象的stageCode
+
             getNueseSunData();
         }
 
         bt_titlebar_left.setOnClickListener(this);
-
-
     }
 
 

@@ -53,31 +53,8 @@ public class LoginActivity extends BaseActivity {
     private CheckBox cb;
     private LinearLayout rela_wait_loading;
 
-
-    /* private Handler handler = new Handler() {
-         @Override
-         public void handleMessage(Message msg) {
-             super.handleMessage(msg);
-             switch (msg.what) {
-                 case RELA_WAIT_LOADING:
-                     if (rela_wait_loading != null) {
-                         rela_wait_loading.setVisibility(View.VISIBLE);
-                     }
-
-                     break;
-                 case WHAT_DISMISS_LOADING:
-                     if (rela_wait_loading != null) {
-                         rela_wait_loading.setVisibility(View.GONE);
-                     }
-                     break;
-             }
-
-         }
-     };
- */
     @Override
     public View setMainView() {
-
 
         sp = getSharedPreferences("Config", MODE_PRIVATE);
         View view = View.inflate(LoginActivity.this, R.layout.activity_login, null);

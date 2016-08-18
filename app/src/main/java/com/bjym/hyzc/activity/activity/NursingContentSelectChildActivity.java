@@ -3,6 +3,7 @@ package com.bjym.hyzc.activity.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,11 +14,18 @@ import android.widget.TextView;
 
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.bean.NursingContentBean;
+import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
+import com.bjym.hyzc.activity.utils.MyToast;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.Callback;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * Created by fushaoqing on 2016/8/9.
@@ -30,6 +38,7 @@ public class NursingContentSelectChildActivity extends BaseActivity {
     private TextView tv_none_nurseContent;
     private TextView tv_search;
     private List<NursingContentBean.RowsBean> sunItemLists;
+    private SharedPreferences sp;
 
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
@@ -68,11 +77,46 @@ public class NursingContentSelectChildActivity extends BaseActivity {
             });
 
             builder.show();
-
         }
     }
 
-    private void postUnexecuContent(NursingContentBean.RowsBean rowsBean) {
+   private void postUnexecuContent(NursingContentBean.RowsBean rowsBean) {
+
+        //TODO 确定提交的内容
+       String activitiesType = rowsBean.ActivitiesType;
+       String contentCode = rowsBean.ContentCode;
+       String contentName = rowsBean.ContentName;
+       String contentType = rowsBean.ContentType;
+       String cpwCode = rowsBean.CPWCode;
+       String cpwType = rowsBean.CPWType;
+       String medicalRecord = rowsBean.MedicalRecord;
+       String orderCategory = rowsBean.OrderCategory;
+       String orderType = rowsBean.OrderType;
+       String stageCode = rowsBean.StageCode;
+
+       String departmentCode = sp.getString("departmentCode", "");
+       String userCode = sp.getString("userCode", "");
+       String realName = sp.getString("realName", "");
+
+
+
+       OkHttpUtils.postString().url(MyConstant.NURSE_UNEXECUTECONTENT_COMIT).content("").build().execute(new Callback() {
+            @Override
+            public Object parseNetworkResponse(Response response, int i) throws Exception {
+
+                return null;
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                MyToast.showToast(NursingContentSelectChildActivity.this,"请求网络失败");
+            }
+
+            @Override
+            public void onResponse(Object o, int i) {
+                MyToast.showToast(NursingContentSelectChildActivity.this,"请求网络成功");
+            }
+        });
 
 
     }
@@ -94,6 +138,7 @@ public class NursingContentSelectChildActivity extends BaseActivity {
 
     @Override
     public void InitData() {
+        sp=getSharedPreferences("MyselfConfig",MODE_PRIVATE);
 
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
@@ -107,8 +152,6 @@ public class NursingContentSelectChildActivity extends BaseActivity {
         lv.setAdapter(new MyAdapter());
         tv_search.setOnClickListener(this);
         bt_titlebar_left.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -128,11 +171,7 @@ public class NursingContentSelectChildActivity extends BaseActivity {
         }
     }
 
-
-
-
     class MyAdapter extends BaseAdapter {
-
 
         @Override
         public int getCount() {
@@ -200,4 +239,6 @@ public class NursingContentSelectChildActivity extends BaseActivity {
 
         }
     }
+
+
 }

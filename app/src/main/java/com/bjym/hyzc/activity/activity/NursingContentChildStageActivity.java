@@ -38,12 +38,15 @@ public class NursingContentChildStageActivity extends BaseActivity {
             //遍历rowsSun得到所有条目的stagecode
             //比对，如果两者相等，就把这类对象保存到对应集合，把集合传递到展示界面
             String stageCodeChild = childItemLists.get(position).StageCode;
-            for (int i = 0; i <rowsSun.size() ; i++) {
-                String stageCodeSun = rowsSun.get(i).StageCode;
-                if (stageCodeChild.equals(stageCodeSun)){
-                    rowsSunItemLists.add(rowsSun.get(i));
+            if (rowsSun !=null) {
+                for (int i = 0; i <rowsSun.size() ; i++) {
+                    String stageCodeSun = rowsSun.get(i).StageCode;
+                    if (stageCodeChild.equals(stageCodeSun)){
+                        rowsSunItemLists.add(rowsSun.get(i));
+                    }
                 }
             }
+
             Intent intent=new Intent(NursingContentChildStageActivity.this,NursingContentSelectChildActivity.class);
             intent.putExtra("rowsSunItemLists",(Serializable) rowsSunItemLists);
             startActivity(intent);
