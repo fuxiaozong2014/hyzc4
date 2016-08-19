@@ -1,10 +1,14 @@
 package com.bjym.hyzc.activity.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.bjym.hyzc.R;
 
@@ -16,6 +20,7 @@ import com.bjym.hyzc.R;
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
     public Context context;
     //private Callback callback;
+    private  Dialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +37,41 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         setContentView(setMainView());
         overridePendingTransition(R.anim.next_in, R.anim.next_out);
         InitData();
+    }
+
+
+
+    /**
+     * 取消进度栏
+     */
+    public  void dismiss() {
+        if (dialog != null) {
+            dialog.dismiss();
+        }
+    }
+
+    /**
+     * 进度等待
+     * @param message
+     */
+    public  void showDialogProgress(String message) {
+        if(context!=null){
+            dialog = new Dialog(context, R.style.MyDialogStyle);
+            dialog.setContentView(R.layout.dialog_progress);// 为对话框设置自定义布局
+            Window window = dialog.getWindow();
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.dimAmount = 0f;
+            window.setAttributes(params);
+            dialog.setCanceledOnTouchOutside(true);
+            TextView messageTv = (TextView) dialog
+                    .findViewById(R.id.dialog_message);
+            if (message != null) {
+                messageTv.setText(message);
+            }
+            dialog.show();
+        }else{
+            dialog=null;
+        }
     }
 
     /**

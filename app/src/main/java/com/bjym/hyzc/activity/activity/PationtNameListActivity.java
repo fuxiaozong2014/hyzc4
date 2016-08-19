@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
@@ -39,11 +40,14 @@ public class PationtNameListActivity extends  BaseActivity{
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
     private TextView tv_titlebar_center;
+    private RelativeLayout Rela_no_wifi;
+
     @Override
     public View setMainView() {
         View view=View.inflate(context, R.layout.activity_pationtnamelist,null);
         lv_mypationte = (ListView) view.findViewById(R.id.lv_mypationte);
         tv_mypationtenone = (TextView) view.findViewById(R.id.tv_mypationtenone);
+        Rela_no_wifi = (RelativeLayout)view.findViewById(R.id.Rela_no_wifi);
 
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
         bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
@@ -68,6 +72,7 @@ public class PationtNameListActivity extends  BaseActivity{
 
 
     private void getNetData() {
+        showDialogProgress("加载中...");
         OkHttpUtils.get().url(MyConstant.MYPATIONTE_URL).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -79,6 +84,9 @@ public class PationtNameListActivity extends  BaseActivity{
             @Override
             public void onError(Call call, Exception e, int i) {
                 //dismissWaitingDialog();
+
+                dismiss();
+                Rela_no_wifi.setVisibility(View.VISIBLE);
                 MyToast.showToast(PationtNameListActivity.this, "服务器正忙，请稍后重试");
             }
 
@@ -86,6 +94,7 @@ public class PationtNameListActivity extends  BaseActivity{
             public void onResponse(Object o, int i) {
 
                // dismissWaitingDialog();
+                dismiss();
                 if (pationtes.size() == 0) {
                     lv_mypationte.setVisibility(View.GONE);
                     tv_mypationtenone.setVisibility(View.VISIBLE);

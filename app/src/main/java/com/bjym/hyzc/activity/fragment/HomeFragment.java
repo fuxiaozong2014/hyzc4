@@ -8,14 +8,24 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.activity.WebViewActivity;
 import com.bjym.hyzc.activity.pager.BasePager;
+import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.view.CycleViewPagerShi;
+import com.squareup.picasso.Picasso;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
 
 /**
  * Created by fushaoqing on 2016/6/28.
@@ -29,6 +39,19 @@ public class HomeFragment extends BaseFragment {
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
     private TextView tv_titlebar_center;
+
+    /**
+     * 轮播图图片url集合
+     */
+    private ArrayList<String> imgUrls = new ArrayList<>();
+    /**
+     * 轮播图图片对应链接url集合
+     */
+    private ArrayList<String> backUrls = new ArrayList<>();
+    /**
+     * 轮播图图片标题集合
+     */
+    private ArrayList<String> imgTitles = new ArrayList<>();
 
     @Override
     public View setMainView() {
@@ -48,20 +71,54 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void InitData() {
 
+        getImageData();
         tv_healthySpace.setOnClickListener(this);
 
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("临床路径管理");
 
-        viewPager.setAdapter(new MyPageAdapter());
+    }
+
+    private void getImageData() {
+        OkHttpUtils.get().url(MyConstant.LUNBOTU).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                Toast.makeText(HomeFragment.this.getActivity(),"请求错误",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onResponse(String s, int code) {
+               // MyToast.showToast(,"请求错误");
+                if (null == s) {
+                    return;
+                }
+                try {
+                    JSONArray jsonArray = new JSONObject(s).optJSONArray("advert");
+                    JSONObject obj;
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        obj = jsonArray.optJSONObject(i);
+                        if (obj != null) {
+                            imgUrls.add(obj.optString("file_path"));
+                            backUrls.add(obj.optString("url"));
+                            imgTitles.add(obj.optString("title"));
+                        }
+                    }
+                    if (imgUrls.size() > 0) {
+                        viewPager.setAdapter(new MyPageAdapter());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     class MyPageAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
-            return images.length;
+            return imgUrls.size();
         }
 
         @Override
@@ -74,17 +131,14 @@ public class HomeFragment extends BaseFragment {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            // 实例化条目
-            // 请求数据
-            ImageView iv = null;
-            try {
-                iv = new ImageView(HomeFragment.this.getActivity());
-                iv.setImageResource(images[position]);
-                container.addView(iv);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return iv;
+            ImageView imageView =new ImageView(context);
+            Picasso.with(getContext())
+                    .load(imgUrls.get(position))
+                    .resize(viewPager.getWidth(), viewPager.getHeight())
+//                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .into(imageView);
+            container.addView(imageView);
+            return imageView;
         }
 
         @Override

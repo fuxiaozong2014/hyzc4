@@ -8,9 +8,9 @@ public class MyConstant {
     /**
      * 服务器ip
      */
-    public static final String BASE_URL = "http://192.168.0.168";
+    //public static final String BASE_URL = "http://192.168.0.168";
     // public static final String BASE_URL = "http://192.168.0.188";
-    // public static final String BASE_URL = "http://cp.hyzczg.com";
+     public static final String BASE_URL = "http://cp.hyzczg.com";
     //public static final String BASE_URL = "http://cp.sqall.com";
     // public static final String BASE_URL = "http://hyzc.tpddns.cn:6060";
 
@@ -99,4 +99,8 @@ public class MyConstant {
        * 获取可选的护理内容
        * */
     public static final String NURSING_CONTENT_SELECT= BASE_URL + "/CPW/CPW_InfoContent/getlist?cpwcode=";
+    /*
+    * 获取轮播图
+    * */
+    public static final String LUNBOTU= "http://www.hyzczg.com/plugins/advert/advert_js.ashx?id=1";
 }

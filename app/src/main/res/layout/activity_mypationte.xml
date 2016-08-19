@@ -62,7 +62,6 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <include layout="@layout/item_wait_loading" />
 
     <include layout="@layout/item_no_wifi" />
 

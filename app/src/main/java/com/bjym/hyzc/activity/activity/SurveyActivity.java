@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
@@ -280,6 +281,7 @@ public class SurveyActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_next:
+
                 if (position != vg.getChildCount() - 1) {
                     vg.setCurrentItem(++position);
                 } else {
@@ -392,7 +394,7 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(SurveyActivity.this, "提交成功" + "postAnswers");
+               // MyToast.showToast(SurveyActivity.this, "提交成功" + "postAnswers");
             }
         });
     }
@@ -405,11 +407,14 @@ public class SurveyActivity extends BaseActivity {
         private String topicNo;
         private List<String> choiceNums = new ArrayList<>();
         private List<Integer> scoreLists = new ArrayList<>();
+        private RelativeLayout rela_no_wifi;
 
         @Override
         public View setMainView() {
             View view = View.inflate(context, R.layout.fragment_survey, null);
             rg = (RadioGroup) view.findViewById(R.id.rg);
+            rela_no_wifi =   (RelativeLayout)view.findViewById(R.id.Rela_no_wifi);
+
             tv_questions = (TextView) view.findViewById(R.id.tv_questions);
             return view;
         }
@@ -447,8 +452,8 @@ public class SurveyActivity extends BaseActivity {
         * 根据题干编号获取选项
         * */
         private void getOptions() {
+            showDialogProgress("加载中...");
             final String url = MyConstant.OPTION_URL + topicNo;
-
 
             OkHttpUtils.get().url(url).build().execute(new Callback() {
                 @Override
@@ -459,11 +464,14 @@ public class SurveyActivity extends BaseActivity {
 
                 @Override
                 public void onError(Call call, Exception e, int i) {
+                        dismiss();
+                    rela_no_wifi.setVisibility(View.VISIBLE);
 
                 }
 
                 @Override
                 public void onResponse(Object response, int i) {
+                    dismiss();
                     if (response instanceof Response) {
                         try {
                             String result = ((Response) response).body().string();
@@ -500,7 +508,11 @@ public class SurveyActivity extends BaseActivity {
                     rb.setId(i);
                     params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.SCROLL_AXIS_VERTICAL);
                     // params.leftMargin = DensityUtil.dip2px(20);
+
                     rg.addView(rb, i, params);
+                    if(i==0){
+                        rg.check(i);
+                    }
                 }
             }
         }

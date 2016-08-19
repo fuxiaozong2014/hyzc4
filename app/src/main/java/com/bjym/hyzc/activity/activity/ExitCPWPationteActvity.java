@@ -158,7 +158,6 @@ public class ExitCPWPationteActvity extends BaseActivity {
             case R.id.bt_titlebar_left:
                 finish();
                 break;
-
         }
     }
 }

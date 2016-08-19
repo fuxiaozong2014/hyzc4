@@ -46,12 +46,11 @@ public class LoginActivity extends BaseActivity {
 
     private EditText et_name;
     private EditText et_pwd;
-    //  private Button btn_exit;
     private String password;
     private String usercode;
     private SharedPreferences sp;
     private CheckBox cb;
-    private LinearLayout rela_wait_loading;
+    private LinearLayout ll_mainContent;
 
     @Override
     public View setMainView() {
@@ -63,9 +62,8 @@ public class LoginActivity extends BaseActivity {
         tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);
 
         btn_login = (Button) view.findViewById(R.id.btn_login);
-        rela_wait_loading = (LinearLayout) view.findViewById(R.id.Rela_wait_loading);
+        ll_mainContent = (LinearLayout) view.findViewById(R.id.ll_mainContent);
 
-        // btn_exit = (Button) view.findViewById(R.id.btn_exit);
         et_name = (EditText) view.findViewById(R.id.et_name);
         et_pwd = (EditText) view.findViewById(R.id.et_pwd);
         cb = (CheckBox) view.findViewById(R.id.cb);
@@ -122,7 +120,11 @@ public class LoginActivity extends BaseActivity {
             MyToast.showToast(LoginActivity.this, "请输入密码");
             return;
         } else {
+            //TODO
             //handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING, 500);
+            ll_mainContent.setVisibility(View.GONE);
+            showDialogProgress("登录中");
+
             OkHttpUtils.post()
                     .url(MyConstant.LOGIN_URL)
                     .addParams("usercode", usercode)
@@ -132,7 +134,6 @@ public class LoginActivity extends BaseActivity {
                     .execute(new Callback() {
                         @Override
                         public Object parseNetworkResponse(Response response, int i) throws Exception {
-                            //dismissWaitingDialog();
                             String string = response.body().string();
                             parseJson(string);
                             return null;
@@ -142,13 +143,15 @@ public class LoginActivity extends BaseActivity {
                         public void onError(Call call, Exception e, int i) {
                             e.printStackTrace();
                             MyLog.i("e.printStackTrace();", e.toString());
+
+                            dismiss();
+                            ll_mainContent.setVisibility(View.VISIBLE);
+
                             MyToast.showToast(LoginActivity.this, "请检查网络设置或稍后再试");
-                            //dismissWaitingDialog();
                         }
 
                         @Override
                         public void onResponse(Object o, int i) {
-                            //dismissWaitingDialog();
                         }
                     });
         }
@@ -161,6 +164,7 @@ public class LoginActivity extends BaseActivity {
     private void parseJson(String result) throws JSONException {
         JSONObject jsonObject = new JSONObject(result);
         if (jsonObject.optBoolean("Succeed")) {
+            dismiss();
             MyToast.showToast(LoginActivity.this, "登录成功");
             saveUserInfo();
             setAlias();
@@ -214,10 +218,6 @@ public class LoginActivity extends BaseActivity {
         JPushInterface.onResume(context);
     }
 
-    /*private void dismissWaitingDialog() {
-        handler.sendEmptyMessage(WHAT_DISMISS_LOADING);
-    }
-*/
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -241,4 +241,6 @@ public class LoginActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+
 }

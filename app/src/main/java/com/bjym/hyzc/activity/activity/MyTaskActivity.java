@@ -19,6 +19,7 @@ public class MyTaskActivity extends BaseActivity {
     private TextView tv_nurseHistory;
     private TextView tv_nurseStage;
     private TextView tv_addNursingCare;
+    private TextView tv_nursingContent_executed;
     private TextView tv_nursingContentStage;
     private String name;
     private String patientsNo;
@@ -34,7 +35,8 @@ public class MyTaskActivity extends BaseActivity {
         View view = View.inflate(context, R.layout.activity_mytask, null);
         tv_nurseHistory = (TextView) view.findViewById(R.id.tv_nurseHistory);
         tv_nurseStage = (TextView) view.findViewById(R.id.tv_nurseStage);
-        tv_addNursingCare = (TextView) view.findViewById(R.id.tv_addNursingCare);
+        //tv_addNursingCare = (TextView) view.findViewById(R.id.tv_addNursingCare);
+        //tv_nursingContent_executed = (TextView) view.findViewById(R.id.tv_nursingContent_executed);
         tv_nursingContentStage = (TextView) view.findViewById(R.id.tv_nursingContentStage);
         tv_search = (TextView) view.findViewById(R.id.tv_search);
 
@@ -52,7 +54,8 @@ public class MyTaskActivity extends BaseActivity {
         tv_search.setOnClickListener(this);
         tv_nurseHistory.setOnClickListener(this);
         tv_nurseStage.setOnClickListener(this);
-        tv_addNursingCare.setOnClickListener(this);
+       // tv_nursingContent_executed.setOnClickListener(this);
+//        tv_addNursingCare.setOnClickListener(this);
         tv_nursingContentStage.setOnClickListener(this);
         bt_titlebar_left.setOnClickListener(this);
 
@@ -90,20 +93,28 @@ public class MyTaskActivity extends BaseActivity {
                     startActivity(NurseExecuteActivityIntent);
                 }
                 break;
-            case R.id.tv_addNursingCare:
+            /*case R.id.tv_addNursingCare:
                 startActivity(new Intent(this, AddNursingCareActivity.class));
-                break;
+                break;*/
 
             case R.id.tv_nursingContentStage:
                 Intent tv_nursingContentStageIntent = new Intent(this, NursingContentParentStageActivity.class);
                 if (cpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
                     return;
-                } else {
+                }
+                if (cpwCode.equals("")){
+                    MyToast.showToast(this, "此患者还没有配置路径");
+                    return;
+                }else {
                     tv_nursingContentStageIntent.putExtra("cpwCode", cpwCode);
                     startActivity(tv_nursingContentStageIntent);
                 }
+
                 break;
+           /* case R.id.tv_nursingContent_executed:
+                startActivity(new Intent(this,ExistingNursingContentActivity.class));
+                break;*/
             case R.id.bt_titlebar_left:
                 finish();
                 break;

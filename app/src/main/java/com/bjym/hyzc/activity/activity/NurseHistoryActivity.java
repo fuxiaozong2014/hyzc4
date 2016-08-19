@@ -82,6 +82,7 @@ public class NurseHistoryActivity extends BaseActivity {
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("填写护理记录");
         bt_titlebar_left.setOnClickListener(this);
+
         btn_commit.setOnClickListener(this);
 
         Intent intent = getIntent();
@@ -298,9 +299,9 @@ public class NurseHistoryActivity extends BaseActivity {
             @Override
             public void onResponse(Object o, int i) {
 
-                MyToast.showToast(NurseHistoryActivity.this, "请求成功" + "commitNueseHistory");
+                MyToast.showToast(NurseHistoryActivity.this, "护理记录提交成功" );
                 MyLog.i("请求成功", "commitNueseHistory" + o);
-
+                finish();
             }
         });
     }

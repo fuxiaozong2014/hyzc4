@@ -97,6 +97,7 @@ public class NursingContentSelectChildActivity extends BaseActivity {
        String departmentCode = sp.getString("departmentCode", "");
        String userCode = sp.getString("userCode", "");
        String realName = sp.getString("realName", "");
+        //TODO
 
 
 
@@ -109,7 +110,7 @@ public class NursingContentSelectChildActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(NursingContentSelectChildActivity.this,"请求网络失败");
+                //MyToast.showToast(NursingContentSelectChildActivity.this,"请求网络失败");
             }
 
             @Override
@@ -142,7 +143,7 @@ public class NursingContentSelectChildActivity extends BaseActivity {
 
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
-        tv_titlebar_center.setText("维护患者护理内容");
+        tv_titlebar_center.setText("未执行的护理内容");
 
         Intent intent = getIntent();
         sunItemLists = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("rowsSunItemLists");

@@ -64,7 +64,6 @@ public class NursingContentParentStageActivity extends BaseActivity {
             stageCode = parentLists.get(position).StageCode;//拿到被点击的父亲的stageCode
             MyLog.i("parentLists:stageCode", stageCode);
 
-
             MyLog.i("childItemLists",childItemLists.toString()+childItemLists.size());
 
             if (childLists.size()!=0){

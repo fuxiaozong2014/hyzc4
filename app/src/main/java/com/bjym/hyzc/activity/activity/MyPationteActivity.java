@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
@@ -48,6 +49,7 @@ public class MyPationteActivity extends BaseActivity {
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
     private TextView tv_titlebar_center;
+    private RelativeLayout rela_no_wifi;
 
     @Override
     public View setMainView() {
@@ -55,7 +57,8 @@ public class MyPationteActivity extends BaseActivity {
         lv_mypationte = (ListView) view.findViewById(R.id.lv_mypationte);
         tv_mypationtenone = (TextView) view.findViewById(R.id.tv_mypationtenone);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefresh);
-        rela_wait_loading = (LinearLayout) view.findViewById(R.id.Rela_wait_loading);
+        //rela_wait_loading = (LinearLayout) view.findViewById(R.id.Rela_wait_loading);
+        rela_no_wifi = (RelativeLayout) view.findViewById(R.id.Rela_no_wifi);
 
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
         bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
@@ -80,10 +83,10 @@ public class MyPationteActivity extends BaseActivity {
                     break;
 
                 case RELA_WAIT_LOADING:
-                    rela_wait_loading.setVisibility(View.VISIBLE);
+                    //rela_wait_loading.setVisibility(View.VISIBLE);
                     break;
                 case WHAT_DISMISS_LOADING:
-                    rela_wait_loading.setVisibility(View.GONE);
+                   // rela_wait_loading.setVisibility(View.GONE);
             }
         }
     };
@@ -98,7 +101,7 @@ public class MyPationteActivity extends BaseActivity {
 
         handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING, 500);
         getNetData();
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+       /* swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
 
             @Override
@@ -108,11 +111,12 @@ public class MyPationteActivity extends BaseActivity {
                 getNetData();
                 handler.sendEmptyMessage(SWIPEREFRESH_MSG);
             }
-        });
+        });*/
 
     }
 
     private void getNetData() {
+        showDialogProgress("加载中...");
         OkHttpUtils.get().url(MyConstant.MYPATIONTE_URL).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -123,14 +127,16 @@ public class MyPationteActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                dismissWaitingDialog();
+               // dismissWaitingDialog();
+                dismiss();
+                rela_no_wifi.setVisibility(View.VISIBLE);
                 MyToast.showToast(MyPationteActivity.this, "服务器正忙，请稍后重试");
             }
 
             @Override
             public void onResponse(Object o, int i) {
-
-                dismissWaitingDialog();
+                dismiss();
+                //dismissWaitingDialog();
                 if (pationtes.size() == 0) {
                     lv_mypationte.setVisibility(View.GONE);
                     tv_mypationtenone.setVisibility(View.VISIBLE);

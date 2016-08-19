@@ -22,4 +22,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"></RadioGroup>
 
+  <include layout="@layout/item_no_wifi"></include>
+
 </LinearLayout>
