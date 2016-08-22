@@ -10,14 +10,14 @@ public class MyConstant {
      */
     //public static final String BASE_URL = "http://192.168.0.168";
     // public static final String BASE_URL = "http://192.168.0.188";
-    public static final String BASE_URL = "http://cp.hyzczg.com";
+    public static  String BASE_URL = "http://cp.hyzczg.com";
     //public static final String BASE_URL = "http://cp.sqall.com";
     // public static final String BASE_URL = "http://hyzc.tpddns.cn:6060";
 
     /**
      * 登录接口
      */
-    public static final String LOGIN_URL = BASE_URL + "/login/loginauth";
+    public static final String LOGIN_URL = "/login/loginauth";
     /*
     * 管床病人接口
     *

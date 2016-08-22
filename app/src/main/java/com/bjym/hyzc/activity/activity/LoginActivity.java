@@ -1,6 +1,8 @@
 package com.bjym.hyzc.activity.activity;
 
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
@@ -51,6 +53,8 @@ public class LoginActivity extends BaseActivity {
     private SharedPreferences sp;
     private CheckBox cb;
     private LinearLayout ll_mainContent;
+    private String[] hospitalNames;
+    private String[] hospitalURLs;
 
     @Override
     public View setMainView() {
@@ -73,17 +77,29 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void InitData() {
 
+        hospitalNames = new String[]{"测试ip","武桥人民医院","河南省人民医院"};
+        hospitalURLs = new String[]{"http://cp.hyzczg.com","http://192.168.0.168","http://cp.sqall.com"};
+
         bt_titlebar_left.setVisibility(View.GONE);
-        bt_titlebar_right.setVisibility(View.GONE);
+        bt_titlebar_right.setVisibility(View.VISIBLE);
         tv_titlebar_center.setText("登录");
          /*
         * 记住密码后，回显账号和密码，以及isChecked
         * */
+        String hospitalURL=sp.getString("hospitalURL","");
+        String hospitalName = sp.getString("hospitalName", "");
+
+        if (hospitalURL.equals("")) {
+            MyToast.showToast(LoginActivity.this,"请设置您所在的医院");
+        }else {
+            MyConstant.BASE_URL=hospitalURL;
+        }
         et_name.setText(sp.getString("usercode", ""));
         et_pwd.setText(sp.getString("password", ""));
         cb.setChecked(sp.getBoolean("isChecked", false));
 
         btn_login.setOnClickListener(this);
+        bt_titlebar_right.setOnClickListener(this);
 
     }
 
@@ -95,14 +111,30 @@ public class LoginActivity extends BaseActivity {
             case R.id.btn_login:
                 getNetData();
                 break;
-
+            case R.id.bt_titlebar_right:
+                showIPSetting();
+                break;
             case R.id.cb:
-
                 break;
             default:
                 break;
         }
     }
+
+    private void showIPSetting() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(LoginActivity.this);
+        builder.setTitle("请选择：您所在的医院");
+        builder.setSingleChoiceItems(hospitalNames, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                sp.edit().putString("hospitalURL",hospitalURLs[which]).commit();
+                sp.edit().putString("hospitalName",hospitalNames[which]).commit();
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
 
     private void getNetData() {
 
@@ -119,12 +151,10 @@ public class LoginActivity extends BaseActivity {
             return;
         } else {
             //TODO
-            //handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING, 500);
-            ll_mainContent.setVisibility(View.GONE);
             showDialogProgress("登录中");
 
             OkHttpUtils.post()
-                    .url(MyConstant.LOGIN_URL)
+                    .url(MyConstant.BASE_URL+MyConstant.LOGIN_URL)
                     .addParams("usercode", usercode)
                     .addParams("password", password)
                     .addParams("expired", "365")
@@ -141,11 +171,9 @@ public class LoginActivity extends BaseActivity {
                         public void onError(Call call, Exception e, int i) {
                             e.printStackTrace();
                             MyLog.i("e.printStackTrace();", e.toString());
-
                             dismiss();
-                            ll_mainContent.setVisibility(View.VISIBLE);
-
                             MyToast.showToast(LoginActivity.this, "请检查网络设置或稍后再试");
+                            // ll_mainContent.setVisibility(View.VISIBLE);
                         }
 
                         @Override
@@ -153,10 +181,6 @@ public class LoginActivity extends BaseActivity {
                         }
                     });
         }
-    }
-
-    private void goToHome() {
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 
     private void parseJson(String result) throws JSONException {
@@ -175,6 +199,8 @@ public class LoginActivity extends BaseActivity {
             //{"ResultID":50000,"ResultMsg":"账号不存在！","Succeed":false,"ResultData":null,"s":false,"emsg":"账号不存在！"}
             //{"ResultID":50000,"ResultMsg":"密码有误！","Succeed":false,"ResultData":null,"s":false,"emsg":"密码有误！"}
             MyToast.showToast(LoginActivity.this, "密码有误或账户不存在");
+            dismiss();
+            //ll_mainContent.setVisibility(View.VISIBLE);
         }
     }
 
@@ -223,6 +249,7 @@ public class LoginActivity extends BaseActivity {
     }
 
 
+    //再点一次腿退出
     private long exitTime = 0;
 
     @Override

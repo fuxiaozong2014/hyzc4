@@ -3,6 +3,7 @@ package com.bjym.hyzc.activity.activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
@@ -28,6 +29,7 @@ public class MyTaskActivity extends BaseActivity {
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
     private TextView tv_titlebar_center;
+    private LinearLayout ll_yiZhuManager;
 
     @Override
     public View setMainView() {
@@ -37,6 +39,8 @@ public class MyTaskActivity extends BaseActivity {
         tv_nurseStage = (TextView) view.findViewById(R.id.tv_nurseStage);
         //tv_addNursingCare = (TextView) view.findViewById(R.id.tv_addNursingCare);
         //tv_nursingContent_executed = (TextView) view.findViewById(R.id.tv_nursingContent_executed);
+        ll_yiZhuManager = (LinearLayout) view.findViewById(R.id.ll_YiZhuManager);
+
         tv_nursingContentStage = (TextView) view.findViewById(R.id.tv_nursingContentStage);
         tv_search = (TextView) view.findViewById(R.id.tv_search);
 
@@ -58,6 +62,7 @@ public class MyTaskActivity extends BaseActivity {
 //        tv_addNursingCare.setOnClickListener(this);
         tv_nursingContentStage.setOnClickListener(this);
         bt_titlebar_left.setOnClickListener(this);
+        ll_yiZhuManager.setOnClickListener(this);
 
     }
 
@@ -117,6 +122,17 @@ public class MyTaskActivity extends BaseActivity {
                 break;*/
             case R.id.bt_titlebar_left:
                 finish();
+                break;
+            case R.id.ll_YiZhuManager:
+                Intent YiZhuManagerActivityIntent = new Intent(this, YiZhuManagerActivity.class);
+                if (name == null || patientsNo == null || cpwCode == null) {
+                    MyToast.showToast(this, "请选择患者");
+                    return;
+                } else {
+                    YiZhuManagerActivityIntent.putExtra("cpwCode", cpwCode);
+                    YiZhuManagerActivityIntent.putExtra("patientsNo", patientsNo);
+                    startActivity(YiZhuManagerActivityIntent);
+                }
                 break;
             default:
                 break;

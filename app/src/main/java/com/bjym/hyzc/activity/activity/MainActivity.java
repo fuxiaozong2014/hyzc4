@@ -55,6 +55,7 @@ public class MainActivity extends BaseActivity {
     private Bundle bundle;
     private String userCode;
     private String usercode;
+    private int userType;
 
     @Override
     public View setMainView() {
@@ -211,6 +212,8 @@ public class MainActivity extends BaseActivity {
                     realName = myself.RealName;
                     departmentCode = myself.DepartmentCode;
                     userCode = myself.UserCode;
+                    userType = myself.UserType;
+
                 }
 
                 /*
@@ -230,6 +233,7 @@ public class MainActivity extends BaseActivity {
         bundle.putString("departmentCode", departmentCode);
         bundle.putString("realName", realName);
         bundle.putString("userCode", userCode);
+        bundle.putInt("userType",userType);
         return bundle;
     }
 

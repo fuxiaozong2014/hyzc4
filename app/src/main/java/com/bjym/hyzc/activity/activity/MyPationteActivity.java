@@ -35,8 +35,6 @@ import okhttp3.Response;
  */
 public class MyPationteActivity extends BaseActivity {
 
-    private static final int WHAT_DISMISS_LOADING = 2;
-    private static final int RELA_WAIT_LOADING = 3;
     private ListView lv_mypationte;
     private MyAdapter adpter;
     private List<PationteBean> pationtes;
@@ -48,6 +46,22 @@ public class MyPationteActivity extends BaseActivity {
     private Button bt_titlebar_left;
     private TextView tv_titlebar_center;
     private RelativeLayout rela_no_wifi;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case SWIPEREFRESH_COMPLETE:
+                    adpter.notifyDataSetChanged();
+                    MyToast.showToast(MyPationteActivity.this, "刷新完成");
+                    swipeRefresh.setRefreshing(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     public View setMainView() {
@@ -68,25 +82,9 @@ public class MyPationteActivity extends BaseActivity {
     }
 
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case SWIPEREFRESH_COMPLETE:
-                    adpter.notifyDataSetChanged();
-                    MyToast.showToast(MyPationteActivity.this, "刷新完成");
-                    swipeRefresh.setRefreshing(false);
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
-
     @Override
     public void InitData() {
-        swipeRefresh.setEnabled(false);
+        //swipeRefresh.setEnabled(false);
         swipeRefresh.setColorSchemeResources(android.R.color.holo_green_dark,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,

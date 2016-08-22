@@ -13,6 +13,7 @@ import com.bjym.hyzc.activity.activity.MyTaskActivity;
 import com.bjym.hyzc.activity.activity.PationtNameListActivity;
 import com.bjym.hyzc.activity.bean.PationteBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
+import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -63,11 +64,13 @@ public class MyFragment extends BaseFragment {
             String departmentCode = bundle.getString("departmentCode");
             String userCode = bundle.getString("userCode");
             String realName = bundle.getString("realName");
-
+            int userType = bundle.getInt("userType");
+            MyLog.i("userType:::",userType+"");
             //保存起来方便以后使用
             sp.edit().putString("departmentCode",departmentCode).commit();
             sp.edit().putString("userCode",userCode).commit();
             sp.edit().putString("realName",realName).commit();
+            sp.edit().putInt("userType",userType);
 
          /*
          * 把用户信息赋值给textview
