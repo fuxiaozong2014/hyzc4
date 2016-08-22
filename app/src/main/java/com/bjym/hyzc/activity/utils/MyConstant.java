@@ -10,7 +10,7 @@ public class MyConstant {
      */
     //public static final String BASE_URL = "http://192.168.0.168";
     // public static final String BASE_URL = "http://192.168.0.188";
-     public static final String BASE_URL = "http://cp.hyzczg.com";
+    public static final String BASE_URL = "http://cp.hyzczg.com";
     //public static final String BASE_URL = "http://cp.sqall.com";
     // public static final String BASE_URL = "http://hyzc.tpddns.cn:6060";
 

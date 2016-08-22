@@ -23,7 +23,6 @@ public class MyApplication extends Application {
         JPushInterface.init(this);
         initHttpUtils();
         instance = this;
-     //  ge.overridePendingTransition(R.anim.next_in, R.anim.next_out);
     }
 
 

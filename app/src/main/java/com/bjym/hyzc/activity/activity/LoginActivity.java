@@ -93,12 +93,10 @@ public class LoginActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.btn_login:
-
                 getNetData();
                 break;
 
             case R.id.cb:
-
 
                 break;
             default:

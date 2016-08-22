@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,8 +42,7 @@ public class MyPationteActivity extends BaseActivity {
     private List<PationteBean> pationtes;
     private TextView tv_mypationtenone;
     private SwipeRefreshLayout swipeRefresh;
-    public static final int SWIPEREFRESH_MSG = 1;
-    private LinearLayout rela_wait_loading;
+    public static final int SWIPEREFRESH_COMPLETE = 1;
 
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
@@ -57,7 +55,6 @@ public class MyPationteActivity extends BaseActivity {
         lv_mypationte = (ListView) view.findViewById(R.id.lv_mypationte);
         tv_mypationtenone = (TextView) view.findViewById(R.id.tv_mypationtenone);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefresh);
-        //rela_wait_loading = (LinearLayout) view.findViewById(R.id.Rela_wait_loading);
         rela_no_wifi = (RelativeLayout) view.findViewById(R.id.Rela_no_wifi);
 
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
@@ -76,42 +73,37 @@ public class MyPationteActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case SWIPEREFRESH_MSG:
-                    swipeRefresh.setRefreshing(true);
-                    getNetData();
+                case SWIPEREFRESH_COMPLETE:
+                    adpter.notifyDataSetChanged();
                     MyToast.showToast(MyPationteActivity.this, "刷新完成");
+                    swipeRefresh.setRefreshing(false);
                     break;
-
-                case RELA_WAIT_LOADING:
-                    //rela_wait_loading.setVisibility(View.VISIBLE);
+                default:
                     break;
-                case WHAT_DISMISS_LOADING:
-                   // rela_wait_loading.setVisibility(View.GONE);
             }
         }
     };
 
     @Override
     public void InitData() {
+        swipeRefresh.setEnabled(false);
+        swipeRefresh.setColorSchemeResources(android.R.color.holo_green_dark,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("患者详情");
         bt_titlebar_left.setOnClickListener(this);
 
-        handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING, 500);
         getNetData();
-       /* swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-
-
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //               pationtes.clear();
-//                adpter.notifyDataSetChanged();
-                getNetData();
-                handler.sendEmptyMessage(SWIPEREFRESH_MSG);
+                handler.sendEmptyMessageDelayed(SWIPEREFRESH_COMPLETE,1000);
             }
-        });*/
+        });
 
     }
 
@@ -127,7 +119,6 @@ public class MyPationteActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-               // dismissWaitingDialog();
                 dismiss();
                 rela_no_wifi.setVisibility(View.VISIBLE);
                 MyToast.showToast(MyPationteActivity.this, "服务器正忙，请稍后重试");
@@ -136,7 +127,6 @@ public class MyPationteActivity extends BaseActivity {
             @Override
             public void onResponse(Object o, int i) {
                 dismiss();
-                //dismissWaitingDialog();
                 if (pationtes.size() == 0) {
                     lv_mypationte.setVisibility(View.GONE);
                     tv_mypationtenone.setVisibility(View.VISIBLE);
@@ -263,9 +253,6 @@ public class MyPationteActivity extends BaseActivity {
         }
     }
 
-    private void dismissWaitingDialog() {
-        handler.sendEmptyMessage(WHAT_DISMISS_LOADING);
-    }
 
     @Override
     public void onClick(View v) {

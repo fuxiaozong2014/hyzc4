@@ -79,6 +79,7 @@ public class SurveyActivity extends BaseActivity {
     private String userCode;
     private String realName;
     private String newCode;
+    private RelativeLayout rela_no_wifi;
 
 
     public class MyFragmentPageAdpter extends FragmentPagerAdapter {
@@ -106,6 +107,7 @@ public class SurveyActivity extends BaseActivity {
         btn_pre = (Button) view.findViewById(R.id.btn_pre);
         btn_next = (Button) view.findViewById(R.id.btn_next);
         btn_submit = (Button) view.findViewById(R.id.btn_submit);
+        rela_no_wifi = (RelativeLayout)view.findViewById(R.id.Rela_no_wifi);
         rg = (RadioGroup) view.findViewById(R.id.rg);
 
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
@@ -224,7 +226,7 @@ public class SurveyActivity extends BaseActivity {
     * 根据调查表编号获取问题题干
     * */
     private void getQuesionData() {
-
+        showDialogProgress("加载中...");
         url1 = MyConstant.QUESTIONLIST_URL + surveyNo;
         OkHttpUtils.get().url(url1).build().execute(new Callback() {
             @Override
@@ -234,10 +236,14 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
+                dismiss();
+                rela_no_wifi.setVisibility(View.VISIBLE);
+                MyToast.showToast(SurveyActivity.this, "服务器正忙，请稍后重试");
             }
 
             @Override
             public void onResponse(Object o, int i) {
+                dismiss();
                 parseJson((String) o);
                 //  MyToast.showToast(SurveyActivity.this, "请求成功");
             }
@@ -464,8 +470,9 @@ public class SurveyActivity extends BaseActivity {
 
                 @Override
                 public void onError(Call call, Exception e, int i) {
-                        dismiss();
+                    dismiss();
                     rela_no_wifi.setVisibility(View.VISIBLE);
+                    MyToast.showToast(SurveyFragment.this.getActivity(),"服务器正忙，请稍后再试");
 
                 }
 
