@@ -54,7 +54,7 @@ public class ExitCPWCauseActvity extends BaseActivity {
     }
 
     private void getExitCPWCauseData() {
-        OkHttpUtils.get().url(MyConstant.PATIONTE_EXITCPW_CAUSE).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.PATIONTE_EXITCPW_CAUSE).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
 

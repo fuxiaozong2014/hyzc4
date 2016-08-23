@@ -77,23 +77,14 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void InitData() {
 
-        hospitalNames = new String[]{"测试ip","武桥人民医院","河南省人民医院"};
-        hospitalURLs = new String[]{"http://cp.hyzczg.com","http://192.168.0.168","http://cp.sqall.com"};
+        hospitalNames = new String[]{"测试ip","吴桥人民医院","河南省人民医院"};
+        hospitalURLs = new String[]{"http://cp.sqall.com","http://192.168.0.165","http://cp.sqallll.com"};
 
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.VISIBLE);
         tv_titlebar_center.setText("登录");
-         /*
-        * 记住密码后，回显账号和密码，以及isChecked
-        * */
-        String hospitalURL=sp.getString("hospitalURL","");
-        String hospitalName = sp.getString("hospitalName", "");
-
-        if (hospitalURL.equals("")) {
-            MyToast.showToast(LoginActivity.this,"请设置您所在的医院");
-        }else {
-            MyConstant.BASE_URL=hospitalURL;
-        }
+        //上来检测有没有设置过IP
+        dealSettingIP();
         et_name.setText(sp.getString("usercode", ""));
         et_pwd.setText(sp.getString("password", ""));
         cb.setChecked(sp.getBoolean("isChecked", false));
@@ -103,6 +94,19 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    private void dealSettingIP() {
+        String hospitalURL=sp.getString("hospitalURL","");
+        MyLog.i("hospitalURL::",hospitalURL);
+        //String hospitalName = sp.getString("hospitalName", "");
+
+        if (hospitalURL.equals("")&&MyConstant.BASE_URL.equals(" http://cp.hyzczg.com")) {
+            MyToast.showToast(LoginActivity.this,"请点击'设置'您所在的医院");
+
+
+        }else {
+            MyConstant.BASE_URL=hospitalURL;
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -122,13 +126,16 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void showIPSetting() {
+        int which = sp.getInt("which", -1);
         AlertDialog.Builder builder=new AlertDialog.Builder(LoginActivity.this);
         builder.setTitle("请选择：您所在的医院");
-        builder.setSingleChoiceItems(hospitalNames, -1, new DialogInterface.OnClickListener() {
+        builder.setSingleChoiceItems(hospitalNames, which, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 sp.edit().putString("hospitalURL",hospitalURLs[which]).commit();
                 sp.edit().putString("hospitalName",hospitalNames[which]).commit();
+                sp.edit().putInt("which",which).commit();
+                MyConstant.BASE_URL=hospitalURLs[which];
                 dialog.dismiss();
             }
         });
@@ -152,7 +159,7 @@ public class LoginActivity extends BaseActivity {
         } else {
             //TODO
             showDialogProgress("登录中");
-
+            MyLog.i("MyConstant.LOGIN_URL:::",MyConstant.BASE_URL+MyConstant.LOGIN_URL);
             OkHttpUtils.post()
                     .url(MyConstant.BASE_URL+MyConstant.LOGIN_URL)
                     .addParams("usercode", usercode)
@@ -173,7 +180,7 @@ public class LoginActivity extends BaseActivity {
                             MyLog.i("e.printStackTrace();", e.toString());
                             dismiss();
                             MyToast.showToast(LoginActivity.this, "请检查网络设置或稍后再试");
-                            // ll_mainContent.setVisibility(View.VISIBLE);
+                           // ll_mainContent.setVisibility(View.VISIBLE);
                         }
 
                         @Override

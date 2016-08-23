@@ -22,83 +22,83 @@ public class MyConstant {
     * 管床病人接口
     *
     * */
-    public static final String MYPATIONTE_URL = BASE_URL + "/cpw/CPW_Patients/getpatients";
+    public static final String MYPATIONTE_URL = "/cpw/CPW_Patients/getpatients";
     /*
     * 用户详细信息接口
     * */
     //TODO 传值给mainactivity
-    public static final String MYMSG_URL = BASE_URL + "/Sys/Base_User/getuserinfo?usercode=";
+    public static final String MYMSG_URL = "/Sys/Base_User/getuserinfo?usercode=";
     /*
     * 问卷名列表接口
     * */
-    public static final String MYDIAOCHA_URL = BASE_URL + "/cpw/CPW_Survey/getlist";
+    public static final String MYDIAOCHA_URL = "/cpw/CPW_Survey/getlist";
     /*
     * 问题表接口
     * */
-    public static final String QUESTIONLIST_URL = BASE_URL + "/cpw/CPW_Topic/getlistbysurvey?Survey=";
+    public static final String QUESTIONLIST_URL = "/cpw/CPW_Topic/getlistbysurvey?Survey=";
     /*
     * 选项表接口
     * */
-    public static final String OPTION_URL = BASE_URL + "/cpw/CPW_Choice/getlistbytopicno?topic=";
+    public static final String OPTION_URL = "/cpw/CPW_Choice/getlistbytopicno?topic=";
 
     /*
     * 获取调查编号接口
     * */
-    public static final String PATISURVERYNO_URL = BASE_URL + "/Sys/Base_CodeRule/getrulecode?RuleCode=PSS";
+    public static final String PATISURVERYNO_URL = "/Sys/Base_CodeRule/getrulecode?RuleCode=PSS";
 
     /*
     * 提交调查基本信息接口
     * */                                                    ///cpw/CPW_PatiSurvery/addpatisurvery
-    public static final String SUBMITORMSG_URL = BASE_URL + "/cpw/CPW_PatiSurvery/addpatisurvery";
+    public static final String SUBMITORMSG_URL = "/cpw/CPW_PatiSurvery/addpatisurvery";
     /*
     * 提交答案接口
     * */                                               ///cpw/CPW_PatiAnswer/addpatianswer
-    public static final String ANSWERS_URL = BASE_URL + "/cpw/CPW_PatiAnswer/addpatianswer";
+    public static final String ANSWERS_URL = "/cpw/CPW_PatiAnswer/addpatianswer";
 
     /*
     * 获得护理记录编码
     * */
-    public static final String NURSE_HISTORY = BASE_URL + "/Sys/Base_CodeRule/getrulecode?RuleCode=CPRJJL";
+    public static final String NURSE_HISTORY = "/Sys/Base_CodeRule/getrulecode?RuleCode=CPRJJL";
     /*
     *
     * 提交护理记录
     * */                                                        ///CPW/CPW_PatiNursingrecords/addnursingrecords
-    public static final String NURSE_HISTORY_COMMIT = BASE_URL + "/CPW/CPW_PatiNursingrecords/add";
+    public static final String NURSE_HISTORY_COMMIT = "/CPW/CPW_PatiNursingrecords/add";
 
     /*
     * 根据cpwCode获取详细路径信息
     * */
-    public static final String NURSE_SELECT_STAGE = BASE_URL + "/CPW/CPW_InfoStage/getlist?cpwcode=";
+    public static final String NURSE_SELECT_STAGE = "/CPW/CPW_InfoStage/getlist?cpwcode=";
 
     /*
    * 根据病人编号和stageCode去获取未执行的医嘱
    * */
-    public static final String NURSE_UNEXECUTE_STAGE = BASE_URL + "/CPW/CPW_PatiOrder/getlistnoexec";
+    public static final String NURSE_UNEXECUTE_STAGE = "/CPW/CPW_PatiOrder/getlistnoexec";
 
     /*
   * 提交护士已选择的未执行的医嘱
   * */
-    public static final String NURSE_UNEXECUTEYIZHU_COMIT = BASE_URL + "/CPW/CPW_PatiExecOrder/execorder?OrderNo=";
+    public static final String NURSE_UNEXECUTEYIZHU_COMIT = "/CPW/CPW_PatiExecOrder/execorder?OrderNo=";
 
 
     /*
      * 获取退出路径患者的信息
      * */
-    public static final String PATIONTE_EXITCPW_MSG = BASE_URL + "/CPW/CPW_Patients/getpatientsexitcpw";
+    public static final String PATIONTE_EXITCPW_MSG = "/CPW/CPW_Patients/getpatientsexitcpw";
     /*
      * 获取患者退出路径的原因
      * */
-    public static final String PATIONTE_EXITCPW_CAUSE = BASE_URL + "/CPW/CPW_PatiVariation/GetListOrder";
+    public static final String PATIONTE_EXITCPW_CAUSE = "/CPW/CPW_PatiVariation/GetListOrder";
 
     /*
         * 提交护理内容
         * */
-    public static final String NURSE_UNEXECUTECONTENT_COMIT = BASE_URL + "/CPW/CPW_PatiNursing/add";
+    public static final String NURSE_UNEXECUTECONTENT_COMIT = "/CPW/CPW_PatiNursing/add";
 
     /*
        * 获取可选的护理内容
        * */
-    public static final String NURSING_CONTENT_SELECT= BASE_URL + "/CPW/CPW_InfoContent/getlist?cpwcode=";
+    public static final String NURSING_CONTENT_SELECT= "/CPW/CPW_InfoContent/getlist?cpwcode=";
     /*
     * 获取轮播图
     * */

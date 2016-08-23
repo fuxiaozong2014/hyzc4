@@ -66,7 +66,7 @@ public class NursingContentParentStageActivity extends BaseActivity {
 
             MyLog.i("childItemLists",childItemLists.toString()+childItemLists.size());
 
-            if (childLists.size()!=0){
+            if (childLists.size()!=0 &&childLists!=null){
                 for (int i = 0; i < childLists.size(); i++) { //遍历拿到每个孩子的parentCode，拿到一个比对，如果是，就添加到集合里
                     parentCode = childLists.get(i).ParentCode;
                     if (stageCode.equals(parentCode)) {
@@ -139,7 +139,7 @@ public class NursingContentParentStageActivity extends BaseActivity {
     private void getNurseStageData() {
 
         MyLog.i("NURSE_STAGE+cpwCode:::::::::", MyConstant.NURSE_SELECT_STAGE + cpwCode);
-        OkHttpUtils.get().url(MyConstant.NURSE_SELECT_STAGE + cpwCode).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.NURSE_SELECT_STAGE + cpwCode).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 return response.body().string();
@@ -224,12 +224,12 @@ public class NursingContentParentStageActivity extends BaseActivity {
     }
 
     private void getNueseSunData() {
-        OkHttpUtils.get().url(MyConstant.NURSING_CONTENT_SELECT + cpwCode).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.NURSING_CONTENT_SELECT + cpwCode).build().execute(new Callback() {
 
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
 
-                // MyToast.showToast(NursingContentSelectParentActivity.this, "请求成功" + "getNursingContentData");
+               //  MyToast.showToast(NursingContentSelectParentActivity.this, "请求成功" + "getNursingContentData");
 
                 return response.body().string();
             }

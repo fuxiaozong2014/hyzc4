@@ -7,6 +7,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -47,12 +48,32 @@ public class MyPationteActivity extends BaseActivity {
     private TextView tv_titlebar_center;
     private RelativeLayout rela_no_wifi;
 
+    class MyOnScrollListener implements AbsListView.OnScrollListener{
+
+
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            if (firstVisibleItem==0){
+                swipeRefresh.setRefreshing(true);
+            }else {
+                swipeRefresh.setRefreshing(false);
+            }
+        }
+    }
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case SWIPEREFRESH_COMPLETE:
+                    //pationtes.addAll(pationtes);
                     adpter.notifyDataSetChanged();
                     MyToast.showToast(MyPationteActivity.this, "刷新完成");
                     swipeRefresh.setRefreshing(false);
@@ -84,7 +105,7 @@ public class MyPationteActivity extends BaseActivity {
 
     @Override
     public void InitData() {
-        //swipeRefresh.setEnabled(false);
+        swipeRefresh.setEnabled(false);
         swipeRefresh.setColorSchemeResources(android.R.color.holo_green_dark,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -103,11 +124,12 @@ public class MyPationteActivity extends BaseActivity {
             }
         });
 
+        lv_mypationte.setOnScrollListener(new MyOnScrollListener());
     }
 
     private void getNetData() {
         showDialogProgress("加载中...");
-        OkHttpUtils.get().url(MyConstant.MYPATIONTE_URL).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.MYPATIONTE_URL).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 String result = response.body().string();
@@ -232,6 +254,8 @@ public class MyPationteActivity extends BaseActivity {
             String name = pationtes.get(position).Name;
             String patientsNo = pationtes.get(position).PatientsNo;
             String cpwCode = pationtes.get(position).CPWCode;
+            String deptCode = pationtes.get(position).DeptCode;
+            String deptName = pationtes.get(position).DeptName;
 
 
             Intent intent = new Intent();
@@ -244,6 +268,8 @@ public class MyPationteActivity extends BaseActivity {
             intentToMyTask.putExtra("Name", name);
             intentToMyTask.putExtra("patientsNo", patientsNo);
             intentToMyTask.putExtra("cpwCode", cpwCode);
+            intentToMyTask.putExtra("deptCode", deptCode);
+            intentToMyTask.putExtra("deptName", deptName);
             setResult(RESULT_OK, intentToMyTask);
             finish();
 

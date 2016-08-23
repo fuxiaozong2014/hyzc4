@@ -2,6 +2,7 @@ package com.bjym.hyzc.activity.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -124,6 +125,13 @@ public class SurveyActivity extends BaseActivity {
     @Override
     public void InitData() {
 
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads().detectDiskWrites().detectNetwork()
+                .penaltyLog().build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
+                .penaltyLog().penaltyDeath().build());
+
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
 
@@ -227,7 +235,9 @@ public class SurveyActivity extends BaseActivity {
     * */
     private void getQuesionData() {
         showDialogProgress("加载中...");
-        url1 = MyConstant.QUESTIONLIST_URL + surveyNo;
+        url1 = MyConstant.BASE_URL+MyConstant.QUESTIONLIST_URL + surveyNo;
+        MyLog.i("url1:::::::",MyConstant.BASE_URL);
+        MyLog.i("MyConstant.QUESTIONLIST_URL + surveyNo;",MyConstant.QUESTIONLIST_URL + surveyNo);
         OkHttpUtils.get().url(url1).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -359,7 +369,7 @@ public class SurveyActivity extends BaseActivity {
 
     private void postPationMsg(String pationpMsg) {
 
-        OkHttpUtils.postString().url(MyConstant.SUBMITORMSG_URL).content(pationpMsg)
+        OkHttpUtils.postString().url(MyConstant.BASE_URL+MyConstant.SUBMITORMSG_URL).content(pationpMsg)
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -459,7 +469,7 @@ public class SurveyActivity extends BaseActivity {
         * */
         private void getOptions() {
             showDialogProgress("加载中...");
-            final String url = MyConstant.OPTION_URL + topicNo;
+            final String url =MyConstant.BASE_URL+ MyConstant.OPTION_URL + topicNo;
 
             OkHttpUtils.get().url(url).build().execute(new Callback() {
                 @Override

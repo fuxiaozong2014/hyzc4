@@ -174,7 +174,7 @@ public class NurseHistoryActivity extends BaseActivity {
     * 得到记录编码 用于提交数据至服务器
     * */
     private void getNewCode() {
-        OkHttpUtils.get().url(MyConstant.NURSE_HISTORY).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.NURSE_HISTORY).build().execute(new Callback() {
 
 
             @Override
@@ -281,7 +281,7 @@ public class NurseHistoryActivity extends BaseActivity {
         String url = MyConstant.NURSE_HISTORY_COMMIT;
         MyLog.i("url:::", url);
 
-        OkHttpUtils.postString().mediaType(MediaType.parse("application/json")).url(MyConstant.NURSE_HISTORY_COMMIT).content(toJson)
+        OkHttpUtils.postString().mediaType(MediaType.parse("application/json")).url(MyConstant.BASE_URL+MyConstant.NURSE_HISTORY_COMMIT).content(toJson)
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {

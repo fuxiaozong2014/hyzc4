@@ -48,4 +48,28 @@ public class NurseContentUnexecuteBean {
                 ", Name='" + Name + '\'' +
                 '}';
     }
+
+   /* public NurseContentUnexecuteBean(String activitiesType, String name, String contentCode, String contentName, String contentType, String CPWCode, String CPWType, String medicalRecord, String orderCategory, String orderType, String stageCode, String type, String beginDate, String executionTime, String deptName, String deptCode, String executionStaff, String patientsNo) {
+        ActivitiesType = activitiesType;
+        Name = name;
+        ContentCode = contentCode;
+        ContentName = contentName;
+        ContentType = contentType;
+        this.CPWCode = CPWCode;
+        this.CPWType = CPWType;
+        MedicalRecord = medicalRecord;
+        OrderCategory = orderCategory;
+        OrderType = orderType;
+        StageCode = stageCode;
+        Type = type;
+        BeginDate = beginDate;
+        ExecutionTime = executionTime;
+        DeptName = deptName;
+        DeptCode = deptCode;
+        ExecutionStaff = executionStaff;
+        PatientsNo = patientsNo;
+    }*/
+
+    public NurseContentUnexecuteBean() {
+    }
 }

@@ -51,6 +51,7 @@ public class PationtNameListActivity extends BaseActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case SWIPEREFRESH_COMPLETE:
+                    //pationtes.addAll(pationtes);
                     adpter.notifyDataSetChanged();
                     MyToast.showToast(PationtNameListActivity.this, "刷新完成");
                     swipeRefresh.setRefreshing(false);
@@ -77,7 +78,7 @@ public class PationtNameListActivity extends BaseActivity {
 
         @Override
         public void InitData() {
-           // swipeRefresh.setEnabled(false);
+            swipeRefresh.setEnabled(false);
             swipeRefresh.setColorSchemeResources(android.R.color.holo_green_dark,
                     android.R.color.holo_green_light,
                     android.R.color.holo_orange_light,
@@ -105,7 +106,7 @@ public class PationtNameListActivity extends BaseActivity {
 
         private void getNetData() {
             showDialogProgress("加载中...");
-            OkHttpUtils.get().url(MyConstant.MYPATIONTE_URL).build().execute(new Callback() {
+            OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.MYPATIONTE_URL).build().execute(new Callback() {
                 @Override
                 public Object parseNetworkResponse(Response response, int i) throws Exception {
                     String result = response.body().string();

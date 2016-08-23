@@ -90,7 +90,7 @@ public class YiZhuManagerActivity extends BaseActivity {
     private void getNurseStageData() {
 
         MyLog.i("NURSE_STAGE+cpwCode:::::::::", MyConstant.NURSE_SELECT_STAGE + cpwCode);
-        OkHttpUtils.get().url(MyConstant.NURSE_SELECT_STAGE + cpwCode).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.NURSE_SELECT_STAGE + cpwCode).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 return response.body().string();

@@ -84,7 +84,7 @@ public class HomeFragment extends BaseFragment {
         OkHttpUtils.get().url(MyConstant.LUNBOTU).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
-                Toast.makeText(HomeFragment.this.getActivity(),"请求错误",Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeFragment.this.getActivity(),"请求错误", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onResponse(String s, int code) {

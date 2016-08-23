@@ -1,6 +1,7 @@
 package com.bjym.hyzc.activity.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -25,11 +26,14 @@ public class MyTaskActivity extends BaseActivity {
     private String name;
     private String patientsNo;
     private String cpwCode;
+    private String deptName;
+    private String deptCode;
 
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
     private TextView tv_titlebar_center;
     private LinearLayout ll_yiZhuManager;
+    private SharedPreferences sp;
 
     @Override
     public View setMainView() {
@@ -52,6 +56,7 @@ public class MyTaskActivity extends BaseActivity {
 
     @Override
     public void InitData() {
+        sp=getSharedPreferences("PationteMsgConfig",MODE_PRIVATE);
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("我的任务");
@@ -147,6 +152,14 @@ public class MyTaskActivity extends BaseActivity {
                 name = data.getStringExtra("Name");
                 patientsNo = data.getStringExtra("patientsNo");
                 cpwCode = data.getStringExtra("cpwCode");
+                deptCode = data.getStringExtra("deptCode");
+                deptName = data.getStringExtra("deptName");
+                sp.edit().putString("patientsNo","patientsNo").commit();
+                sp.edit().putString("name","name").commit();
+                sp.edit().putString("deptCode",deptCode).commit();
+                sp.edit().putString("deptName",deptName).commit();
+
+
                 MyLog.i("cpwCode", cpwCode);
                 tv_search.setText("姓名：" + name + "    患者编号：" + patientsNo);
                 break;

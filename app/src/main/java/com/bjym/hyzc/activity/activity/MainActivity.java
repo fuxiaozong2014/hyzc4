@@ -191,7 +191,7 @@ public class MainActivity extends BaseActivity {
     * 2.传递给accountfragment 和 researchFragment
     * */
     private void getNetData() {
-        OkHttpUtils.get().url(MyConstant.MYMSG_URL+usercode).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.MYMSG_URL+usercode).build().execute(new Callback() {
 
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {

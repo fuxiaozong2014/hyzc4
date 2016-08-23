@@ -101,7 +101,7 @@ public class DiaoChaFragment extends BaseFragment {
        // handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING,500);
         //请求调查类型
         showDialogProgress("请求中...");
-        OkHttpUtils.get().url(MyConstant.MYDIAOCHA_URL).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.MYDIAOCHA_URL).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                // dismissWaitingDialog();

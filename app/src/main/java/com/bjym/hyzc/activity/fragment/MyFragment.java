@@ -109,7 +109,7 @@ public class MyFragment extends BaseFragment {
     }
 
     private void getPationteData() {
-        OkHttpUtils.get().url(MyConstant.MYPATIONTE_URL).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.MYPATIONTE_URL).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 String jsonStr = response.body().string();

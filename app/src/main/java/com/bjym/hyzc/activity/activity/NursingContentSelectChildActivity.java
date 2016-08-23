@@ -13,15 +13,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
+import com.bjym.hyzc.activity.bean.NurseContentUnexecuteBean;
 import com.bjym.hyzc.activity.bean.NursingContentBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
+import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.Call;
@@ -39,6 +43,7 @@ public class NursingContentSelectChildActivity extends BaseActivity {
     private TextView tv_search;
     private List<NursingContentBean.RowsBean> sunItemLists;
     private SharedPreferences sp;
+    private SharedPreferences SpPationteMsgConfig;
 
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
@@ -94,14 +99,45 @@ public class NursingContentSelectChildActivity extends BaseActivity {
        String orderType = rowsBean.OrderType;
        String stageCode = rowsBean.StageCode;
 
-       String departmentCode = sp.getString("departmentCode", "");
+      //得到用户信息，用于提交
        String userCode = sp.getString("userCode", "");
        String realName = sp.getString("realName", "");
-        //TODO
+       //得到患者信息，用于提交
+       String patientsNo = SpPationteMsgConfig.getString("patientsNo", "");
+       String name = SpPationteMsgConfig.getString("Name", "");
+       String deptCode = SpPationteMsgConfig.getString("deptCode", "");
+       String deptName = SpPationteMsgConfig.getString("Name", "");
+        //得到护理真正内容
+       NurseContentUnexecuteBean nurseContentUnexecuteBean=new NurseContentUnexecuteBean();
+       nurseContentUnexecuteBean.ActivitiesType=activitiesType;
+       nurseContentUnexecuteBean.ContentCode=contentCode;
+       nurseContentUnexecuteBean.ContentName=contentName;
+       nurseContentUnexecuteBean.ContentType=contentType;
+       nurseContentUnexecuteBean.CPWCode=cpwCode;
+       nurseContentUnexecuteBean.CPWType=cpwType;
+       nurseContentUnexecuteBean.MedicalRecord=medicalRecord;
+       nurseContentUnexecuteBean.OrderCategory=orderCategory;
+       nurseContentUnexecuteBean.OrderType=orderType;
+       nurseContentUnexecuteBean.StageCode=stageCode;
 
+       //执行科室名及编号 ==患者所属科室名及编号
+       nurseContentUnexecuteBean.DeptCode=deptCode;
+       nurseContentUnexecuteBean.DeptName=deptName;
+       //患者编号及姓名
+       nurseContentUnexecuteBean.PatientsNo=patientsNo;
+       nurseContentUnexecuteBean.Name=name;
+       //执行人员姓名==用户真实姓名
+       nurseContentUnexecuteBean.ExecutionStaff=realName;
+       //分类，执行事件，预定时间==开始时间
+       nurseContentUnexecuteBean.Type="";
+       nurseContentUnexecuteBean.ExecutionTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+       nurseContentUnexecuteBean.BeginDate="";
 
+       String nurseContentUnexecuteBeanJson = new Gson().toJson(nurseContentUnexecuteBean);
 
-       OkHttpUtils.postString().url(MyConstant.NURSE_UNEXECUTECONTENT_COMIT).content("").build().execute(new Callback() {
+        MyLog.i("nurseContentUnexecuteBeanJson",nurseContentUnexecuteBeanJson);
+
+       OkHttpUtils.postString().url(MyConstant.BASE_URL+MyConstant.NURSE_UNEXECUTECONTENT_COMIT).content(nurseContentUnexecuteBeanJson).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
 
@@ -110,7 +146,8 @@ public class NursingContentSelectChildActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                //MyToast.showToast(NursingContentSelectChildActivity.this,"请求网络失败");
+                MyToast.showToast(NursingContentSelectChildActivity.this,"请求网络失败"+e.toString());
+                MyLog.i("nurseContentUnexecuteBeanJson::::",e.toString());
             }
 
             @Override
@@ -140,6 +177,7 @@ public class NursingContentSelectChildActivity extends BaseActivity {
     @Override
     public void InitData() {
         sp=getSharedPreferences("MyselfConfig",MODE_PRIVATE);
+        SpPationteMsgConfig=getSharedPreferences("PationteMsgConfig",MODE_PRIVATE);
 
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
