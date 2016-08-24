@@ -1,4 +1,4 @@
-/*
+
 package com.bjym.hyzc.activity.activity;
 
 import android.view.View;
@@ -15,10 +15,9 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.Response;
 
-*/
 /**
  * Created by fushaoqing on 2016/8/8.
- *//*
+ */
 
 public class AddNursingCareActivity extends BaseActivity {
     private Button bt_titlebar_right;
@@ -85,4 +84,4 @@ public class AddNursingCareActivity extends BaseActivity {
         }
     }
 }
-*/
+

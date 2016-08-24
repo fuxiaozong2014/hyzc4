@@ -10,7 +10,6 @@
             android:layout_height="30dp"
             android:background="@drawable/bg_search"
             android:drawablePadding="5dp"
-            android:layout_marginTop="2dp"
             android:paddingLeft="250dp"
             android:drawableLeft="@mipmap/search"
             android:gravity="center"

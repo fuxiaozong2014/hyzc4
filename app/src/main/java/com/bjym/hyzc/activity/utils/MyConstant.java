@@ -8,11 +8,11 @@ public class MyConstant {
     /**
      * 服务器ip
      */
-    //public static final String BASE_URL = "http://192.168.0.168";
-    // public static final String BASE_URL = "http://192.168.0.188";
-    public static  String BASE_URL = "http://cp.hyzczg.com";
-    //public static final String BASE_URL = "http://cp.sqall.com";
-    // public static final String BASE_URL = "http://hyzc.tpddns.cn:6060";
+    //public static  String BASE_URL = "http://192.168.0.168";
+     public static  String BASE_URL = "http://192.168.0.188";
+    //public static  String BASE_URL = "http://cp.hyzczg.com";
+    //public static  String BASE_URL = "http://cp.sqall.com";
+    // public static  String BASE_URL = "http://hyzc.tpddns.cn:6060";
 
     /**
      * 登录接口
@@ -91,7 +91,7 @@ public class MyConstant {
     public static final String PATIONTE_EXITCPW_CAUSE = "/CPW/CPW_PatiVariation/GetListOrder";
 
     /*
-        * 提交护理内容
+        * 提交护理内容                                            /CPW/CPW_PatiNursing/add
         * */
     public static final String NURSE_UNEXECUTECONTENT_COMIT = "/CPW/CPW_PatiNursing/add";
 

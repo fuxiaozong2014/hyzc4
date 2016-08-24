@@ -78,7 +78,7 @@ public class LoginActivity extends BaseActivity {
     public void InitData() {
 
         hospitalNames = new String[]{"测试ip","吴桥人民医院","河南省人民医院"};
-        hospitalURLs = new String[]{"http://cp.sqall.com","http://192.168.0.165","http://cp.sqallll.com"};
+        hospitalURLs = new String[]{"http://192.168.0.188","http://192.168.0.165","http://cp.sqallll.com"};
 
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.VISIBLE);
@@ -97,11 +97,9 @@ public class LoginActivity extends BaseActivity {
     private void dealSettingIP() {
         String hospitalURL=sp.getString("hospitalURL","");
         MyLog.i("hospitalURL::",hospitalURL);
-        //String hospitalName = sp.getString("hospitalName", "");
 
-        if (hospitalURL.equals("")&&MyConstant.BASE_URL.equals(" http://cp.hyzczg.com")) {
+        if (hospitalURL.equals("")) {
             MyToast.showToast(LoginActivity.this,"请点击'设置'您所在的医院");
-
 
         }else {
             MyConstant.BASE_URL=hospitalURL;
@@ -126,7 +124,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void showIPSetting() {
-        int which = sp.getInt("which", -1);
+        int which = sp.getInt("which", 0);
         AlertDialog.Builder builder=new AlertDialog.Builder(LoginActivity.this);
         builder.setTitle("请选择：您所在的医院");
         builder.setSingleChoiceItems(hospitalNames, which, new DialogInterface.OnClickListener() {

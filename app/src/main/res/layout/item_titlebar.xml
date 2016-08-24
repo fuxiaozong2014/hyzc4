@@ -7,8 +7,8 @@
 
     <Button
         android:id="@+id/bt_titlebar_left"
-        android:layout_width="@dimen/iv_login_size"
-        android:layout_height="@dimen/iv_login_size"
+        android:layout_width="@dimen/title_iv_size"
+        android:layout_height="@dimen/title_iv_size"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="5dp"
@@ -30,12 +30,12 @@
 
     <Button
         android:id="@+id/bt_titlebar_right"
-        android:layout_width="@dimen/iv_login_size"
-        android:layout_height="@dimen/iv_login_size"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
         android:background="@mipmap/setting"
         />

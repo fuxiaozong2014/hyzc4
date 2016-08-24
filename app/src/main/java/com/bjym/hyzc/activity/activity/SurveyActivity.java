@@ -199,7 +199,7 @@ public class SurveyActivity extends BaseActivity {
     * 获取调查编码用于提交
     * */
     private void getPatiSurveryNo() {
-        OkHttpUtils.get().url(MyConstant.PATISURVERYNO_URL).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.PATISURVERYNO_URL).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 // MyLog.i("success", "请求成功le");
@@ -394,7 +394,7 @@ public class SurveyActivity extends BaseActivity {
 
     private void postAnswers(String answer) {
 
-        OkHttpUtils.postString().url(MyConstant.ANSWERS_URL).content(answer)
+        OkHttpUtils.postString().url(MyConstant.BASE_URL+MyConstant.ANSWERS_URL).content(answer)
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {

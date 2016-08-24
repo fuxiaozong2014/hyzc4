@@ -56,6 +56,14 @@ public class MyFragment extends BaseFragment {
 
     @Override
     public void InitData() {
+
+      /*  StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads().detectDiskWrites().detectNetwork()
+                .penaltyLog().build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
+                .penaltyLog().penaltyDeath().build());*/
+
         /*
         * 得到mainActivity中传过来的用户信息
         * */
@@ -70,7 +78,7 @@ public class MyFragment extends BaseFragment {
             sp.edit().putString("departmentCode",departmentCode).commit();
             sp.edit().putString("userCode",userCode).commit();
             sp.edit().putString("realName",realName).commit();
-            sp.edit().putInt("userType",userType);
+            sp.edit().putInt("userType",userType).commit();
 
          /*
          * 把用户信息赋值给textview
