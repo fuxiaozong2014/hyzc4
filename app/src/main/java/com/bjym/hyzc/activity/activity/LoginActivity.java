@@ -78,7 +78,7 @@ public class LoginActivity extends BaseActivity {
     public void InitData() {
 
         hospitalNames = new String[]{"测试ip","吴桥人民医院","河南省人民医院"};
-        hospitalURLs = new String[]{"http://192.168.0.188","http://192.168.0.165","http://cp.sqallll.com"};
+        hospitalURLs = new String[]{"http://cp.hyzczg.com","http://192.168.0.188","http://cp.sqallll.com"};
 
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.VISIBLE);

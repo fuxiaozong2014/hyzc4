@@ -1,13 +1,9 @@
 package com.bjym.hyzc.activity.activity;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -40,7 +36,7 @@ public class MyPationteActivity extends BaseActivity {
     private MyAdapter adpter;
     private List<PationteBean> pationtes;
     private TextView tv_mypationtenone;
-    private SwipeRefreshLayout swipeRefresh;
+   // private SwipeRefreshLayout swipeRefresh;
     public static final int SWIPEREFRESH_COMPLETE = 1;
 
     private Button bt_titlebar_right;
@@ -48,7 +44,7 @@ public class MyPationteActivity extends BaseActivity {
     private TextView tv_titlebar_center;
     private RelativeLayout rela_no_wifi;
 
-    class MyOnScrollListener implements AbsListView.OnScrollListener{
+    /*class MyOnScrollListener implements AbsListView.OnScrollListener{
 
 
         @Override
@@ -65,9 +61,9 @@ public class MyPationteActivity extends BaseActivity {
                 swipeRefresh.setRefreshing(false);
             }
         }
-    }
+    }*/
 
-    private Handler handler = new Handler() {
+ /*   private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -82,14 +78,14 @@ public class MyPationteActivity extends BaseActivity {
                     break;
             }
         }
-    };
+    };*/
 
     @Override
     public View setMainView() {
         View view = View.inflate(context, R.layout.activity_mypationte, null);
         lv_mypationte = (ListView) view.findViewById(R.id.lv_mypationte);
         tv_mypationtenone = (TextView) view.findViewById(R.id.tv_mypationtenone);
-        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefresh);
+       // swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefresh);
         rela_no_wifi = (RelativeLayout) view.findViewById(R.id.Rela_no_wifi);
 
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
@@ -105,11 +101,11 @@ public class MyPationteActivity extends BaseActivity {
 
     @Override
     public void InitData() {
-        swipeRefresh.setEnabled(false);
+        /*swipeRefresh.setEnabled(false);
         swipeRefresh.setColorSchemeResources(android.R.color.holo_green_dark,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
+                android.R.color.holo_red_light);*/
 
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
@@ -117,14 +113,14 @@ public class MyPationteActivity extends BaseActivity {
         bt_titlebar_left.setOnClickListener(this);
 
         getNetData();
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+       /* swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 handler.sendEmptyMessageDelayed(SWIPEREFRESH_COMPLETE,1000);
             }
         });
 
-        lv_mypationte.setOnScrollListener(new MyOnScrollListener());
+        lv_mypationte.setOnScrollListener(new MyOnScrollListener());*/
     }
 
     private void getNetData() {

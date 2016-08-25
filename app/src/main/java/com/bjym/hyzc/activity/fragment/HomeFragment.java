@@ -73,7 +73,6 @@ public class HomeFragment extends BaseFragment {
 
         getImageData();
         tv_healthySpace.setOnClickListener(this);
-
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("临床路径管理");

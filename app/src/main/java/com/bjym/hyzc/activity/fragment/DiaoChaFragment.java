@@ -46,11 +46,11 @@ public class DiaoChaFragment extends BaseFragment {
     private String surveyName;
     private MyAdapter adpter;
     private RelativeLayout re_search;
-    private TextView tv_search;
+    public static TextView tv_search;
     private MyBrocastReceiver receiver;
     private LocalBroadcastManager broadcastManager;
-    private String name;
-    private String patientsNo;
+    public static String name;
+    public static String patientsNo;
     private String userCode;
     private String realName;
 
@@ -234,7 +234,7 @@ public class DiaoChaFragment extends BaseFragment {
     /*
     * 收到患者详情发来的广播，得到患者姓名和患者编号
     * */
-    public class MyBrocastReceiver extends BroadcastReceiver {
+    public static class MyBrocastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             /*

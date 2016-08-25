@@ -31,7 +31,6 @@ public class PationteBestDetailMsgActivity extends BaseActivity {
         vh = new ViewHolder(view);
         view.setTag(vh);
 
-
         return view;
     }
 

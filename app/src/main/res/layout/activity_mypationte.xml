@@ -33,10 +33,10 @@
         android:layout_height="5dp"
         android:background="@color/big_bg_color"></LinearLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+   <!-- <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/SwipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent">-->
 
         <LinearLayout
             android:id="@+id/ll_mypationte"
@@ -60,7 +60,7 @@
                 android:background="@color/background_white"></ListView>
         </LinearLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
 
     <include layout="@layout/item_no_wifi" />

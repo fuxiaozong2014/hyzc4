@@ -3,7 +3,6 @@ package com.bjym.hyzc.activity.activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -42,7 +41,7 @@ public class PationtNameListActivity extends BaseActivity {
     private Button bt_titlebar_left;
     private TextView tv_titlebar_center;
     private RelativeLayout Rela_no_wifi;
-    private SwipeRefreshLayout swipeRefresh;
+    //private SwipeRefreshLayout swipeRefresh;
     public static final int SWIPEREFRESH_COMPLETE = 1;
 
     private Handler handler = new Handler() {
@@ -54,7 +53,7 @@ public class PationtNameListActivity extends BaseActivity {
                     //pationtes.addAll(pationtes);
                     adpter.notifyDataSetChanged();
                     MyToast.showToast(PationtNameListActivity.this, "刷新完成");
-                    swipeRefresh.setRefreshing(false);
+                   // swipeRefresh.setRefreshing(false);
                     break;
                 default:
                     break;
@@ -66,7 +65,7 @@ public class PationtNameListActivity extends BaseActivity {
         public View setMainView() {
             View view = View.inflate(context, R.layout.activity_pationtnamelist, null);
             lv_mypationte = (ListView) view.findViewById(R.id.lv_mypationte);
-            swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefresh);
+           // swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.SwipeRefresh);
             tv_mypationtenone = (TextView) view.findViewById(R.id.tv_mypationtenone);
             Rela_no_wifi = (RelativeLayout) view.findViewById(R.id.Rela_no_wifi);
 
@@ -78,11 +77,11 @@ public class PationtNameListActivity extends BaseActivity {
 
         @Override
         public void InitData() {
-            swipeRefresh.setEnabled(false);
+           /* swipeRefresh.setEnabled(false);
             swipeRefresh.setColorSchemeResources(android.R.color.holo_green_dark,
                     android.R.color.holo_green_light,
                     android.R.color.holo_orange_light,
-                    android.R.color.holo_red_light);
+                    android.R.color.holo_red_light);*/
 
             bt_titlebar_left.setVisibility(View.VISIBLE);
             bt_titlebar_right.setVisibility(View.GONE);
@@ -94,13 +93,13 @@ public class PationtNameListActivity extends BaseActivity {
 
             getNetData();
 
-            swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+           /* swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
 
                     handler.sendEmptyMessageDelayed(SWIPEREFRESH_COMPLETE, 1000);
                 }
-            });
+            });*/
 
         }
 
