@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bjym.hyzc.R;
+import com.bjym.hyzc.activity.activity.DeptNewsWebViewActivity;
 import com.bjym.hyzc.activity.activity.WebViewActivity;
 import com.bjym.hyzc.activity.pager.BasePager;
 import com.bjym.hyzc.activity.utils.MyConstant;
@@ -33,6 +34,8 @@ import okhttp3.Call;
 public class HomeFragment extends BaseFragment {
     private List<BasePager> pagers = new ArrayList<>();
     private TextView tv_healthySpace;
+    private TextView tv_deptNews;
+    private TextView tv_StudyVideo;
     private CycleViewPagerShi viewPager;
     private int[] images;
 
@@ -57,6 +60,8 @@ public class HomeFragment extends BaseFragment {
     public View setMainView() {
         View view = View.inflate(getContext(), R.layout.fragment_home, null);
         tv_healthySpace=(TextView)view.findViewById(R.id.tv_healthySpace);
+       tv_deptNews = (TextView)view.findViewById(R.id.tv_deptNews);
+        tv_StudyVideo = (TextView)view.findViewById(R.id.tv_StudyVideo);
 
         viewPager = (CycleViewPagerShi) view.findViewById(R.id.vp);
         images = new int[] { R.mipmap.z3, R.mipmap.oh,
@@ -73,6 +78,8 @@ public class HomeFragment extends BaseFragment {
 
         getImageData();
         tv_healthySpace.setOnClickListener(this);
+        tv_deptNews.setOnClickListener(this);
+        tv_StudyVideo.setOnClickListener(this);
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("临床路径管理");
@@ -83,7 +90,7 @@ public class HomeFragment extends BaseFragment {
         OkHttpUtils.get().url(MyConstant.LUNBOTU).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int i) {
-                Toast.makeText(HomeFragment.this.getActivity(),"请求错误", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(HomeFragment.this.getActivity(),"请求错误", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onResponse(String s, int code) {
@@ -194,6 +201,15 @@ public class HomeFragment extends BaseFragment {
        switch (v.getId()) {
            case R.id.tv_healthySpace:
                startActivity(new Intent(HomeFragment.this.getActivity(), WebViewActivity.class));
+               break;
+           case R.id.tv_deptNews:
+               startActivity(new Intent(HomeFragment.this.getActivity(), DeptNewsWebViewActivity.class));
+               break;
+           case R.id.tv_StudyVideo:
+               //startActivity(new Intent(HomeFragment.this.getActivity(), StudyVideoWebViewActivity.class));
+              // MyToast.showToast(HomeFragment.this.getActivity(),"此功能正在研发中，敬请期待！！！");
+               Toast.makeText(HomeFragment.this.getActivity(),"此功能正在研发中，敬请期待！！！",Toast.LENGTH_SHORT).show();
+
                break;
             default:
                 break;

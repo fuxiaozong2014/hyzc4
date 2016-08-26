@@ -78,7 +78,7 @@ public class LoginActivity extends BaseActivity {
     public void InitData() {
 
         hospitalNames = new String[]{"测试ip","吴桥人民医院","河南省人民医院"};
-        hospitalURLs = new String[]{"http://cp.hyzczg.com","http://192.168.0.188","http://cp.sqallll.com"};
+        hospitalURLs = new String[]{"http://cp.hyzczg.com","http://192.168.0.168","http://cp.sqallll.com"};
 
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.VISIBLE);
@@ -157,9 +157,9 @@ public class LoginActivity extends BaseActivity {
         } else {
             //TODO
             showDialogProgress("登录中");
-            MyLog.i("MyConstant.LOGIN_URL:::",MyConstant.BASE_URL+MyConstant.LOGIN_URL);
+            MyLog.i("MyConstant.LOGIN_URL:::", MyConstant.BASE_URL+ MyConstant.LOGIN_URL);
             OkHttpUtils.post()
-                    .url(MyConstant.BASE_URL+MyConstant.LOGIN_URL)
+                    .url(MyConstant.BASE_URL+ MyConstant.LOGIN_URL)
                     .addParams("usercode", usercode)
                     .addParams("password", password)
                     .addParams("expired", "365")
@@ -229,7 +229,7 @@ public class LoginActivity extends BaseActivity {
         JPushInterface.setAliasAndTags(LoginActivity.this, usercode, set, new TagAliasCallback() {
             @Override
             public void gotResult(int i, String s, Set<String> set) {
-                MyToast.showToast(LoginActivity.this, "Tag设置成功");
+                //MyToast.showToast(LoginActivity.this, "Tag设置成功");
             }
         });
     }

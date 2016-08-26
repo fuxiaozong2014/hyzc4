@@ -57,7 +57,7 @@ public class ExitCPWPationteActvity extends BaseActivity {
     }
 
     private void getExitCPWPationte() {
-        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.PATIONTE_EXITCPW_MSG).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+ MyConstant.PATIONTE_EXITCPW_MSG).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 return response.body().string();

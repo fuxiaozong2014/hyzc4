@@ -102,6 +102,30 @@
             android:background="@mipmap/oh" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_myTaskDOctor"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_finger_width"
+        android:layout_marginTop="0.5dp"
+        android:background="@color/background_white"
+        android:gravity="center"
+        android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/tv_myTaskDOctor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:text="我的任务 ( 2 )"
+            android:textColor="@color/fontcolor"
+            android:textSize="@dimen/et_login_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/oh" />
+    </LinearLayout>
 
 </LinearLayout>

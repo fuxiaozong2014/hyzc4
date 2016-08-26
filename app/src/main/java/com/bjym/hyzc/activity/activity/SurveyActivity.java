@@ -1,8 +1,9 @@
 package com.bjym.hyzc.activity.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -81,6 +82,7 @@ public class SurveyActivity extends BaseActivity {
     private String realName;
     private String newCode;
     private RelativeLayout rela_no_wifi;
+    private SharedPreferences sp;
 
 
     public class MyFragmentPageAdpter extends FragmentPagerAdapter {
@@ -125,15 +127,17 @@ public class SurveyActivity extends BaseActivity {
     @Override
     public void InitData() {
 
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+       /* StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads().detectDiskWrites().detectNetwork()
                 .penaltyLog().build());
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                 .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
-                .penaltyLog().penaltyDeath().build());
+                .penaltyLog().penaltyDeath().build());*/
+
 
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
+
 
           /*
         * 获取调查编号，用于提交
@@ -199,7 +203,7 @@ public class SurveyActivity extends BaseActivity {
     * 获取调查编码用于提交
     * */
     private void getPatiSurveryNo() {
-        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.PATISURVERYNO_URL).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+ MyConstant.PATISURVERYNO_URL).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 // MyLog.i("success", "请求成功le");
@@ -235,9 +239,9 @@ public class SurveyActivity extends BaseActivity {
     * */
     private void getQuesionData() {
         showDialogProgress("加载中...");
-        url1 = MyConstant.BASE_URL+MyConstant.QUESTIONLIST_URL + surveyNo;
-        MyLog.i("url1:::::::",MyConstant.BASE_URL);
-        MyLog.i("MyConstant.QUESTIONLIST_URL + surveyNo;",MyConstant.QUESTIONLIST_URL + surveyNo);
+        url1 = MyConstant.BASE_URL+ MyConstant.QUESTIONLIST_URL + surveyNo;
+        MyLog.i("url1:::::::", MyConstant.BASE_URL);
+        MyLog.i("MyConstant.QUESTIONLIST_URL + surveyNo;", MyConstant.QUESTIONLIST_URL + surveyNo);
         OkHttpUtils.get().url(url1).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -306,6 +310,15 @@ public class SurveyActivity extends BaseActivity {
                 break;
             case R.id.btn_submit:
 
+                sp=getSharedPreferences("MyselfConfig",MODE_PRIVATE);
+                int userType = sp.getInt("userType", 0);
+                if(userType==2 || userType==5){
+                    btn_submit.setClickable(false);
+                    btn_submit.setTextColor(Color.GRAY);
+                    MyToast.showToast(SurveyActivity.this,"您尚没有提交权限");
+                    return;
+                }
+
                 //得到每道题 对应的选项的得分
 
                 if (scoreMap.size() > 0) {
@@ -329,6 +342,7 @@ public class SurveyActivity extends BaseActivity {
                 * 1.提交调查结果至服务器
                 * 2.关闭自身页面
                 * */
+
                 commitAnswers();
                 finish();
                 break;
@@ -369,7 +383,7 @@ public class SurveyActivity extends BaseActivity {
 
     private void postPationMsg(String pationpMsg) {
 
-        OkHttpUtils.postString().url(MyConstant.BASE_URL+MyConstant.SUBMITORMSG_URL).content(pationpMsg)
+        OkHttpUtils.postString().url(MyConstant.BASE_URL+ MyConstant.SUBMITORMSG_URL).content(pationpMsg)
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -394,7 +408,7 @@ public class SurveyActivity extends BaseActivity {
 
     private void postAnswers(String answer) {
 
-        OkHttpUtils.postString().url(MyConstant.BASE_URL+MyConstant.ANSWERS_URL).content(answer)
+        OkHttpUtils.postString().url(MyConstant.BASE_URL+ MyConstant.ANSWERS_URL).content(answer)
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -469,7 +483,7 @@ public class SurveyActivity extends BaseActivity {
         * */
         private void getOptions() {
             showDialogProgress("加载中...");
-            final String url =MyConstant.BASE_URL+ MyConstant.OPTION_URL + topicNo;
+            final String url = MyConstant.BASE_URL+ MyConstant.OPTION_URL + topicNo;
 
             OkHttpUtils.get().url(url).build().execute(new Callback() {
                 @Override

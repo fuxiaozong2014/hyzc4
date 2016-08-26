@@ -1,9 +1,9 @@
 package com.bjym.hyzc.activity.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -52,10 +52,11 @@ public class MainActivity extends BaseActivity {
     private List<MyselfBean> myselefLists;
     private static String departmentCode;
     private static String realName;
-    private Bundle bundle;
+   // private Bundle bundle;
     private String userCode;
     private String usercode;
     private int userType;
+    private SharedPreferences sp;
 
     @Override
     public View setMainView() {
@@ -117,7 +118,7 @@ public class MainActivity extends BaseActivity {
             case R.id.tv_accountcenter:
                 if (accenter == null) {
                     accenter = new MyFragment();
-                    accenter.setArguments(bundle);
+                   // accenter.setArguments(bundle);
 
                 }
                 resetMyView();
@@ -126,7 +127,7 @@ public class MainActivity extends BaseActivity {
             case R.id.tv_diaocha:
                 if (diaoCha == null) {
                     diaoCha = new DiaoChaFragment();
-                    diaoCha.setArguments(bundle);
+                    //diaoCha.setArguments(bundle);
                 }
                 resetDiaoChaView();
                 transaction.replace(R.id.ll_content, diaoCha, "DiaoChaFragment");
@@ -191,7 +192,7 @@ public class MainActivity extends BaseActivity {
     * 2.传递给accountfragment 和 researchFragment
     * */
     private void getNetData() {
-        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.MYMSG_URL+usercode).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+ MyConstant.MYMSG_URL+usercode).build().execute(new Callback() {
 
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -216,17 +217,20 @@ public class MainActivity extends BaseActivity {
 
                 }
 
-                /*
+               /* *//*
                 * 通过Bundle给acconteFragment和researchFragment传值
-                * */
-                bundle = getBundle();
-
-
+                * *//*
+                bundle = getBundle();*/
+                sp=getSharedPreferences("MyselfConfig", Context.MODE_PRIVATE);
+                sp.edit().putString("departmentCode",departmentCode).commit();
+                sp.edit().putString("userCode",userCode).commit();
+                sp.edit().putString("realName",realName).commit();
+                sp.edit().putInt("userType", userType).commit();
             }
         });
     }
 
-    @NonNull
+   /* @NonNull
     private Bundle getBundle() {
         Bundle bundle = new Bundle();
 
@@ -236,7 +240,7 @@ public class MainActivity extends BaseActivity {
         bundle.putInt("userType",userType);
         return bundle;
     }
-
+*/
     private void parseMyselfJson(String json) {
 
         myselefLists = new Gson().fromJson(json, new TypeToken<List<MyselfBean>>() {

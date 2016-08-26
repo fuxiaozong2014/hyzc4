@@ -14,15 +14,16 @@ import com.bjym.hyzc.activity.utils.MyToast;
 /**
  * Created by fushaoqing on 2016/7/27.
  */
-public class MyTaskActivity extends BaseActivity {
+public class MyTaskDoctorActivity extends BaseActivity {
 
     private static final int REQUST_CODE = 1;
     private TextView tv_search;
-    private TextView tv_nurseHistory;
+    private LinearLayout ll_addYizhu;
+   /* private TextView tv_nurseHistory;
     private TextView tv_nurseStage;
     private TextView tv_addNursingCare;
     private TextView tv_nursingContent_executed;
-    private TextView tv_nursingContentStage;
+    private TextView tv_nursingContentStage;*/
     private String name;
     private String patientsNo;
     private String cpwCode;
@@ -38,15 +39,11 @@ public class MyTaskActivity extends BaseActivity {
     @Override
     public View setMainView() {
 
-        View view = View.inflate(context, R.layout.activity_mytask, null);
-        tv_nurseHistory = (TextView) view.findViewById(R.id.tv_nurseHistory);
-        tv_nurseStage = (TextView) view.findViewById(R.id.tv_nurseStage);
-        tv_addNursingCare = (TextView) view.findViewById(R.id.tv_addNursingCare);
-        //tv_nursingContent_executed = (TextView) view.findViewById(R.id.tv_nursingContent_executed);
-      //  ll_yiZhuManager = (LinearLayout) view.findViewById(R.id.ll_YiZhuManager);
+        View view = View.inflate(context, R.layout.activity_mytaskdoctor, null);
+        ll_yiZhuManager = (LinearLayout) view.findViewById(R.id.ll_YiZhuManager);
 
-        tv_nursingContentStage = (TextView) view.findViewById(R.id.tv_nursingContentStage);
         tv_search = (TextView) view.findViewById(R.id.tv_search);
+        ll_addYizhu = (LinearLayout) view.findViewById(R.id.ll_addYizhu);
 
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
         bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
@@ -61,13 +58,14 @@ public class MyTaskActivity extends BaseActivity {
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("我的任务");
         tv_search.setOnClickListener(this);
-        tv_nurseHistory.setOnClickListener(this);
+      /*  tv_nurseHistory.setOnClickListener(this);
         tv_nurseStage.setOnClickListener(this);
        // tv_nursingContent_executed.setOnClickListener(this);
-       tv_addNursingCare.setOnClickListener(this);
-        tv_nursingContentStage.setOnClickListener(this);
+//        tv_addNursingCare.setOnClickListener(this);
+        tv_nursingContentStage.setOnClickListener(this);*/
         bt_titlebar_left.setOnClickListener(this);
-      //  ll_yiZhuManager.setOnClickListener(this);
+        ll_yiZhuManager.setOnClickListener(this);
+        ll_addYizhu.setOnClickListener(this);
 
     }
 
@@ -78,58 +76,10 @@ public class MyTaskActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.tv_search:
                 Intent intent = new Intent();
-                intent.setClass(MyTaskActivity.this, MyPationteActivity.class);
+                intent.setClass(MyTaskDoctorActivity.this, MyPationteActivity.class);
                 startActivityForResult(intent, REQUST_CODE);
                 break;
-            case R.id.tv_nurseHistory:
-                Intent NurseHistoryActivityIntent = new Intent(this, NurseHistoryActivity.class);
-                if (name == null || patientsNo == null) {
-                    MyToast.showToast(this, "请选择患者");
-                    return;
-                } else {
-                    NurseHistoryActivityIntent.putExtra("Name", name);
-                    NurseHistoryActivityIntent.putExtra("patientsNo", patientsNo);
-                    startActivity(NurseHistoryActivityIntent);
-                }
-                break;
-            case R.id.tv_nurseStage:
-                Intent NurseExecuteActivityIntent = new Intent(this, NurseSelectStageActivity.class);
-                if (name == null || patientsNo == null || cpwCode == null) {
-                    MyToast.showToast(this, "请选择患者");
-                    return;
-                } else {
-                    NurseExecuteActivityIntent.putExtra("cpwCode", cpwCode);
-                    NurseExecuteActivityIntent.putExtra("patientsNo", patientsNo);
-                    startActivity(NurseExecuteActivityIntent);
-                }
-                break;
-            case R.id.tv_addNursingCare:
-                //startActivity(new Intent(this, AddNursingCareActivity.class));
-                MyToast.showToast(MyTaskActivity.this,"此功能正在完善中...");
-                break;
-
-            case R.id.tv_nursingContentStage:
-                Intent tv_nursingContentStageIntent = new Intent(this, NursingContentParentStageActivity.class);
-                if (cpwCode == null) {
-                    MyToast.showToast(this, "请选择患者");
-                    return;
-                }
-                if (cpwCode.equals("")){
-                    MyToast.showToast(this, "此患者还没有配置路径");
-                    return;
-                }else {
-                    tv_nursingContentStageIntent.putExtra("cpwCode", cpwCode);
-                    startActivity(tv_nursingContentStageIntent);
-                }
-
-                break;
-           /* case R.id.tv_nursingContent_executed:
-                startActivity(new Intent(this,ExistingNursingContentActivity.class));
-                break;*/
-            case R.id.bt_titlebar_left:
-                finish();
-                break;
-          /*  case R.id.ll_YiZhuManager:
+            case R.id.ll_YiZhuManager:
                 Intent YiZhuManagerActivityIntent = new Intent(this, YiZhuManagerActivity.class);
                 if (name == null || patientsNo == null || cpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
@@ -139,7 +89,10 @@ public class MyTaskActivity extends BaseActivity {
                     YiZhuManagerActivityIntent.putExtra("patientsNo", patientsNo);
                     startActivity(YiZhuManagerActivityIntent);
                 }
-                break;*/
+                break;
+            case R.id.ll_addYizhu:
+               MyToast.showToast(MyTaskDoctorActivity.this,"此功能正在研发中，敬请期待！！！");
+                break;
             default:
                 break;
         }

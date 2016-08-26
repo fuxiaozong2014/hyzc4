@@ -137,8 +137,8 @@ public class NursingContentSelectChildActivity extends BaseActivity {
 
         MyLog.i("nurseContentUnexecuteBeanJson",nurseContentUnexecuteBeanJson);
 
-       MyLog.i("MyConstant.BASE_URL+MyConstant.NURSE_UNEXECUTECONTENT_COMIT::",MyConstant.BASE_URL+MyConstant.NURSE_UNEXECUTECONTENT_COMIT);
-       OkHttpUtils.postString().url(MyConstant.BASE_URL+MyConstant.NURSE_UNEXECUTECONTENT_COMIT).content(nurseContentUnexecuteBeanJson).build().execute(new Callback() {
+       MyLog.i("MyConstant.BASE_URL+MyConstant.NURSE_UNEXECUTECONTENT_COMIT::", MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTECONTENT_COMIT);
+       OkHttpUtils.postString().url(MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTECONTENT_COMIT).content(nurseContentUnexecuteBeanJson).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
 

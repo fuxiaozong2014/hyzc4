@@ -125,7 +125,7 @@ public class MyPationteActivity extends BaseActivity {
 
     private void getNetData() {
         showDialogProgress("加载中...");
-        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.MYPATIONTE_URL).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL+ MyConstant.MYPATIONTE_URL).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 String result = response.body().string();

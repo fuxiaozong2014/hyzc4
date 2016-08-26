@@ -8,14 +8,14 @@ import android.webkit.WebViewClient;
 
 import com.bjym.hyzc.R;
 
-public class WebViewActivity extends BaseActivity {
+public class StudyVideoWebViewActivity extends BaseActivity {
 
 	private WebSettings webViewSettings;
 	private WebView webview;
 
 	@Override
 	public View setMainView() {
-		View view=View.inflate(context, R.layout.activtiy_webview,null);
+		View view=View.inflate(context, R.layout.activtiy_studyvideowebview,null);
 		webview = (WebView)view.findViewById(R.id.webView1);
 		return view;
 	}
@@ -32,7 +32,7 @@ public class WebViewActivity extends BaseActivity {
 		// 设置按钮缩放
 		webViewSettings.setBuiltInZoomControls(true);// 打开缩放按钮
 
-		webview.loadUrl("http://m.hyzczg.com/news.html");
+		webview.loadUrl("http://m.hyzczg.com/index.html");
 		//dismiss();
 		webview.setWebViewClient(new WebViewClient(){
 			@Override

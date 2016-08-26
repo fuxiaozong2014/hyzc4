@@ -75,7 +75,7 @@ public class NurseUnxecuteYiZhuActivity extends BaseActivity {
 
     private void postUnExecuteYiZhu(String orderNo) {
         //TODO 确定提交的内容
-        OkHttpUtils.postString().url(MyConstant.BASE_URL+MyConstant.NURSE_UNEXECUTEYIZHU_COMIT+orderNo).content("").build().execute(new Callback() {
+        OkHttpUtils.postString().url(MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTEYIZHU_COMIT+orderNo).content("").build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
 
@@ -128,7 +128,7 @@ public class NurseUnxecuteYiZhuActivity extends BaseActivity {
 
     private void getUnExecuteStage() {
         OkHttpUtils.post()
-                .url(MyConstant.BASE_URL+MyConstant.NURSE_UNEXECUTE_STAGE)
+                .url(MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTE_STAGE)
                 .addParams("PatientsNo", patientsNo)
                 .addParams("stagecode", stageCode)
                 .build()

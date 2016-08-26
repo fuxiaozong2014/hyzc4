@@ -2,30 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/big_bg_color"
     android:orientation="vertical">
 
     <include layout="@layout/item_titlebar"></include>
-<include layout="@layout/item_search_nohint"></include>
+
+    <include layout="@layout/item_search"></include>
 
 
-    <LinearLayout
+   <LinearLayout
+       android:id="@+id/ll_YiZhuManager"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
         android:background="@color/background_white"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
-        android:layout_marginTop="2dp"
         android:paddingTop="2dp">
 
         <TextView
-            android:id="@+id/tv_ExitCPWPationte"
+            android:id="@+id/tv_YiZhuManager"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
-            android:text="退出路径患者统计"
+            android:text="医嘱管理"
             android:textColor="@color/fontcolor"
             android:textSize="16dp" />
 
@@ -34,14 +34,15 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_left_iv_user"
             android:background="@mipmap/oh" />
+
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.1dp"
         android:background="@color/big_bg_color" />
-
     <LinearLayout
+        android:id="@+id/ll_addYizhu"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
         android:background="@color/background_white"
@@ -51,12 +52,12 @@
         android:paddingTop="2dp">
 
         <TextView
-            android:id="@+id/tv_ExitCPWCause"
+            android:id="@+id/tv_addYizhu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
-            android:text="退出路径原因分析"
+            android:text="新增医嘱"
             android:textColor="@color/fontcolor"
             android:textSize="16dp" />
 
@@ -68,5 +69,8 @@
 
     </LinearLayout>
 
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/big_bg_color" />
 </LinearLayout>
