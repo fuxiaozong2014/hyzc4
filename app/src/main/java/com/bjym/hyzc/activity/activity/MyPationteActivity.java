@@ -1,6 +1,7 @@
 package com.bjym.hyzc.activity.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class MyPationteActivity extends BaseActivity {
     private Button bt_titlebar_left;
     private TextView tv_titlebar_center;
     private RelativeLayout rela_no_wifi;
+    private SharedPreferences sp;
 
     /*class MyOnScrollListener implements AbsListView.OnScrollListener{
 
@@ -106,6 +108,7 @@ public class MyPationteActivity extends BaseActivity {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);*/
+        sp=getSharedPreferences("PationteMsgConfig",MODE_PRIVATE);
 
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);

@@ -102,11 +102,14 @@ public class NursingContentSelectChildActivity extends BaseActivity {
       //得到用户信息，用于提交
        String userCode = sp.getString("userCode", "");
        String realName = sp.getString("realName", "");
+
        //得到患者信息，用于提交
        String patientsNo = SpPationteMsgConfig.getString("patientsNo", "");
+
        String name = SpPationteMsgConfig.getString("Name", "");
+
        String deptCode = SpPationteMsgConfig.getString("deptCode", "");
-       String deptName = SpPationteMsgConfig.getString("Name", "");
+       String deptName = SpPationteMsgConfig.getString("deptName", "");
         //得到护理真正内容
        NurseContentUnexecuteBean nurseContentUnexecuteBean=new NurseContentUnexecuteBean();
        nurseContentUnexecuteBean.ActivitiesType=activitiesType;
@@ -131,13 +134,14 @@ public class NursingContentSelectChildActivity extends BaseActivity {
        //分类，执行事件，预定时间==开始时间
        nurseContentUnexecuteBean.Type="";
        nurseContentUnexecuteBean.ExecutionTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
-       nurseContentUnexecuteBean.BeginDate="";
+       nurseContentUnexecuteBean.BeginDate=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
 
        String nurseContentUnexecuteBeanJson = new Gson().toJson(nurseContentUnexecuteBean);
 
         MyLog.i("nurseContentUnexecuteBeanJson",nurseContentUnexecuteBeanJson);
 
        MyLog.i("MyConstant.BASE_URL+MyConstant.NURSE_UNEXECUTECONTENT_COMIT::", MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTECONTENT_COMIT);
+
        OkHttpUtils.postString().url(MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTECONTENT_COMIT).content(nurseContentUnexecuteBeanJson).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -147,13 +151,13 @@ public class NursingContentSelectChildActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(NursingContentSelectChildActivity.this,"请求网络失败"+e.toString());
+                MyToast.showToast(NursingContentSelectChildActivity.this,"提交失败"+e.toString());
                 MyLog.i("nurseContentUnexecuteBeanJson::::",e.toString());
             }
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(NursingContentSelectChildActivity.this,"请求网络成功");
+                MyToast.showToast(NursingContentSelectChildActivity.this,"提交成功");
             }
         });
 

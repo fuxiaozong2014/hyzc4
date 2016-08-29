@@ -42,6 +42,7 @@ public class ExistingNursingContentActivity extends BaseActivity {
         bt_titlebar_left.setOnClickListener(this);
 
         existingNursingContents = (List<NursingContentBean.RowsBean>) getIntent().getSerializableExtra("existingNursingContents");
+
         if (existingNursingContents!=null) {
             lv.setAdapter(new MyAdapter());
         }else{
@@ -54,10 +55,8 @@ public class ExistingNursingContentActivity extends BaseActivity {
 
     class MyAdapter extends BaseAdapter {
 
-
         @Override
         public int getCount() {
-
             return existingNursingContents.size();
         }
 

@@ -33,7 +33,8 @@ public class MyTaskActivity extends BaseActivity {
     private Button bt_titlebar_left;
     private TextView tv_titlebar_center;
     private LinearLayout ll_yiZhuManager;
-    private SharedPreferences sp;
+    private SharedPreferences SpPationteMsgConfig;
+
 
     @Override
     public View setMainView() {
@@ -56,7 +57,9 @@ public class MyTaskActivity extends BaseActivity {
 
     @Override
     public void InitData() {
-        sp=getSharedPreferences("PationteMsgConfig",MODE_PRIVATE);
+
+
+        SpPationteMsgConfig=getSharedPreferences("PationteMsgConfig",MODE_PRIVATE);
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("我的任务");
@@ -155,10 +158,11 @@ public class MyTaskActivity extends BaseActivity {
                 cpwCode = data.getStringExtra("cpwCode");
                 deptCode = data.getStringExtra("deptCode");
                 deptName = data.getStringExtra("deptName");
-                sp.edit().putString("patientsNo","patientsNo").commit();
-                sp.edit().putString("name","name").commit();
-                sp.edit().putString("deptCode",deptCode).commit();
-                sp.edit().putString("deptName",deptName).commit();
+
+                SpPationteMsgConfig.edit().putString("patientsNo",patientsNo).commit();
+                SpPationteMsgConfig.edit().putString("Name",name).commit();
+                SpPationteMsgConfig.edit().putString("deptCode",deptCode).commit();
+                SpPationteMsgConfig.edit().putString("deptName",deptName).commit();
 
 
                 MyLog.i("cpwCode", cpwCode);

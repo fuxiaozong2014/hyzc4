@@ -36,10 +36,12 @@ public class MyFragment extends BaseFragment {
     private TextView tv_account;
     private TextView tv_myPationte;
     private TextView tv_keshi;
-    private SharedPreferences sp;
+
 
     private List<PationteBean> pationtes;
     private int userType;
+    private SharedPreferences sp;
+
 
     @Override
     public View setMainView() {
@@ -47,7 +49,7 @@ public class MyFragment extends BaseFragment {
         ll_myPationte = (LinearLayout) view.findViewById(R.id.ll_myPationte);
         ll_myTask = (LinearLayout) view.findViewById(R.id.ll_myTask);
         ll_myTaskDOctor = (LinearLayout) view.findViewById(R.id.ll_myTaskDOctor);
-        sp=getActivity().getSharedPreferences("MyselfConfig", Context.MODE_PRIVATE);
+
 
 
         tv_account = (TextView) view.findViewById(R.id.tv_account);
@@ -59,7 +61,7 @@ public class MyFragment extends BaseFragment {
 
     @Override
     public void InitData() {
-
+        sp=getActivity().getSharedPreferences("MyselfConfig", Context.MODE_PRIVATE);
       /*  StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads().detectDiskWrites().detectNetwork()
                 .penaltyLog().build());
@@ -91,7 +93,7 @@ public class MyFragment extends BaseFragment {
         if(userType==5){//护理人员
             ll_myTaskDOctor.setVisibility(View.GONE);
         }
-        if(userType==1){//医生
+        if(userType==2){//医生
             ll_myTask.setVisibility(View.GONE);
         }
 
@@ -154,6 +156,12 @@ public class MyFragment extends BaseFragment {
 
         pationtes = new Gson().fromJson(jsonStr, new TypeToken<List<PationteBean>>() {
         }.getType());
+
+          /* sp.edit().putString("patientsNo","patientsNo").commit();
+                sp.edit().putString("name","name").commit();
+                sp.edit().putString("deptCode",deptCode).commit();
+                sp.edit().putString("deptName",deptName).commit();*/
+
     }
 
 }

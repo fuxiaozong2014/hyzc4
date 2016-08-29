@@ -20,7 +20,7 @@
             android:drawablePadding="5dp"
             android:drawableRight="@mipmap/search"
             android:gravity="center"
-            android:hint="查看已执行护理内容"
+            android:hint="点击条目选择是否执行"
             android:textColor="@color/click_diaocha_search"
             android:textSize="16dp" />
 

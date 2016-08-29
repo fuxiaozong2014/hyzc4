@@ -19,11 +19,11 @@ public class MyTaskDoctorActivity extends BaseActivity {
     private static final int REQUST_CODE = 1;
     private TextView tv_search;
     private LinearLayout ll_addYizhu;
-   /* private TextView tv_nurseHistory;
-    private TextView tv_nurseStage;
-    private TextView tv_addNursingCare;
-    private TextView tv_nursingContent_executed;
-    private TextView tv_nursingContentStage;*/
+    /* private TextView tv_nurseHistory;
+     private TextView tv_nurseStage;
+     private TextView tv_addNursingCare;
+     private TextView tv_nursingContent_executed;
+     private TextView tv_nursingContentStage;*/
     private String name;
     private String patientsNo;
     private String cpwCode;
@@ -53,7 +53,7 @@ public class MyTaskDoctorActivity extends BaseActivity {
 
     @Override
     public void InitData() {
-        sp=getSharedPreferences("PationteMsgConfig",MODE_PRIVATE);
+        sp = getSharedPreferences("PationteMsgConfig", MODE_PRIVATE);
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("我的任务");
@@ -91,7 +91,10 @@ public class MyTaskDoctorActivity extends BaseActivity {
                 }
                 break;
             case R.id.ll_addYizhu:
-               MyToast.showToast(MyTaskDoctorActivity.this,"此功能正在研发中，敬请期待！！！");
+                MyToast.showToast(MyTaskDoctorActivity.this, "此功能正在研发中，敬请期待！！！");
+                break;
+            case R.id.bt_titlebar_left:
+                finish();
                 break;
             default:
                 break;
@@ -108,10 +111,10 @@ public class MyTaskDoctorActivity extends BaseActivity {
                 cpwCode = data.getStringExtra("cpwCode");
                 deptCode = data.getStringExtra("deptCode");
                 deptName = data.getStringExtra("deptName");
-                sp.edit().putString("patientsNo","patientsNo").commit();
-                sp.edit().putString("name","name").commit();
-                sp.edit().putString("deptCode",deptCode).commit();
-                sp.edit().putString("deptName",deptName).commit();
+                sp.edit().putString("patientsNo", "patientsNo").commit();
+                sp.edit().putString("name", "name").commit();
+                sp.edit().putString("deptCode", deptCode).commit();
+                sp.edit().putString("deptName", deptName).commit();
 
 
                 MyLog.i("cpwCode", cpwCode);

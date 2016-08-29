@@ -2,12 +2,12 @@ package com.bjym.hyzc.activity.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PersistableBundle;
 
 import com.bjym.hyzc.R;
-
-import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by fushaoqing on 2016/6/28.
@@ -22,19 +22,18 @@ public class SplashActivity extends Activity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
+                    break;
+                default:
+                    break;
             }
         }
     };
 
-    // 初始化 JPush。如果已经初始化，但没有登录成功，则执行重新登录。
-    private void init() {
-        JPushInterface.init(getApplicationContext());
-    }
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.activity_splash);
         sendMsg();
     }
@@ -47,7 +46,6 @@ public class SplashActivity extends Activity {
                 handler.sendEmptyMessageDelayed(EmptyMsg, 3000);
             }
         }.start();
-
     }
 
 }

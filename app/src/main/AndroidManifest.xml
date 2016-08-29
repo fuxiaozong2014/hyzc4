@@ -43,20 +43,22 @@
         <activity
             android:name=".activity.activity.MainActivity"
             android:label="@string/app_name">
-
         </activity>
         <activity
             android:name=".activity.activity.LoginActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity android:name=".activity.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.activity.SplashActivity" />
+
         <activity
             android:name=".activity.activity.NurseUnxecuteYiZhuActivity"
             android:label="现有医嘱内容"
