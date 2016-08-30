@@ -2,9 +2,14 @@ package com.bjym.hyzc.activity.activity;
 
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -19,18 +24,22 @@ import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.callback.FileCallBack;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 import okhttp3.Call;
+import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -50,11 +59,25 @@ public class LoginActivity extends BaseActivity {
     private EditText et_pwd;
     private String password;
     private String usercode;
-    private SharedPreferences sp;
     private CheckBox cb;
     private LinearLayout ll_mainContent;
     private String[] hospitalNames;
     private String[] hospitalURLs;
+    private PackageInfo packageInfo;
+    private int versionCode;
+    private String versionName;
+    private String newVersionName;
+    private String newVersionCode;
+    private String newApkUrl;
+    private SharedPreferences sp;
+    private String fileDir;
+    private ProgressDialog progressDialog;
+    private int apkSize;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     public View setMainView() {
@@ -77,8 +100,14 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void InitData() {
 
-        hospitalNames = new String[]{"测试ip","吴桥人民医院","河南省人民医院"};
-        hospitalURLs = new String[]{"http://cp.hyzczg.com","http://192.168.0.168","http://192.168.0.188"};
+
+        //检测现在的版本号
+        getPackegeVersionInfo();
+        //得到服务器apk的版本信息
+        getNewPackegeVersionInfo();
+
+        hospitalNames = new String[]{"测试ip", "吴桥人民医院", "河南省人民医院"};
+        hospitalURLs = new String[]{"http://cp.hyzczg.com", "http://192.168.0.168", "http://192.168.0.188"};
 
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.VISIBLE);
@@ -94,15 +123,150 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    private void dealOldAndNewApkVersion() {
+        if (versionCode!=Integer.parseInt(newVersionCode)) {//说明有新版本，弹出对话框，询问是否更新
+            showAlertDialog();
+        }
+    }
+
+    private void showAlertDialog() {
+        final AlertDialog.Builder builer = new AlertDialog.Builder(this);
+        builer.setTitle("是否升级新版本？");
+        //builer.setMessage(info.getDescription());
+        //当点确定按钮时从服务器上下载 新的apk 然后安装
+        builer.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                downLoadApk();
+                dialog.dismiss();
+            }
+        });
+        //当点取消按钮时进行登录
+        builer.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+               dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builer.create();
+        dialog.show();
+    }
+
+    private void downLoadApk() {
+        if (Environment.MEDIA_MOUNTED.equalsIgnoreCase(Environment.getExternalStorageState())) {
+            fileDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        } else {
+            fileDir = getFilesDir().getAbsolutePath();
+        }
+        OkHttpUtils.get().url("http://192.168.0.118:8080/app-release.apk").build().execute(new FileCallBack(fileDir, "hyzc.apk") {
+
+            @Override
+            public void onBefore(Request request, int id) {
+                progressDialog = new ProgressDialog(LoginActivity.this);
+                progressDialog.setMessage("拼命下载中...");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progressDialog.show();
+                progressDialog.setMax(apkSize);
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) {
+                if (progress < apkSize)
+                    progressDialog.setProgress((int) progress);
+            }
+
+            @Override
+            public void onResponse(File file, int i) {
+                progressDialog.dismiss();
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                e.printStackTrace();
+                progressDialog.dismiss();
+            }
+        });
+
+    }
+
+    /*
+    * 得到服务器传回的apk的版本信息
+    * */
+    private void getNewPackegeVersionInfo() {
+        OkHttpUtils.get()
+                .url("http://192.168.0.118:8080/versionInfo.json")
+                .build()
+                .execute(new Callback() {
+                    @Override
+                    public Object parseNetworkResponse(Response response, int i) throws Exception {
+                        // String stringVersion = response.body().string();
+                        //  MyLog.i("stringVersion::",stringVersion);
+
+                        return response.body().string();
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int i) {
+                        e.printStackTrace();
+                        MyLog.i("e.printStackTrace();", e.toString());
+                        MyToast.showToast(LoginActivity.this, "请求网络失败");
+                        // ll_mainContent.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onResponse(Object o, int i) {
+                        MyLog.i("oooooooo", (String) o);
+                        parseStringVersion((String) o);
+                        //比对两者的信息是否一致
+                        dealOldAndNewApkVersion();
+                    }
+                });
+    }
+
+    private void parseStringVersion(String o) {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(o);
+            newVersionName = jsonObject.optString("versionName");
+            MyLog.i("newVersionName::", newVersionName);
+            newVersionCode = jsonObject.optString("versionCode");
+            MyLog.i("newVersionCode::", newVersionCode);
+            newApkUrl = jsonObject.optString("apkUrl");
+            MyLog.i("newApkUrl::", newApkUrl);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void getPackegeVersionInfo() {
+        PackageManager packageManager = getPackageManager();
+        try {
+            //得到包信息，版本名称，版本号
+            packageInfo = packageManager.getPackageInfo(getPackageName(), 0);
+            versionCode = packageInfo.versionCode;
+            MyLog.i("versionCode:::::", versionCode + "");
+            versionName = packageInfo.versionName;
+            MyLog.i("versionName:::::", versionName);
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void dealSettingIP() {
-        String hospitalURL=sp.getString("hospitalURL","");
-        MyLog.i("hospitalURL::",hospitalURL);
+        String hospitalURL = sp.getString("hospitalURL", "");
+        MyLog.i("hospitalURL::", hospitalURL);
 
         if (hospitalURL.equals("")) {
-            MyToast.showToast(LoginActivity.this,"请点击'设置'您所在的医院");
+            MyToast.showToast(LoginActivity.this, "请点击'设置'您所在的医院");
 
-        }else {
-            MyConstant.BASE_URL=hospitalURL;
+        } else {
+            MyConstant.BASE_URL = hospitalURL;
         }
     }
 
@@ -125,15 +289,15 @@ public class LoginActivity extends BaseActivity {
 
     private void showIPSetting() {
         int which = sp.getInt("which", 0);
-        AlertDialog.Builder builder=new AlertDialog.Builder(LoginActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
         builder.setTitle("请选择：您所在的医院");
         builder.setSingleChoiceItems(hospitalNames, which, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                sp.edit().putString("hospitalURL",hospitalURLs[which]).commit();
-                sp.edit().putString("hospitalName",hospitalNames[which]).commit();
-                sp.edit().putInt("which",which).commit();
-                MyConstant.BASE_URL=hospitalURLs[which];
+                sp.edit().putString("hospitalURL", hospitalURLs[which]).commit();
+                sp.edit().putString("hospitalName", hospitalNames[which]).commit();
+                sp.edit().putInt("which", which).commit();
+                MyConstant.BASE_URL = hospitalURLs[which];
                 dialog.dismiss();
             }
         });
@@ -157,9 +321,9 @@ public class LoginActivity extends BaseActivity {
         } else {
             //TODO
             showDialogProgress("登录中");
-            MyLog.i("MyConstant.LOGIN_URL:::", MyConstant.BASE_URL+ MyConstant.LOGIN_URL);
+            MyLog.i("MyConstant.LOGIN_URL:::", MyConstant.BASE_URL + MyConstant.LOGIN_URL);
             OkHttpUtils.post()
-                    .url(MyConstant.BASE_URL+ MyConstant.LOGIN_URL)
+                    .url(MyConstant.BASE_URL + MyConstant.LOGIN_URL)
                     .addParams("usercode", usercode)
                     .addParams("password", password)
                     .addParams("expired", "365")
@@ -178,7 +342,7 @@ public class LoginActivity extends BaseActivity {
                             MyLog.i("e.printStackTrace();", e.toString());
                             dismiss();
                             MyToast.showToast(LoginActivity.this, "请检查网络设置或稍后再试");
-                           // ll_mainContent.setVisibility(View.VISIBLE);
+                            // ll_mainContent.setVisibility(View.VISIBLE);
                         }
 
                         @Override
@@ -196,14 +360,19 @@ public class LoginActivity extends BaseActivity {
             saveUserInfo();
             setAlias();
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            intent.putExtra("usercode",usercode);
+            intent.putExtra("usercode", usercode);
             startActivity(intent);
             finish();
         } else {
             //TODO 这里其实有两种状态 密码有误  账户不存在
             //{"ResultID":50000,"ResultMsg":"账号不存在！","Succeed":false,"ResultData":null,"s":false,"emsg":"账号不存在！"}
             //{"ResultID":50000,"ResultMsg":"密码有误！","Succeed":false,"ResultData":null,"s":false,"emsg":"密码有误！"}
-            MyToast.showToast(LoginActivity.this, "密码有误或账户不存在");
+            if (jsonObject.optString("ResultMsg").equals("账号不存在！")) {
+                MyToast.showToast(LoginActivity.this, "您输入的账号不存在");
+            } else if (jsonObject.optString("ResultMsg").equals("密码有误！")) {
+                MyToast.showToast(LoginActivity.this, "请输入正确的密码");
+            }
+
             dismiss();
             //ll_mainContent.setVisibility(View.VISIBLE);
         }
