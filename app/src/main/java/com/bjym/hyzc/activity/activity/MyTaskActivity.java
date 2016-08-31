@@ -107,8 +107,8 @@ public class MyTaskActivity extends BaseActivity {
                 }
                 break;
             case R.id.tv_addNursingCare:
-                //startActivity(new Intent(this, AddNursingCareActivity.class));
-                MyToast.showToast(MyTaskActivity.this,"此功能正在完善中...");
+                startActivity(new Intent(this, AddNursingCareActivity.class));
+                //MyToast.showToast(MyTaskActivity.this,"此功能正在完善中...");
                 break;
 
             case R.id.tv_nursingContentStage:

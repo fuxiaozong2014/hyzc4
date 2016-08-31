@@ -48,7 +48,7 @@ public class AddNursingCareActivity extends BaseActivity {
 
             //TODO 提交内容的url没有得到
 
-        OkHttpUtils.postString().mediaType(MediaType.parse("application/json")).url("").content("")
+        OkHttpUtils.postString().mediaType(MediaType.parse("application/json")).url("http://192.168.0.168").content("")
                 .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {

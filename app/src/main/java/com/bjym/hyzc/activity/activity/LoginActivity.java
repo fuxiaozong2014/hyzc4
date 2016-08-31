@@ -24,7 +24,6 @@ import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.FileCallBack;
@@ -73,11 +72,7 @@ public class LoginActivity extends BaseActivity {
     private String fileDir;
     private ProgressDialog progressDialog;
     private int apkSize;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+
 
     @Override
     public View setMainView() {
@@ -99,7 +94,6 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void InitData() {
-
 
         //检测现在的版本号
         getPackegeVersionInfo();
@@ -189,7 +183,6 @@ public class LoginActivity extends BaseActivity {
                 progressDialog.dismiss();
             }
         });
-
     }
 
     /*
