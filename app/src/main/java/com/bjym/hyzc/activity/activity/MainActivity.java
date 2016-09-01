@@ -217,10 +217,6 @@ public class MainActivity extends BaseActivity {
 
                 }
 
-               /* *//*
-                * 通过Bundle给acconteFragment和researchFragment传值
-                * *//*
-                bundle = getBundle();*/
                 sp=getSharedPreferences("MyselfConfig", Context.MODE_PRIVATE);
                 sp.edit().putString("departmentCode",departmentCode).commit();
                 sp.edit().putString("userCode",userCode).commit();
@@ -230,17 +226,6 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-   /* @NonNull
-    private Bundle getBundle() {
-        Bundle bundle = new Bundle();
-
-        bundle.putString("departmentCode", departmentCode);
-        bundle.putString("realName", realName);
-        bundle.putString("userCode", userCode);
-        bundle.putInt("userType",userType);
-        return bundle;
-    }
-*/
     private void parseMyselfJson(String json) {
 
         myselefLists = new Gson().fromJson(json, new TypeToken<List<MyselfBean>>() {

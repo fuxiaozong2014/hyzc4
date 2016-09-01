@@ -140,6 +140,7 @@ public class HomeFragment extends BaseFragment {
             ImageView imageView =new ImageView(context);
             Picasso.with(getContext())
                     .load(imgUrls.get(position))
+                    .error(R.mipmap.ic_launcher)
                     .resize(viewPager.getWidth(), viewPager.getHeight())
 //                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                     .into(imageView);

@@ -35,7 +35,6 @@ public class AddNursingCareActivity extends BaseActivity {
 
     @Override
     public void InitData() {
-
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("新增护理内容");

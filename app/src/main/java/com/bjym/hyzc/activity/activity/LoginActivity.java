@@ -151,7 +151,7 @@ public class LoginActivity extends BaseActivity {
         } else {
             fileDir = getFilesDir().getAbsolutePath();
         }
-        OkHttpUtils.get().url("http://192.168.0.118:8080/app-release.apk").build().execute(new FileCallBack(fileDir, "hyzc.apk") {
+        OkHttpUtils.get().url("http://www.hyzczg.com/app/cp/app-release.apk").build().execute(new FileCallBack(fileDir, "hyzc.apk") {
 
             @Override
             public void onBefore(Request request, int id) {
@@ -190,7 +190,7 @@ public class LoginActivity extends BaseActivity {
     * */
     private void getNewPackegeVersionInfo() {
         OkHttpUtils.get()
-                .url("http://192.168.0.118:8080/versionInfo.json")
+                .url("http://www.hyzczg.com/app/cp/versionInfo.json")
                 .build()
                 .execute(new Callback() {
                     @Override
