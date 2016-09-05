@@ -7,6 +7,14 @@
         android:targetSdkVersion="23" />
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!--这是扫描二维码所需权限-->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     <!-- Required -->
     <permission
         android:name="com.bjym.hyzc.permission.JPUSH_MESSAGE"
@@ -42,6 +50,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.activity.MainActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name">
         </activity>
         <activity
@@ -116,6 +125,7 @@
         <activity android:name=".activity.activity.DeptNewsWebViewActivity"></activity>
         <activity android:name=".activity.activity.StudyVideoWebViewActivity"></activity>
         <activity android:name=".activity.activity.MyTaskDoctorActivity"></activity>
+        <activity android:name=".activity.zxing.code.CaptureActivity"></activity>
         <!-- Required SDK 核心功能-->
         <!-- option since 2.0.5 可配置PushService，DaemonService,PushReceiver,AlarmReceiver的android:process参数 将JPush相关组件设置为一个独立进程 -->
         <!-- 如：android:process=":remote" -->

@@ -58,4 +58,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile 'org.webjars.bower:ng-sweet-alert:1.0.7'
     compile 'com.android.support:support-v4:24.2.0'
+    compile files('libs/zxing.jar')
 }

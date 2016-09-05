@@ -19,5 +19,8 @@
     <dimen name="title_iv_size">30dp</dimen>
     <dimen name="margin_left_iv_user">10dp</dimen>
     <dimen name="tv_search_size">300dp</dimen>
+    <!--二维码扫描-->
+    <dimen name="standard_padding">8dip</dimen>
+    <dimen name="half_padding">4dip</dimen>
 
 </resources>

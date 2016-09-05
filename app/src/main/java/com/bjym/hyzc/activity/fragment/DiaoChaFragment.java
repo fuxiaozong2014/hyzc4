@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.bjym.hyzc.activity.bean.DiaoChaSortBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
+import com.bjym.hyzc.activity.zxing.code.CaptureActivity;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -58,6 +60,7 @@ public class DiaoChaFragment extends BaseFragment {
     private Button bt_titlebar_left;
     private TextView tv_titlebar_center;
     private RelativeLayout rela_no_wifi;
+    private ImageView iv_search;
 
 
     @Override
@@ -65,7 +68,7 @@ public class DiaoChaFragment extends BaseFragment {
         View view = View.inflate(getContext(), R.layout.fragment_diaocha, null);
         ll_diaoChaSort = (ListView) view.findViewById(R.id.ll_diaoChaSort);
         //re_search = (RelativeLayout) view.findViewById(R.id.re_search);
-
+        iv_search = (ImageView) view.findViewById(R.id.iv_search);
         rela_no_wifi = (RelativeLayout) view.findViewById(R.id.Rela_no_wifi);
         tv_search = (TextView) view.findViewById(R.id.tv_search);
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
@@ -83,6 +86,7 @@ public class DiaoChaFragment extends BaseFragment {
         tv_titlebar_center.setText("调查");
         ll_diaoChaSort.setOnItemClickListener(new MyOnItemClickListner());
         tv_search.setOnClickListener(this);
+        iv_search.setOnClickListener(this);
         /*
         * 得到用户名和真实姓名，提交使用
         * */
@@ -228,6 +232,16 @@ public class DiaoChaFragment extends BaseFragment {
                 * */
                 startActivity(new Intent(context, MyPationteActivity.class));
                 break;
+            case R.id.iv_search:
+                /*
+                * click here scan barCode to get pationte data  TODO
+                * */
+                //打开扫描界面扫描条形码或二维码
+                Intent openCameraIntent = new Intent(DiaoChaFragment.this.getActivity(),CaptureActivity.class);
+                startActivityForResult(openCameraIntent, 0);
+                break;
+            default:
+                break;
         }
     }
 
@@ -270,4 +284,26 @@ public class DiaoChaFragment extends BaseFragment {
         super.onPause();
        rela_no_wifi.setVisibility(View.GONE);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == -1) {
+
+            Bundle bundle = data.getExtras();
+            if (bundle != null) {
+                // 结果
+                String codeinformation = bundle.getString("result");
+                MyToast.showToast(DiaoChaFragment.this.getActivity(),codeinformation);
+
+                tv_search.setText(codeinformation);
+                MyLog.i("codeinformation::",codeinformation);
+            }else {
+                MyToast.showToast(DiaoChaFragment.this.getActivity(),"没有结果");
+            }
+
+        }
+    }
+
 }
