@@ -19,15 +19,18 @@
                android:layout_height="match_parent"
                android:hint="点此选择患者"
                android:gravity="center"
+               android:drawableStart="@mipmap/search"
+               android:drawablePadding="-50dp"
+               android:paddingLeft="80dp"
                android:textColor="@color/click_diaocha_search"
                android:textSize="16dp"
-               />
+               android:drawableLeft="@mipmap/search" />
           <ImageView
               android:id="@+id/iv_search"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:background="@mipmap/search"
-              android:layout_marginLeft="10dp"/>
+              android:layout_width="20dp"
+              android:layout_height="20dp"
+              android:background="@mipmap/scan"
+              android:layout_marginLeft="5dp"/>
         </LinearLayout>
 
 

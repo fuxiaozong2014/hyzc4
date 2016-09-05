@@ -100,7 +100,7 @@ public class LoginActivity extends BaseActivity {
         //得到服务器apk的版本信息
         getNewPackegeVersionInfo();
 
-        hospitalNames = new String[]{"测试ip", "吴桥人民医院", "河南省人民医院"};
+        hospitalNames = new String[]{"测试ip", "吴桥中西医结合医院", "河南省人民医院"};
         hospitalURLs = new String[]{"http://cp.hyzczg.com", "http://192.168.0.168", "http://192.168.0.188"};
 
         bt_titlebar_left.setVisibility(View.GONE);
@@ -126,7 +126,6 @@ public class LoginActivity extends BaseActivity {
     private void showAlertDialog() {
         final AlertDialog.Builder builer = new AlertDialog.Builder(this);
         builer.setTitle("是否升级新版本？");
-        //builer.setMessage(info.getDescription());
         //当点确定按钮时从服务器上下载 新的apk 然后安装
         builer.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -137,7 +136,6 @@ public class LoginActivity extends BaseActivity {
         //当点取消按钮时进行登录
         builer.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                // TODO Auto-generated method stub
                dialog.dismiss();
             }
         });
@@ -167,9 +165,6 @@ public class LoginActivity extends BaseActivity {
 
                if (progress < Integer.parseInt(apkSize))
                     progressDialog.setProgress(-(int)progress);
-              /*  MyLog.i("progress",progress+"");
-                MyLog.i("total",total+"");*/
-
             }
 
             @Override

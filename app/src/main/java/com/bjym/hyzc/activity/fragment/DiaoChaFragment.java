@@ -186,7 +186,6 @@ public class DiaoChaFragment extends BaseFragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
            /*
            * 1.必须选择调查人，否则不能开始调查功能
-           *TODO surveyed 既能输入又能选择
            * 2.传递调查者姓名和编号，患者姓名和编号以及问卷编码到surveyActivity 用于提交数据
            * */
             if (name != null) {
