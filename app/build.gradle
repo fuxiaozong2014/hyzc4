@@ -53,8 +53,9 @@ dependencies {
     compile files('libs/okhttputils-2_6_1.jar')
     compile 'com.squareup.okhttp3:okhttp:3.4.0-RC1'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
-    compile 'com.android.support:support-v4:24.0.0'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    compile 'org.webjars.bower:ng-sweet-alert:1.0.7'
+    compile 'com.android.support:support-v4:24.2.0'
 }

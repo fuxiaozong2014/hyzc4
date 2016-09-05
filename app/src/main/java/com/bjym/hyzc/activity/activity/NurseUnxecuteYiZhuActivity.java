@@ -84,12 +84,12 @@ public class NurseUnxecuteYiZhuActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(NurseUnxecuteYiZhuActivity.this,"请求网络失败");
+                MyToast.showToast(NurseUnxecuteYiZhuActivity.this,"请求网络失败，请稍后再试");
             }
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(NurseUnxecuteYiZhuActivity.this,"请求网络成功");
+                MyToast.showToast(NurseUnxecuteYiZhuActivity.this,"执行医嘱成功");
             }
         });
 

@@ -71,7 +71,7 @@ public class LoginActivity extends BaseActivity {
     private SharedPreferences sp;
     private String fileDir;
     private ProgressDialog progressDialog;
-    private int apkSize;
+    private String apkSize;
 
 
     @Override
@@ -151,7 +151,7 @@ public class LoginActivity extends BaseActivity {
         } else {
             fileDir = getFilesDir().getAbsolutePath();
         }
-        OkHttpUtils.get().url("http://www.hyzczg.com/app/cp/app-release.apk").build().execute(new FileCallBack(fileDir, "hyzc.apk") {
+        OkHttpUtils.get().url(newApkUrl).build().execute(new FileCallBack(fileDir, "hyzc.apk") {
 
             @Override
             public void onBefore(Request request, int id) {
@@ -159,13 +159,17 @@ public class LoginActivity extends BaseActivity {
                 progressDialog.setMessage("拼命下载中...");
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 progressDialog.show();
-                progressDialog.setMax(apkSize);
+                progressDialog.setMax(Integer.parseInt(apkSize));
             }
 
             @Override
             public void inProgress(float progress, long total, int id) {
-                if (progress < apkSize)
-                    progressDialog.setProgress((int) progress);
+
+               if (progress < Integer.parseInt(apkSize))
+                    progressDialog.setProgress(-(int)progress);
+              /*  MyLog.i("progress",progress+"");
+                MyLog.i("total",total+"");*/
+
             }
 
             @Override
@@ -174,7 +178,6 @@ public class LoginActivity extends BaseActivity {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
                 startActivity(intent);
-                finish();
             }
 
             @Override
@@ -220,15 +223,15 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void parseStringVersion(String o) {
-        JSONObject jsonObject = null;
         try {
-            jsonObject = new JSONObject(o);
+            JSONObject jsonObject = new JSONObject(o);
             newVersionName = jsonObject.optString("versionName");
             MyLog.i("newVersionName::", newVersionName);
             newVersionCode = jsonObject.optString("versionCode");
             MyLog.i("newVersionCode::", newVersionCode);
             newApkUrl = jsonObject.optString("apkUrl");
             MyLog.i("newApkUrl::", newApkUrl);
+            apkSize = jsonObject.optString("apkSize");
 
         } catch (JSONException e) {
             e.printStackTrace();

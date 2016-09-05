@@ -97,10 +97,27 @@ public class MyTaskActivity extends BaseActivity {
                 break;
             case R.id.tv_nurseStage:
                 Intent NurseExecuteActivityIntent = new Intent(this, NurseSelectStageActivity.class);
-                if (name == null || patientsNo == null || cpwCode == null) {
+                /*if (name == null || patientsNo == null || cpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
                     return;
-                } else {
+                }
+                if(cpwCode.equals("")){
+                    MyToast.showToast(this, "此患者还没有配置路径");
+                    return;
+                }else {
+                    NurseExecuteActivityIntent.putExtra("cpwCode", cpwCode);
+                    NurseExecuteActivityIntent.putExtra("patientsNo", patientsNo);
+                    startActivity(NurseExecuteActivityIntent);
+                }*/
+               // Intent tv_nursingContentStageIntent = new Intent(this, NursingContentParentStageActivity.class);
+                if (cpwCode == null) {
+                    MyToast.showToast(this, "请选择患者");
+                    return;
+                }
+                if (cpwCode.equals("")){
+                    MyToast.showToast(this, "此患者还没有配置路径");
+                    return;
+                }else {
                     NurseExecuteActivityIntent.putExtra("cpwCode", cpwCode);
                     NurseExecuteActivityIntent.putExtra("patientsNo", patientsNo);
                     startActivity(NurseExecuteActivityIntent);
@@ -108,7 +125,7 @@ public class MyTaskActivity extends BaseActivity {
                 break;
             case R.id.tv_addNursingCare:
                 startActivity(new Intent(this, AddNursingCareActivity.class));
-                //MyToast.showToast(MyTaskActivity.this,"此功能正在完善中...");
+                MyToast.showToast(MyTaskActivity.this,"此功能正在完善中...");
                 break;
 
             case R.id.tv_nursingContentStage:
@@ -124,7 +141,6 @@ public class MyTaskActivity extends BaseActivity {
                     tv_nursingContentStageIntent.putExtra("cpwCode", cpwCode);
                     startActivity(tv_nursingContentStageIntent);
                 }
-
                 break;
            /* case R.id.tv_nursingContent_executed:
                 startActivity(new Intent(this,ExistingNursingContentActivity.class));

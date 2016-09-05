@@ -87,8 +87,6 @@ public class NurseSelectStageActivity extends BaseActivity {
         bt_titlebar_left.setOnClickListener(this);
 
     }
-
-
     private void getNurseStageData() {
 
         MyLog.i("NURSE_STAGE+cpwCode:::::::::", MyConstant.NURSE_SELECT_STAGE + cpwCode);

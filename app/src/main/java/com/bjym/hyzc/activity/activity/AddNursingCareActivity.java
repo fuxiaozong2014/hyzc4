@@ -29,7 +29,6 @@ public class AddNursingCareActivity extends BaseActivity {
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
         bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
         tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);
-
         return view;
     }
 
@@ -40,13 +39,10 @@ public class AddNursingCareActivity extends BaseActivity {
         tv_titlebar_center.setText("新增护理内容");
         bt_titlebar_left.setOnClickListener(this);
         commitAddNursingCare();
-
     }
 
     private void commitAddNursingCare() {
-
             //TODO 提交内容的url没有得到
-
         OkHttpUtils.postString().mediaType(MediaType.parse("application/json")).url("http://192.168.0.168").content("")
                 .build().execute(new Callback() {
             @Override
@@ -79,7 +75,6 @@ public class AddNursingCareActivity extends BaseActivity {
                 break;
             default:
                 break;
-
         }
     }
 }
