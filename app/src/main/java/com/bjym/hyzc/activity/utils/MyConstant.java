@@ -103,4 +103,9 @@ public class MyConstant {
     * 获取轮播图
     * */
     public static final String LUNBOTU= "http://www.hyzczg.com/plugins/advert/advert_js.ashx?id=1";
+
+    /*
+    * 根据患者编号得到，患者姓名，用于条形框赋值
+    * */
+    public static final String PATIONTE_SINGLE= "/cpw/CPW_Patients/getsinglepatients?PatientsNo=";
 }

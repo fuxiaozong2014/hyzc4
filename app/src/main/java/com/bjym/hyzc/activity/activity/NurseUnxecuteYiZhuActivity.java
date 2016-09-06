@@ -39,10 +39,12 @@ public class NurseUnxecuteYiZhuActivity extends BaseActivity {
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
     private TextView tv_titlebar_center;
+    private MyAdapter adapter;
+
     class MyOnItemClickListener implements AdapterView.OnItemClickListener{
 
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
             //条目被点击之后，得到OrderNo，弹出对话框，询问是否执行此医嘱
             final String orderNo = rows.get(position).OrderNo;
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -55,8 +57,8 @@ public class NurseUnxecuteYiZhuActivity extends BaseActivity {
                     // finish();
                     dialog.dismiss();
                     postUnExecuteYiZhu(orderNo);
-
-
+                    rows.remove(rows.get(position));
+                    adapter.notifyDataSetChanged();
                 }
             });
             builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -161,7 +163,8 @@ public class NurseUnxecuteYiZhuActivity extends BaseActivity {
 
             tv_none_unExecuteYiZhu.setVisibility(View.VISIBLE);
         }
-        lv.setAdapter(new MyAdapter());
+        adapter = new MyAdapter();
+        lv.setAdapter(adapter);
     }
 
     class MyAdapter extends BaseAdapter {

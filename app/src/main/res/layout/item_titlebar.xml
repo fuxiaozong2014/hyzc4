@@ -19,14 +19,40 @@
         android:padding="5dp"
          />
 
-    <TextView
-        android:id="@+id/tv_titlebar_center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:textColor="@color/background_white"
-        android:textSize="@dimen/level_1_size" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_titlebar_center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/background_white"
+            android:textSize="@dimen/level_1_size"
+            />
+        <Button
+            android:id="@+id/btn_unexecute_yizhu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="未执行"
+            android:textColor="@color/background_white"
+            />
+        <Button
+            android:id="@+id/btn_execute_yizhu"
+            android:layout_toRightOf="@id/btn_unexecute_yizhu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="已执行"
+            android:textColor="@color/background_white"
+            />
+    </RelativeLayout>
+
+
 
     <Button
         android:id="@+id/bt_titlebar_right"

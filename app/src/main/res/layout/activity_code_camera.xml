@@ -20,7 +20,6 @@
         android:layout_height="fill_parent"
         android:layout_gravity="center"
         android:orientation="vertical" >
-
         <TextView
              android:id="@+id/tv_msg"
             android:layout_width="fill_parent"
@@ -30,11 +29,11 @@
             android:gravity="center"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="请条形码或二维码置于框内"
+            android:text="请将条形码或二维码置于框内"
             android:textColor="@color/background_white"
-            android:background="@color/main"
+            android:background="@color/colorPrimary"
             android:textSize="20sp"
-            android:textStyle="bold" />
+             />
 
         <LinearLayout
             android:layout_width="fill_parent"

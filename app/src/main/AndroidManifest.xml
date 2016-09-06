@@ -67,6 +67,9 @@
         <activity android:name=".activity.activity.SplashActivity">
 
         </activity>
+        <activity android:name=".activity.activity.NurseYiZhuActivity">
+
+        </activity>
 
         <activity
             android:name=".activity.activity.NurseUnxecuteYiZhuActivity"

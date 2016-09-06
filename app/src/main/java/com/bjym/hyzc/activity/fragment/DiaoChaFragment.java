@@ -21,16 +21,19 @@ import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.activity.MyPationteActivity;
 import com.bjym.hyzc.activity.activity.SurveyActivity;
 import com.bjym.hyzc.activity.bean.DiaoChaSortBean;
+import com.bjym.hyzc.activity.bean.PationteBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
 import com.bjym.hyzc.activity.zxing.code.CaptureActivity;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -61,6 +64,7 @@ public class DiaoChaFragment extends BaseFragment {
     private TextView tv_titlebar_center;
     private RelativeLayout rela_no_wifi;
     private ImageView iv_search;
+    private String codeinformation;
 
 
     @Override
@@ -73,14 +77,13 @@ public class DiaoChaFragment extends BaseFragment {
         tv_search = (TextView) view.findViewById(R.id.tv_search);
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
         bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
-        tv_titlebar_center = (TextView)view.findViewById(R.id.tv_titlebar_center);
+        tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);
 
         return view;
     }
 
     @Override
     public void InitData() {
-
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("调查");
@@ -102,13 +105,13 @@ public class DiaoChaFragment extends BaseFragment {
     }
 
     private void getSurveySortData() {
-       // handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING,500);
+        // handler.sendEmptyMessageDelayed(RELA_WAIT_LOADING,500);
         //请求调查类型
         showDialogProgress("请求中...");
-        OkHttpUtils.get().url(MyConstant.BASE_URL+MyConstant.MYDIAOCHA_URL).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL + MyConstant.MYDIAOCHA_URL).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
-               // dismissWaitingDialog();
+                // dismissWaitingDialog();
                 String result = response.body().string();
                 //  MyToast.showToast(DiaoChaFragment.this.getActivity(), "success" + result);
                 parseSurveySortJson(result);
@@ -122,6 +125,7 @@ public class DiaoChaFragment extends BaseFragment {
                 MyToast.showToast(DiaoChaFragment.this.getActivity(), "请检查网络设置或稍后再试");
 
             }
+
             @Override
             public void onResponse(Object o, int i) {
                 dismiss();
@@ -145,6 +149,7 @@ public class DiaoChaFragment extends BaseFragment {
             surveyNo = rowsBean.SurveyNo;
         }
     }
+
 
     public class MyAdapter extends BaseAdapter {
         @Override
@@ -236,7 +241,7 @@ public class DiaoChaFragment extends BaseFragment {
                 * click here scan barCode to get pationte data  TODO
                 * */
                 //打开扫描界面扫描条形码或二维码
-                Intent openCameraIntent = new Intent(DiaoChaFragment.this.getActivity(),CaptureActivity.class);
+                Intent openCameraIntent = new Intent(DiaoChaFragment.this.getActivity(), CaptureActivity.class);
                 startActivityForResult(openCameraIntent, 0);
                 break;
             default:
@@ -256,7 +261,7 @@ public class DiaoChaFragment extends BaseFragment {
             name = intent.getStringExtra("Name");
             patientsNo = intent.getStringExtra("patientsNo");
             MyLog.i("DATA", "Name：" + name + "   patientsNo:" + patientsNo);
-            tv_search.setText("姓名：" + name + "    患者编号：" + patientsNo);
+            tv_search.setText("姓名：" + name + "    编号：" + patientsNo);
         }
     }
 
@@ -268,7 +273,7 @@ public class DiaoChaFragment extends BaseFragment {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("INTEN_MYPATIONTE");
         broadcastManager.registerReceiver(receiver, intentFilter);
-      //  MyToast.showToast(getActivity(), "收到广播了");
+        //  MyToast.showToast(getActivity(), "收到广播了");
     }
 
 
@@ -281,7 +286,7 @@ public class DiaoChaFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-       rela_no_wifi.setVisibility(View.GONE);
+        rela_no_wifi.setVisibility(View.GONE);
     }
 
     @Override
@@ -293,16 +298,50 @@ public class DiaoChaFragment extends BaseFragment {
             Bundle bundle = data.getExtras();
             if (bundle != null) {
                 // 结果
-                String codeinformation = bundle.getString("result");
-                MyToast.showToast(DiaoChaFragment.this.getActivity(),codeinformation);
+                codeinformation = bundle.getString("result");
+                MyToast.showToast(DiaoChaFragment.this.getActivity(), codeinformation);
+                getPationteName();
 
-                tv_search.setText(codeinformation);
-                MyLog.i("codeinformation::",codeinformation);
-            }else {
-                MyToast.showToast(DiaoChaFragment.this.getActivity(),"没有结果");
+            } else {
+                MyToast.showToast(DiaoChaFragment.this.getActivity(), "没有结果");
             }
 
         }
     }
 
+    private void getPationteName() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL + MyConstant.PATIONTE_SINGLE+codeinformation).build().execute(new Callback() {
+            @Override
+            public Object parseNetworkResponse(Response response, int i) throws Exception {
+                // dismissWaitingDialog();
+                //  String result = response.body().string();
+                return response.body().string();
+            }
+
+            @Override
+            public void onError(Call call, Exception e, int i) {
+                MyToast.showToast(DiaoChaFragment.this.getActivity(), "请检查网络设置或稍后再试");
+
+            }
+
+            @Override
+            public void onResponse(Object o, int i) {
+                parseSinglePationteJson((String) o);
+            }
+        });
+    }
+
+    private void parseSinglePationteJson(String o) {
+        ArrayList<PationteBean> pationteSingle = new Gson().fromJson(o, new TypeToken<List<PationteBean>>() {
+        }.getType());
+        if(pationteSingle.size()>0){
+            for (int i = 0; i < pationteSingle.size(); i++) {
+                String name = pationteSingle.get(i).Name;
+                tv_search.setText("姓名: " + name + "  编号: " + codeinformation);
+                MyLog.i("codeinformation::", codeinformation);
+            }
+        }else{
+            tv_search.setText(codeinformation);
+        }
+    }
 }

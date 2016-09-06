@@ -50,7 +50,7 @@ public class NurseSelectStageActivity extends BaseActivity {
             if(rows.get(position).StageCode==null){
                 MyToast.showToast(NurseSelectStageActivity.this,"此患者还没有配置路径");
             }else {
-                Intent intent=new Intent(context,NurseUnxecuteYiZhuActivity.class);
+                Intent intent=new Intent(context,NurseYiZhuActivity.class);
                 intent.putExtra("StageCode",rows.get(position).StageCode);
                 intent.putExtra("patientsNo",patientsNo);
                 startActivity(intent);
