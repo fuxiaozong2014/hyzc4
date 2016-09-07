@@ -99,7 +99,7 @@
             android:label="新增护理"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.activity.NursingContentSelectParentActivity"
+            android:name=".activity.activity.NursingUnexecuteContentActivity"
             android:label="护理内容维护"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -123,12 +123,13 @@
         <activity android:name=".activity.activity.NursingContentParentStageActivity"></activity>
         <activity android:name=".activity.activity.PationteBestDetailMsgActivity"></activity>
         <activity android:name=".activity.activity.PationtNameListActivity"></activity>
-        <activity android:name=".activity.activity.NursingContentSelectChildActivity"></activity>
+        <activity android:name=".activity.activity.NursingUnexecuteContentChildActivity"></activity>
         <activity android:name=".activity.activity.DoctorUnxecuteYiZhuActivity"></activity>
         <activity android:name=".activity.activity.DeptNewsWebViewActivity"></activity>
         <activity android:name=".activity.activity.StudyVideoWebViewActivity"></activity>
         <activity android:name=".activity.activity.MyTaskDoctorActivity"></activity>
         <activity android:name=".activity.zxing.code.CaptureActivity"></activity>
+        <activity android:name=".activity.activity.NurseContentActivity"></activity>
         <!-- Required SDK 核心功能-->
         <!-- option since 2.0.5 可配置PushService，DaemonService,PushReceiver,AlarmReceiver的android:process参数 将JPush相关组件设置为一个独立进程 -->
         <!-- 如：android:process=":remote" -->

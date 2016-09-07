@@ -39,7 +39,7 @@
                 android:textSize="@dimen/level_1_size"
                 />
             <Button
-                android:id="@+id/btn_unexecute_yizhu"
+                android:id="@+id/btn_unexecute_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -48,8 +48,8 @@
                 android:textColor="@color/background_white"
                 />
             <Button
-                android:id="@+id/btn_execute_yizhu"
-                android:layout_toRightOf="@id/btn_unexecute_yizhu"
+                android:id="@+id/btn_execute_content"
+                android:layout_toRightOf="@id/btn_unexecute_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -84,6 +84,6 @@
         android:layout_below="@id/Re_titlebar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       ></android.support.v4.view.ViewPager>
+        ></android.support.v4.view.ViewPager>
 
 </RelativeLayout>

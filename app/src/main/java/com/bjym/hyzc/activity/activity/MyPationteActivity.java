@@ -266,6 +266,7 @@ public class MyPationteActivity extends BaseActivity {
             Intent intentToMyTask = new Intent();
             intentToMyTask.putExtra("Name", name);
             intentToMyTask.putExtra("patientsNo", patientsNo);
+            intentToMyTask.putExtra("patientsNo", patientsNo);
             intentToMyTask.putExtra("cpwCode", cpwCode);
             intentToMyTask.putExtra("deptCode", deptCode);
             intentToMyTask.putExtra("deptName", deptName);

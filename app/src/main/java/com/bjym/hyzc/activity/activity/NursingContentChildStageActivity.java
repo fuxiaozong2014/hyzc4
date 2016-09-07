@@ -29,6 +29,7 @@ public class NursingContentChildStageActivity extends BaseActivity {
     private List<NurseExecuteBean.RowsBean> childItemLists;
     private List<NursingContentBean.RowsBean> rowsSun;
     private List<NursingContentBean.RowsBean> rowsSunItemLists=new ArrayList<>();
+    private String patientsNo;
 
     class MyOnItemClickListener implements AdapterView.OnItemClickListener {
 
@@ -47,8 +48,12 @@ public class NursingContentChildStageActivity extends BaseActivity {
                 }
             }
 
-            Intent intent=new Intent(NursingContentChildStageActivity.this,NursingContentSelectChildActivity.class);
+           // Intent intent=new Intent(NursingContentChildStageActivity.this,NursingUnexecuteContentChildActivity.class);
+           // Intent intent=new Intent(NursingContentChildStageActivity.this,NursingUnexecuteContentActivity.class);
+            Intent intent=new Intent(NursingContentChildStageActivity.this,NurseContentActivity.class);
             intent.putExtra("rowsSunItemLists",(Serializable) rowsSunItemLists);
+            intent.putExtra("stageCodeChild",stageCodeChild);
+            intent.putExtra("patientsNo",patientsNo);
             startActivity(intent);
             rowsSunItemLists.clear();
         }
@@ -78,6 +83,8 @@ public class NursingContentChildStageActivity extends BaseActivity {
             childItemLists = (List<NurseExecuteBean.RowsBean>) intent.getSerializableExtra("childItemLists");
             MyLog.i("childItemLists.size();:::::", childItemLists.size() + "");
             rowsSun = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("rowsSun");
+            patientsNo = intent.getStringExtra("patientsNo");
+
         }
 
         lv.setAdapter(new MyAdapter());

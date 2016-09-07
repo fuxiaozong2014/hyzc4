@@ -101,8 +101,20 @@ public class MyTaskDoctorActivity extends BaseActivity {
                 break;
             case R.id.ll_YiZhuManager:
                 Intent YiZhuManagerActivityIntent = new Intent(this, YiZhuManagerActivity.class);
-                if (name == null || patientsNo == null || cpwCode == null) {
+               /* if (name == null || patientsNo == null || cpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
+                    return;
+                } else {
+                    YiZhuManagerActivityIntent.putExtra("cpwCode", cpwCode);
+                    YiZhuManagerActivityIntent.putExtra("patientsNo", patientsNo);
+                    startActivity(YiZhuManagerActivityIntent);
+                }*/
+                if (cpwCode == null) {
+                    MyToast.showToast(this, "请选择患者");
+                    return;
+                }
+                if (cpwCode.equals("")) {
+                    MyToast.showToast(this, "此患者还没有配置路径");
                     return;
                 } else {
                     YiZhuManagerActivityIntent.putExtra("cpwCode", cpwCode);

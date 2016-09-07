@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="未执行"
+            android:visibility="gone"
             android:textColor="@color/background_white"
             />
         <Button
@@ -48,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="已执行"
+            android:visibility="gone"
             android:textColor="@color/background_white"
             />
     </RelativeLayout>

@@ -48,6 +48,7 @@ public class NursingContentParentStageActivity extends BaseActivity {
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
     private TextView tv_titlebar_center;
+    private String patientsNo;
 
     class MyOnItemClickListener implements AdapterView.OnItemClickListener {
 
@@ -77,6 +78,8 @@ public class NursingContentParentStageActivity extends BaseActivity {
                 intent.putExtra("childItemLists", (Serializable) childItemLists);
                 //传递孙数据给子阶段
                 intent.putExtra("rowsSun",(Serializable)rowsSun);
+                intent.putExtra("patientsNo",patientsNo);
+
                 startActivity(intent);
             }else {
                 for (int j = 0; j <rowsSun.size() ; j++) {
@@ -91,14 +94,16 @@ public class NursingContentParentStageActivity extends BaseActivity {
                     return;
                 }else{
                     MyLog.i("SunItemLists",SunItemLists.toString()+SunItemLists.size());
-                    Intent intent = new Intent(context, NursingContentSelectParentActivity.class);
+                    //Intent intent = new Intent(context, NursingUnexecuteContentActivity.class);
+                    Intent intent = new Intent(context, NurseContentActivity.class);
                     intent.putExtra("SunItemLists", (Serializable) SunItemLists);
+                    intent.putExtra("StageCodeParent", stageCode);
+                    intent.putExtra("patientsNo", patientsNo);
+
                     startActivity(intent);
                     // MyToast.showToast(NursingContentParentStageActivity.this,"没有子条目");
                 }
-
             }
-
             childItemLists.clear();
             SunItemLists.clear();
            //stageCode 和孙数据的stageCode相比，如果相等，就添加到孙集合中，开启NursingContentSelectActivityji界面
@@ -127,15 +132,19 @@ public class NursingContentParentStageActivity extends BaseActivity {
         Intent intent = getIntent();
         if (intent != null) {
             cpwCode = intent.getStringExtra("cpwCode");
+            patientsNo = intent.getStringExtra("patientsNo");
             getNurseStageData();
 
-            getNueseSunData();
+            getNurseSunData();
         }
 
         bt_titlebar_left.setOnClickListener(this);
     }
 
 
+    /*
+    * 得到路径阶段信息
+    * */
     private void getNurseStageData() {
 
         MyLog.i("NURSE_STAGE+cpwCode:::::::::", MyConstant.NURSE_SELECT_STAGE + cpwCode);
@@ -163,6 +172,7 @@ public class NursingContentParentStageActivity extends BaseActivity {
         rows = nurseExecuteBean.getRows();
         for (int i = 0; i < rows.size(); i++) {
             String stageName = rows.get(i).StageName;
+            String stageCode =  rows.get(i).StageCode;
             String parentCode = rows.get(i).ParentCode;
 
             if (parentCode.equals("0")) {
@@ -223,13 +233,13 @@ public class NursingContentParentStageActivity extends BaseActivity {
         }
     }
 
-    private void getNueseSunData() {
+    private void getNurseSunData() {
         OkHttpUtils.get().url(MyConstant.BASE_URL+ MyConstant.NURSING_CONTENT_SELECT + cpwCode).build().execute(new Callback() {
 
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
 
-               //  MyToast.showToast(NursingContentSelectParentActivity.this, "请求成功" + "getNursingContentData");
+               //  MyToast.showToast(NursingUnexecuteContentActivity.this, "请求成功" + "getNursingContentData");
 
                 return response.body().string();
             }
@@ -241,15 +251,16 @@ public class NursingContentParentStageActivity extends BaseActivity {
 
             @Override
             public void onResponse(Object o, int in) {
-                parseMyselfJson((String) o);
+                parseRowsSunJson((String) o);
             }
         });
     }
 
-    private void parseMyselfJson(String o) {
+    private void parseRowsSunJson(String o) {
         NursingContentBean nursingContentBean = new Gson().fromJson(o, NursingContentBean.class);
         rowsSun = nursingContentBean.getRows();
         MyLog.i("rowsSun", rowsSun.size() + "");
     }
+
 
 }

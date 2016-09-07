@@ -1,4 +1,4 @@
-package com.bjym.hyzc.activity.activity;
+package com.bjym.hyzc.activity.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,20 +29,16 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by fushaoqing on 2016/8/9.
+ * Created by fushaoqing on 2016/9/7.
  */
-public class NursingContentSelectParentActivity extends BaseActivity {
+public class NurseUnexecuteContentFragment extends BaseFragment{
     private ListView lv;
-    private String cpwCode;
-    private List<NursingContentBean.RowsBean> rows;
-    private List<NursingContentBean.RowsBean> existingNursingContents = null;
-    private TextView tv_none_nurseContent;
     private TextView tv_search;
-    private List<NursingContentBean.RowsBean> parentItemLists;
+    private TextView tv_none_nurseContent;
 
-    private Button bt_titlebar_right;
-    private Button bt_titlebar_left;
-    private TextView tv_titlebar_center;
+    private List<NursingContentBean.RowsBean> parentItemLists;
+    private List<NursingContentBean.RowsBean> childItemLists;
+    private List<NursingContentBean.RowsBean> currentItemLists;
     private SharedPreferences SpPationteMsgConfig;
     private SharedPreferences sp;
 
@@ -59,13 +54,7 @@ public class NursingContentSelectParentActivity extends BaseActivity {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    NursingContentBean.RowsBean rowsBean = parentItemLists.get(position);
-                    /*if (existingNursingContents == null) {
-                        existingNursingContents = new ArrayList<>();
-                    }
-                    //把得到的集合传递给下一个现有页面
-                    existingNursingContents.add(rowsBean);
-                    MyLog.i("existingNursingContents", existingNursingContents.size() + "");*/
+                    NursingContentBean.RowsBean rowsBean = currentItemLists.get(position);
                     postUnexecuContent(rowsBean);
                     dialog.dismiss();
                 }
@@ -136,9 +125,9 @@ public class NursingContentSelectParentActivity extends BaseActivity {
 
         String nurseContentUnexecuteBeanJson = new Gson().toJson(nurseContentUnexecuteBean);
 
-        MyLog.i("nurseContentUnexecuteBeanJson",nurseContentUnexecuteBeanJson);
+       /* MyLog.i("nurseContentUnexecuteBeanJson",nurseContentUnexecuteBeanJson);
 
-        MyLog.i("MyConstant.BASE_URL+MyConstant.NURSE_UNEXECUTECONTENT_COMIT::", MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTECONTENT_COMIT);
+        MyLog.i("MyConstant.BASE_URL+MyConstant.NURSE_UNEXECUTECONTENT_COMIT::", MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTECONTENT_COMIT);*/
 
         OkHttpUtils.postString().url(MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTECONTENT_COMIT).content(nurseContentUnexecuteBeanJson).build().execute(new Callback() {
             @Override
@@ -149,50 +138,52 @@ public class NursingContentSelectParentActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(NursingContentSelectParentActivity.this,"提交失败"+e.toString());
+                MyToast.showToast(NurseUnexecuteContentFragment.this.getActivity(),"提交失败"+e.toString());
                 MyLog.i("nurseContentUnexecuteBeanJson::::",e.toString());
             }
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(NursingContentSelectParentActivity.this,"提交成功");
+                MyToast.showToast(NurseUnexecuteContentFragment.this.getActivity(),"提交成功");
             }
         });
 
 
     }
+    
     @Override
     public View setMainView() {
-        View view = View.inflate(context, R.layout.activity_nursingcontentselect, null);
+        View view=View.inflate(context, R.layout.fragment_nurseunexecutecontent,null);
         tv_none_nurseContent = (TextView) view.findViewById(R.id.tv_none_nurseContent);
         tv_search = (TextView) view.findViewById(R.id.tv_search);
-
-        bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
-        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
-        tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);
-
         lv = (ListView) view.findViewById(R.id.lv);
-
         return view;
     }
 
     @Override
     public void InitData() {
-        SpPationteMsgConfig=getSharedPreferences("PationteMsgConfig",MODE_PRIVATE);
-        sp=getSharedPreferences("MyselfConfig",MODE_PRIVATE);
+        SpPationteMsgConfig=NurseUnexecuteContentFragment.this.getActivity().getSharedPreferences("PationteMsgConfig",context.MODE_PRIVATE);
+        sp=NurseUnexecuteContentFragment.this.getActivity().getSharedPreferences("MyselfConfig",context.MODE_PRIVATE);
 
-        bt_titlebar_left.setVisibility(View.VISIBLE);
+       /* bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
-        tv_titlebar_center.setText("维护患者护理内容");
+        tv_titlebar_center.setText("维护患者护理内容");*/
 
-        Intent intent = getIntent();
+        Intent intent = NurseUnexecuteContentFragment.this.getActivity().getIntent();
         parentItemLists = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("SunItemLists");
-
+        childItemLists = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("rowsSunItemLists");
+        if (parentItemLists == null) {
+            currentItemLists=childItemLists;
+        }else {
+            currentItemLists=parentItemLists;
+        }
+        if (currentItemLists.size()==0){
+            lv.setVisibility(View.GONE);
+            tv_none_nurseContent.setVisibility(View.VISIBLE);
+        }
         lv.setAdapter(new MyAdapter());
         lv.setOnItemClickListener(new MyOnItemClickListener());
         tv_search.setOnClickListener(this);
-        bt_titlebar_left.setOnClickListener(this);
-
     }
 
     @Override
@@ -200,13 +191,10 @@ public class NursingContentSelectParentActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_search:
-               /* Intent existingNursingContentIntent = new Intent(this, ExistingNursingContentActivity.class);
-                existingNursingContentIntent.putExtra("existingNursingContents", (Serializable) existingNursingContents);
-                startActivity(existingNursingContentIntent);*/
                 break;
-            case R.id.bt_titlebar_left:
+           /* case R.id.bt_titlebar_left:
                 finish();
-                break;
+                break;*/
             default:
                 break;
         }
@@ -220,7 +208,7 @@ public class NursingContentSelectParentActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return parentItemLists.size();
+            return currentItemLists.size();
         }
 
         @Override
@@ -235,12 +223,12 @@ public class NursingContentSelectParentActivity extends BaseActivity {
                 view = convertView;
                 vh = (ViewHolder) view.getTag();
             }
-            vh.tv_ContentName.setText(parentItemLists.get(position).ContentName);
-            vh.tv_ContentType.setText(parentItemLists.get(position).ContentType);
-            vh.tv_OrderType.setText(parentItemLists.get(position).OrderType);
-            vh.tv_OrderCategory.setText(parentItemLists.get(position).OrderCategory);
-            vh.tv_MedicalRecord.setText(parentItemLists.get(position).MedicalRecord);
-            vh.tv_ActivitiesType.setText(parentItemLists.get(position).ActivitiesType);
+            vh.tv_ContentName.setText(currentItemLists.get(position).ContentName);
+            vh.tv_ContentType.setText(currentItemLists.get(position).ContentType);
+            vh.tv_OrderType.setText(currentItemLists.get(position).OrderType);
+            vh.tv_OrderCategory.setText(currentItemLists.get(position).OrderCategory);
+            vh.tv_MedicalRecord.setText(currentItemLists.get(position).MedicalRecord);
+            vh.tv_ActivitiesType.setText(currentItemLists.get(position).ActivitiesType);
             return view;
         }
 

@@ -108,4 +108,12 @@ public class MyConstant {
     * 根据患者编号得到，患者姓名，用于条形框赋值
     * */
     public static final String PATIONTE_SINGLE= "/cpw/CPW_Patients/getsinglepatients?PatientsNo=";
+    /*
+    * 根据用户提供的阶段和病人编号，得到已经执行的医嘱
+    * */
+    public static final String NURSE_EXECUTE_YIZHU= "/CPW/CPW_PatiOrder/getlistexecuted?PatientsNo=";
+    /*
+    * 根据用户的路径阶段和病人编号，得到已经执行的护理内容
+    * */
+    public static final String NURSE_EXECUTE_CONTENT= "/CPW/CPW_PatiNursing/getlistexecuted?PatientsNo=";
 }

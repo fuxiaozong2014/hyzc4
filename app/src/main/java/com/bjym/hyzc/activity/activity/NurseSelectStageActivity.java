@@ -13,7 +13,6 @@ import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.bean.NurseExecuteBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
-import com.bjym.hyzc.activity.utils.MyToast;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -47,15 +46,10 @@ public class NurseSelectStageActivity extends BaseActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //click this item jump to NurseUnxecuteYiZhuActivity with StageCode
 
-            if(rows.get(position).StageCode==null){
-                MyToast.showToast(NurseSelectStageActivity.this,"此患者还没有配置路径");
-            }else {
                 Intent intent=new Intent(context,NurseYiZhuActivity.class);
                 intent.putExtra("StageCode",rows.get(position).StageCode);
                 intent.putExtra("patientsNo",patientsNo);
                 startActivity(intent);
-            }
-
           //  MyToast.showToast(NurseSelectStageActivity.this,"wobeidianleffff");
         }
     }

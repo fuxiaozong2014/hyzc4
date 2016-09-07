@@ -159,6 +159,7 @@ public class MyTaskActivity extends BaseActivity {
                     return;
                 } else {
                     tv_nursingContentStageIntent.putExtra("cpwCode", cpwCode);
+                    tv_nursingContentStageIntent.putExtra("patientsNo", patientsNo);
                     startActivity(tv_nursingContentStageIntent);
                 }
                 break;
