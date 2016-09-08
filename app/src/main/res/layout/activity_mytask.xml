@@ -9,22 +9,23 @@
     <include layout="@layout/item_search"></include>
 
     <LinearLayout
+        android:id="@+id/ll_nurseStage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
         android:layout_marginTop="5dp"
-        android:background="@color/background_white"
+        android:background="@drawable/item_selector"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="5dp">
 
         <TextView
-            android:id="@+id/tv_nurseStage"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
             android:text="执行医嘱"
-            android:textColor="@color/fontcolor"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
         <ImageView
@@ -41,22 +42,22 @@
         android:background="@color/big_bg_color" />
 
     <LinearLayout
+        android:id="@+id/ll_nurseHistory"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
-        android:background="@color/background_white"
+        android:background="@drawable/item_selector"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
 
         <TextView
-            android:id="@+id/tv_nurseHistory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
             android:text="护理记录"
-            android:textColor="@color/fontcolor"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
         <ImageView
@@ -74,22 +75,23 @@
         android:background="@color/big_bg_color" />
 
     <LinearLayout
+        android:id="@+id/ll_nursingContentStage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
-        android:background="@color/background_white"
+        android:background="@drawable/item_selector"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
 
         <TextView
-            android:id="@+id/tv_nursingContentStage"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
             android:text="执行护理"
-            android:textColor="@color/fontcolor"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
         <ImageView
@@ -110,22 +112,22 @@
         android:background="@color/big_bg_color" />
 
     <LinearLayout
+        android:id="@+id/ll_addNursingCare"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
-        android:background="@color/background_white"
+        android:background="@drawable/item_selector"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
 
         <TextView
-            android:id="@+id/tv_addNursingCare"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
             android:text="新增护理"
-            android:textColor="@color/fontcolor"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
         <ImageView
@@ -139,7 +141,7 @@
    <!-- <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
-        android:background="@color/background_white"
+        android:background="@drawable/item_selector"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
@@ -152,7 +154,7 @@
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
             android:text="已执行的护理内容"
-            android:textColor="@color/fontcolor"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
         <ImageView
@@ -172,7 +174,7 @@
        android:id="@+id/ll_YiZhuManager"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
-        android:background="@color/background_white"
+        android:background="@drawable/item_selector"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
@@ -185,7 +187,7 @@
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
             android:text="医嘱管理"
-            android:textColor="@color/fontcolor"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
         <ImageView

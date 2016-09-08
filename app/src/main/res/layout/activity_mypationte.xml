@@ -24,7 +24,7 @@
             android:gravity="center"
             android:hint="点击'+'选择调查对象或者护理对象"
             android:paddingRight="20dp"
-            android:textColor="@color/click_diaocha_search"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
     </LinearLayout>
 

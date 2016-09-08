@@ -23,13 +23,9 @@ public class NurseYiZhuActivity extends BaseActivity {
     private Button btn_unexecute_yizhu;
     private Button btn_execute_yizhu;
     private List<Fragment> fragmentList;
-    private NurseUnexecuteYiZhuFragment unexecuteYiZhuFragment;
-    private NurseExecutedYiZhuFragment executedYiZhuFragment;
-    private FragmentManager manager;
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
 
-     private int currentPosition;
  class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
         @Override
@@ -49,7 +45,6 @@ public class NurseYiZhuActivity extends BaseActivity {
                         R.color.background_white), getResources().getColor(
                         R.color.colorPrimary));
             }
-            currentPosition=position;
         }
 
         @Override
@@ -107,13 +102,6 @@ public class NurseYiZhuActivity extends BaseActivity {
 
 
         //默认填充未执行的医嘱界面
-       /* manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        if (unexecuteYiZhuFragment==null){
-            unexecuteYiZhuFragment=new NurseUnexecuteYiZhuFragment();
-        }
-        transaction.replace(R.id.ll_container, unexecuteYiZhuFragment).commit();*/
-
         vp.setCurrentItem(0);
         vp.setAdapter(new MyPageAdapter(getSupportFragmentManager()));
         vp.addOnPageChangeListener(new MyOnPageChangeListener());
@@ -129,24 +117,12 @@ public class NurseYiZhuActivity extends BaseActivity {
         //FragmentTransaction transaction = manager.beginTransaction();
 
         switch (v.getId()) {
-            /*case R.id.btn_unexecute_yizhu:
-               if (unexecuteYiZhuFragment==null){
-                   unexecuteYiZhuFragment=new NurseUnexecuteYiZhuFragment();
-               }
-                transaction.replace(R.id.ll_container,unexecuteYiZhuFragment,"unexecuteYiZhuFragment");
-                resetUnExecuteYiZhuFragmeng(getResources().getColor(
-                        R.color.colorPrimary), getResources().getColor(
-                        R.color.Hui));
+           case R.id.btn_unexecute_yizhu:
+               vp.setCurrentItem(0);
                 break;
             case R.id.btn_execute_yizhu:
-                if (executedYiZhuFragment == null) {
-                    executedYiZhuFragment=new NurseExecutedYiZhuFragment();
-                }
-                transaction.replace(R.id.ll_container,executedYiZhuFragment,"executedYiZhuFragment");
-                resetUnExecuteYiZhuFragmeng(getResources().getColor(
-                        R.color.Hui), getResources().getColor(
-                                R.color.colorPrimary));
-                break;*/
+                vp.setCurrentItem(1);
+                break;
             case R.id.bt_titlebar_left:
                 finish();
                 break;
@@ -155,9 +131,6 @@ public class NurseYiZhuActivity extends BaseActivity {
 
                 break;
         }
-       // transaction.commit();
-
-        vp.setCurrentItem(v.getId());
     }
 
     private void resetUnExecuteYiZhuFragmeng(int color, int color2) {

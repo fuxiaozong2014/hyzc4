@@ -47,6 +47,7 @@ public class NurseSelectStageActivity extends BaseActivity {
                 //click this item jump to NurseUnxecuteYiZhuActivity with StageCode
 
                 Intent intent=new Intent(context,NurseYiZhuActivity.class);
+
                 intent.putExtra("StageCode",rows.get(position).StageCode);
                 intent.putExtra("patientsNo",patientsNo);
                 startActivity(intent);
@@ -71,9 +72,12 @@ public class NurseSelectStageActivity extends BaseActivity {
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("选择路径阶段");
         Intent intent = getIntent();
-        cpwCode = intent.getStringExtra("cpwCode");
-        patientsNo = intent.getStringExtra("patientsNo");
-        MyLog.i("NurseExcode", cpwCode);
+        if (intent!=null) {
+            cpwCode = intent.getStringExtra("cpwCode");
+            patientsNo = intent.getStringExtra("patientsNo");
+            MyLog.i("NurseExcode", cpwCode);
+
+        }
 
         getNurseStageData();
 

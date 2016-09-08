@@ -19,7 +19,7 @@
                android:layout_height="match_parent"
                android:hint="点此选择患者"
                android:gravity="center"
-               android:textColor="@color/click_diaocha_search"
+               android:textColor="@color/myPationte_title_color"
                android:textSize="16dp"
                 />
           <ImageView

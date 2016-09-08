@@ -257,15 +257,18 @@ public class MyPationteActivity extends BaseActivity {
             String deptName = pationtes.get(position).DeptName;
 
 
-            Intent intent = new Intent();
+           Intent intent = new Intent();
             intent.setAction("INTEN_MYPATIONTE");
             intent.putExtra("Name", name);
             intent.putExtra("patientsNo", patientsNo);
             manager.sendBroadcast(intent);
+            /* Intent intent = new Intent();
+            intent.putExtra("Name", name);
+            intent.putExtra("patientsNo", patientsNo);
+            setResult(2,intent);*/
 
             Intent intentToMyTask = new Intent();
             intentToMyTask.putExtra("Name", name);
-            intentToMyTask.putExtra("patientsNo", patientsNo);
             intentToMyTask.putExtra("patientsNo", patientsNo);
             intentToMyTask.putExtra("cpwCode", cpwCode);
             intentToMyTask.putExtra("deptCode", deptCode);

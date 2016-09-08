@@ -34,11 +34,11 @@ public class MyTaskActivity extends BaseActivity {
     private static final int REQUST_CODE_PATIONTEMSG = 1;
     private static final int REQUST_CODE_SCANBAR =0 ;
     private TextView tv_search;
-    private TextView tv_nurseHistory;
-    private TextView tv_nurseStage;
-    private TextView tv_addNursingCare;
+    private LinearLayout ll_nurseHistory;
+    private LinearLayout ll_nurseStage;
+    private LinearLayout ll_addNursingCare;
     private TextView tv_nursingContent_executed;
-    private TextView tv_nursingContentStage;
+    private LinearLayout ll_nursingContentStage;
     private String name;
     private String patientsNo;
     private String cpwCode;
@@ -52,20 +52,26 @@ public class MyTaskActivity extends BaseActivity {
     private TextView tv_titlebar_center;
     private LinearLayout ll_yiZhuManager;
     private SharedPreferences SpPationteMsgConfig;
+    private String transName;//传递给surveyActivity的调查人名字，用于传递过去，调查结果的提交
+    private String transPationteNo;//传递给surveyActivity的调查人编号，用于传递过去，调查结果的提交
+    private String transCpwCode;//传递给surveyActivity的调查人编号，用于传递过去，调查结果的提交
+    private String transDeptName;
+    private String transDeptCode;
+
 
 
     @Override
     public View setMainView() {
 
         View view = View.inflate(context, R.layout.activity_mytask, null);
-        tv_nurseHistory = (TextView) view.findViewById(R.id.tv_nurseHistory);
-        tv_nurseStage = (TextView) view.findViewById(R.id.tv_nurseStage);
-        tv_addNursingCare = (TextView) view.findViewById(R.id.tv_addNursingCare);
+        ll_nurseHistory = (LinearLayout) view.findViewById(R.id.ll_nurseHistory);
+        ll_nurseStage = (LinearLayout) view.findViewById(R.id.ll_nurseStage);
+        ll_addNursingCare = (LinearLayout) view.findViewById(R.id.ll_addNursingCare);
         iv_search = (ImageView) view.findViewById(R.id.iv_search);
         //tv_nursingContent_executed = (TextView) view.findViewById(R.id.tv_nursingContent_executed);
         //  ll_yiZhuManager = (LinearLayout) view.findViewById(R.id.ll_YiZhuManager);
 
-        tv_nursingContentStage = (TextView) view.findViewById(R.id.tv_nursingContentStage);
+        ll_nursingContentStage = (LinearLayout) view.findViewById(R.id.ll_nursingContentStage);
         tv_search = (TextView) view.findViewById(R.id.tv_search);
 
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
@@ -83,11 +89,11 @@ public class MyTaskActivity extends BaseActivity {
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("我的任务");
         tv_search.setOnClickListener(this);
-        tv_nurseHistory.setOnClickListener(this);
-        tv_nurseStage.setOnClickListener(this);
+        ll_nurseHistory.setOnClickListener(this);
+        ll_nurseStage.setOnClickListener(this);
         // tv_nursingContent_executed.setOnClickListener(this);
-        tv_addNursingCare.setOnClickListener(this);
-        tv_nursingContentStage.setOnClickListener(this);
+        ll_addNursingCare.setOnClickListener(this);
+        ll_nursingContentStage.setOnClickListener(this);
         bt_titlebar_left.setOnClickListener(this);
         iv_search.setOnClickListener(this);
         //  ll_yiZhuManager.setOnClickListener(this);
@@ -104,18 +110,18 @@ public class MyTaskActivity extends BaseActivity {
                 intent.setClass(MyTaskActivity.this, MyPationteActivity.class);
                 startActivityForResult(intent, REQUST_CODE_PATIONTEMSG);
                 break;
-            case R.id.tv_nurseHistory:
+            case R.id.ll_nurseHistory:
                 Intent NurseHistoryActivityIntent = new Intent(this, NurseHistoryActivity.class);
-                if (name == null || patientsNo == null) {
+                if (transName == null || transPationteNo == null) {
                     MyToast.showToast(this, "请选择患者");
                     return;
                 } else {
-                    NurseHistoryActivityIntent.putExtra("Name", name);
-                    NurseHistoryActivityIntent.putExtra("patientsNo", patientsNo);
+                    NurseHistoryActivityIntent.putExtra("Name", transName);
+                    NurseHistoryActivityIntent.putExtra("patientsNo", transPationteNo);
                     startActivity(NurseHistoryActivityIntent);
                 }
                 break;
-            case R.id.tv_nurseStage:
+            case R.id.ll_nurseStage:
                 Intent NurseExecuteActivityIntent = new Intent(this, NurseSelectStageActivity.class);
                 /*if (name == null || patientsNo == null || cpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
@@ -130,36 +136,36 @@ public class MyTaskActivity extends BaseActivity {
                     startActivity(NurseExecuteActivityIntent);
                 }*/
                 // Intent tv_nursingContentStageIntent = new Intent(this, NursingContentParentStageActivity.class);
-                if (cpwCode == null) {
+                if (transCpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
                     return;
                 }
-                if (cpwCode.equals("")) {
+                if (transCpwCode.equals("")) {
                     MyToast.showToast(this, "此患者还没有配置路径");
                     return;
                 } else {
-                    NurseExecuteActivityIntent.putExtra("cpwCode", cpwCode);
-                    NurseExecuteActivityIntent.putExtra("patientsNo", patientsNo);
+                    NurseExecuteActivityIntent.putExtra("cpwCode", transCpwCode);
+                    NurseExecuteActivityIntent.putExtra("patientsNo", transPationteNo);
                     startActivity(NurseExecuteActivityIntent);
                 }
                 break;
-            case R.id.tv_addNursingCare:
+            case R.id.ll_addNursingCare:
                 startActivity(new Intent(this, AddNursingCareActivity.class));
                 MyToast.showToast(MyTaskActivity.this, "此功能正在完善中...");
                 break;
 
-            case R.id.tv_nursingContentStage:
+            case R.id.ll_nursingContentStage:
                 Intent tv_nursingContentStageIntent = new Intent(this, NursingContentParentStageActivity.class);
-                if (cpwCode == null) {
+                if (transCpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
                     return;
                 }
-                if (cpwCode.equals("")) {
+                if (transCpwCode.equals("")) {
                     MyToast.showToast(this, "此患者还没有配置路径");
                     return;
                 } else {
-                    tv_nursingContentStageIntent.putExtra("cpwCode", cpwCode);
-                    tv_nursingContentStageIntent.putExtra("patientsNo", patientsNo);
+                    tv_nursingContentStageIntent.putExtra("cpwCode", transCpwCode);
+                    tv_nursingContentStageIntent.putExtra("patientsNo", transPationteNo);
                     startActivity(tv_nursingContentStageIntent);
                 }
                 break;
@@ -174,7 +180,7 @@ public class MyTaskActivity extends BaseActivity {
                 startActivityForResult(openCameraIntent, 0);
                 break;
           /*  case R.id.ll_YiZhuManager:
-                Intent YiZhuManagerActivityIntent = new Intent(this, YiZhuManagerActivity.class);
+                Intent YiZhuManagerActivityIntent = new Intent(this, DoctorYiZhuManagerActivity.class);
                 if (name == null || patientsNo == null || cpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
                     return;
@@ -194,35 +200,44 @@ public class MyTaskActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUST_CODE_PATIONTEMSG:
-                name = data.getStringExtra("Name");
-                patientsNo = data.getStringExtra("patientsNo");
-                cpwCode = data.getStringExtra("cpwCode");
-                deptCode = data.getStringExtra("deptCode");
-                deptName = data.getStringExtra("deptName");
+                if (data!=null){
+                    name = data.getStringExtra("Name");
+                    patientsNo = data.getStringExtra("patientsNo");
+                    deptCode = data.getStringExtra("deptCode");
+                    deptName = data.getStringExtra("deptName");
+                    cpwCode=data.getStringExtra("cpwCode");
 
-                SpPationteMsgConfig.edit().putString("patientsNo", patientsNo).commit();
-                SpPationteMsgConfig.edit().putString("Name", name).commit();
-                SpPationteMsgConfig.edit().putString("deptCode", deptCode).commit();
-                SpPationteMsgConfig.edit().putString("deptName", deptName).commit();
+                    transCpwCode=cpwCode;
+                    transName=name;
+                    transPationteNo=patientsNo;
+                    transDeptName=deptName;
+                    transDeptCode=deptCode;
 
 
-                MyLog.i("cpwCode", cpwCode);
-                tv_search.setText("姓名：" + name + "    患者编号：" + patientsNo);
+
+                    SpPationteMsgConfig.edit().putString("patientsNo", transPationteNo).commit();
+                    SpPationteMsgConfig.edit().putString("Name", transName).commit();
+                    SpPationteMsgConfig.edit().putString("deptCode", transDeptCode).commit();
+                    SpPationteMsgConfig.edit().putString("deptName", transDeptName).commit();
+
+
+                    MyLog.i("cpwCode", transCpwCode);
+                    tv_search.setText("姓名：" + transName + "    患者编号：" + transPationteNo);
+                }
+
+
                 break;
             case REQUST_CODE_SCANBAR:
                 if (resultCode == -1) {
-
                     Bundle bundle = data.getExtras();
                     if (bundle != null) {
                         // 结果
                         codeinformation = bundle.getString("result");
                         MyToast.showToast(MyTaskActivity.this, codeinformation);
                         getPationteName();
-
                     } else {
                         MyToast.showToast(MyTaskActivity.this, "没有结果");
                     }
-
                 }
                 break;
             default:
@@ -260,7 +275,16 @@ public class MyTaskActivity extends BaseActivity {
         if (pationteSingle.size() > 0) {
             for (int i = 0; i < pationteSingle.size(); i++) {
                 String name = pationteSingle.get(i).Name;
-                tv_search.setText("姓名: " + name + "  编号: " + codeinformation);
+                String cpwCode = pationteSingle.get(i).CPWCode;
+                String deptCode = pationteSingle.get(i).DeptCode;
+                String deptName = pationteSingle.get(i).DeptName;
+
+                transName=name;
+                transPationteNo=codeinformation;
+                transCpwCode=cpwCode;
+                transDeptCode=deptCode;
+                transDeptName=deptName;
+                tv_search.setText("姓名: " + transName + "  编号: " + codeinformation);
                 MyLog.i("codeinformation::", codeinformation);
             }
         } else {

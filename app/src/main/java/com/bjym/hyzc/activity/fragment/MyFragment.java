@@ -47,7 +47,7 @@ public class MyFragment extends BaseFragment {
 
     @Override
     public View setMainView() {
-        View view = View.inflate(getContext(), R.layout.fragment_my, null);
+        View view = View.inflate(context, R.layout.fragment_my, null);
         ll_myPationte = (LinearLayout) view.findViewById(R.id.ll_myPationte);
         ll_myTask = (LinearLayout) view.findViewById(R.id.ll_myTask);
         ll_myTaskDOctor = (LinearLayout) view.findViewById(R.id.ll_myTaskDOctor);

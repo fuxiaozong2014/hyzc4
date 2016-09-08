@@ -125,7 +125,7 @@ public class NurseContentActivity extends BaseActivity{
         }
         // transaction.commit();
 
-        vp.setCurrentItem(v.getId());
+        //vp.setCurrentItem(v.getId());
     }
 
     private void resetUnExecuteContentFragmeng(int color, int color2) {

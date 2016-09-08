@@ -54,6 +54,11 @@ public class MyTaskDoctorActivity extends BaseActivity {
     private LinearLayout ll_yiZhuManager;
     private SharedPreferences sp;
 
+    private String transName;//传递给surveyActivity的调查人名字，用于传递过去，调查结果的提交
+    private String transPationteNo;//传递给surveyActivity的调查人编号，用于传递过去，调查结果的提交
+    private String transCpwCode;//传递给surveyActivity的调查人路径编码，用于传递过去，调查结果的提交
+    private String transDeptName;
+    private String transDeptCode;
     @Override
     public View setMainView() {
 
@@ -100,25 +105,17 @@ public class MyTaskDoctorActivity extends BaseActivity {
                 startActivityForResult(intent, REQUST_CODE_PATIONTEMSG);
                 break;
             case R.id.ll_YiZhuManager:
-                Intent YiZhuManagerActivityIntent = new Intent(this, YiZhuManagerActivity.class);
-               /* if (name == null || patientsNo == null || cpwCode == null) {
-                    MyToast.showToast(this, "请选择患者");
-                    return;
-                } else {
-                    YiZhuManagerActivityIntent.putExtra("cpwCode", cpwCode);
-                    YiZhuManagerActivityIntent.putExtra("patientsNo", patientsNo);
-                    startActivity(YiZhuManagerActivityIntent);
-                }*/
-                if (cpwCode == null) {
+                Intent YiZhuManagerActivityIntent = new Intent(this, DoctorYiZhuManagerActivity.class);
+                if (transCpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
                     return;
                 }
-                if (cpwCode.equals("")) {
+                if (transCpwCode.equals("")) {
                     MyToast.showToast(this, "此患者还没有配置路径");
                     return;
                 } else {
-                    YiZhuManagerActivityIntent.putExtra("cpwCode", cpwCode);
-                    YiZhuManagerActivityIntent.putExtra("patientsNo", patientsNo);
+                    YiZhuManagerActivityIntent.putExtra("cpwCode", transCpwCode);
+                    YiZhuManagerActivityIntent.putExtra("patientsNo", transCpwCode);
                     startActivity(YiZhuManagerActivityIntent);
                 }
                 break;
@@ -144,22 +141,31 @@ public class MyTaskDoctorActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUST_CODE_PATIONTEMSG:
-                name = data.getStringExtra("Name");
-                patientsNo = data.getStringExtra("patientsNo");
-                cpwCode = data.getStringExtra("cpwCode");
-                deptCode = data.getStringExtra("deptCode");
-                deptName = data.getStringExtra("deptName");
+                if (data!= null) {
+                    name = data.getStringExtra("Name");
+                    patientsNo = data.getStringExtra("patientsNo");
+                    cpwCode = data.getStringExtra("cpwCode");
+                    deptCode = data.getStringExtra("deptCode");
+                    deptName = data.getStringExtra("deptName");
 
-                sp.edit().putString("patientsNo", "patientsNo").commit();
-                sp.edit().putString("name", "name").commit();
-                sp.edit().putString("deptCode", deptCode).commit();
-                sp.edit().putString("deptName", deptName).commit();
-                MyLog.i("cpwCode", cpwCode);
-                tv_search.setText("姓名：" + name + "    患者编号：" + patientsNo);
+                    transCpwCode=cpwCode;
+                    transName=name;
+                    transPationteNo=patientsNo;
+                    transDeptName=deptName;
+                    transDeptCode=deptCode;
+
+                    sp.edit().putString("patientsNo", transPationteNo).commit();
+                    sp.edit().putString("name", transName).commit();
+                    sp.edit().putString("deptCode", transDeptCode).commit();
+                    sp.edit().putString("deptName", transDeptName).commit();
+                    MyLog.i("cpwCode", transCpwCode);
+                    tv_search.setText("姓名：" + transName + "    患者编号：" + transPationteNo);
+                }
+
+
                 break;
             case REQUST_CODE_SCANBAR:
                 if (resultCode == -1) {
-
                     Bundle bundle = data.getExtras();
                     if (bundle != null) {
                         // 结果
@@ -184,8 +190,6 @@ public class MyTaskDoctorActivity extends BaseActivity {
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 // dismissWaitingDialog();
                 //  String result = response.body().string();
-
-
                 return response.body().string();
             }
 
@@ -208,7 +212,17 @@ public class MyTaskDoctorActivity extends BaseActivity {
         if (pationteSingle.size() > 0) {
             for (int i = 0; i < pationteSingle.size(); i++) {
                 String name = pationteSingle.get(i).Name;
-                tv_search.setText("姓名: " + name + "  编号: " + codeinformation);
+                String cpwCode = pationteSingle.get(i).CPWCode;
+                String deptCode = pationteSingle.get(i).DeptCode;
+                String deptName = pationteSingle.get(i).DeptName;
+
+                transName=name;
+                transPationteNo=codeinformation;
+                transCpwCode=cpwCode;
+                transDeptCode=deptCode;
+                transDeptName=deptName;
+
+                tv_search.setText("姓名: " + transName + "  编号: " + codeinformation);
                 MyLog.i("codeinformation::", codeinformation);
             }
         } else {

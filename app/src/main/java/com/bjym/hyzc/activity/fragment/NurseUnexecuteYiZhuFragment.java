@@ -34,10 +34,6 @@ public class NurseUnexecuteYiZhuFragment extends BaseFragment{
     private List<NurseUnExecuteBean.RowsBean> rows;
     private TextView tv_none_unExecuteYiZhu;
     private ListView lv;
-
-   /* private Button bt_titlebar_right;
-    private Button bt_titlebar_left;
-    private TextView tv_titlebar_center;*/
     private MyAdapter adapter;
 
     class MyOnItemClickListener implements AdapterView.OnItemClickListener{
@@ -53,7 +49,6 @@ public class NurseUnexecuteYiZhuFragment extends BaseFragment{
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    // finish();
                     dialog.dismiss();
                     postUnExecuteYiZhu(orderNo);
                     rows.remove(rows.get(position));
@@ -67,12 +62,9 @@ public class NurseUnexecuteYiZhuFragment extends BaseFragment{
                     dialog.dismiss();
                 }
             });
-
             builder.show();
-
         }
     }
-
 
     private void postUnExecuteYiZhu(String orderNo) {
         //TODO 确定提交的内容
@@ -100,18 +92,11 @@ public class NurseUnexecuteYiZhuFragment extends BaseFragment{
         View view=View.inflate(context, R.layout.fragement_unexecuteyizhu,null);
         lv = (ListView) view.findViewById(R.id.lv);
         tv_none_unExecuteYiZhu = (TextView)view.findViewById(R.id.tv_none_unExecuteYiZhu);
-
-       /* bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
-        bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
-        tv_titlebar_center = (TextView) view.findViewById(R.id.tv_titlebar_center);*/
         return view;
     }
 
     @Override
     public void InitData() {
-        /*bt_titlebar_left.setVisibility(View.VISIBLE);
-        bt_titlebar_right.setVisibility(View.GONE);*/
-        //tv_titlebar_center.setText("未执行的医嘱");
         Intent intent = getActivity().getIntent();
         stageCode = intent.getStringExtra("StageCode");
         patientsNo = intent.getStringExtra("patientsNo");
@@ -120,9 +105,7 @@ public class NurseUnexecuteYiZhuFragment extends BaseFragment{
         if (stageCode != null) {
             getUnExecuteStage();
         }
-
         lv.setOnItemClickListener(new MyOnItemClickListener());
-        //bt_titlebar_left.setOnClickListener(this);
     }
 
     private void getUnExecuteStage() {

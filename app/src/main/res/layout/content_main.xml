@@ -18,6 +18,11 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"></LinearLayout>
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ></android.support.v4.view.ViewPager>
 
     <LinearLayout
         android:id="@+id/ll_tab"
@@ -36,6 +41,7 @@
             android:drawableTop="@mipmap/home"
             android:gravity="center"
             android:text="主页"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="@dimen/et_login_size" />
 
         <TextView
@@ -46,6 +52,7 @@
             android:drawableTop="@mipmap/research"
             android:gravity="center"
             android:text="调查"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="@dimen/et_login_size" />
 
         <TextView
@@ -56,6 +63,7 @@
             android:drawableTop="@mipmap/count"
             android:gravity="center"
             android:text="统计"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="@dimen/et_login_size" />
 
         <TextView
@@ -66,6 +74,7 @@
             android:drawableTop="@mipmap/my"
             android:gravity="center"
             android:text="我的"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="@dimen/et_login_size" />
 
     </LinearLayout>

@@ -10,9 +10,10 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_ExitCPWPationte"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
-        android:background="@color/background_white"
+        android:background="@drawable/item_selector"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
@@ -20,13 +21,13 @@
         android:paddingTop="2dp">
 
         <TextView
-            android:id="@+id/tv_ExitCPWPationte"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
             android:text="退出路径患者统计"
-            android:textColor="@color/fontcolor"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
         <ImageView
@@ -42,22 +43,23 @@
         android:background="@color/big_bg_color" />
 
     <LinearLayout
+        android:id="@+id/ll_ExitCPWCause"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
-        android:background="@color/background_white"
+        android:background="@drawable/item_selector"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
 
         <TextView
-            android:id="@+id/tv_ExitCPWCause"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
             android:text="退出路径原因分析"
-            android:textColor="@color/fontcolor"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
         <ImageView

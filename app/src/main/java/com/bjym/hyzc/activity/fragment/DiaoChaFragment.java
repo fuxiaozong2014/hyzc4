@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -44,7 +45,8 @@ import okhttp3.Response;
  */
 public class DiaoChaFragment extends BaseFragment {
 
-    private ListView ll_diaoChaSort;
+    private ListView lv_diaoChaSort;
+    private TextView tv_diaoChaSort;
     private List<DiaoChaSortBean.RowsBean> rowsBeans;
     private DiaoChaSortBean.RowsBean rowsBean;
     private String surveyNo;
@@ -54,8 +56,8 @@ public class DiaoChaFragment extends BaseFragment {
     public static TextView tv_search;
     private MyBrocastReceiver receiver;
     private LocalBroadcastManager broadcastManager;
-    public static String name;
-    public static String patientsNo;
+    /* public static String name;
+     public static String patientsNo;*/
     private String userCode;
     private String realName;
 
@@ -66,11 +68,15 @@ public class DiaoChaFragment extends BaseFragment {
     private ImageView iv_search;
     private String codeinformation;
 
+    public static String transName;//传递给surveyActivity的调查人名字，用于传递过去，调查结果的提交
+    public static String transPationteNo;//传递给surveyActivity的调查人编号，用于传递过去，调查结果的提交
+    private SharedPreferences sp;
+
 
     @Override
     public View setMainView() {
         View view = View.inflate(getContext(), R.layout.fragment_diaocha, null);
-        ll_diaoChaSort = (ListView) view.findViewById(R.id.ll_diaoChaSort);
+        lv_diaoChaSort = (ListView) view.findViewById(R.id.lv_diaoChaSort);
         //re_search = (RelativeLayout) view.findViewById(R.id.re_search);
         iv_search = (ImageView) view.findViewById(R.id.iv_search);
         rela_no_wifi = (RelativeLayout) view.findViewById(R.id.Rela_no_wifi);
@@ -84,10 +90,11 @@ public class DiaoChaFragment extends BaseFragment {
 
     @Override
     public void InitData() {
+        sp = getActivity().getSharedPreferences("", Context.MODE_PRIVATE);
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("调查");
-        ll_diaoChaSort.setOnItemClickListener(new MyOnItemClickListner());
+        lv_diaoChaSort.setOnItemClickListener(new MyOnItemClickListner());
         tv_search.setOnClickListener(this);
         iv_search.setOnClickListener(this);
         /*
@@ -131,7 +138,7 @@ public class DiaoChaFragment extends BaseFragment {
                 dismiss();
                 if (adpter == null) {
                     adpter = new MyAdapter();
-                    ll_diaoChaSort.setAdapter(adpter);
+                    lv_diaoChaSort.setAdapter(adpter);
                 } else {
                     adpter.notifyDataSetChanged();
                 }
@@ -193,11 +200,12 @@ public class DiaoChaFragment extends BaseFragment {
            * 1.必须选择调查人，否则不能开始调查功能
            * 2.传递调查者姓名和编号，患者姓名和编号以及问卷编码到surveyActivity 用于提交数据
            * */
-            if (name != null) {
+            if (transName != null) {
                 Intent intent = new Intent(context, SurveyActivity.class);
                 rowsBean = rowsBeans.get(position);
                 surveyNo = rowsBean.SurveyNo;
                 surveyName = rowsBean.SurveyName;
+
                 /*
                 * 调查表的名字
                 * */
@@ -210,8 +218,8 @@ public class DiaoChaFragment extends BaseFragment {
                 /*
                 * 患者姓名和患者编号
                 * */
-                intent.putExtra("Name", name);
-                intent.putExtra("patientsNo", patientsNo);
+                intent.putExtra("Name", transName);
+                intent.putExtra("patientsNo", transPationteNo);
 
                 /*
                 * 用户编码和真实姓名
@@ -233,7 +241,11 @@ public class DiaoChaFragment extends BaseFragment {
             case R.id.tv_search:
                 /*
                 * click here jump to mypationte activity for surveyed's data
-                * */
+                *
+
+                Intent getPationteNameAndNumIntent = new Intent(DiaoChaFragment.this.getActivity(), MyPationteActivity.class);
+                startActivityForResult(getPationteNameAndNumIntent, 1);*/
+
                 startActivity(new Intent(context, MyPationteActivity.class));
                 break;
             case R.id.iv_search:
@@ -249,7 +261,7 @@ public class DiaoChaFragment extends BaseFragment {
         }
     }
 
-    /*
+    /* *//*
     * 收到患者详情发来的广播，得到患者姓名和患者编号
     * */
     public static class MyBrocastReceiver extends BroadcastReceiver {
@@ -258,10 +270,13 @@ public class DiaoChaFragment extends BaseFragment {
             /*
             * 得到患者姓名和患者标号
             * */
-            name = intent.getStringExtra("Name");
-            patientsNo = intent.getStringExtra("patientsNo");
-            MyLog.i("DATA", "Name：" + name + "   patientsNo:" + patientsNo);
-            tv_search.setText("姓名：" + name + "    编号：" + patientsNo);
+            String name =   intent.getStringExtra("Name");
+            String pationteNo = intent.getStringExtra("patientsNo");
+            transName=name;
+            transPationteNo=pationteNo;
+
+            MyLog.i("DATA", "Name：" + name + "   patientsNo:" + name);
+            tv_search.setText("姓名：" + name + "    编号：" + pationteNo);
         }
     }
 
@@ -293,24 +308,36 @@ public class DiaoChaFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
+
+
         if (requestCode == 0 && resultCode == -1) {
-
             Bundle bundle = data.getExtras();
-            if (bundle != null) {
-                // 结果
+            if (bundle != null) {// 结果
                 codeinformation = bundle.getString("result");
-                MyToast.showToast(DiaoChaFragment.this.getActivity(), codeinformation);
-                getPationteName();
+                if (codeinformation != null) {
+                    MyToast.showToast(DiaoChaFragment.this.getActivity(), codeinformation);
+                    getPationteName();
 
-            } else {
-                MyToast.showToast(DiaoChaFragment.this.getActivity(), "没有结果");
+                } else {
+                    MyToast.showToast(DiaoChaFragment.this.getActivity(), "没有结果");
+                }
             }
-
         }
+        /*if (requestCode == 1 && resultCode == 2) {
+            Intent intent = DiaoChaFragment.this.getActivity().getIntent();
+            String name = intent.getStringExtra("Name");
+            String patientsNo = intent.getStringExtra("patientsNo");
+
+            transName = name;
+            transPationteNo = patientsNo;
+
+        }*/
+
+
     }
 
     private void getPationteName() {
-        OkHttpUtils.get().url(MyConstant.BASE_URL + MyConstant.PATIONTE_SINGLE+codeinformation).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL + MyConstant.PATIONTE_SINGLE + codeinformation).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 // dismissWaitingDialog();
@@ -334,13 +361,17 @@ public class DiaoChaFragment extends BaseFragment {
     private void parseSinglePationteJson(String o) {
         ArrayList<PationteBean> pationteSingle = new Gson().fromJson(o, new TypeToken<List<PationteBean>>() {
         }.getType());
-        if(pationteSingle.size()>0){
+        if (pationteSingle.size() > 0) {
             for (int i = 0; i < pationteSingle.size(); i++) {
                 String name = pationteSingle.get(i).Name;
+                transName = name;
+                transPationteNo = codeinformation;
+
                 tv_search.setText("姓名: " + name + "  编号: " + codeinformation);
                 MyLog.i("codeinformation::", codeinformation);
             }
-        }else{
+
+        } else {
             tv_search.setText(codeinformation);
         }
     }

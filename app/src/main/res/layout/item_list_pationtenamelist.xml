@@ -10,6 +10,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/one_finger_width"
+            android:background="@drawable/item_selector"
             android:gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:orientation="horizontal">
@@ -24,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="姓名："
-                android:textColor="@color/fontcolor"
+                android:textColor="@color/myPationte_title_color"
                 android:textSize="@dimen/et_login_size" />
 
             <TextView
@@ -32,14 +33,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="张三"
-                android:textColor="@color/fontcolor" />
+                android:textColor="@color/myPationte_title_color" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="床位号："
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/fontcolor"
+                android:textColor="@color/myPationte_title_color"
                 android:textSize="@dimen/et_login_size" />
 
             <TextView
@@ -47,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="001"
-                android:textColor="@color/fontcolor" />
+                android:textColor="@color/myPationte_title_color" />
             </LinearLayout>
 
             <ImageView

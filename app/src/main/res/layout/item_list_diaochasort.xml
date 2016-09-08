@@ -6,9 +6,10 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_diaoChaSort"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
-        android:background="@color/background_white"
+        android:background="@drawable/item_selector"
         android:orientation="horizontal"
         android:gravity="center"
         android:paddingBottom="5dp"
@@ -21,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="医生调查"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
-            android:textColor="@color/fontcolor"
+            android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
         <ImageView

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,9 +34,6 @@ import okhttp3.Call;
  */
 public class HomeFragment extends BaseFragment {
     private List<BasePager> pagers = new ArrayList<>();
-    private TextView tv_healthySpace;
-    private TextView tv_deptNews;
-    private TextView tv_StudyVideo;
     private CycleViewPagerShi viewPager;
     private int[] images;
 
@@ -55,13 +53,17 @@ public class HomeFragment extends BaseFragment {
      * 轮播图图片标题集合
      */
     private ArrayList<String> imgTitles = new ArrayList<>();
+    private LinearLayout ll_healthySpace;
+    private LinearLayout ll_deptNews;
+    private LinearLayout ll_studyVideo;
 
     @Override
     public View setMainView() {
         View view = View.inflate(getContext(), R.layout.fragment_home, null);
-        tv_healthySpace=(TextView)view.findViewById(R.id.tv_healthySpace);
-       tv_deptNews = (TextView)view.findViewById(R.id.tv_deptNews);
-        tv_StudyVideo = (TextView)view.findViewById(R.id.tv_StudyVideo);
+
+        ll_healthySpace = (LinearLayout) view.findViewById(R.id.ll_healthySpace);
+        ll_deptNews = (LinearLayout) view.findViewById(R.id.ll_deptNews);
+        ll_studyVideo = (LinearLayout) view.findViewById(R.id.ll_StudyVideo);
 
         viewPager = (CycleViewPagerShi) view.findViewById(R.id.vp);
         images = new int[] { R.mipmap.z3, R.mipmap.oh,
@@ -77,9 +79,10 @@ public class HomeFragment extends BaseFragment {
     public void InitData() {
 
         getImageData();
-        tv_healthySpace.setOnClickListener(this);
-        tv_deptNews.setOnClickListener(this);
-        tv_StudyVideo.setOnClickListener(this);
+        ll_healthySpace.setOnClickListener(this);
+        ll_deptNews.setOnClickListener(this);
+        ll_studyVideo.setOnClickListener(this);
+
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("临床路径管理");
@@ -200,13 +203,13 @@ public class HomeFragment extends BaseFragment {
     public void onClick(View v) {
         super.onClick(v);
        switch (v.getId()) {
-           case R.id.tv_healthySpace:
+           case R.id.ll_healthySpace:
                startActivity(new Intent(HomeFragment.this.getActivity(), WebViewActivity.class));
                break;
-           case R.id.tv_deptNews:
+           case R.id.ll_deptNews:
                startActivity(new Intent(HomeFragment.this.getActivity(), DeptNewsWebViewActivity.class));
                break;
-           case R.id.tv_StudyVideo:
+           case R.id.ll_StudyVideo:
                //startActivity(new Intent(HomeFragment.this.getActivity(), StudyVideoWebViewActivity.class));
               // MyToast.showToast(HomeFragment.this.getActivity(),"此功能正在研发中，敬请期待！！！");
                Toast.makeText(HomeFragment.this.getActivity(),"此功能正在研发中，敬请期待！！！",Toast.LENGTH_SHORT).show();

@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -28,6 +30,7 @@ import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -40,10 +43,7 @@ public class MainActivity extends BaseActivity {
     private TextView tv_research;
     private TextView tv_home;
     private TextView tv_count;
-    private HomeFragment home;
-    private DiaoChaFragment diaoCha;
-    private MyFragment accenter;
-    private TongJiFragment tongJi;
+    List<Fragment> fragments=new ArrayList<>();
 
 
     private FragmentManager manager;
@@ -52,19 +52,74 @@ public class MainActivity extends BaseActivity {
     private List<MyselfBean> myselefLists;
     private static String departmentCode;
     private static String realName;
-   // private Bundle bundle;
+    // private Bundle bundle;
     private String userCode;
     private String usercode;
     private int userType;
     private SharedPreferences sp;
+    private ViewPager vp;
+
+    class MyOnPageChangeListener implements ViewPager.OnPageChangeListener{
+
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            switch (position){
+                case 0:
+                    resetHomeView();
+                    break;
+                case 1:
+                    resetDiaoChaView();
+                    break;
+                case 2:
+                    resetTongJiView();
+                    break;
+                case 3:
+                    resetMyView();
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    }
+
+    class MyFragmentPageAdpter extends FragmentPagerAdapter {
+
+        public MyFragmentPageAdpter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+    }
 
     @Override
     public View setMainView() {
+
         View view = View.inflate(context, R.layout.activity_main, null);
         tv_my = (TextView) view.findViewById(R.id.tv_accountcenter);
         tv_home = (TextView) view.findViewById(R.id.tv_home);
         tv_research = (TextView) view.findViewById(R.id.tv_diaocha);
         tv_count = (TextView) view.findViewById(R.id.tv_tongji);
+        vp = (ViewPager) view.findViewById(R.id.vp);
         defaultHomeView();
         defaultReplaceHomeFragment();
 
@@ -72,13 +127,19 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
     @Override
     public void InitData() {
-        Intent intent = getIntent();
-        if (intent!=null){
-            usercode = intent.getStringExtra("usercode");
+        fragments.clear();
+        fragments.add(new HomeFragment());
+        fragments.add(new DiaoChaFragment());
+        fragments.add(new TongJiFragment());
+        fragments.add(new MyFragment());
 
+        vp.setAdapter(new MyFragmentPageAdpter(getSupportFragmentManager()));
+        vp.addOnPageChangeListener(new MyOnPageChangeListener());
+        Intent intent = getIntent();
+        if (intent != null) {
+            usercode = intent.getStringExtra("usercode");
         }
         tv_my.setOnClickListener(this);
         tv_research.setOnClickListener(this);
@@ -88,16 +149,8 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
     private void defaultReplaceHomeFragment() {
-        //默认填充主页fragment
-        manager = getSupportFragmentManager();
-        FragmentTransaction transition = manager.beginTransaction();
-        if (home == null) {
-            home = new HomeFragment();
-
-        }
-        transition.replace(R.id.ll_content, home).commit();
+        vp.setCurrentItem(0);
     }
 
 
@@ -113,43 +166,24 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        FragmentTransaction transaction = manager.beginTransaction();
         switch (v.getId()) {
-            case R.id.tv_accountcenter:
-                if (accenter == null) {
-                    accenter = new MyFragment();
-                   // accenter.setArguments(bundle);
 
-                }
-                resetMyView();
-                transaction.replace(R.id.ll_content, accenter, "MyFragment");
-                break;
-            case R.id.tv_diaocha:
-                if (diaoCha == null) {
-                    diaoCha = new DiaoChaFragment();
-                    //diaoCha.setArguments(bundle);
-                }
-                resetDiaoChaView();
-                transaction.replace(R.id.ll_content, diaoCha, "DiaoChaFragment");
-                break;
             case R.id.tv_home:
-                if (home == null) {
-                    home = new HomeFragment();
-                }
-                resetHomeView();
-                transaction.replace(R.id.ll_content, home, "HomeFragment");
+                vp.setCurrentItem(0);
+                break;
+
+            case R.id.tv_diaocha:
+                vp.setCurrentItem(1);
                 break;
             case R.id.tv_tongji:
-                if (tongJi == null) {
-                    tongJi = new TongJiFragment();
-                }
-                resetTongJiView();
-                transaction.replace(R.id.ll_content, tongJi, "TongJiFragment");
+                vp.setCurrentItem(2);
+                break;
+            case R.id.tv_accountcenter:
+                vp.setCurrentItem(3);
                 break;
             default:
                 break;
         }
-        transaction.commit();
 
     }
 
@@ -192,7 +226,7 @@ public class MainActivity extends BaseActivity {
     * 2.传递给accountfragment 和 researchFragment
     * */
     private void getNetData() {
-        OkHttpUtils.get().url(MyConstant.BASE_URL+ MyConstant.MYMSG_URL+usercode).build().execute(new Callback() {
+        OkHttpUtils.get().url(MyConstant.BASE_URL + MyConstant.MYMSG_URL + usercode).build().execute(new Callback() {
 
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
@@ -217,10 +251,10 @@ public class MainActivity extends BaseActivity {
 
                 }
 
-                sp=getSharedPreferences("MyselfConfig", Context.MODE_PRIVATE);
-                sp.edit().putString("departmentCode",departmentCode).commit();
-                sp.edit().putString("userCode",userCode).commit();
-                sp.edit().putString("realName",realName).commit();
+                sp = getSharedPreferences("MyselfConfig", Context.MODE_PRIVATE);
+                sp.edit().putString("departmentCode", departmentCode).commit();
+                sp.edit().putString("userCode", userCode).commit();
+                sp.edit().putString("realName", realName).commit();
                 sp.edit().putInt("userType", userType).commit();
             }
         });
@@ -342,12 +376,13 @@ public class MainActivity extends BaseActivity {
         tv_research.setCompoundDrawables(null, research, null, null);
 
     }
+
     private long exitTime = 0;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
-            if((System.currentTimeMillis()-exitTime) > 2000){
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
                 Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
