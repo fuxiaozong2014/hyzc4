@@ -45,6 +45,7 @@
                 android:layout_marginTop="5dp"
                 android:text="未执行"
                 android:visibility="gone"
+                android:textSize="@dimen/et_login_size"
                 android:textColor="@color/background_white"
                 />
             <Button
@@ -55,6 +56,7 @@
                 android:layout_marginTop="5dp"
                 android:text="已执行"
                 android:visibility="gone"
+                android:textSize="@dimen/et_login_size"
                 android:textColor="@color/background_white"
                 />
         </RelativeLayout>

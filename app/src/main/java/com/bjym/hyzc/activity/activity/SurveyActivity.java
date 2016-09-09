@@ -78,8 +78,6 @@ public class SurveyActivity extends BaseActivity {
     private String surveyName;
     private String name;
     private String patientsNo;
-    private String userCode;
-    private String realName;
     private String newCode;
     private RelativeLayout rela_no_wifi;
     private SharedPreferences sp;
@@ -156,11 +154,6 @@ public class SurveyActivity extends BaseActivity {
         name = intent.getStringExtra("Name");
         patientsNo = intent.getStringExtra("patientsNo");
 
-        /*
-        * 用户账号和姓名
-        * */
-        userCode = intent.getStringExtra("userCode");
-        realName = intent.getStringExtra("realName");
         /*
         * 调查表名字，设置为title
         * */
@@ -301,7 +294,6 @@ public class SurveyActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_next:
-
                 if (position != vg.getChildCount() - 1) {
                     vg.setCurrentItem(++position);
                 } else {
@@ -309,8 +301,9 @@ public class SurveyActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_submit:
-
                 sp=getSharedPreferences("MyselfConfig",MODE_PRIVATE);
+                String userCode = sp.getString("userCode", "");
+                String realName = sp.getString("realName", "");
                 int userType = sp.getInt("userType", 0);
                 if(userType==2 || userType==5){
                     btn_submit.setClickable(false);
@@ -318,9 +311,7 @@ public class SurveyActivity extends BaseActivity {
                     MyToast.showToast(SurveyActivity.this,"您尚没有提交权限");
                     return;
                 }
-
                 //得到每道题 对应的选项的得分
-
                 if (scoreMap.size() > 0) {
                     Iterator iterScore = scoreMap.entrySet().iterator();
                     while (iterScore.hasNext()) {
@@ -331,8 +322,6 @@ public class SurveyActivity extends BaseActivity {
                 }
                 String pationpMsg = new Gson().toJson(new SubmitorMsgBean(newCode, surveyNo, patientsNo, name, userCode, realName, "" + score, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()))));
                 MyLog.i("pationpMsg", pationpMsg);
-
-
                 /*
                 * 提交调查基本信息
                 * */
@@ -342,24 +331,19 @@ public class SurveyActivity extends BaseActivity {
                 * 1.提交调查结果至服务器
                 * 2.关闭自身页面
                 * */
-
                 commitAnswers();
                 finish();
                 break;
-
             case R.id.bt_titlebar_left:
                 finish();
             default:
                 break;
         }
     }
-
-
     /*
     * 提交调查结果至服务器
     * */
     private void commitAnswers() {
-
         if (answers.size() > 0) {
             Iterator iter = answers.entrySet().iterator();
 
@@ -431,28 +415,23 @@ public class SurveyActivity extends BaseActivity {
 
 
     public static class SurveyFragment extends BaseFragment {
-
         private RadioGroup rg;
         private TextView tv_questions;
         private String topicNo;
         private List<String> choiceNums = new ArrayList<>();
         private List<Integer> scoreLists = new ArrayList<>();
         private RelativeLayout rela_no_wifi;
-
         @Override
         public View setMainView() {
             View view = View.inflate(context, R.layout.fragment_survey, null);
             rg = (RadioGroup) view.findViewById(R.id.rg);
             rela_no_wifi =   (RelativeLayout)view.findViewById(R.id.Rela_no_wifi);
-
             tv_questions = (TextView) view.findViewById(R.id.tv_questions);
             return view;
         }
 
         @Override
         public void InitData() {
-
-
             Bundle bundle = getArguments();
             if (bundle != null) {
                 String contents = bundle.getString("Contents");
@@ -461,7 +440,6 @@ public class SurveyActivity extends BaseActivity {
                 tv_questions.setText(number + "." + contents);
                 getOptions();
             }
-
             //给RadioGroup设置选项改变的监听
             rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
@@ -471,13 +449,9 @@ public class SurveyActivity extends BaseActivity {
 
                     //存放得分
                     scoreMap.put(topicNo, scoreLists.get(checkedId));
-
                 }
             });
-
         }
-
-
         /*
         * 根据题干编号获取选项
         * */
@@ -513,7 +487,6 @@ public class SurveyActivity extends BaseActivity {
                     }
                 }
             });
-
         }
 
         private void parseResult(String result) {

@@ -227,6 +227,8 @@ public class MyTaskDoctorActivity extends BaseActivity {
             }
         } else {
             tv_search.setText(codeinformation);
+            transName=null;
+            MyToast.showToast(MyTaskDoctorActivity.this,"该患者不存在");
         }
     }
 }

@@ -60,7 +60,7 @@ public class AddNursingCareActivity extends BaseActivity {
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(AddNursingCareActivity.this, "请求成功" + "commitAddNursingCare");
+               // MyToast.showToast(AddNursingCareActivity.this, "请求成功" + "commitAddNursingCare");
                 MyLog.i("请求成功", "commitAddNursingCare" + o);
             }
         });

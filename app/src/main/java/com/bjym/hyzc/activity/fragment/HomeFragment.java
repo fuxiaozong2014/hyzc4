@@ -85,7 +85,7 @@ public class HomeFragment extends BaseFragment {
 
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.GONE);
-        tv_titlebar_center.setText("临床路径管理");
+        tv_titlebar_center.setText("主页");
 
     }
 

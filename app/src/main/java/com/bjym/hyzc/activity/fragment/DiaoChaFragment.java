@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -70,7 +69,6 @@ public class DiaoChaFragment extends BaseFragment {
 
     public static String transName;//传递给surveyActivity的调查人名字，用于传递过去，调查结果的提交
     public static String transPationteNo;//传递给surveyActivity的调查人编号，用于传递过去，调查结果的提交
-    private SharedPreferences sp;
 
 
     @Override
@@ -90,7 +88,6 @@ public class DiaoChaFragment extends BaseFragment {
 
     @Override
     public void InitData() {
-        sp = getActivity().getSharedPreferences("", Context.MODE_PRIVATE);
         bt_titlebar_left.setVisibility(View.GONE);
         bt_titlebar_right.setVisibility(View.GONE);
         tv_titlebar_center.setText("调查");
@@ -250,7 +247,7 @@ public class DiaoChaFragment extends BaseFragment {
                 break;
             case R.id.iv_search:
                 /*
-                * click here scan barCode to get pationte data  TODO
+                * click here scan barCode to get pationte data
                 * */
                 //打开扫描界面扫描条形码或二维码
                 Intent openCameraIntent = new Intent(DiaoChaFragment.this.getActivity(), CaptureActivity.class);
@@ -373,6 +370,9 @@ public class DiaoChaFragment extends BaseFragment {
 
         } else {
             tv_search.setText(codeinformation);
+            transName=null;
+            MyToast.showToast(DiaoChaFragment.this.getActivity(),"该患者不存在！");
+            return;
         }
     }
 }
