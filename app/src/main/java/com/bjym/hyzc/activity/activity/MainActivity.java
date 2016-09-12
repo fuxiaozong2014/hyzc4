@@ -248,7 +248,6 @@ public class MainActivity extends BaseActivity {
                     departmentCode = myself.DepartmentCode;
                     userCode = myself.UserCode;
                     userType = myself.UserType;
-
                 }
 
                 sp = getSharedPreferences("MyselfConfig", Context.MODE_PRIVATE);

@@ -75,6 +75,9 @@
             android:name=".activity.activity.SurveyActivity"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".activity.activity.SurveyActivity1"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name=".activity.activity.NurseHistoryActivity"
             android:label="护理记录"
             android:screenOrientation="portrait"></activity>

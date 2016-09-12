@@ -1,5 +1,6 @@
 package com.bjym.hyzc.activity.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -50,7 +51,7 @@ public class QuestionBean {
         this.rows = rows;
     }
 
-    public static class RowsBean {
+    public static class RowsBean implements Serializable {
         public String TopicNo;
         public String SurveyNo;
         public int Number;

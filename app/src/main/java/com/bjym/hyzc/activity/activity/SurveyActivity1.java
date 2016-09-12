@@ -45,7 +45,7 @@ import okhttp3.Response;
 /**
  * Created by fushaoqing on 2016/7/13.
  */
-public class SurveyActivity extends BaseActivity {
+public class SurveyActivity1 extends BaseActivity {
     public NoScrollViewPager vg;
     public RadioGroup rg;
     public Button btn_pre;
@@ -125,14 +125,6 @@ public class SurveyActivity extends BaseActivity {
     @Override
     public void InitData() {
 
-       /* StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads().detectDiskWrites().detectNetwork()
-                .penaltyLog().build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
-                .penaltyLog().penaltyDeath().build());*/
-
-
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
 
@@ -172,17 +164,17 @@ public class SurveyActivity extends BaseActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                SurveyActivity.this.position = position;
+                SurveyActivity1.this.position = position;
                 if (position == 0) {
                     btn_pre.setClickable(false);
-                    MyToast.showToast(SurveyActivity.this, "已经是第一题");
+                    MyToast.showToast(SurveyActivity1.this, "已经是第一题");
                 } else {
                     btn_pre.setClickable(true);
                 }
                 if (position == fragments.size() - 1) {
                     btn_submit.setVisibility(View.VISIBLE);
                     btn_next.setVisibility(View.GONE);
-                    MyToast.showToast(SurveyActivity.this, "已经是最后一题");
+                    MyToast.showToast(SurveyActivity1.this, "已经是最后一题");
                 } else {
                     btn_next.setClickable(true);
                     btn_submit.setVisibility(View.GONE);
@@ -205,7 +197,7 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(SurveyActivity.this, "请求失败");
+                MyToast.showToast(SurveyActivity1.this, "请求失败");
             }
 
             @Override
@@ -245,7 +237,7 @@ public class SurveyActivity extends BaseActivity {
             public void onError(Call call, Exception e, int i) {
                 dismiss();
                 rela_no_wifi.setVisibility(View.VISIBLE);
-                MyToast.showToast(SurveyActivity.this, "服务器正忙，请稍后重试");
+                MyToast.showToast(SurveyActivity1.this, "服务器正忙，请稍后重试");
             }
 
             @Override
@@ -296,14 +288,14 @@ public class SurveyActivity extends BaseActivity {
                     vg.setCurrentItem(--position);
 
                 } else {
-                    MyToast.showToast(SurveyActivity.this, "已经是第一题");
+                    MyToast.showToast(SurveyActivity1.this, "已经是第一题");
                 }
                 break;
             case R.id.btn_next:
                 if (position != vg.getChildCount() - 1) {
                     vg.setCurrentItem(++position);
                 } else {
-                    MyToast.showToast(SurveyActivity.this, "已经是最后一题");
+                    MyToast.showToast(SurveyActivity1.this, "已经是最后一题");
                 }
                 break;
             case R.id.btn_submit:
@@ -314,7 +306,7 @@ public class SurveyActivity extends BaseActivity {
                 if(userType==2 || userType==5){
                     btn_submit.setClickable(false);
                     btn_submit.setTextColor(Color.GRAY);
-                    MyToast.showToast(SurveyActivity.this,"您尚没有提交权限");
+                    MyToast.showToast(SurveyActivity1.this,"您尚没有提交权限");
                     return;
                 }
                 //得到每道题 对应的选项的得分
@@ -386,14 +378,14 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(SurveyActivity.this, "postPationMsg提交错误" + e.toString());
+                MyToast.showToast(SurveyActivity1.this, "postPationMsg提交错误" + e.toString());
 
                 MyLog.i("postPationMsg", "提交错误" + e.toString());
             }
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(SurveyActivity.this, surveyName + "提交成功");
+                MyToast.showToast(SurveyActivity1.this, surveyName + "提交成功");
                 MyLog.i("提交成功le", "postPationMsg" + o);
             }
         });
@@ -414,7 +406,7 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(SurveyActivity.this, "提交错误postAnswers" + e.toString());
+                MyToast.showToast(SurveyActivity1.this, "提交错误postAnswers" + e.toString());
                 MyLog.i("提交错误postAnswers", e.toString());
             }
 
@@ -517,7 +509,6 @@ public class SurveyActivity extends BaseActivity {
                     String choiceNo = option.ChoiceNo;  //用户选项
                     String contents = option.Contents;  //选项内容
                     int score = option.Score;    //选项的分
-
                     MyLog.i("choiceNo+contents+score::::",score+contents+choiceNo);
                     rb = new RadioButton(context);
                     scoreLists.add(score);
