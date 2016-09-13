@@ -269,6 +269,7 @@ public class SurveyActivity1 extends BaseActivity {
 
             fragments.add(surveyFragment);
             adpter.notifyDataSetChanged();
+
             MyLog.i("fragments::::",fragments.size()+"");
         }
 
@@ -292,7 +293,9 @@ public class SurveyActivity1 extends BaseActivity {
                 }
                 break;
             case R.id.btn_next:
-                if (position != vg.getChildCount() - 1) {
+                MyLog.i("vg.getChildCount() ::::",vg.getChildCount() +"");
+                MyLog.i("adpter.getCount() ::::",adpter.getCount() +"");
+                if (position !=adpter.getCount() - 1) {
                     vg.setCurrentItem(++position);
                 } else {
                     MyToast.showToast(SurveyActivity1.this, "已经是最后一题");

@@ -300,7 +300,7 @@ public class SurveyActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_next:
-                if (position != vg.getChildCount() - 1) {
+                if (position != adpter.getCount() - 1) {
                     vg.setCurrentItem(++position);
                 } else {
                     MyToast.showToast(SurveyActivity.this, "已经是最后一题");
@@ -310,8 +310,8 @@ public class SurveyActivity extends BaseActivity {
                 sp=getSharedPreferences("MyselfConfig",MODE_PRIVATE);
                 String userCode = sp.getString("userCode", "");
                 String realName = sp.getString("realName", "");
-                int userType = sp.getInt("userType", 0);
-                if(userType==2 || userType==5){
+                String qq = sp.getString("qq", "");
+                if(Integer.parseInt(qq)==3||Integer.parseInt(qq)==5||Integer.parseInt(qq)==4){//医生和护士
                     btn_submit.setClickable(false);
                     btn_submit.setTextColor(Color.GRAY);
                     MyToast.showToast(SurveyActivity.this,"您尚没有提交权限");

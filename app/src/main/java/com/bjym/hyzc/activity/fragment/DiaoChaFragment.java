@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.activity.MyPationteActivity;
-import com.bjym.hyzc.activity.activity.SurveyActivity1;
+import com.bjym.hyzc.activity.activity.SurveyActivity;
 import com.bjym.hyzc.activity.bean.DiaoChaSortBean;
 import com.bjym.hyzc.activity.bean.PationteBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
@@ -198,8 +198,8 @@ public class DiaoChaFragment extends BaseFragment {
            * 2.传递调查者姓名和编号，患者姓名和编号以及问卷编码到surveyActivity 用于提交数据
            * */
             if (transName != null) {
-               // Intent intent = new Intent(context, SurveyActivity.class);
-                Intent intent = new Intent(context, SurveyActivity1.class);
+                Intent intent = new Intent(context, SurveyActivity.class);
+                //Intent intent = new Intent(context, SurveyActivity1.class);
                 rowsBean = rowsBeans.get(position);
                 surveyNo = rowsBean.SurveyNo;
                 surveyName = rowsBean.SurveyName;

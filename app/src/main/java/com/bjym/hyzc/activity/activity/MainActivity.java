@@ -228,6 +228,8 @@ public class MainActivity extends BaseActivity {
     private void getNetData() {
         OkHttpUtils.get().url(MyConstant.BASE_URL + MyConstant.MYMSG_URL + usercode).build().execute(new Callback() {
 
+            private String qq;
+
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 String json = response.body().string();
@@ -248,12 +250,15 @@ public class MainActivity extends BaseActivity {
                     departmentCode = myself.DepartmentCode;
                     userCode = myself.UserCode;
                     userType = myself.UserType;
+                    qq = myself.QQ;
+
                 }
 
                 sp = getSharedPreferences("MyselfConfig", Context.MODE_PRIVATE);
                 sp.edit().putString("departmentCode", departmentCode).commit();
                 sp.edit().putString("userCode", userCode).commit();
                 sp.edit().putString("realName", realName).commit();
+                sp.edit().putString("qq", qq).commit();
                 sp.edit().putInt("userType", userType).commit();
             }
         });
@@ -273,20 +278,20 @@ public class MainActivity extends BaseActivity {
         //tv_research为灰色
         Drawable research = getResources().getDrawable(R.mipmap.research);
         research.setBounds(0, 0, research.getMinimumWidth(), research.getMinimumHeight());
-        tv_research.setTextColor(getResources().getColor(R.color.Hui));
+        tv_research.setTextColor(getResources().getColor(R.color.myPationte_title_color));
         tv_research.setCompoundDrawables(null, research, null, null);
 
         //tv_count为灰色
         Drawable count = getResources().getDrawable(R.mipmap.count);
         count.setBounds(0, 0, count.getMinimumWidth(), count.getMinimumHeight());
-        tv_count.setTextColor(getResources().getColor(R.color.Hui));
+        tv_count.setTextColor(getResources().getColor(R.color.myPationte_title_color));
         tv_count.setCompoundDrawables(null, count, null, null);
 
 
         //tv_my为灰色
         Drawable my = getResources().getDrawable(R.mipmap.my);
         my.setBounds(0, 0, my.getMinimumWidth(), my.getMinimumHeight());
-        tv_my.setTextColor(getResources().getColor(R.color.Hui));
+        tv_my.setTextColor(getResources().getColor(R.color.myPationte_title_color));
         tv_my.setCompoundDrawables(null, my, null, null);
     }
 
@@ -300,20 +305,20 @@ public class MainActivity extends BaseActivity {
         //tv_research为灰色
         Drawable home = getResources().getDrawable(R.mipmap.home);
         home.setBounds(0, 0, home.getMinimumWidth(), home.getMinimumHeight());
-        tv_home.setTextColor(getResources().getColor(R.color.Hui));
+        tv_home.setTextColor(getResources().getColor(R.color.myPationte_title_color));
         tv_home.setCompoundDrawables(null, home, null, null);
 
         //tv_count为灰色
         Drawable count = getResources().getDrawable(R.mipmap.count);
         count.setBounds(0, 0, count.getMinimumWidth(), count.getMinimumHeight());
-        tv_count.setTextColor(getResources().getColor(R.color.Hui));
+        tv_count.setTextColor(getResources().getColor(R.color.myPationte_title_color));
         tv_count.setCompoundDrawables(null, count, null, null);
 
 
         //tv_my为灰色
         Drawable my = getResources().getDrawable(R.mipmap.my);
         my.setBounds(0, 0, my.getMinimumWidth(), my.getMinimumHeight());
-        tv_my.setTextColor(getResources().getColor(R.color.Hui));
+        tv_my.setTextColor(getResources().getColor(R.color.myPationte_title_color));
         tv_my.setCompoundDrawables(null, my, null, null);
 
     }
@@ -329,20 +334,20 @@ public class MainActivity extends BaseActivity {
         //tv_research为灰色
         Drawable home = getResources().getDrawable(R.mipmap.home);
         home.setBounds(0, 0, home.getMinimumWidth(), home.getMinimumHeight());
-        tv_home.setTextColor(getResources().getColor(R.color.Hui));
+        tv_home.setTextColor(getResources().getColor(R.color.myPationte_title_color));
         tv_home.setCompoundDrawables(null, home, null, null);
 
         //tv_count为灰色
         Drawable count = getResources().getDrawable(R.mipmap.count);
         count.setBounds(0, 0, count.getMinimumWidth(), count.getMinimumHeight());
-        tv_count.setTextColor(getResources().getColor(R.color.Hui));
+        tv_count.setTextColor(getResources().getColor(R.color.myPationte_title_color));
         tv_count.setCompoundDrawables(null, count, null, null);
 
 
         //tv_research为灰色
         Drawable research = getResources().getDrawable(R.mipmap.research);
         research.setBounds(0, 0, research.getMinimumWidth(), research.getMinimumHeight());
-        tv_research.setTextColor(getResources().getColor(R.color.Hui));
+        tv_research.setTextColor(getResources().getColor(R.color.myPationte_title_color));
         tv_research.setCompoundDrawables(null, research, null, null);
 
     }
@@ -358,20 +363,20 @@ public class MainActivity extends BaseActivity {
         //tv_research为灰色
         Drawable home = getResources().getDrawable(R.mipmap.home);
         home.setBounds(0, 0, home.getMinimumWidth(), home.getMinimumHeight());
-        tv_home.setTextColor(getResources().getColor(R.color.Hui));
+        tv_home.setTextColor(getResources().getColor(R.color.myPationte_title_color));
         tv_home.setCompoundDrawables(null, home, null, null);
 
         //tv_my为灰色
         Drawable my = getResources().getDrawable(R.mipmap.my);
         my.setBounds(0, 0, my.getMinimumWidth(), my.getMinimumHeight());
-        tv_my.setTextColor(getResources().getColor(R.color.Hui));
+        tv_my.setTextColor(getResources().getColor(R.color.myPationte_title_color));
         tv_my.setCompoundDrawables(null, my, null, null);
 
 
         //tv_research为灰色
         Drawable research = getResources().getDrawable(R.mipmap.research);
         research.setBounds(0, 0, research.getMinimumWidth(), research.getMinimumHeight());
-        tv_research.setTextColor(getResources().getColor(R.color.Hui));
+        tv_research.setTextColor(getResources().getColor(R.color.myPationte_title_color));
         tv_research.setCompoundDrawables(null, research, null, null);
 
     }

@@ -43,6 +43,7 @@ public class MyFragment extends BaseFragment {
     private int userType;
     private SharedPreferences sp;
     private ImageView iv_icon;
+    private String qq;
 
 
     @Override
@@ -74,6 +75,7 @@ public class MyFragment extends BaseFragment {
             String userCode = sp.getString("userCode","");
             String realName = sp.getString("realName","");
             userType = sp.getInt("userType",0);
+            qq = sp.getString("qq","");
             MyLog.i("userType:::", userType +"");
 
          /*
@@ -85,10 +87,9 @@ public class MyFragment extends BaseFragment {
             MyToast.showToast(MyFragment.this.getActivity(),"您还没有登录！");
             return;
         }
-        if(userType==5){//护理人员
+        if(Integer.parseInt(qq)==4||Integer.parseInt(qq)==5){//护理人员
             ll_myTaskDOctor.setVisibility(View.GONE);
-        }
-        if(userType==2){//医生
+        } else if(Integer.parseInt(qq)==3){//医生
             ll_myTask.setVisibility(View.GONE);
         }
 

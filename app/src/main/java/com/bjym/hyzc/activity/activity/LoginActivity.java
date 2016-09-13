@@ -172,6 +172,7 @@ public class LoginActivity extends BaseActivity {
                 progressDialog.dismiss();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
 
