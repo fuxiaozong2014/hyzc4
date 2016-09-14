@@ -386,9 +386,9 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(SurveyActivity.this, "postPationMsg提交错误" + e.toString());
+                MyToast.showToast(SurveyActivity.this, surveyName+ "提交错误");
 
-                MyLog.i("postPationMsg", "提交错误" + e.toString());
+                MyLog.i("postPationMsg",surveyName+ "提交错误");
             }
 
             @Override
@@ -414,7 +414,7 @@ public class SurveyActivity extends BaseActivity {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(SurveyActivity.this, "提交错误postAnswers" + e.toString());
+                MyToast.showToast(SurveyActivity.this, "提交错误" + e.toString());
                 MyLog.i("提交错误postAnswers", e.toString());
             }
 
@@ -527,9 +527,9 @@ public class SurveyActivity extends BaseActivity {
                     params = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.SCROLL_AXIS_VERTICAL);
                     // params.leftMargin = DensityUtil.dip2px(20);
                     rg.addView(rb, i, params);
-                    if(i==0){
+                  /*  if(i==0){
                         rg.check(i);
-                    }
+                    }*/
                 }
             }
 

@@ -81,7 +81,7 @@ public class MyFragment extends BaseFragment {
          /*
          * 把用户信息赋值给textview
          * */
-            tv_account.setText("用户名：" + userCode);
+            tv_account.setText("用户名：" + realName);
             tv_keshi.setText("科室名：" + departmentCode);
         }else{
             MyToast.showToast(MyFragment.this.getActivity(),"您还没有登录！");

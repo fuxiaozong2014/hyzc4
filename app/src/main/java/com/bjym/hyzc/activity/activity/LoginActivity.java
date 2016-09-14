@@ -125,7 +125,7 @@ public class LoginActivity extends BaseActivity {
 
     private void showAlertDialog() {
         final AlertDialog.Builder builer = new AlertDialog.Builder(this);
-        builer.setTitle("是否升级新版本？");
+        builer.setTitle("检测到新版本，确定升级？");
         //当点确定按钮时从服务器上下载 新的apk 然后安装
         builer.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
