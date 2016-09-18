@@ -304,32 +304,19 @@ public class DiaoChaFragment extends BaseFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-
-
         if (requestCode == 0 && resultCode == -1) {
             Bundle bundle = data.getExtras();
-            if (bundle != null) {// 结果
+            if (bundle != null) {
                 codeinformation = bundle.getString("result");
                 if (codeinformation != null) {
                     MyToast.showToast(DiaoChaFragment.this.getActivity(), codeinformation);
                     getPationteName();
-
                 } else {
                     MyToast.showToast(DiaoChaFragment.this.getActivity(), "没有结果");
                 }
             }
         }
-        /*if (requestCode == 1 && resultCode == 2) {
-            Intent intent = DiaoChaFragment.this.getActivity().getIntent();
-            String name = intent.getStringExtra("Name");
-            String patientsNo = intent.getStringExtra("patientsNo");
-
-            transName = name;
-            transPationteNo = patientsNo;
-
-        }*/
     }
 
     private void getPationteName() {

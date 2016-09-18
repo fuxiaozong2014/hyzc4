@@ -3,6 +3,7 @@ package com.bjym.hyzc.activity.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,9 +14,11 @@ import com.bjym.hyzc.activity.activity.MyTaskActivity;
 import com.bjym.hyzc.activity.activity.MyTaskDoctorActivity;
 import com.bjym.hyzc.activity.activity.PationtNameListActivity;
 import com.bjym.hyzc.activity.bean.PationteBean;
+import com.bjym.hyzc.activity.utils.BitmapUtils;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
+import com.bjym.hyzc.activity.utils.PickImageUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -31,6 +34,7 @@ import okhttp3.Response;
 
 public class MyFragment extends BaseFragment {
 
+    private static final int REQUEST_GALLERY_FOR_AVATAR =1 ;
     private LinearLayout ll_myPationte;
     private LinearLayout ll_myTask;
     private LinearLayout ll_myTaskDOctor;
@@ -64,12 +68,6 @@ public class MyFragment extends BaseFragment {
     @Override
     public void InitData() {
         sp=getActivity().getSharedPreferences("MyselfConfig", Context.MODE_PRIVATE);
-      /*  StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads().detectDiskWrites().detectNetwork()
-                .penaltyLog().build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
-                .penaltyLog().penaltyDeath().build());*/
         if (sp!=null) {
             String departmentCode = sp.getString("departmentCode","");
             String userCode = sp.getString("userCode","");
@@ -128,6 +126,25 @@ public class MyFragment extends BaseFragment {
             * 点击图标打开本地相册，选择头像，显示在客户端，并且上传至服务器 TODO
             * */
             case R.id.iv_icon:
+                PickImageUtils.getGalleryImage(MyFragment.this.getActivity(), REQUEST_GALLERY_FOR_AVATAR);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_GALLERY_FOR_AVATAR:
+                Bitmap bitmap = PickImageUtils.onActivityResult(data, MyFragment.this.getActivity());
+                String avatarString = BitmapUtils.compressBitmap2Base64String(bitmap);
+                MyLog.i("avatarString:::",avatarString);
+                MyToast.showToast(MyFragment.this.getActivity(),avatarString);
+                if (null == bitmap) {
+                    return;
+                }
+                iv_icon.setImageBitmap(BitmapUtils.zoomBitmap(bitmap, iv_icon.getMeasuredWidth(), iv_icon.getMeasuredHeight()));
 
                 break;
             default:

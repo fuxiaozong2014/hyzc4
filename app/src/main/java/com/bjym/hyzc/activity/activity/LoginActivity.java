@@ -386,7 +386,6 @@ public class LoginActivity extends BaseActivity {
     private void setAlias() {
         HashSet<String> set = new HashSet<>();
         set.add("哈哈");
-
         JPushInterface.setAliasAndTags(LoginActivity.this, usercode, set, new TagAliasCallback() {
             @Override
             public void gotResult(int i, String s, Set<String> set) {
