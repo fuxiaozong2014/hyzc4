@@ -253,7 +253,6 @@ public class MainActivity extends BaseActivity {
                     qq = myself.QQ;
 
                 }
-
                 sp = getSharedPreferences("MyselfConfig", Context.MODE_PRIVATE);
                 sp.edit().putString("departmentCode", departmentCode).commit();
                 sp.edit().putString("userCode", userCode).commit();
@@ -398,4 +397,10 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment fragment = fragments.get(vp.getCurrentItem());
+        fragment.onActivityResult(requestCode,resultCode,data);
+    }
 }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +18,7 @@ import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
 import com.bjym.hyzc.activity.utils.PickImageUtils;
+import com.bjym.hyzc.activity.view.CircleImageView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -46,7 +46,7 @@ public class MyFragment extends BaseFragment {
     private List<PationteBean> pationtes;
     private int userType;
     private SharedPreferences sp;
-    private ImageView iv_icon;
+    private CircleImageView iv_icon;
     private String qq;
 
 
@@ -56,7 +56,7 @@ public class MyFragment extends BaseFragment {
         ll_myPationte = (LinearLayout) view.findViewById(R.id.ll_myPationte);
         ll_myTask = (LinearLayout) view.findViewById(R.id.ll_myTask);
         ll_myTaskDOctor = (LinearLayout) view.findViewById(R.id.ll_myTaskDOctor);
-        iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
+        iv_icon = (CircleImageView) view.findViewById(R.id.iv_icon);
 
         tv_account = (TextView) view.findViewById(R.id.tv_account);
         tv_keshi = (TextView) view.findViewById(R.id.tv_keshi);
@@ -133,14 +133,15 @@ public class MyFragment extends BaseFragment {
         }
     }
 
-    @Override
+
+   @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_GALLERY_FOR_AVATAR:
-                Bitmap bitmap = PickImageUtils.onActivityResult(data, MyFragment.this.getActivity());
+               Bitmap bitmap = PickImageUtils.onActivityResult(data, MyFragment.this.getActivity());
                 String avatarString = BitmapUtils.compressBitmap2Base64String(bitmap);
-                MyLog.i("avatarString:::",avatarString);
-                MyToast.showToast(MyFragment.this.getActivity(),avatarString);
+               MyLog.i("avatarString:::",avatarString);
+              // MyToast.showToast(MyFragment.this.getActivity(),avatarString);
                 if (null == bitmap) {
                     return;
                 }
@@ -160,16 +161,13 @@ public class MyFragment extends BaseFragment {
                 parseJson(jsonStr);
                 return null;
             }
-
             @Override
             public void onError(Call call, Exception e, int i) {
                 MyToast.showToast(MyFragment.this.getActivity(), "服务器正忙，请稍后重试");
             }
-
             @Override
             public void onResponse(Object o, int i) {
                 tv_myPationte.setText("我的病人 ( " + pationtes.size() + " )");
-
             }
         });
     }
@@ -178,7 +176,5 @@ public class MyFragment extends BaseFragment {
 
         pationtes = new Gson().fromJson(jsonStr, new TypeToken<List<PationteBean>>() {
         }.getType());
-
     }
-
 }

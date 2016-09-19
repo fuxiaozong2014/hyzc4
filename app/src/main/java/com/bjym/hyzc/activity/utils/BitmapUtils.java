@@ -207,6 +207,18 @@ public class BitmapUtils {
                 return Base64.encodeToString(bytes, Base64.DEFAULT);
             }
             quality -= 10;
+            try {
+                baos.flush();
+                baos.reset();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            baos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return null;
     }

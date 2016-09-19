@@ -196,7 +196,6 @@ public class LoginActivity extends BaseActivity {
                     public Object parseNetworkResponse(Response response, int i) throws Exception {
                         // String stringVersion = response.body().string();
                         //  MyLog.i("stringVersion::",stringVersion);
-
                         return response.body().string();
                     }
 
