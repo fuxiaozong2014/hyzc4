@@ -25,9 +25,9 @@ import okhttp3.Response;
 
 /**
  * Created by fushaoqing on 2016/8/3.
+ * 护士执行医嘱的路径阶段类
  */
-public class NurseSelectStageActivity extends BaseActivity {
-
+public class NurseSelectStageYiZhuActivity extends BaseActivity {
     private List<String> nurseStages=new ArrayList<>();
     private String cpwCode;
     private ListView lv;
@@ -41,17 +41,15 @@ public class NurseSelectStageActivity extends BaseActivity {
 
     class MyOnItemClickListener implements AdapterView.OnItemClickListener{
 
-
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //click this item jump to NurseUnxecuteYiZhuActivity with StageCode
 
                 Intent intent=new Intent(context,NurseYiZhuActivity.class);
-
                 intent.putExtra("StageCode",rows.get(position).StageCode);
                 intent.putExtra("patientsNo",patientsNo);
                 startActivity(intent);
-          //  MyToast.showToast(NurseSelectStageActivity.this,"wobeidianleffff");
+          //  MyToast.showToast(NurseSelectStageYiZhuActivity.this,"wobeidianleffff");
         }
     }
 
@@ -105,10 +103,8 @@ public class NurseSelectStageActivity extends BaseActivity {
             }
         });
     }
-
-
-
     private void parseJson(String o) {
+        MyLog.i("得到路径阶段：",o);
         Gson gson = new Gson();
         nurseExecuteBean = gson.fromJson(o, NurseExecuteBean.class);
         rows = nurseExecuteBean.getRows();
@@ -118,6 +114,7 @@ public class NurseSelectStageActivity extends BaseActivity {
             if (parentCode.equals("0")){
                 nurseStages.add(stageName);
             }
+
 
         }
 

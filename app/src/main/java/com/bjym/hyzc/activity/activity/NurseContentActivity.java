@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * Created by fushaoqing on 2016/9/7.
+ *
  */
 public class NurseContentActivity extends BaseActivity{
     private ViewPager vp;

@@ -56,6 +56,7 @@ public class NurseExecutedContentFragment extends BaseFragment{
     }
 
     private void getNurseExecutedContent() {
+        MyLog.i("currentStageCode::",currentStageCode);
         OkHttpUtils.get()
                 .url(MyConstant.BASE_URL+ MyConstant.NURSE_EXECUTE_CONTENT+patientsNo+"&stagecode="+currentStageCode)
                 .build()

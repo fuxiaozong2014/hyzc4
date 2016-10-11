@@ -35,21 +35,20 @@ public class NursingContentChildStageActivity extends BaseActivity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            //遍历childItemLists得到相对应子阶段的stagecode
+            //childItemLists得到相对应子阶段的stagecode
             //遍历rowsSun得到所有条目的stagecode
             //比对，如果两者相等，就把这类对象保存到对应集合，把集合传递到展示界面
             String stageCodeChild = childItemLists.get(position).StageCode;
+            MyLog.i("-----------------------stageCodeChild",stageCodeChild);
             if (rowsSun !=null) {
                 for (int i = 0; i <rowsSun.size() ; i++) {
                     String stageCodeSun = rowsSun.get(i).StageCode;
+                    MyLog.i("-----------------------stageCodeSun",stageCodeSun);
                     if (stageCodeChild.equals(stageCodeSun)){
                         rowsSunItemLists.add(rowsSun.get(i));
                     }
                 }
             }
-
-           // Intent intent=new Intent(NursingContentChildStageActivity.this,NursingUnexecuteContentChildActivity.class);
-           // Intent intent=new Intent(NursingContentChildStageActivity.this,NursingUnexecuteContentActivity.class);
             Intent intent=new Intent(NursingContentChildStageActivity.this,NurseContentActivity.class);
             intent.putExtra("rowsSunItemLists",(Serializable) rowsSunItemLists);
             intent.putExtra("stageCodeChild",stageCodeChild);
@@ -84,12 +83,9 @@ public class NursingContentChildStageActivity extends BaseActivity {
             MyLog.i("childItemLists.size();:::::", childItemLists.size() + "");
             rowsSun = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("rowsSun");
             patientsNo = intent.getStringExtra("patientsNo");
-
         }
 
         lv.setAdapter(new MyAdapter());
-
-
         lv.setOnItemClickListener(new MyOnItemClickListener());
     }
 

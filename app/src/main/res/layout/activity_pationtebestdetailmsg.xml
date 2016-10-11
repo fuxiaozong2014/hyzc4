@@ -281,14 +281,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:text="住院医师名称 ："
                     android:textSize="@dimen/et_login_size1" />
 
                 <TextView
-                    android:id="@+id/myPationte_InDocCode"
+                    android:id="@+id/myPationte_InDocName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2016"
@@ -298,11 +300,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="住院医师名称 ："
+                    android:text="住院医师代码 ："
                     android:textSize="@dimen/et_login_size1" />
 
                 <TextView
-                    android:id="@+id/myPationte_InDocName"
+                    android:id="@+id/myPationte_InDocCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2016"
@@ -438,12 +440,6 @@
                     android:textColor="@color/myPationte_content_color" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="诊断名称 ："
-                    android:textSize="@dimen/et_login_size1" />
 
                 <TextView
                     android:id="@+id/myPationte_DiagnosisName"
@@ -452,6 +448,12 @@
                     android:text="2016"
                     android:textColor="@color/myPationte_content_color" />
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="诊断名称 ："
+                android:textSize="@dimen/et_login_size1" />
 
             <LinearLayout
                 android:layout_width="match_parent"

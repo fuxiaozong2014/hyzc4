@@ -55,7 +55,7 @@ public class DoctorYiZhuManagerActivity extends BaseActivity {
                 startActivity(intent);
             }
 
-            //  MyToast.showToast(NurseSelectStageActivity.this,"wobeidianleffff");
+            //  MyToast.showToast(NurseSelectStageYiZhuActivity.this,"wobeidianleffff");
         }
     }
 

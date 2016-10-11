@@ -33,16 +33,34 @@ import okhttp3.Response;
 public class NursingContentParentStageActivity extends BaseActivity {
 
     private String cpwCode;
-    private List<String> nurseStages = new ArrayList<>();
+    private List<String> nurseAllStages = new ArrayList<>();
     private List<NurseExecuteBean.RowsBean> rows;
-    private List<NursingContentBean.RowsBean> rowsSun;
+    private List<NursingContentBean.RowsBean> UnExecuteNursingcareContentAll;
+
+    private List<NursingContentBean.RowsBean> rowsSun=new ArrayList<>();
 
     private NurseExecuteBean nurseExecuteBean;
     private LinearLayout ll_parent;
-    private List<NurseExecuteBean.RowsBean> parentLists = new ArrayList<>();
-    private List<NurseExecuteBean.RowsBean> childLists = new ArrayList<>();
+    /*
+    * 一级径阶段集合
+    * */
+    private List<NurseExecuteBean.RowsBean> parentStageLists = new ArrayList<>();
+    /*
+    * 二级路径阶段集合
+    * */
+    private List<NurseExecuteBean.RowsBean> childStageLists = new ArrayList<>();
+    /*
+    * 三级路径阶段集合
+    * */
+    private List<NurseExecuteBean.RowsBean> SunStageLists = new ArrayList<>();
+    /*
+    *
+    * */
     private List<NurseExecuteBean.RowsBean> childItemLists = new ArrayList<>();
-    private List<NursingContentBean.RowsBean> SunItemLists=new ArrayList<>();
+    /*
+    *
+    * */
+    private List<NursingContentBean.RowsBean> SunItemLists = new ArrayList<>();
 
     private ListView lv;
     private Button bt_titlebar_right;
@@ -62,52 +80,54 @@ public class NursingContentParentStageActivity extends BaseActivity {
             //遍历子集合拿到parentcode
             //如果stageCode.equals（parentcode） ，拿到这类子集合
             //这个对象集合传递到子界面listview，展示
-            stageCode = parentLists.get(position).StageCode;//拿到被点击的父亲的stageCode
-            MyLog.i("parentLists:stageCode", stageCode);
-
-            MyLog.i("childItemLists",childItemLists.toString()+childItemLists.size());
-
-            if (childLists.size()!=0 &&childLists!=null){
-                for (int i = 0; i < childLists.size(); i++) { //遍历拿到每个孩子的parentCode，拿到一个比对，如果是，就添加到集合里
-                    parentCode = childLists.get(i).ParentCode;
+            stageCode = parentStageLists.get(position).StageCode;//拿到被点击的父亲的stageCode
+            MyLog.i("parentStageLists:stageCode", stageCode);
+            MyLog.i("childItemLists", childItemLists.toString() + childItemLists.size());
+            if (childStageLists.size() != 0 && childStageLists != null) {
+                for (int i = 0; i < childStageLists.size(); i++) { //遍历拿到每个孩子的parentCode，拿到一个比对，如果是，就添加到集合里
+                    parentCode = childStageLists.get(i).ParentCode;
                     if (stageCode.equals(parentCode)) {
-                        childItemLists.add(childLists.get(i));
+                        childItemLists.add(childStageLists.get(i));
                     }
+                }
+                for (int i = 0; i < UnExecuteNursingcareContentAll.size(); i++) {
+                        /*
+                        * rowsSun是所有医嘱类的未执行的内容
+                        * */
+                        rowsSun.add(UnExecuteNursingcareContentAll.get(i));
                 }
                 Intent intent = new Intent(context, NursingContentChildStageActivity.class);
                 intent.putExtra("childItemLists", (Serializable) childItemLists);
                 //传递孙数据给子阶段
-                intent.putExtra("rowsSun",(Serializable)rowsSun);
-                intent.putExtra("patientsNo",patientsNo);
+                intent.putExtra("rowsSun", (Serializable) rowsSun);
+                intent.putExtra("patientsNo", patientsNo);
 
                 startActivity(intent);
-            }else {
-                for (int j = 0; j <rowsSun.size() ; j++) {
-                    String stageCodeSun = rowsSun.get(j).StageCode;
-                    MyLog.i("stageCodeSun：：：", stageCode);
-                    if (stageCodeSun.equals(stageCode)){
-                        SunItemLists.add(rowsSun.get(j));
-                    }
+            } else {
+                for (int j = 0; j < UnExecuteNursingcareContentAll.size(); j++) {
+                        String stageCodeSun = UnExecuteNursingcareContentAll.get(j).StageCode;
+                        MyLog.i("stageCodeSun：：：", stageCode);
+                        if (stageCodeSun.equals(stageCode)) {
+                            SunItemLists.add(UnExecuteNursingcareContentAll.get(j));
+                        }
                 }
-                if(SunItemLists.size()==0){
-                    MyToast.showToast(NursingContentParentStageActivity.this,"此阶段暂无护理内容");
+                if (SunItemLists.size() == 0) {
+                    MyToast.showToast(NursingContentParentStageActivity.this, "此阶段暂无护理内容");
                     return;
-                }else{
-                    MyLog.i("SunItemLists",SunItemLists.toString()+SunItemLists.size());
+                } else {
+                    MyLog.i("SunItemLists得到未执行的内容", SunItemLists.toString() + SunItemLists.size());
                     //Intent intent = new Intent(context, NursingUnexecuteContentActivity.class);
                     Intent intent = new Intent(context, NurseContentActivity.class);
                     intent.putExtra("SunItemLists", (Serializable) SunItemLists);
                     intent.putExtra("StageCodeParent", stageCode);
                     intent.putExtra("patientsNo", patientsNo);
-
                     startActivity(intent);
                     // MyToast.showToast(NursingContentParentStageActivity.this,"没有子条目");
                 }
             }
             childItemLists.clear();
             SunItemLists.clear();
-           //stageCode 和孙数据的stageCode相比，如果相等，就添加到孙集合中，开启NursingContentSelectActivityji界面
-
+            //stageCode 和孙数据的stageCode相比，如果相等，就添加到孙集合中，开启NursingContentSelectActivityji界面
         }
     }
 
@@ -127,7 +147,7 @@ public class NursingContentParentStageActivity extends BaseActivity {
     public void InitData() {
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
-        tv_titlebar_center.setText("选择父路径阶段");
+        tv_titlebar_center.setText("选择一级路径阶段");
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -141,14 +161,13 @@ public class NursingContentParentStageActivity extends BaseActivity {
         bt_titlebar_left.setOnClickListener(this);
     }
 
-
     /*
     * 得到路径阶段信息
     * */
     private void getNurseStageData() {
 
-        MyLog.i("NURSE_STAGE+cpwCode:::::::::", MyConstant.NURSE_SELECT_STAGE + cpwCode);
-        OkHttpUtils.get().url(MyConstant.BASE_URL+ MyConstant.NURSE_SELECT_STAGE + cpwCode).build().execute(new Callback() {
+        MyLog.i("得到所有路径阶段的接口：", MyConstant.NURSE_SELECT_STAGE + cpwCode);
+        OkHttpUtils.get().url(MyConstant.BASE_URL + MyConstant.NURSE_SELECT_STAGE + cpwCode).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
                 return response.body().string();
@@ -167,19 +186,23 @@ public class NursingContentParentStageActivity extends BaseActivity {
     }
 
     private void parseJson(String o) {
+        MyLog.i("得到所有的路径阶段",o);
         Gson gson = new Gson();
         nurseExecuteBean = gson.fromJson(o, NurseExecuteBean.class);
         rows = nurseExecuteBean.getRows();
         for (int i = 0; i < rows.size(); i++) {
             String stageName = rows.get(i).StageName;
-            String stageCode =  rows.get(i).StageCode;
+            String stageCode = rows.get(i).StageCode;
             String parentCode = rows.get(i).ParentCode;
 
+            /*
+            * 如果parentCode为0，拿到阶段名称添加到
+            * */
             if (parentCode.equals("0")) {
-                nurseStages.add(stageName);
-                parentLists.add(rows.get(i));
+                nurseAllStages.add(stageName);//添加的是所有的一级阶段名称
+                parentStageLists.add(rows.get(i));//添加的是所有一级阶段名称对应的对象的
             } else {
-                childLists.add(rows.get(i));
+                childStageLists.add(rows.get(i));
             }
         }
 
@@ -192,7 +215,7 @@ public class NursingContentParentStageActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return nurseStages.size();
+            return nurseAllStages.size();
         }
 
         @Override
@@ -216,7 +239,7 @@ public class NursingContentParentStageActivity extends BaseActivity {
                 view = convertView;
             }
             TextView tv_NurseStage = (TextView) view.findViewById(R.id.tv_NurseStage);
-            tv_NurseStage.setText(nurseStages.get(position));
+            tv_NurseStage.setText(nurseAllStages.get(position));
             return view;
         }
     }
@@ -233,13 +256,18 @@ public class NursingContentParentStageActivity extends BaseActivity {
         }
     }
 
+    /*
+    * 得到未执行的护理内容
+    * */
     private void getNurseSunData() {
-        OkHttpUtils.get().url(MyConstant.BASE_URL+ MyConstant.NURSING_CONTENT_SELECT + cpwCode).build().execute(new Callback() {
+        MyLog.i("得到未执行护理内容接口：", MyConstant.NURSING_CONTENT_SELECT + cpwCode);
+        OkHttpUtils.get().url(MyConstant.BASE_URL + MyConstant.NURSING_CONTENT_SELECT + cpwCode).build().execute(new Callback() {
 
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
 
-               //  MyToast.showToast(NursingUnexecuteContentActivity.this, "请求成功" + "getNursingContentData");
+                //  MyToast.showToast(NursingContentParentStageActivity.this, "请求成功" + response.body().string());
+              //  MyLog.i("response.body().string()",response.body().string());
 
                 return response.body().string();
             }
@@ -257,10 +285,10 @@ public class NursingContentParentStageActivity extends BaseActivity {
     }
 
     private void parseRowsSunJson(String o) {
+        MyLog.i("得到未执行的护理内容",o);
         NursingContentBean nursingContentBean = new Gson().fromJson(o, NursingContentBean.class);
-        rowsSun = nursingContentBean.getRows();
-        MyLog.i("rowsSun", rowsSun.size() + "");
+        UnExecuteNursingcareContentAll = nursingContentBean.getRows();
+        MyLog.i("所有未执行的护理内容的集合", UnExecuteNursingcareContentAll.size() + "");
     }
-
 
 }

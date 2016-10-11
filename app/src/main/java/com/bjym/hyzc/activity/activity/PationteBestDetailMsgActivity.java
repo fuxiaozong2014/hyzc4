@@ -135,10 +135,10 @@ public class PationteBestDetailMsgActivity extends BaseActivity {
             this.myPationte_NuseCellName = (TextView) rootView.findViewById(R.id.myPationte_NuseCellName);
             this.myPationte_InDocCode = (TextView) rootView.findViewById(R.id.myPationte_InDocCode);
             this.myPationte_InDocName = (TextView) rootView.findViewById(R.id.myPationte_InDocName);
-            this.myPationte_ChargeDocCode = (TextView) rootView.findViewById(R.id.myPationte_ChargeDocCode);
-            this.myPationte_ChargeDocName = (TextView) rootView.findViewById(R.id.myPationte_ChargeDocName);
-            this.myPationte_ChifeDocCode = (TextView) rootView.findViewById(R.id.myPationte_ChifeDocCode);
-            this.myPationte_ChifeDocName = (TextView) rootView.findViewById(R.id.myPationte_ChifeDocName);
+            this.myPationte_ChargeDocCode = (TextView) rootView.findViewById(R.id.myPationte_ChargeDocName);
+            this.myPationte_ChargeDocName = (TextView) rootView.findViewById(R.id.myPationte_ChargeDocCode);
+            this.myPationte_ChifeDocCode = (TextView) rootView.findViewById(R.id.myPationte_ChifeDocName);
+            this.myPationte_ChifeDocName = (TextView) rootView.findViewById(R.id.myPationte_ChifeDocCode);
             this.myPationte_DutyNuseName = (TextView) rootView.findViewById(R.id.myPationte_DutyNuseName);
             this.myPationte_DutyNuseCode = (TextView) rootView.findViewById(R.id.myPationte_DutyNuseCode);
             this.myPationte_CPWName = (TextView) rootView.findViewById(R.id.myPationte_CPWName);

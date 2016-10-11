@@ -31,9 +31,9 @@ import okhttp3.Response;
 /**
  * Created by fushaoqing on 2016/8/16.
  */
-public class PationtNameListActivity extends BaseActivity {
+public class MyPationtNameListActivity extends BaseActivity {
     private ListView lv_mypationte;
-    private PationtNameListActivity.MyAdapter adpter;
+    private MyPationtNameListActivity.MyAdapter adpter;
     private List<PationteBean> pationtes;
     private TextView tv_mypationtenone;
 
@@ -52,7 +52,7 @@ public class PationtNameListActivity extends BaseActivity {
                 case SWIPEREFRESH_COMPLETE:
                     //pationtes.addAll(pationtes);
                     adpter.notifyDataSetChanged();
-                    MyToast.showToast(PationtNameListActivity.this, "刷新完成");
+                    MyToast.showToast(MyPationtNameListActivity.this, "刷新完成");
                    // swipeRefresh.setRefreshing(false);
                     break;
                 default:
@@ -118,7 +118,7 @@ public class PationtNameListActivity extends BaseActivity {
 
                     dismiss();
                     Rela_no_wifi.setVisibility(View.VISIBLE);
-                    MyToast.showToast(PationtNameListActivity.this, "服务器正忙，请稍后重试");
+                    MyToast.showToast(MyPationtNameListActivity.this, "服务器正忙，请稍后重试");
                 }
 
                 @Override

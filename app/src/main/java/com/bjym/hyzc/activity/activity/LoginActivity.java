@@ -89,6 +89,7 @@ public class LoginActivity extends BaseActivity {
         et_name = (EditText) view.findViewById(R.id.et_name);
         et_pwd = (EditText) view.findViewById(R.id.et_pwd);
         cb = (CheckBox) view.findViewById(R.id.cb);
+
         return view;
     }
 

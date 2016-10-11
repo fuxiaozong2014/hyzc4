@@ -41,6 +41,7 @@ public class NurseUnexecuteContentFragment extends BaseFragment{
     private List<NursingContentBean.RowsBean> currentItemLists;
     private SharedPreferences SpPationteMsgConfig;
     private SharedPreferences sp;
+   // private boolean isfirstExecute=false;
 
     class MyOnItemClickListener implements AdapterView.OnItemClickListener {
 
@@ -54,9 +55,15 @@ public class NurseUnexecuteContentFragment extends BaseFragment{
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    NursingContentBean.RowsBean rowsBean = currentItemLists.get(position);
-                    postUnexecuContent(rowsBean);
-                    dialog.dismiss();
+
+                   // if (isfirstExecute){
+                        NursingContentBean.RowsBean rowsBean = currentItemLists.get(position);
+                        postUnexecuContent(rowsBean);
+                        dialog.dismiss();
+                   /* }else {
+                        MyToast.showToast(NurseUnexecuteContentFragment.this.getActivity(),"已经执行过此医嘱");
+                    }*/
+
                 }
             });
             builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -138,13 +145,13 @@ public class NurseUnexecuteContentFragment extends BaseFragment{
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(NurseUnexecuteContentFragment.this.getActivity(),"提交失败"+e.toString());
-                MyLog.i("nurseContentUnexecuteBeanJson::::",e.toString());
+                MyToast.showToast(NurseUnexecuteContentFragment.this.getActivity(),"执行失败"+e.toString());
+                MyLog.i("nurseContentUnexecuteBeanJson::::","执行失败"+e.toString());
             }
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(NurseUnexecuteContentFragment.this.getActivity(),"提交成功");
+                MyToast.showToast(NurseUnexecuteContentFragment.this.getActivity(),"执行成功");
             }
         });
 
@@ -165,12 +172,14 @@ public class NurseUnexecuteContentFragment extends BaseFragment{
         SpPationteMsgConfig=NurseUnexecuteContentFragment.this.getActivity().getSharedPreferences("PationteMsgConfig",context.MODE_PRIVATE);
         sp=NurseUnexecuteContentFragment.this.getActivity().getSharedPreferences("MyselfConfig",context.MODE_PRIVATE);
 
-       /* bt_titlebar_left.setVisibility(View.VISIBLE);
-        bt_titlebar_right.setVisibility(View.GONE);
-        tv_titlebar_center.setText("维护患者护理内容");*/
-
         Intent intent = NurseUnexecuteContentFragment.this.getActivity().getIntent();
+        /*
+        * parentItemList是没有子阶段，直接传递过来对应的护理内容集合
+        * */
         parentItemLists = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("SunItemLists");
+        /*
+        * childItemLists是有子阶段的传递过来的，直接传递过来对应的护理内容集合
+        * */
         childItemLists = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("rowsSunItemLists");
         if (parentItemLists == null) {
             currentItemLists=childItemLists;

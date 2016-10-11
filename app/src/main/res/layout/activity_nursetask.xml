@@ -2,14 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/big_bg_color"
     android:orientation="vertical">
+
 
     <include layout="@layout/item_titlebar"></include>
 
     <include layout="@layout/item_search"></include>
+    <TextView
+        android:id="@+id/tv_indays"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:text="请选择患者获取住院及入径天数"
+        android:drawableLeft="@mipmap/right"
+        android:textSize="10dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/wangjimima_color"/>
 
     <LinearLayout
-        android:id="@+id/ll_nurseStage"
+        android:id="@+id/ll_nurseExecuteYiZhu"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
         android:layout_marginTop="5dp"
@@ -19,7 +30,6 @@
         android:paddingBottom="5dp">
 
         <TextView
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
@@ -75,7 +85,7 @@
         android:background="@color/big_bg_color" />
 
     <LinearLayout
-        android:id="@+id/ll_nursingContentStage"
+        android:id="@+id/ll_ExecuteNursingCare"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
         android:background="@drawable/item_selector"
@@ -106,6 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
         android:background="@color/big_bg_color" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
@@ -137,69 +148,9 @@
             android:background="@mipmap/oh" />
 
     </LinearLayout>
-
-   <!-- <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/one_finger_width"
-        android:background="@drawable/item_selector"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingTop="2dp">
-
-        <TextView
-            android:id="@+id/tv_nursingContent_executed"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left_iv_user"
-            android:layout_weight="1"
-            android:text="已执行的护理内容"
-            android:textColor="@color/myPationte_title_color"
-            android:textSize="16dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_left_iv_user"
-            android:background="@mipmap/oh" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="@color/big_bg_color" />-->
-<!--
-   <LinearLayout
-       android:id="@+id/ll_YiZhuManager"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/one_finger_width"
-        android:background="@drawable/item_selector"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingTop="2dp">
-
-        <TextView
-            android:id="@+id/tv_YiZhuManager"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left_iv_user"
-            android:layout_weight="1"
-            android:text="医嘱管理"
-            android:textColor="@color/myPationte_title_color"
-            android:textSize="16dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_left_iv_user"
-            android:background="@mipmap/oh" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="@color/big_bg_color" />-->
 </LinearLayout>
+
+
+
+
+

@@ -82,7 +82,7 @@
             android:label="护理记录"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.activity.NurseSelectStageActivity"
+            android:name=".activity.activity.NurseSelectStageYiZhuActivity"
             android:label="选择护理阶段"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -106,7 +106,7 @@
             android:label="我的病人"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.activity.MyTaskActivity"
+            android:name=".activity.activity.NurseTaskActivity"
             android:label="我的任务"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -117,11 +117,11 @@
 
         <activity android:name=".activity.activity.NursingContentParentStageActivity"></activity>
         <activity android:name=".activity.activity.PationteBestDetailMsgActivity"></activity>
-        <activity android:name=".activity.activity.PationtNameListActivity"></activity>
+        <activity android:name=".activity.activity.MyPationtNameListActivity"></activity>
         <activity android:name=".activity.activity.DoctorUnxecuteYiZhuActivity"></activity>
         <activity android:name=".activity.activity.DeptNewsWebViewActivity"></activity>
         <activity android:name=".activity.activity.StudyVideoWebViewActivity"></activity>
-        <activity android:name=".activity.activity.MyTaskDoctorActivity"></activity>
+        <activity android:name=".activity.activity.DoctorTaskActivity"></activity>
         <activity android:name=".activity.zxing.code.CaptureActivity"></activity>
         <activity android:name=".activity.activity.NurseContentActivity"></activity>
         <activity android:name=".activity.activity.DoctorYiZhuActivity"></activity>

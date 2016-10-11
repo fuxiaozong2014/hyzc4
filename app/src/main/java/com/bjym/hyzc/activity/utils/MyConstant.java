@@ -116,4 +116,8 @@ public class MyConstant {
     * 根据用户的路径阶段和病人编号，得到已经执行的护理内容
     * */
     public static final String NURSE_EXECUTE_CONTENT= "/CPW/CPW_PatiNursing/getlistexecuted?PatientsNo=";
+    /*
+    * 得到住院时间和入径时间
+    * */
+    public static final String INDAYSANDENTERCPWDAYS= "/CPW/CPW_Patients/getpatientsentercpwdays?PatientsNo=";
 }

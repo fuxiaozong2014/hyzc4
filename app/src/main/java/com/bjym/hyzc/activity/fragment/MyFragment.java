@@ -9,9 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.activity.MyTaskActivity;
-import com.bjym.hyzc.activity.activity.MyTaskDoctorActivity;
-import com.bjym.hyzc.activity.activity.PationtNameListActivity;
+import com.bjym.hyzc.activity.activity.NurseTaskActivity;
+import com.bjym.hyzc.activity.activity.DoctorTaskActivity;
+import com.bjym.hyzc.activity.activity.MyPationtNameListActivity;
 import com.bjym.hyzc.activity.bean.PationteBean;
 import com.bjym.hyzc.activity.utils.BitmapUtils;
 import com.bjym.hyzc.activity.utils.MyConstant;
@@ -108,19 +108,19 @@ public class MyFragment extends BaseFragment {
             * 跳转到我的病人界面
             * */
             case R.id.ll_myPationte:
-                startActivity(new Intent(context, PationtNameListActivity.class));
+                startActivity(new Intent(context, MyPationtNameListActivity.class));
                 break;
             /*
             * 选择我的病人，跳转到任务界面
             * */
             case R.id.ll_myTask:
-                startActivity(new Intent(context, MyTaskActivity.class));
+                startActivity(new Intent(context, NurseTaskActivity.class));
                 break;
             /*
             * 选择我的病人，跳转到任务界面
             * */
             case R.id.ll_myTaskDOctor:
-                startActivity(new Intent(context, MyTaskDoctorActivity.class));
+                startActivity(new Intent(context, DoctorTaskActivity.class));
                 break;
              /*
             * 点击图标打开本地相册，选择头像，显示在客户端，并且上传至服务器 TODO
@@ -140,7 +140,7 @@ public class MyFragment extends BaseFragment {
             case REQUEST_GALLERY_FOR_AVATAR:
                Bitmap bitmap = PickImageUtils.onActivityResult(data, MyFragment.this.getActivity());
                 String avatarString = BitmapUtils.compressBitmap2Base64String(bitmap);
-               MyLog.i("avatarString:::",avatarString);
+             //  MyLog.i("avatarString:::",avatarString);
               // MyToast.showToast(MyFragment.this.getActivity(),avatarString);
                 if (null == bitmap) {
                     return;

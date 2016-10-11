@@ -26,6 +26,9 @@ public class NurseYiZhuActivity extends BaseActivity {
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
 
+    /*
+    * 护士选择过路径阶段之后执行医嘱的activity,包含已执行和未执行两个fragment
+    * */
  class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
         @Override
