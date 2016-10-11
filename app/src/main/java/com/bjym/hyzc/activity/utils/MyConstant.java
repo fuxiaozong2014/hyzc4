@@ -73,7 +73,7 @@ public class MyConstant {
     /*
    * 根据病人编号和stageCode去获取未执行的医嘱
    * */
-    public static final String NURSE_UNEXECUTE_STAGE = "/CPW/CPW_PatiOrder/getlistnoexec";
+    public static final String NURSE_UNEXECUTE_YIZHU = "/CPW/CPW_PatiOrder/getlistnoexec";
 
     /*
   * 提交护士已选择的未执行的医嘱

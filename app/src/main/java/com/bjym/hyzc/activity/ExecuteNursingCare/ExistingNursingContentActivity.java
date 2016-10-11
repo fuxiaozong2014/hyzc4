@@ -1,4 +1,4 @@
-package com.bjym.hyzc.activity.activity;
+package com.bjym.hyzc.activity.ExecuteNursingCare;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.NursingContentBean;
+import com.bjym.hyzc.activity.activity.BaseActivity;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.bjym.hyzc.activity.activity;
+package com.bjym.hyzc.activity.ExecuteNursingCare;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,8 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.fragment.NurseExecutedContentFragment;
-import com.bjym.hyzc.activity.fragment.NurseUnexecuteContentFragment;
+import com.bjym.hyzc.activity.activity.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
  * Created by fushaoqing on 2016/9/7.
  *
  */
-public class NurseContentActivity extends BaseActivity{
+public class NurseContentActivity extends BaseActivity {
     private ViewPager vp;
     private Button btn_unexecute_content;
     private Button btn_execute_content;

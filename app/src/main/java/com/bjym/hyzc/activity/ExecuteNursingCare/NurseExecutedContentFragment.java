@@ -1,4 +1,4 @@
-package com.bjym.hyzc.activity.fragment;
+package com.bjym.hyzc.activity.ExecuteNursingCare;
 
 import android.content.Intent;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.NursingContentBean;
+import com.bjym.hyzc.activity.fragment.BaseFragment;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.google.gson.Gson;
@@ -23,7 +23,7 @@ import okhttp3.Response;
 /**
  * Created by fushaoqing on 2016/9/7.
  */
-public class NurseExecutedContentFragment extends BaseFragment{
+public class NurseExecutedContentFragment extends BaseFragment {
 
     private TextView tv_none_nurseContent;
     private ListView lv;
@@ -45,10 +45,15 @@ public class NurseExecutedContentFragment extends BaseFragment{
         Intent intent=getActivity().getIntent();
         String stageCodeParent = intent.getStringExtra("StageCodeParent");
         String stageCodeChild = intent.getStringExtra("stageCodeChild");
+        String stageCodeSun = intent.getStringExtra("stageCodeSun");
         patientsNo = intent.getStringExtra("patientsNo");
-        if (stageCodeParent == null) {
+        if (stageCodeParent == null&&stageCodeSun==null) {
             currentStageCode=stageCodeChild;
-        }else {
+        }
+        if (stageCodeParent == null&&stageCodeChild==null){
+            currentStageCode=stageCodeSun;
+        }
+        if (stageCodeChild==null&&stageCodeSun==null){
             currentStageCode=stageCodeParent;
         }
 

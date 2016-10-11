@@ -1,4 +1,4 @@
-package com.bjym.hyzc.activity.bean;
+package com.bjym.hyzc.activity.ExecuteNursingCare;
 
 import java.io.Serializable;
 import java.util.List;

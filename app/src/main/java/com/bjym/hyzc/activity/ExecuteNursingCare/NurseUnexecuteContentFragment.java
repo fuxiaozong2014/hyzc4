@@ -1,4 +1,4 @@
-package com.bjym.hyzc.activity.fragment;
+package com.bjym.hyzc.activity.ExecuteNursingCare;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,8 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.NurseContentUnexecuteBean;
-import com.bjym.hyzc.activity.bean.NursingContentBean;
+import com.bjym.hyzc.activity.fragment.BaseFragment;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
@@ -31,17 +30,18 @@ import okhttp3.Response;
 /**
  * Created by fushaoqing on 2016/9/7.
  */
-public class NurseUnexecuteContentFragment extends BaseFragment{
+public class NurseUnexecuteContentFragment extends BaseFragment {
     private ListView lv;
     private TextView tv_search;
     private TextView tv_none_nurseContent;
 
-    private List<NursingContentBean.RowsBean> parentItemLists;
-    private List<NursingContentBean.RowsBean> childItemLists;
+    private List<NursingContentBean.RowsBean> parentStageUnExecuteNursingCare;
+    private List<NursingContentBean.RowsBean> childStageUnExecuteNursingCare;
     private List<NursingContentBean.RowsBean> currentItemLists;
     private SharedPreferences SpPationteMsgConfig;
     private SharedPreferences sp;
-   // private boolean isfirstExecute=false;
+    private List<NursingContentBean.RowsBean> sunStageUnExecuteNursingCare;
+    // private boolean isfirstExecute=false;
 
     class MyOnItemClickListener implements AdapterView.OnItemClickListener {
 
@@ -174,17 +174,25 @@ public class NurseUnexecuteContentFragment extends BaseFragment{
 
         Intent intent = NurseUnexecuteContentFragment.this.getActivity().getIntent();
         /*
-        * parentItemList是没有子阶段，直接传递过来对应的护理内容集合
+        * parentStageUnExecuteNursingCare是只有一级路径阶段，直接传递过来对应的护理内容集合
         * */
-        parentItemLists = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("SunItemLists");
+        parentStageUnExecuteNursingCare = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("SunItemLists");
         /*
-        * childItemLists是有子阶段的传递过来的，直接传递过来对应的护理内容集合
+        * childStageUnExecuteNursingCare是有二级阶段的传递过来的，直传递过来对应的护理内容集合
         * */
-        childItemLists = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("rowsSunItemLists");
-        if (parentItemLists == null) {
-            currentItemLists=childItemLists;
-        }else {
-            currentItemLists=parentItemLists;
+        childStageUnExecuteNursingCare = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("rowsSunItemLists");
+        /*
+        * sunStageUnExecuteNursingCare是有三级路径阶段传递过来的未执行护理内容的集合
+        * */
+        sunStageUnExecuteNursingCare = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("sunStageUnExecuteNursingCare");
+        if (parentStageUnExecuteNursingCare == null&&sunStageUnExecuteNursingCare==null) {
+            currentItemLists=childStageUnExecuteNursingCare;
+        }
+        if(parentStageUnExecuteNursingCare == null&&childStageUnExecuteNursingCare==null){
+            currentItemLists=sunStageUnExecuteNursingCare;
+        }
+        if(sunStageUnExecuteNursingCare==null&&childStageUnExecuteNursingCare==null) {
+            currentItemLists=parentStageUnExecuteNursingCare;
         }
         if (currentItemLists.size()==0){
             lv.setVisibility(View.GONE);

@@ -67,7 +67,7 @@
         <activity android:name=".activity.activity.SplashActivity">
 
         </activity>
-        <activity android:name=".activity.activity.NurseYiZhuActivity">
+        <activity android:name=".activity.ExecuteYiZhu.NurseYiZhuActivity">
 
         </activity>
 
@@ -82,7 +82,7 @@
             android:label="护理记录"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.activity.NurseSelectStageYiZhuActivity"
+            android:name=".activity.ExecuteYiZhu.NurseSelectStageYiZhuActivity"
             android:label="选择护理阶段"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -98,7 +98,7 @@
             android:label="新增护理"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.activity.ExistingNursingContentActivity"
+            android:name=".activity.ExecuteNursingCare.ExistingNursingContentActivity"
             android:label="现有的护理内容"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -112,19 +112,22 @@
         <activity
             android:name=".activity.activity.WebViewActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".activity.activity.NursingContentChildStageActivity"></activity>
-        <activity android:name=".activity.activity.DoctorYiZhuManagerActivity"></activity>
+        <activity android:name=".activity.ExecuteNursingCare.NursingContentChildStageActivity"></activity>
+        <activity android:name=".activity.YiZhuManager.DoctorYiZhuManagerActivity"></activity>
 
-        <activity android:name=".activity.activity.NursingContentParentStageActivity"></activity>
+        <activity android:name=".activity.ExecuteNursingCare.NursingContentParentStageActivity"></activity>
+        <activity android:name=".activity.ExecuteNursingCare.NursingContentSunStageActivity"></activity>
         <activity android:name=".activity.activity.PationteBestDetailMsgActivity"></activity>
         <activity android:name=".activity.activity.MyPationtNameListActivity"></activity>
-        <activity android:name=".activity.activity.DoctorUnxecuteYiZhuActivity"></activity>
+        <activity android:name=".activity.YiZhuManager.DoctorUnxecuteYiZhuActivity"></activity>
         <activity android:name=".activity.activity.DeptNewsWebViewActivity"></activity>
         <activity android:name=".activity.activity.StudyVideoWebViewActivity"></activity>
         <activity android:name=".activity.activity.DoctorTaskActivity"></activity>
         <activity android:name=".activity.zxing.code.CaptureActivity"></activity>
-        <activity android:name=".activity.activity.NurseContentActivity"></activity>
-        <activity android:name=".activity.activity.DoctorYiZhuActivity"></activity>
+        <activity android:name=".activity.ExecuteNursingCare.NurseContentActivity"></activity>
+        <activity android:name=".activity.YiZhuManager.DoctorYiZhuActivity"></activity>
+        <activity android:name=".activity.ExecuteYiZhu2.ExecuteYiZhuChildStageActivity"></activity>
+        <activity android:name=".activity.ExecuteYiZhu2.ExecuteYiZhuParentStageActivity"></activity>
         <!-- Required SDK 核心功能-->
         <!-- option since 2.0.5 可配置PushService，DaemonService,PushReceiver,AlarmReceiver的android:process参数 将JPush相关组件设置为一个独立进程 -->
         <!-- 如：android:process=":remote" -->

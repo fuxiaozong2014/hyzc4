@@ -1,4 +1,4 @@
-package com.bjym.hyzc.activity.activity;
+package com.bjym.hyzc.activity.ExecuteNursingCare;
 
 import android.content.Intent;
 import android.view.View;
@@ -10,8 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.NurseExecuteBean;
-import com.bjym.hyzc.activity.bean.NursingContentBean;
+import com.bjym.hyzc.activity.activity.BaseActivity;
 import com.bjym.hyzc.activity.utils.MyLog;
 
 import java.io.Serializable;
@@ -29,7 +28,9 @@ public class NursingContentChildStageActivity extends BaseActivity {
     private List<NurseExecuteBean.RowsBean> childItemLists;
     private List<NursingContentBean.RowsBean> rowsSun;
     private List<NursingContentBean.RowsBean> rowsSunItemLists=new ArrayList<>();
+    private List<NurseExecuteBean.RowsBean> sunStageItemList=new ArrayList<>();
     private String patientsNo;
+    private List<NurseExecuteBean.RowsBean> rows;
 
     class MyOnItemClickListener implements AdapterView.OnItemClickListener {
 
@@ -39,22 +40,42 @@ public class NursingContentChildStageActivity extends BaseActivity {
             //遍历rowsSun得到所有条目的stagecode
             //比对，如果两者相等，就把这类对象保存到对应集合，把集合传递到展示界面
             String stageCodeChild = childItemLists.get(position).StageCode;
-            MyLog.i("-----------------------stageCodeChild",stageCodeChild);
+            MyLog.i("被点击的阶段的stageCode",stageCodeChild);
+           // MyLog.i("-----------------------stageCodeChild",stageCodeChild);
             if (rowsSun !=null) {
                 for (int i = 0; i <rowsSun.size() ; i++) {
                     String stageCodeSun = rowsSun.get(i).StageCode;
-                    MyLog.i("-----------------------stageCodeSun",stageCodeSun);
+                   // MyLog.i("-----------------------stageCodeSun",stageCodeSun);
                     if (stageCodeChild.equals(stageCodeSun)){
                         rowsSunItemLists.add(rowsSun.get(i));
                     }
                 }
             }
-            Intent intent=new Intent(NursingContentChildStageActivity.this,NurseContentActivity.class);
-            intent.putExtra("rowsSunItemLists",(Serializable) rowsSunItemLists);
-            intent.putExtra("stageCodeChild",stageCodeChild);
-            intent.putExtra("patientsNo",patientsNo);
-            startActivity(intent);
-            rowsSunItemLists.clear();
+            for (int i = 0; i <rows.size() ; i++) {
+                String parentCode = rows.get(i).ParentCode;
+                if (parentCode.equals(stageCodeChild)){
+                    sunStageItemList.add(rows.get(i));
+                }
+            }
+            for (int i = 0; i <sunStageItemList.size() ; i++) {
+                MyLog.i("三级数据阶段对象",sunStageItemList.get(i).StageCode+":"+sunStageItemList.get(i).StageName);
+            }
+
+            if (sunStageItemList!=null&&sunStageItemList.size()>0){
+                Intent intentNursingContentSunStage=new Intent(NursingContentChildStageActivity.this,NursingContentSunStageActivity.class);
+                intentNursingContentSunStage.putExtra("sunStageItemList",(Serializable)sunStageItemList);
+                intentNursingContentSunStage.putExtra("rowsSun",(Serializable)rowsSun);
+                intentNursingContentSunStage.putExtra("patientsNo",patientsNo);
+                startActivity(intentNursingContentSunStage);
+                sunStageItemList.clear();
+            }else {
+                Intent intent=new Intent(NursingContentChildStageActivity.this,NurseContentActivity.class);
+                intent.putExtra("rowsSunItemLists",(Serializable) rowsSunItemLists);
+                intent.putExtra("stageCodeChild",stageCodeChild);
+                intent.putExtra("patientsNo",patientsNo);
+                startActivity(intent);
+                rowsSunItemLists.clear();
+            }
         }
     }
     @Override
@@ -74,7 +95,7 @@ public class NursingContentChildStageActivity extends BaseActivity {
         //这是顶部状态栏的设置
         bt_titlebar_left.setVisibility(View.VISIBLE);
         bt_titlebar_right.setVisibility(View.GONE);
-        tv_titlebar_center.setText("选择子路径阶段");
+        tv_titlebar_center.setText("选择二级路径阶段");
         bt_titlebar_left.setOnClickListener(this);
 
         Intent intent = getIntent();
@@ -83,6 +104,8 @@ public class NursingContentChildStageActivity extends BaseActivity {
             MyLog.i("childItemLists.size();:::::", childItemLists.size() + "");
             rowsSun = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("rowsSun");
             patientsNo = intent.getStringExtra("patientsNo");
+            rows = (List<NurseExecuteBean.RowsBean>) intent.getSerializableExtra("rows");
+
         }
 
         lv.setAdapter(new MyAdapter());

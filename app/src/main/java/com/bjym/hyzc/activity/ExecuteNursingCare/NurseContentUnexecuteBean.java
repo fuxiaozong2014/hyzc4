@@ -1,4 +1,4 @@
-package com.bjym.hyzc.activity.bean;
+package com.bjym.hyzc.activity.ExecuteNursingCare;
 
 /**
  * Created by fushaoqing on 2016/8/19.

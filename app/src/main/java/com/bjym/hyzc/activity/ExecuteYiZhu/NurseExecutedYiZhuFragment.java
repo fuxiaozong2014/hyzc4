@@ -1,20 +1,17 @@
-package com.bjym.hyzc.activity.fragment;
+package com.bjym.hyzc.activity.ExecuteYiZhu;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.NurseUnExecuteBean;
+import com.bjym.hyzc.activity.ExecuteNursingCare.NurseUnExecuteBean;
+import com.bjym.hyzc.activity.fragment.BaseFragment;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
-import com.bjym.hyzc.activity.utils.MyToast;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -27,71 +24,18 @@ import okhttp3.Response;
 /**
  * Created by fushaoqing on 2016/9/6.
  */
-public class NurseUnexecuteYiZhuFragment extends BaseFragment{
-
+public class NurseExecutedYiZhuFragment extends BaseFragment {
+    private TextView tv_none_executeYiZhu;
+    private ListView lv;
+    private List<NurseUnExecuteBean.RowsBean> rows;
     private String stageCode;
     private String patientsNo;
-    private List<NurseUnExecuteBean.RowsBean> rows;
-    private TextView tv_none_unExecuteYiZhu;
-    private ListView lv;
     private MyAdapter adapter;
-
-    class MyOnItemClickListener implements AdapterView.OnItemClickListener{
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-            //条目被点击之后，得到OrderNo，弹出对话框，询问是否执行此医嘱
-            final String orderNo = rows.get(position).OrderNo;
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("提示");
-            builder.setMessage("确定执行此医嘱？");
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    postUnExecuteYiZhu(orderNo);
-                    rows.remove(rows.get(position));
-                    adapter.notifyDataSetChanged();
-                }
-            });
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.show();
-        }
-    }
-
-    private void postUnExecuteYiZhu(String orderNo) {
-        //TODO 确定提交的内容
-        OkHttpUtils.postString().url(MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTEYIZHU_COMIT+orderNo).content("").build().execute(new Callback() {
-            @Override
-            public Object parseNetworkResponse(Response response, int i) throws Exception {
-
-                return null;
-            }
-
-            @Override
-            public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(NurseUnexecuteYiZhuFragment.this.getActivity(),"请求网络失败，请稍后再试");
-            }
-
-            @Override
-            public void onResponse(Object o, int i) {
-                MyToast.showToast(NurseUnexecuteYiZhuFragment.this.getActivity(),"执行医嘱成功");
-            }
-        });
-
-    }
     @Override
     public View setMainView() {
-        View view=View.inflate(context, R.layout.fragement_unexecuteyizhu,null);
+        View view=View.inflate(context, R.layout.fragement_executedyizhu,null);
         lv = (ListView) view.findViewById(R.id.lv);
-        tv_none_unExecuteYiZhu = (TextView)view.findViewById(R.id.tv_none_unExecuteYiZhu);
+        tv_none_executeYiZhu = (TextView)view.findViewById(R.id.tv_none_executeYiZhu);
         return view;
     }
 
@@ -100,24 +44,24 @@ public class NurseUnexecuteYiZhuFragment extends BaseFragment{
         Intent intent = getActivity().getIntent();
         stageCode = intent.getStringExtra("StageCode");
         patientsNo = intent.getStringExtra("patientsNo");
-        MyLog.i("stageCode:::::", stageCode);
-        MyLog.i("patientsNo:::::", patientsNo);
+        MyLog.i("stageCode:::::NurseExecutedYiZhuFragment", stageCode);
+        MyLog.i("patientsNo:::::NurseExecutedYiZhuFragment", patientsNo);
         if (stageCode != null) {
-            getUnExecuteStage();
+            getExecuteYiZhu();
         }
-        lv.setOnItemClickListener(new MyOnItemClickListener());
     }
 
-    private void getUnExecuteStage() {
-        OkHttpUtils.post()
-                .url(MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTE_STAGE)
-                .addParams("PatientsNo", patientsNo)
-                .addParams("stagecode", stageCode)
+
+    private void getExecuteYiZhu() {
+        //String url=MyConstant.BASE_URL+ MyConstant.NURSE_EXECUTE_YIZHU+patientsNo+"&stagecode="+stageCode;
+       // MyLog.i("NurseExecutedYiZhuFragment-----------------url",url);
+        OkHttpUtils.get()
+                .url(MyConstant.BASE_URL+ MyConstant.NURSE_EXECUTE_YIZHU+patientsNo+"&stagecode="+stageCode)
                 .build()
                 .execute(new Callback() {
                     @Override
                     public Object parseNetworkResponse(Response response, int i) throws Exception {
-                        //  MyToast.showToast(NurseUnxecuteYiZhuActivity.this, response.body().string());
+                         //MyToast.showToast(NurseExecutedYiZhuFragment.this.getActivity(), response.body().string());
                         return response.body().string();
                     }
 
@@ -129,7 +73,7 @@ public class NurseUnexecuteYiZhuFragment extends BaseFragment{
 
                     @Override
                     public void onResponse(Object o, int i) {
-                        //MyToast.showToast(NurseUnxecuteYiZhuActivity.this, (String) o);
+                        //MyToast.showToast(NurseExecutedYiZhuFragment.this.getActivity(), (String) o);
                         parseJson((String) o);
                     }
                 });
@@ -141,7 +85,7 @@ public class NurseUnexecuteYiZhuFragment extends BaseFragment{
         if(rows.size()==0){
             lv.setVisibility(View.GONE);
 
-            tv_none_unExecuteYiZhu.setVisibility(View.VISIBLE);
+            tv_none_executeYiZhu.setVisibility(View.VISIBLE);
         }
         adapter = new MyAdapter();
         lv.setAdapter(adapter);
@@ -217,19 +161,6 @@ public class NurseUnexecuteYiZhuFragment extends BaseFragment{
                 this.tv_Duration= (TextView) rootView.findViewById(R.id.tv_Duration);
                 this.tv_DurationUnit = (TextView) rootView.findViewById(R.id.tv_DurationUnit);
             }
-
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()){
-            case R.id.bt_titlebar_left:
-                getActivity().finish();
-                break;
-            default:
-                break;
         }
     }
 }

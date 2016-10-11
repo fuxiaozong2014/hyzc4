@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
+import com.bjym.hyzc.activity.ExecuteNursingCare.NursingContentParentStageActivity;
+import com.bjym.hyzc.activity.ExecuteYiZhu2.ExecuteYiZhuParentStageActivity;
 import com.bjym.hyzc.activity.bean.PationteBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
@@ -133,20 +135,8 @@ public class NurseTaskActivity extends BaseActivity {
             * 执行医嘱
             * */
             case R.id.ll_nurseExecuteYiZhu:
-                Intent NurseExecuteActivityIntent = new Intent(this, NurseSelectStageYiZhuActivity.class);
-                /*if (name == null || patientsNo == null || cpwCode == null) {
-                    MyToast.showToast(this, "请选择患者");
-                    return;
-                }
-                if(cpwCode.equals("")){
-                    MyToast.showToast(this, "此患者还没有配置路径");
-                    return;
-                }else {
-                    NurseExecuteActivityIntent.putExtra("cpwCode", cpwCode);
-                    NurseExecuteActivityIntent.putExtra("patientsNo", patientsNo);
-                    startActivity(NurseExecuteActivityIntent);
-                }*/
-                // Intent tv_nursingContentStageIntent = new Intent(this, NursingContentParentStageActivity.class);
+                //Intent NurseExecuteActivityIntent = new Intent(this, NurseSelectStageYiZhuActivity.class);
+                Intent NurseExecuteActivityIntent = new Intent(this, ExecuteYiZhuParentStageActivity.class);
                 if (transCpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
                     return;
@@ -172,6 +162,7 @@ public class NurseTaskActivity extends BaseActivity {
             * */
             case R.id.ll_ExecuteNursingCare:
                 Intent tv_nursingContentStageIntent = new Intent(this, NursingContentParentStageActivity.class);
+                // Intent tv_nursingContentStageIntent = new Intent(this, NursingContentParentStageActivity2.class);
                 if (transCpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
                     return;

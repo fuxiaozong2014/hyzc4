@@ -1,4 +1,4 @@
-package com.bjym.hyzc.activity.activity;
+package com.bjym.hyzc.activity.ExecuteYiZhu;
 
 import android.content.Intent;
 import android.view.View;
@@ -10,7 +10,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.NurseExecuteBean;
+import com.bjym.hyzc.activity.ExecuteNursingCare.NurseExecuteBean;
+import com.bjym.hyzc.activity.activity.BaseActivity;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.google.gson.Gson;

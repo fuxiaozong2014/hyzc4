@@ -1,4 +1,4 @@
-package com.bjym.hyzc.activity.activity;
+package com.bjym.hyzc.activity.YiZhuManager;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,8 +8,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.fragment.NurseExecutedYiZhuFragment;
-import com.bjym.hyzc.activity.fragment.NurseUnexecuteYiZhuFragment;
+import com.bjym.hyzc.activity.ExecuteYiZhu.NurseExecutedYiZhuFragment;
+import com.bjym.hyzc.activity.ExecuteYiZhu.NurseUnexecuteYiZhuFragment;
+import com.bjym.hyzc.activity.activity.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * Created by fushaoqing on 2016/9/6.
  */
-public class NurseYiZhuActivity extends BaseActivity {
+public class DoctorYiZhuActivity extends BaseActivity {
 
     private ViewPager vp;
     private Button btn_unexecute_yizhu;
@@ -26,9 +27,6 @@ public class NurseYiZhuActivity extends BaseActivity {
     private Button bt_titlebar_right;
     private Button bt_titlebar_left;
 
-    /*
-    * 护士选择过路径阶段之后执行医嘱的activity,包含已执行和未执行两个fragment
-    * */
  class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
         @Override
@@ -117,7 +115,6 @@ public class NurseYiZhuActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        //FragmentTransaction transaction = manager.beginTransaction();
 
         switch (v.getId()) {
            case R.id.btn_unexecute_yizhu:

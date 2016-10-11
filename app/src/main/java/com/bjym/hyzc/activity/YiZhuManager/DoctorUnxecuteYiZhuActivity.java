@@ -1,4 +1,4 @@
-package com.bjym.hyzc.activity.activity;
+package com.bjym.hyzc.activity.YiZhuManager;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,7 +12,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.bean.NurseUnExecuteBean;
+import com.bjym.hyzc.activity.ExecuteNursingCare.NurseUnExecuteBean;
+import com.bjym.hyzc.activity.activity.BaseActivity;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
@@ -128,7 +129,7 @@ public class DoctorUnxecuteYiZhuActivity extends BaseActivity {
 
     private void getUnExecuteStage() {
         OkHttpUtils.post()
-                .url(MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTE_STAGE)
+                .url(MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTE_YIZHU)
                 .addParams("PatientsNo", patientsNo)
                 .addParams("stagecode", stageCode)
                 .build()
