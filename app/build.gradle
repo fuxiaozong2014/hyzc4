@@ -21,8 +21,8 @@ android {
         applicationId "com.bjym.hyzc"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 3
-        versionName "1.3正式版"
+        versionCode 4
+        versionName "1.4正式版"
     }
     buildTypes {
         release {

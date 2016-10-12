@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -41,12 +42,12 @@ public class NurseUnexecuteContentFragment extends BaseFragment {
     private SharedPreferences SpPationteMsgConfig;
     private SharedPreferences sp;
     private List<NursingContentBean.RowsBean> sunStageUnExecuteNursingCare;
-    // private boolean isfirstExecute=false;
+    private boolean isHasExecuted;
 
     class MyOnItemClickListener implements AdapterView.OnItemClickListener {
 
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        public void onItemClick(final AdapterView<?> parent, final View view, final int position, long id) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("提示");
@@ -55,14 +56,11 @@ public class NurseUnexecuteContentFragment extends BaseFragment {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
-                   // if (isfirstExecute){
-                        NursingContentBean.RowsBean rowsBean = currentItemLists.get(position);
-                        postUnexecuContent(rowsBean);
-                        dialog.dismiss();
-                   /* }else {
-                        MyToast.showToast(NurseUnexecuteContentFragment.this.getActivity(),"已经执行过此医嘱");
-                    }*/
+                    NursingContentBean.RowsBean rowsBean = currentItemLists.get(position);
+                    postUnexecuContent(rowsBean);
+                    dialog.dismiss();
+                    view.findViewById(R.id.iv_checked).setVisibility(View.VISIBLE);
+                    sp.edit().putBoolean("isHasExecuted", false).commit();
 
                 }
             });
@@ -105,30 +103,30 @@ public class NurseUnexecuteContentFragment extends BaseFragment {
         String deptCode = SpPationteMsgConfig.getString("deptCode", "");
         String deptName = SpPationteMsgConfig.getString("deptName", "");
         //得到护理真正内容
-        NurseContentUnexecuteBean nurseContentUnexecuteBean=new NurseContentUnexecuteBean();
-        nurseContentUnexecuteBean.ActivitiesType=activitiesType;
-        nurseContentUnexecuteBean.ContentCode=contentCode;
-        nurseContentUnexecuteBean.ContentName=contentName;
-        nurseContentUnexecuteBean.ContentType=contentType;
-        nurseContentUnexecuteBean.CPWCode=cpwCode;
-        nurseContentUnexecuteBean.CPWType=cpwType;
-        nurseContentUnexecuteBean.MedicalRecord=medicalRecord;
-        nurseContentUnexecuteBean.OrderCategory=orderCategory;
-        nurseContentUnexecuteBean.OrderType=orderType;
-        nurseContentUnexecuteBean.StageCode=stageCode;
+        NurseContentUnexecuteBean nurseContentUnexecuteBean = new NurseContentUnexecuteBean();
+        nurseContentUnexecuteBean.ActivitiesType = activitiesType;
+        nurseContentUnexecuteBean.ContentCode = contentCode;
+        nurseContentUnexecuteBean.ContentName = contentName;
+        nurseContentUnexecuteBean.ContentType = contentType;
+        nurseContentUnexecuteBean.CPWCode = cpwCode;
+        nurseContentUnexecuteBean.CPWType = cpwType;
+        nurseContentUnexecuteBean.MedicalRecord = medicalRecord;
+        nurseContentUnexecuteBean.OrderCategory = orderCategory;
+        nurseContentUnexecuteBean.OrderType = orderType;
+        nurseContentUnexecuteBean.StageCode = stageCode;
 
         //执行科室名及编号 ==患者所属科室名及编号
-        nurseContentUnexecuteBean.DeptCode=deptCode;
-        nurseContentUnexecuteBean.DeptName=deptName;
+        nurseContentUnexecuteBean.DeptCode = deptCode;
+        nurseContentUnexecuteBean.DeptName = deptName;
         //患者编号及姓名
-        nurseContentUnexecuteBean.PatientsNo=patientsNo;
-        nurseContentUnexecuteBean.Name=name;
+        nurseContentUnexecuteBean.PatientsNo = patientsNo;
+        nurseContentUnexecuteBean.Name = name;
         //执行人员姓名==用户真实姓名
-        nurseContentUnexecuteBean.ExecutionStaff=realName;
+        nurseContentUnexecuteBean.ExecutionStaff = realName;
         //分类，执行事件，预定时间==开始时间
-        nurseContentUnexecuteBean.Type="";
-        nurseContentUnexecuteBean.ExecutionTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
-        nurseContentUnexecuteBean.BeginDate=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+        nurseContentUnexecuteBean.Type = "";
+        nurseContentUnexecuteBean.ExecutionTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+        nurseContentUnexecuteBean.BeginDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
 
         String nurseContentUnexecuteBeanJson = new Gson().toJson(nurseContentUnexecuteBean);
 
@@ -136,7 +134,7 @@ public class NurseUnexecuteContentFragment extends BaseFragment {
 
         MyLog.i("MyConstant.BASE_URL+MyConstant.NURSE_UNEXECUTECONTENT_COMIT::", MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTECONTENT_COMIT);*/
 
-        OkHttpUtils.postString().url(MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTECONTENT_COMIT).content(nurseContentUnexecuteBeanJson).build().execute(new Callback() {
+        OkHttpUtils.postString().url(MyConstant.BASE_URL + MyConstant.NURSE_UNEXECUTECONTENT_COMIT).content(nurseContentUnexecuteBeanJson).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int i) throws Exception {
 
@@ -145,22 +143,22 @@ public class NurseUnexecuteContentFragment extends BaseFragment {
 
             @Override
             public void onError(Call call, Exception e, int i) {
-                MyToast.showToast(NurseUnexecuteContentFragment.this.getActivity(),"执行失败"+e.toString());
-                MyLog.i("nurseContentUnexecuteBeanJson::::","执行失败"+e.toString());
+                MyToast.showToast(NurseUnexecuteContentFragment.this.getActivity(), "执行失败" + e.toString());
+                MyLog.i("nurseContentUnexecuteBeanJson::::", "执行失败" + e.toString());
             }
 
             @Override
             public void onResponse(Object o, int i) {
-                MyToast.showToast(NurseUnexecuteContentFragment.this.getActivity(),"执行成功");
+                MyToast.showToast(NurseUnexecuteContentFragment.this.getActivity(), "执行成功");
             }
         });
 
 
     }
-    
+
     @Override
     public View setMainView() {
-        View view=View.inflate(context, R.layout.fragment_nurseunexecutecontent,null);
+        View view = View.inflate(context, R.layout.fragment_nurseunexecutecontent, null);
         tv_none_nurseContent = (TextView) view.findViewById(R.id.tv_none_nurseContent);
         tv_search = (TextView) view.findViewById(R.id.tv_search);
         lv = (ListView) view.findViewById(R.id.lv);
@@ -169,8 +167,11 @@ public class NurseUnexecuteContentFragment extends BaseFragment {
 
     @Override
     public void InitData() {
-        SpPationteMsgConfig=NurseUnexecuteContentFragment.this.getActivity().getSharedPreferences("PationteMsgConfig",context.MODE_PRIVATE);
-        sp=NurseUnexecuteContentFragment.this.getActivity().getSharedPreferences("MyselfConfig",context.MODE_PRIVATE);
+        SpPationteMsgConfig = NurseUnexecuteContentFragment.this.getActivity().getSharedPreferences("PationteMsgConfig", context.MODE_PRIVATE);
+        sp = NurseUnexecuteContentFragment.this.getActivity().getSharedPreferences("MyselfConfig", context.MODE_PRIVATE);
+
+        isHasExecuted = sp.getBoolean("isHasExecuted", false);
+
 
         Intent intent = NurseUnexecuteContentFragment.this.getActivity().getIntent();
         /*
@@ -185,16 +186,16 @@ public class NurseUnexecuteContentFragment extends BaseFragment {
         * sunStageUnExecuteNursingCare是有三级路径阶段传递过来的未执行护理内容的集合
         * */
         sunStageUnExecuteNursingCare = (List<NursingContentBean.RowsBean>) intent.getSerializableExtra("sunStageUnExecuteNursingCare");
-        if (parentStageUnExecuteNursingCare == null&&sunStageUnExecuteNursingCare==null) {
-            currentItemLists=childStageUnExecuteNursingCare;
+        if (parentStageUnExecuteNursingCare == null && sunStageUnExecuteNursingCare == null) {
+            currentItemLists = childStageUnExecuteNursingCare;
         }
-        if(parentStageUnExecuteNursingCare == null&&childStageUnExecuteNursingCare==null){
-            currentItemLists=sunStageUnExecuteNursingCare;
+        if (parentStageUnExecuteNursingCare == null && childStageUnExecuteNursingCare == null) {
+            currentItemLists = sunStageUnExecuteNursingCare;
         }
-        if(sunStageUnExecuteNursingCare==null&&childStageUnExecuteNursingCare==null) {
-            currentItemLists=parentStageUnExecuteNursingCare;
+        if (sunStageUnExecuteNursingCare == null && childStageUnExecuteNursingCare == null) {
+            currentItemLists = parentStageUnExecuteNursingCare;
         }
-        if (currentItemLists.size()==0){
+        if (currentItemLists.size() == 0) {
             lv.setVisibility(View.GONE);
             tv_none_nurseContent.setVisibility(View.VISIBLE);
         }
@@ -218,9 +219,7 @@ public class NurseUnexecuteContentFragment extends BaseFragment {
     }
 
 
-
-
-    class MyAdapter extends BaseAdapter {
+    public class MyAdapter extends BaseAdapter {
 
 
         @Override
@@ -272,6 +271,7 @@ public class NurseUnexecuteContentFragment extends BaseFragment {
             public TextView tv_CPWCode;
             public TextView tv_ActivitiesType;
             public TextView tv_MedicalRecord;
+            public ImageView iv_checked;
 
             public ViewHolder(View rootView) {
                 this.rootView = rootView;
@@ -285,6 +285,8 @@ public class NurseUnexecuteContentFragment extends BaseFragment {
                 this.tv_CPWCode = (TextView) rootView.findViewById(R.id.tv_CPWCode);
                 this.tv_ActivitiesType = (TextView) rootView.findViewById(R.id.tv_ActivitiesType);
                 this.tv_MedicalRecord = (TextView) rootView.findViewById(R.id.tv_MedicalRecord);
+                this.iv_checked = (ImageView) rootView.findViewById(R.id.iv_checked);
+
             }
 
         }

@@ -11,6 +11,7 @@
     <dimen name="et_login_size">16dp</dimen>
     <dimen name="et_login_size1">14dp</dimen>
     <dimen name="one_finger_width">48dp</dimen>
+    <dimen name="drawPadding">8dp</dimen>
 
     <dimen name="level_1_size">20sp</dimen>
     <dimen name="level_2_size">18sp</dimen>

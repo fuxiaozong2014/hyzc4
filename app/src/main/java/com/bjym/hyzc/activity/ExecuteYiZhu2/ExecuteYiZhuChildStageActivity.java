@@ -3,6 +3,7 @@ package com.bjym.hyzc.activity.ExecuteYiZhu2;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -10,10 +11,11 @@ import android.widget.TextView;
 
 import com.bjym.hyzc.R;
 import com.bjym.hyzc.activity.ExecuteNursingCare.NurseExecuteBean;
-import com.bjym.hyzc.activity.ExecuteNursingCare.NursingContentBean;
+import com.bjym.hyzc.activity.ExecuteYiZhu.NurseYiZhuActivity;
 import com.bjym.hyzc.activity.activity.BaseActivity;
 import com.bjym.hyzc.activity.utils.MyLog;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,58 +28,49 @@ public class ExecuteYiZhuChildStageActivity extends BaseActivity {
     private Button bt_titlebar_left;
     private TextView tv_titlebar_center;
     private ListView lv;
-    private List<NurseExecuteBean.RowsBean> childAndSunStageLists;
-    private List<NurseExecuteBean.RowsBean> childStageLists;
-    private List<NursingContentBean.RowsBean> childStageListsItemLists=new ArrayList<>();
+    private List<NurseExecuteBean.RowsBean> childAndSunStageLists;//二级和三级阶段数据对象的集合
+    private List<NurseExecuteBean.RowsBean> childStageLists;//二级阶段数据对象的集合
     private List<NurseExecuteBean.RowsBean> sunStageItemList=new ArrayList<>();
     private String patientsNo;
-    private List<NurseExecuteBean.RowsBean> rows;
-    /*class MyOnItemClickListener implements AdapterView.OnItemClickListener {
+    private List<NurseExecuteBean.RowsBean> allStageLists;//所有的路径阶段集合
+    class MyOnItemClickListener implements AdapterView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            //childAndSunStageLists得到相对应子阶段的stagecode
+            //childAndSunStageLists得到点击的子阶段的stagecode
             //遍历childStageLists得到所有条目的stagecode
             //比对，如果两者相等，就把这类对象保存到对应集合，把集合传递到展示界面
-            String stageCodeChild = childAndSunStageLists.get(position).StageCode;
+            String stageCodeChild = childStageLists.get(position).StageCode;//当前被点击的二级数据阶段的stageCode
             MyLog.i("被点击的阶段的stageCode",stageCodeChild);
-            // MyLog.i("-----------------------stageCodeChild",stageCodeChild);
-            if (childStageLists !=null) {
-                for (int i = 0; i <childStageLists.size() ; i++) {
-                    String stageCodeSun = childStageLists.get(i).StageCode;
+            if (childAndSunStageLists !=null) {//遍历二三级数据阶段集合，取出所有的parentCode,与二级数据的stageCode相等则为三级数据
+                for (int i = 0; i <childAndSunStageLists.size() ; i++) {
+                    String parentCode = childAndSunStageLists.get(i).ParentCode;
                     // MyLog.i("-----------------------stageCodeSun",stageCodeSun);
-                    if (stageCodeChild.equals(stageCodeSun)){
-                        childStageListsItemLists.add(childStageLists.get(i));
+                    if (stageCodeChild.equals(parentCode)){
+                        sunStageItemList.add(childAndSunStageLists.get(i));
                     }
                 }
             }
-            for (int i = 0; i <rows.size() ; i++) {
-                String parentCode = rows.get(i).ParentCode;
-                if (parentCode.equals(stageCodeChild)){
-                    sunStageItemList.add(rows.get(i));
-                }
-            }
+
             for (int i = 0; i <sunStageItemList.size() ; i++) {
                 MyLog.i("三级数据阶段对象",sunStageItemList.get(i).StageCode+":"+sunStageItemList.get(i).StageName);
             }
 
-            if (sunStageItemList!=null&&sunStageItemList.size()>0){
-                Intent intentNursingContentSunStage=new Intent(ExecuteYiZhuChildStageActivity.this,NursingContentSunStageActivity.class);
-                intentNursingContentSunStage.putExtra("sunStageItemList",(Serializable)sunStageItemList);
-                intentNursingContentSunStage.putExtra("childStageLists",(Serializable)childStageLists);
-                intentNursingContentSunStage.putExtra("patientsNo",patientsNo);
-                startActivity(intentNursingContentSunStage);
+            if (sunStageItemList!=null&&sunStageItemList.size()>0){//有三级数据阶段的情况下
+                Intent intentExecuteYiZhuSunStage=new Intent(context,ExecuteYiZhuSunStageActivity.class);
+                intentExecuteYiZhuSunStage.putExtra("sunStageItemList",(Serializable)sunStageItemList);//三级数据对应的集合
+                intentExecuteYiZhuSunStage.putExtra("childAndSunStageLists",(Serializable)childAndSunStageLists);//二三级阶段数据对象的集合
+                intentExecuteYiZhuSunStage.putExtra("patientsNo",patientsNo);
+                startActivity(intentExecuteYiZhuSunStage);
                 sunStageItemList.clear();
-            }else {
-                Intent intent=new Intent(ExecuteYiZhuChildStageActivity.this,NurseContentActivity.class);
-                intent.putExtra("childStageListsItemLists",(Serializable) childStageListsItemLists);
-                intent.putExtra("stageCodeChild",stageCodeChild);
+            }else {//没有三级数据的情况下，传递stageCode和pationteNo到NurseYiZhu
+                Intent intent=new Intent(context, NurseYiZhuActivity.class);
                 intent.putExtra("patientsNo",patientsNo);
+                intent.putExtra("stageCodeChild",stageCodeChild);
                 startActivity(intent);
-                childStageListsItemLists.clear();
             }
         }
-    }*/
+    }
     @Override
     public View setMainView() {
 
@@ -106,12 +99,12 @@ public class ExecuteYiZhuChildStageActivity extends BaseActivity {
             MyLog.i("childAndSunStageLists.size();:::::", childAndSunStageLists.size() + "");
             childStageLists = (List<NurseExecuteBean.RowsBean>) intent.getSerializableExtra("childStageLists");
             patientsNo = intent.getStringExtra("patientsNo");
-            rows = (List<NurseExecuteBean.RowsBean>) intent.getSerializableExtra("rows");
+            allStageLists = (List<NurseExecuteBean.RowsBean>) intent.getSerializableExtra("allStageLists");//所有路径阶段对象所在的集合
 
         }
 
         lv.setAdapter(new MyAdapter());
-       // lv.setOnItemClickListener(new MyOnItemClickListener());
+        lv.setOnItemClickListener(new MyOnItemClickListener());
 
     }
 

@@ -30,12 +30,13 @@ import okhttp3.Response;
  */
 public class NurseUnexecuteYiZhuFragment extends BaseFragment {
 
-    private String stageCode;
+    private String stageCodeParent;
     private String patientsNo;
     private List<NurseUnExecuteBean.RowsBean> rows;
     private TextView tv_none_unExecuteYiZhu;
     private ListView lv;
     private MyAdapter adapter;
+    private String currentStageCode;
 
     class MyOnItemClickListener implements AdapterView.OnItemClickListener{
 
@@ -99,21 +100,32 @@ public class NurseUnexecuteYiZhuFragment extends BaseFragment {
     @Override
     public void InitData() {
         Intent intent = getActivity().getIntent();
-        stageCode = intent.getStringExtra("StageCode");
+        stageCodeParent = intent.getStringExtra("stageCodeParent");
+        String stageCodeChild = intent.getStringExtra("stageCodeChild");
+        String stageCodeSun = intent.getStringExtra("stageCodeSun");
+
         patientsNo = intent.getStringExtra("patientsNo");
-        MyLog.i("stageCode:::::", stageCode);
+       // MyLog.i("stageCodeParent:::::", stageCodeParent);
         MyLog.i("patientsNo:::::", patientsNo);
-        if (stageCode != null) {
-            getUnExecuteStage();
+        if (stageCodeParent == null && stageCodeChild == null) {
+            currentStageCode=stageCodeSun;
         }
+        if (stageCodeParent == null && stageCodeSun==null){
+            currentStageCode=stageCodeChild;
+        }
+        if (stageCodeChild == null && stageCodeSun==null){
+            currentStageCode=stageCodeParent;
+        }
+
+        getUnExecuteStage(currentStageCode);
         lv.setOnItemClickListener(new MyOnItemClickListener());
     }
 
-    private void getUnExecuteStage() {
+    private void getUnExecuteStage(String currentStageCode) {
         OkHttpUtils.post()
                 .url(MyConstant.BASE_URL+ MyConstant.NURSE_UNEXECUTE_YIZHU)
                 .addParams("PatientsNo", patientsNo)
-                .addParams("stagecode", stageCode)
+                .addParams("stagecode", currentStageCode)
                 .build()
                 .execute(new Callback() {
                     @Override

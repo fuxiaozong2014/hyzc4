@@ -55,9 +55,11 @@
             android:id="@+id/tv_myPationte"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="@dimen/drawPadding"
             android:layout_weight="1"
             android:text="我的病人 ( 0 )"
+            android:drawableLeft="@mipmap/icon_patient"
+            android:drawablePadding="@dimen/drawPadding"
             android:textColor="@color/myPationte_title_color"
             android:textSize="@dimen/et_login_size" />
 
@@ -86,9 +88,11 @@
             android:id="@+id/tv_myTask"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="@dimen/drawPadding"
             android:layout_weight="1"
             android:text="我的任务 ( 4 )"
+            android:drawableLeft="@mipmap/icon_task"
+            android:drawablePadding="@dimen/drawPadding"
             android:textColor="@color/myPationte_title_color"
             android:textSize="@dimen/et_login_size" />
 
@@ -112,9 +116,11 @@
             android:id="@+id/tv_myTaskDOctor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="@dimen/drawPadding"
             android:layout_weight="1"
             android:text="我的任务 ( 2 )"
+            android:drawableLeft="@mipmap/icon_task"
+            android:drawablePadding="@dimen/drawPadding"
             android:textColor="@color/myPationte_title_color"
             android:textSize="@dimen/et_login_size" />
 

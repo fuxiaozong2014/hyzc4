@@ -128,6 +128,7 @@
         <activity android:name=".activity.YiZhuManager.DoctorYiZhuActivity"></activity>
         <activity android:name=".activity.ExecuteYiZhu2.ExecuteYiZhuChildStageActivity"></activity>
         <activity android:name=".activity.ExecuteYiZhu2.ExecuteYiZhuParentStageActivity"></activity>
+        <activity android:name=".activity.ExecuteYiZhu2.ExecuteYiZhuSunStageActivity"></activity>
         <!-- Required SDK 核心功能-->
         <!-- option since 2.0.5 可配置PushService，DaemonService,PushReceiver,AlarmReceiver的android:process参数 将JPush相关组件设置为一个独立进程 -->
         <!-- 如：android:process=":remote" -->

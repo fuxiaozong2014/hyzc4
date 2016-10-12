@@ -28,9 +28,10 @@ public class NurseExecutedYiZhuFragment extends BaseFragment {
     private TextView tv_none_executeYiZhu;
     private ListView lv;
     private List<NurseUnExecuteBean.RowsBean> rows;
-    private String stageCode;
+    private String stageCodeParent;
     private String patientsNo;
     private MyAdapter adapter;
+    private String currentStageCode;
     @Override
     public View setMainView() {
         View view=View.inflate(context, R.layout.fragement_executedyizhu,null);
@@ -42,21 +43,31 @@ public class NurseExecutedYiZhuFragment extends BaseFragment {
     @Override
     public void InitData() {
         Intent intent = getActivity().getIntent();
-        stageCode = intent.getStringExtra("StageCode");
+        stageCodeParent = intent.getStringExtra("stageCodeParent");
+        String stageCodeChild = intent.getStringExtra("stageCodeChild");
+        String stageCodeSun = intent.getStringExtra("stageCodeSun");
+
         patientsNo = intent.getStringExtra("patientsNo");
-        MyLog.i("stageCode:::::NurseExecutedYiZhuFragment", stageCode);
         MyLog.i("patientsNo:::::NurseExecutedYiZhuFragment", patientsNo);
-        if (stageCode != null) {
-            getExecuteYiZhu();
+        if (stageCodeParent == null && stageCodeChild == null) {
+            currentStageCode=stageCodeSun;
         }
+        if (stageCodeParent == null && stageCodeSun==null){
+            currentStageCode=stageCodeChild;
+        }
+        if (stageCodeChild == null && stageCodeSun==null){
+            currentStageCode=stageCodeParent;
+        }
+
+        getExecuteYiZhu(currentStageCode);
     }
 
 
-    private void getExecuteYiZhu() {
-        //String url=MyConstant.BASE_URL+ MyConstant.NURSE_EXECUTE_YIZHU+patientsNo+"&stagecode="+stageCode;
+    private void getExecuteYiZhu(String currentStageCode) {
+        //String url=MyConstant.BASE_URL+ MyConstant.NURSE_EXECUTE_YIZHU+patientsNo+"&stagecode="+stageCodeParent;
        // MyLog.i("NurseExecutedYiZhuFragment-----------------url",url);
         OkHttpUtils.get()
-                .url(MyConstant.BASE_URL+ MyConstant.NURSE_EXECUTE_YIZHU+patientsNo+"&stagecode="+stageCode)
+                .url(MyConstant.BASE_URL+ MyConstant.NURSE_EXECUTE_YIZHU+patientsNo+"&stagecode="+currentStageCode)
                 .build()
                 .execute(new Callback() {
                     @Override

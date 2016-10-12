@@ -31,7 +31,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
+
             android:text="健康知识专栏"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@mipmap/icon_health"
             android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
@@ -59,6 +62,8 @@
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
             android:text="重点科室资讯"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@mipmap/icon_news"
             android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
@@ -86,6 +91,8 @@
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
             android:text="远程教学视频"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@mipmap/icon_video"
             android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 

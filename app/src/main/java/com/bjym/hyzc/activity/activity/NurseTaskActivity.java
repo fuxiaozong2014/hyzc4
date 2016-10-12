@@ -135,8 +135,8 @@ public class NurseTaskActivity extends BaseActivity {
             * 执行医嘱
             * */
             case R.id.ll_nurseExecuteYiZhu:
-                //Intent NurseExecuteActivityIntent = new Intent(this, NurseSelectStageYiZhuActivity.class);
-                Intent NurseExecuteActivityIntent = new Intent(this, ExecuteYiZhuParentStageActivity.class);
+                //Intent NurseExecuteActivityIntent = new Intent(this, NurseSelectStageYiZhuActivity.class);//只有一级路径阶段
+                 Intent NurseExecuteActivityIntent = new Intent(this, ExecuteYiZhuParentStageActivity.class);
                 if (transCpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
                     return;

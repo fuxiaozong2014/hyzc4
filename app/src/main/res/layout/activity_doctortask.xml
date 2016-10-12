@@ -23,11 +23,13 @@
             android:id="@+id/tv_YiZhuManager"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:layout_marginLeft="@dimen/drawPadding"
+            android:drawableLeft="@mipmap/icon_exe"
+            android:drawablePadding="@dimen/drawPadding"
             android:layout_weight="1"
             android:text="医嘱管理"
             android:textColor="@color/myPationte_title_color"
-            android:textSize="16dp" />
+            android:textSize="@dimen/et_login_size" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -55,11 +57,13 @@
             android:id="@+id/tv_addYizhu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:layout_marginLeft="@dimen/drawPadding"
+            android:drawableLeft="@mipmap/icon_add"
+            android:drawablePadding="@dimen/drawPadding"
             android:layout_weight="1"
             android:text="新增医嘱"
             android:textColor="@color/myPationte_title_color"
-            android:textSize="16dp" />
+            android:textSize="@dimen/et_login_size" />
 
         <ImageView
             android:layout_width="wrap_content"

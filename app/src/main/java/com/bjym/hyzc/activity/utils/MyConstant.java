@@ -96,7 +96,7 @@ public class MyConstant {
     public static final String NURSE_UNEXECUTECONTENT_COMIT = "/CPW/CPW_PatiNursing/add";
 
     /*
-       * 获取可选的护理内容
+       * 获取可执行的护理内容
        * */
     public static final String NURSING_CONTENT_SELECT= "/CPW/CPW_InfoContent/getlist?cpwcode=";
     /*

@@ -7,6 +7,7 @@
     <color name="colorAccent">#65B768</color>
 
     <color name="et_login_color">#cccccc</color>
+    <color name="item_click_color">#55ffffff</color>
     <color name="big_bg_color">#eeeeee</color>
     <color name="wangjimima_color">#ff6137</color>
     <color name="click_diaocha_duixiang">#f3f3f3</color>

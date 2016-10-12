@@ -4,8 +4,8 @@
    <!-- <corners android:radius="10dp" />-->
     <gradient
         android:angle="135"
-        android:centerColor="@color/btn_color"
-        android:endColor="@color/btn_color"
-        android:startColor="@color/btn_color"
+        android:centerColor="@color/item_click_color"
+        android:endColor="@color/item_click_color"
+        android:startColor="@color/item_click_color"
         android:type="linear" />
 </shape>

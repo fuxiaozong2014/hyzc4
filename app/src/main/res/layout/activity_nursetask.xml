@@ -13,8 +13,9 @@
         android:id="@+id/tv_indays"
         android:layout_width="wrap_content"
         android:layout_height="15dp"
-        android:text="请选择患者获取住院及入径天数"
-        android:drawableLeft="@mipmap/right"
+        android:text="请选择患者,获取住院及入径天数"
+        android:drawableLeft="@mipmap/icon_horn"
+        android:drawablePadding="@dimen/drawPadding"
         android:textSize="10dp"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/wangjimima_color"/>
@@ -32,7 +33,9 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:layout_marginLeft="@dimen/drawPadding"
+            android:drawableLeft="@mipmap/icon_exe"
+            android:drawablePadding="@dimen/drawPadding"
             android:layout_weight="1"
             android:text="执行医嘱"
             android:textColor="@color/myPationte_title_color"
@@ -64,7 +67,9 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:layout_marginLeft="@dimen/drawPadding"
+            android:drawableLeft="@mipmap/icon_notes"
+            android:drawablePadding="@dimen/drawPadding"
             android:layout_weight="1"
             android:text="护理记录"
             android:textColor="@color/myPationte_title_color"
@@ -98,11 +103,14 @@
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:layout_marginLeft="@dimen/drawPadding"
+            android:drawableLeft="@mipmap/icon_order"
+            android:drawablePadding="@dimen/drawPadding"
             android:layout_weight="1"
             android:text="执行护理"
             android:textColor="@color/myPationte_title_color"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:id="@+id/textView" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -135,7 +143,9 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:layout_marginLeft="@dimen/drawPadding"
+            android:drawableLeft="@mipmap/icon_add"
+            android:drawablePadding="@dimen/drawPadding"
             android:layout_weight="1"
             android:text="新增护理"
             android:textColor="@color/myPationte_title_color"
