@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.ExecuteNursingCare.NursingContentParentStageActivity;
+import com.bjym.hyzc.activity.executeNursingCare.NursingContentParentStageActivity;
 import com.bjym.hyzc.activity.ExecuteYiZhu2.ExecuteYiZhuParentStageActivity;
 import com.bjym.hyzc.activity.bean.PationteBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
@@ -227,10 +227,9 @@ public class NurseTaskActivity extends BaseActivity {
 
 
                     MyLog.i("cpwCode", transCpwCode);
-                    tv_search.setText("姓名：" + transName + "    编号：" + transPationteNo);
+                    tv_search.setText("姓名：" + transName + "   编号：" + transPationteNo);
                     getIndaysAndEnterCPWDays(transPationteNo);
                 }
-
 
                 break;
             case REQUST_CODE_SCANBAR:
@@ -330,7 +329,7 @@ public class NurseTaskActivity extends BaseActivity {
                 transCpwCode=cpwCode;
                 transDeptCode=deptCode;
                 transDeptName=deptName;
-                tv_search.setText("姓名: " + transName + "  编号: " + codeinformation);
+                tv_search.setText("姓名: " + transName + "编号: " + codeinformation);
                 getIndaysAndEnterCPWDays(transPationteNo);
                 MyLog.i("codeinformation::", codeinformation);
             }
