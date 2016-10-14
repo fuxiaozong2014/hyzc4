@@ -8,7 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.ExecuteNursingCare.NurseUnExecuteBean;
+import com.bjym.hyzc.activity.executeNursingCare.NurseUnExecuteBean;
 import com.bjym.hyzc.activity.fragment.BaseFragment;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
@@ -52,6 +52,8 @@ public class NurseExecutedYiZhuFragment extends BaseFragment {
         if (stageCodeParent == null && stageCodeChild == null) {
             currentStageCode=stageCodeSun;
         }
+
+
         if (stageCodeParent == null && stageCodeSun==null){
             currentStageCode=stageCodeChild;
         }

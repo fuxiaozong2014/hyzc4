@@ -10,11 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.YiZhuManager.DoctorYiZhuManagerActivity;
 import com.bjym.hyzc.activity.bean.PationteBean;
 import com.bjym.hyzc.activity.utils.MyConstant;
 import com.bjym.hyzc.activity.utils.MyLog;
 import com.bjym.hyzc.activity.utils.MyToast;
+import com.bjym.hyzc.activity.zhenLiaoContentManager.ZhenLiaoContetnManageParentStageActivity;
 import com.bjym.hyzc.activity.zxing.code.CaptureActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -38,11 +38,7 @@ public class DoctorTaskActivity extends BaseActivity {
     private ImageView iv_search;
     private String codeinformation;
     private LinearLayout ll_addYizhu;
-    /* private TextView tv_nurseHistory;
-     private TextView tv_nurseStage;
-     private TextView tv_addNursingCare;
-     private TextView tv_nursingContent_executed;
-     private TextView tv_nursingContentStage;*/
+    private LinearLayout ll_ZhenliaoContentManager;
     private String name;
     private String patientsNo;
     private String cpwCode;
@@ -69,6 +65,8 @@ public class DoctorTaskActivity extends BaseActivity {
         tv_search = (TextView) view.findViewById(R.id.tv_search);
         iv_search = (ImageView) view.findViewById(R.id.iv_search);
         ll_addYizhu = (LinearLayout) view.findViewById(R.id.ll_addYizhu);
+        ll_ZhenliaoContentManager = (LinearLayout) view.findViewById(R.id.ll_ZhenliaoContentManager);
+
 
         bt_titlebar_left = (Button) view.findViewById(R.id.bt_titlebar_left);
         bt_titlebar_right = (Button) view.findViewById(R.id.bt_titlebar_right);
@@ -92,6 +90,7 @@ public class DoctorTaskActivity extends BaseActivity {
         bt_titlebar_left.setOnClickListener(this);
         ll_yiZhuManager.setOnClickListener(this);
         ll_addYizhu.setOnClickListener(this);
+        ll_ZhenliaoContentManager.setOnClickListener(this);
 
     }
 
@@ -106,7 +105,7 @@ public class DoctorTaskActivity extends BaseActivity {
                 startActivityForResult(intent, REQUST_CODE_PATIONTEMSG);
                 break;
             case R.id.ll_YiZhuManager:
-                Intent YiZhuManagerActivityIntent = new Intent(this, DoctorYiZhuManagerActivity.class);
+               /* Intent YiZhuManagerActivityIntent = new Intent(this, DoctorYiZhuManagerActivity.class);
                 if (transCpwCode == null) {
                     MyToast.showToast(this, "请选择患者");
                     return;
@@ -118,10 +117,27 @@ public class DoctorTaskActivity extends BaseActivity {
                     YiZhuManagerActivityIntent.putExtra("cpwCode", transCpwCode);
                     YiZhuManagerActivityIntent.putExtra("patientsNo", transCpwCode);
                     startActivity(YiZhuManagerActivityIntent);
-                }
+                }*/
+                MyToast.showToast(DoctorTaskActivity.this, "此功能正在研发中，敬请期待！！！");
                 break;
             case R.id.ll_addYizhu:
                 MyToast.showToast(DoctorTaskActivity.this, "此功能正在研发中，敬请期待！！！");
+                break;
+            case R.id.ll_ZhenliaoContentManager://诊疗内容管理和执行护理的接口一致，只是在未执行界面，“执行护理”提交时接口不同
+                Intent tv_nursingContentStageIntent = new Intent(this, ZhenLiaoContetnManageParentStageActivity.class);
+                // Intent tv_nursingContentStageIntent = new Intent(this, NursingContentParentStageActivity2.class);
+                if (transCpwCode == null) {
+                    MyToast.showToast(this, "请选择患者");
+                    return;
+                }
+                if (transCpwCode.equals("")) {
+                    MyToast.showToast(this, "此患者还没有配置路径");
+                    return;
+                } else {
+                    tv_nursingContentStageIntent.putExtra("cpwCode", transCpwCode);
+                    tv_nursingContentStageIntent.putExtra("patientsNo", transPationteNo);
+                    startActivity(tv_nursingContentStageIntent);
+                }
                 break;
             case R.id.bt_titlebar_left:
                 finish();
@@ -160,7 +176,7 @@ public class DoctorTaskActivity extends BaseActivity {
                     sp.edit().putString("deptCode", transDeptCode).commit();
                     sp.edit().putString("deptName", transDeptName).commit();
                     MyLog.i("cpwCode", transCpwCode);
-                    tv_search.setText("姓名：" + transName + "    患者编号：" + transPationteNo);
+                    tv_search.setText("姓名：" + transName + "   编号：" + transPationteNo);
                 }
 
 

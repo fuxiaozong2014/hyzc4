@@ -10,7 +10,7 @@ public class MyConstant {
      */
     //public static  String BASE_URL = "http://192.168.0.168";
     // public static  String BASE_URL = "http://192.168.0.188";
-    public static  String BASE_URL = "http://cp.hyzczg.com";
+    public static String BASE_URL = "http://cp.hyzczg.com";
     //public static  String BASE_URL = "http://cp.sqall.com";
     // public static  String BASE_URL = "http://hyzc.tpddns.cn:6060";
 
@@ -96,28 +96,33 @@ public class MyConstant {
     public static final String NURSE_UNEXECUTECONTENT_COMIT = "/CPW/CPW_PatiNursing/add";
 
     /*
-       * 获取可执行的护理内容
+       * 护士获取可执行的护理内容
        * */
-    public static final String NURSING_CONTENT_SELECT= "/CPW/CPW_InfoContent/getlist?cpwcode=";
+      public static final String NURSING_CONTENT_SELECT= "/CPW/CPW_InfoContent/getlist?cpwcode=";
+    /*
+    * 医生获取可执行的诊疗内容
+    * */
+    public static final String ZHENLIAO_CONTENT_SELECT = "/CPW/CPW_InfoContent/getlistnew?cpwcode=";
+
     /*
     * 获取轮播图
     * */
-    public static final String LUNBOTU= "http://www.hyzczg.com/plugins/advert/advert_js.ashx?id=1";
+    public static final String LUNBOTU = "http://www.hyzczg.com/plugins/advert/advert_js.ashx?id=1";
 
     /*
     * 根据患者编号得到，患者姓名，用于条形框赋值
     * */
-    public static final String PATIONTE_SINGLE= "/cpw/CPW_Patients/getsinglepatients?PatientsNo=";
+    public static final String PATIONTE_SINGLE = "/cpw/CPW_Patients/getsinglepatients?PatientsNo=";
     /*
     * 根据用户提供的阶段和病人编号，得到已经执行的医嘱
     * */
-    public static final String NURSE_EXECUTE_YIZHU= "/CPW/CPW_PatiOrder/getlistexecuted?PatientsNo=";
+    public static final String NURSE_EXECUTE_YIZHU = "/CPW/CPW_PatiOrder/getlistexecuted?PatientsNo=";
     /*
     * 根据用户的路径阶段和病人编号，得到已经执行的护理内容
     * */
-    public static final String NURSE_EXECUTE_CONTENT= "/CPW/CPW_PatiNursing/getlistexecuted?PatientsNo=";
+    public static final String NURSE_EXECUTE_CONTENT = "/CPW/CPW_PatiNursing/getlistexecuted?PatientsNo=";
     /*
     * 得到住院时间和入径时间
     * */
-    public static final String INDAYSANDENTERCPWDAYS= "/CPW/CPW_Patients/getpatientsentercpwdays?PatientsNo=";
+    public static final String INDAYSANDENTERCPWDAYS = "/CPW/CPW_Patients/getpatientsentercpwdays?PatientsNo=";
 }

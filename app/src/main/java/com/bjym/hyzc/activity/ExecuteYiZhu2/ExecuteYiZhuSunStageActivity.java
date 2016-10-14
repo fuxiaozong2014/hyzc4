@@ -11,8 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bjym.hyzc.R;
-import com.bjym.hyzc.activity.ExecuteNursingCare.NurseExecuteBean;
-import com.bjym.hyzc.activity.ExecuteNursingCare.NursingContentBean;
+import com.bjym.hyzc.activity.executeNursingCare.NurseExecuteBean;
+import com.bjym.hyzc.activity.executeNursingCare.NursingContentBean;
 import com.bjym.hyzc.activity.ExecuteYiZhu.NurseYiZhuActivity;
 import com.bjym.hyzc.activity.activity.BaseActivity;
 

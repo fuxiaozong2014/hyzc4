@@ -8,9 +8,43 @@
 
     <include layout="@layout/item_search"></include>
 
+    <LinearLayout
+        android:id="@+id/ll_ZhenliaoContentManager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_finger_width"
+        android:background="@drawable/item_selector"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="2dp">
 
-   <LinearLayout
-       android:id="@+id/ll_YiZhuManager"
+        <TextView
+            android:id="@+id/tv_ZhenliaoContentManager"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/drawPadding"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/icon_add"
+            android:drawablePadding="@dimen/drawPadding"
+            android:text="诊疗内容管理"
+            android:textColor="@color/myPationte_title_color"
+            android:textSize="@dimen/et_login_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_left_iv_user"
+            android:background="@mipmap/oh" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/big_bg_color" />
+
+    <LinearLayout
+        android:id="@+id/ll_YiZhuManager"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
         android:background="@drawable/item_selector"
@@ -24,9 +58,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/drawPadding"
+            android:layout_weight="1"
             android:drawableLeft="@mipmap/icon_exe"
             android:drawablePadding="@dimen/drawPadding"
-            android:layout_weight="1"
             android:text="医嘱管理"
             android:textColor="@color/myPationte_title_color"
             android:textSize="@dimen/et_login_size" />
@@ -43,6 +77,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
         android:background="@color/big_bg_color" />
+
     <LinearLayout
         android:id="@+id/ll_addYizhu"
         android:layout_width="match_parent"
@@ -58,9 +93,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/drawPadding"
+            android:layout_weight="1"
             android:drawableLeft="@mipmap/icon_add"
             android:drawablePadding="@dimen/drawPadding"
-            android:layout_weight="1"
             android:text="新增医嘱"
             android:textColor="@color/myPationte_title_color"
             android:textSize="@dimen/et_login_size" />
@@ -73,8 +108,10 @@
 
     </LinearLayout>
 
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
         android:background="@color/big_bg_color" />
+
 </LinearLayout>
