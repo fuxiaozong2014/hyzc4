@@ -4,18 +4,20 @@
     android:layout_height="match_parent"
     android:background="@color/big_bg_color"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:background="@color/btn_color"
         android:gravity="center"
         android:orientation="vertical">
+
         <com.bjym.hyzc.activity.view.CircleImageView
             android:id="@+id/iv_icon"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:background="@mipmap/user_photo"
-            />
+            android:background="@mipmap/user_photo" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,15 +53,20 @@
         android:gravity="center"
         android:orientation="horizontal">
 
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_patient" />
+
         <TextView
             android:id="@+id/tv_myPationte"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/drawPadding"
             android:layout_weight="1"
-            android:text="我的病人 ( 0 )"
-            android:drawableLeft="@mipmap/icon_patient"
             android:drawablePadding="@dimen/drawPadding"
+            android:text="我的病人 ( 0 )"
             android:textColor="@color/myPationte_title_color"
             android:textSize="@dimen/et_login_size" />
 
@@ -84,15 +91,20 @@
         android:gravity="center"
         android:orientation="horizontal">
 
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_task" />
+
         <TextView
             android:id="@+id/tv_myTask"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/drawPadding"
             android:layout_weight="1"
-            android:text="我的任务 ( 4 )"
-            android:drawableLeft="@mipmap/icon_task"
             android:drawablePadding="@dimen/drawPadding"
+            android:text="我的任务 ( 4 )"
             android:textColor="@color/myPationte_title_color"
             android:textSize="@dimen/et_login_size" />
 
@@ -112,15 +124,20 @@
         android:gravity="center"
         android:orientation="horizontal">
 
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_task" />
+
         <TextView
             android:id="@+id/tv_myTaskDOctor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/drawPadding"
             android:layout_weight="1"
-            android:text="我的任务 ( 2 )"
-            android:drawableLeft="@mipmap/icon_task"
             android:drawablePadding="@dimen/drawPadding"
+            android:text="我的任务 ( 3 )"
             android:textColor="@color/myPationte_title_color"
             android:textSize="@dimen/et_login_size" />
 

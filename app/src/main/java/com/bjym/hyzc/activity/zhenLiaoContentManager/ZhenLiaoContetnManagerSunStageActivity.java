@@ -51,6 +51,7 @@ public class ZhenLiaoContetnManagerSunStageActivity extends BaseActivity {
             intent.putExtra("sunStageUnExecuteNursingCare",(Serializable) sunStageUnExecuteNursingCare);
             intent.putExtra("stageCodeSun",stageCodeSun);
             startActivity(intent);
+            sunStageUnExecuteNursingCare.clear();
         }
     }
 

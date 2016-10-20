@@ -12,8 +12,7 @@
     <com.bjym.hyzc.activity.view.CycleViewPagerShi
         android:id="@+id/vp"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
-    </com.bjym.hyzc.activity.view.CycleViewPagerShi>
+        android:layout_height="200dp"></com.bjym.hyzc.activity.view.CycleViewPagerShi>
 
     <LinearLayout
         android:id="@+id/ll_healthySpace"
@@ -26,15 +25,19 @@
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
 
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_health" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
-
-            android:text="健康知识专栏"
             android:drawablePadding="5dp"
-            android:drawableLeft="@mipmap/icon_health"
+            android:text="健康知识专栏"
             android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
@@ -56,14 +59,19 @@
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
 
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_news" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
-            android:text="重点科室资讯"
             android:drawablePadding="5dp"
-            android:drawableLeft="@mipmap/icon_news"
+            android:text="重点科室资讯"
             android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
@@ -79,20 +87,25 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
         android:layout_marginTop="5dp"
-        android:gravity="center"
         android:background="@drawable/item_selector"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
+
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_video" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_iv_user"
             android:layout_weight="1"
-            android:text="远程教学视频"
             android:drawablePadding="5dp"
-            android:drawableLeft="@mipmap/icon_video"
+            android:text="远程教学视频"
             android:textColor="@color/myPationte_title_color"
             android:textSize="16dp" />
 
@@ -103,9 +116,4 @@
             android:background="@mipmap/oh" />
     </LinearLayout>
 
-    <!--  <ListView
-          android:id="@+id/ll_diaoChaSort"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginTop="5dp"></ListView>-->
 </LinearLayout>

@@ -18,13 +18,18 @@
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
 
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_notes" />
+
         <TextView
             android:id="@+id/tv_ZhenliaoContentManager"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/drawPadding"
             android:layout_weight="1"
-            android:drawableLeft="@mipmap/icon_add"
             android:drawablePadding="@dimen/drawPadding"
             android:text="诊疗内容管理"
             android:textColor="@color/myPationte_title_color"
@@ -52,14 +57,17 @@
         android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
-
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_health" />
         <TextView
             android:id="@+id/tv_YiZhuManager"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/drawPadding"
             android:layout_weight="1"
-            android:drawableLeft="@mipmap/icon_exe"
             android:drawablePadding="@dimen/drawPadding"
             android:text="医嘱管理"
             android:textColor="@color/myPationte_title_color"
@@ -88,13 +96,18 @@
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
 
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_add" />
+
         <TextView
             android:id="@+id/tv_addYizhu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/drawPadding"
             android:layout_weight="1"
-            android:drawableLeft="@mipmap/icon_add"
             android:drawablePadding="@dimen/drawPadding"
             android:text="新增医嘱"
             android:textColor="@color/myPationte_title_color"

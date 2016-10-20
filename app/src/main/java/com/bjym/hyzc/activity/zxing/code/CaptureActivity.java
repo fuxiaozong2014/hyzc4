@@ -96,6 +96,9 @@ public class CaptureActivity extends Activity implements Callback {
 			@Override
 			public void onClick(View v) {
 				Parameters parameters = CameraManager.getCamera().getParameters();
+				if (parameters==null){
+					return;
+				}
 
 				if (islampon) {
 					// 关掉

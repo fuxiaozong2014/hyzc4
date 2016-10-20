@@ -30,11 +30,16 @@
         android:orientation="horizontal"
         android:paddingBottom="5dp">
 
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_exe" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/drawPadding"
-            android:drawableLeft="@mipmap/icon_exe"
             android:drawablePadding="@dimen/drawPadding"
             android:layout_weight="1"
             android:text="执行医嘱"
@@ -64,11 +69,15 @@
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
 
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_notes" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/drawPadding"
-            android:drawableLeft="@mipmap/icon_notes"
             android:drawablePadding="@dimen/drawPadding"
             android:layout_weight="1"
             android:text="护理记录"
@@ -99,12 +108,16 @@
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
 
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_order" />
         <TextView
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/drawPadding"
-            android:drawableLeft="@mipmap/icon_order"
             android:drawablePadding="@dimen/drawPadding"
             android:layout_weight="1"
             android:text="执行护理"
@@ -140,11 +153,15 @@
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
 
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_add" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/drawPadding"
-            android:drawableLeft="@mipmap/icon_add"
             android:drawablePadding="@dimen/drawPadding"
             android:layout_weight="1"
             android:text="新增护理"

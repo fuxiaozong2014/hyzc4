@@ -6,19 +6,26 @@
     android:orientation="vertical">
 
     <include layout="@layout/item_titlebar"></include>
-<include layout="@layout/item_search"></include>
+
+    <include layout="@layout/item_search"></include>
 
 
     <LinearLayout
         android:id="@+id/ll_ExitCPWPationte"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_finger_width"
+        android:layout_marginTop="2dp"
         android:background="@drawable/item_selector"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
-        android:layout_marginTop="2dp"
         android:paddingTop="2dp">
+
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_exit" />
 
         <TextView
 
@@ -51,6 +58,12 @@
         android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="2dp">
+
+        <ImageView
+            android:layout_width="@dimen/iv_login_size"
+            android:layout_height="@dimen/iv_login_size"
+            android:layout_marginLeft="@dimen/margin_left_iv_user"
+            android:background="@mipmap/icon_exit" />
 
         <TextView
 
