@@ -119,7 +119,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void dealOldAndNewApkVersion() {
-        if (versionCode!=Integer.parseInt(newVersionCode)) {//说明有新版本，弹出对话框，询问是否更新
+        if (versionCode!=Integer.parseInt(newVersionCode)&&!versionName.equals(newVersionName)) {//说明有新版本，弹出对话框，询问是否更新
             showAlertDialog();
         }
     }

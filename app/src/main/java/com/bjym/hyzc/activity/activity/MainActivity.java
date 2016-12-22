@@ -148,7 +148,6 @@ public class MainActivity extends BaseActivity {
         getNetData();
     }
 
-
     private void defaultReplaceHomeFragment() {
         vp.setCurrentItem(0);
     }

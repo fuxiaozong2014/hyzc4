@@ -64,6 +64,7 @@ public class HomeFragment extends BaseFragment {
         ll_healthySpace = (LinearLayout) view.findViewById(R.id.ll_healthySpace);
         ll_deptNews = (LinearLayout) view.findViewById(R.id.ll_deptNews);
         ll_studyVideo = (LinearLayout) view.findViewById(R.id.ll_StudyVideo);
+        ll_deptNews.setFocusable(true);
 
         viewPager = (CycleViewPagerShi) view.findViewById(R.id.vp);
         images = new int[] { R.mipmap.z3, R.mipmap.oh,
